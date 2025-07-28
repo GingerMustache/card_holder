@@ -2,6 +2,8 @@ part of "app_settings.dart";
 
 class AppColors {
   static const Color mainWhite = Colors.white;
+  static const Color mainGray = Color(0xfff2f4f6);
+  static const Color subGrey = Color(0xFF9CA3AF);
   static const Color mainBlack = Colors.black;
   static const Color mainGreen = Colors.green;
   static const Color mainBlue = Colors.blue;
@@ -10,4 +12,4 @@ class AppColors {
   AppColors._();
   static final AppColors _instance = AppColors._();
   factory AppColors() => _instance;
-  }
+}
