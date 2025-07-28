@@ -124,7 +124,7 @@ class _InputSearchState extends State<InputSearch> {
       ),
 
       margin: EdgeInsets.symmetric(horizontal: 16),
-      padding: EdgeInsets.symmetric(horizontal: 16),
+
       child: TextFormField(
         controller: widget.controller,
         cursorColor: AppColors.subGrey,
@@ -140,9 +140,17 @@ class _InputSearchState extends State<InputSearch> {
           enabledBorder: InputBorder.none,
           isCollapsed: true,
 
-          contentPadding: const EdgeInsets.symmetric(vertical: 6),
-          prefixIcon: SizedBox(
-            child: SvgPicture.asset(AppIcons.find, width: 16, height: 16),
+          contentPadding: const EdgeInsets.symmetric(
+            vertical: 7,
+            horizontal: 8,
+          ),
+          prefix: Row(
+            mainAxisSize: MainAxisSize.min,
+
+            children: [
+              SvgPicture.asset(AppIcons.find, width: 15, height: 15),
+              SizedBox(width: 8),
+            ],
           ),
         ),
         inputFormatters: [RemoveEmojiInputFormatter()],
