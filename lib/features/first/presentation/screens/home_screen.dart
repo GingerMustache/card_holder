@@ -134,7 +134,10 @@ class _InputSearchState extends State<InputSearch> {
         focusNode: widget.focusNode,
         textCapitalization: TextCapitalization.characters,
         style: TextStyle(fontSize: widget.fontSize, color: AppColors.subGrey),
+
         decoration: InputDecoration(
+          hintText: 'Search',
+          hintStyle: TextStyle(color: AppColors.subGrey),
           border: InputBorder.none,
           focusedBorder: InputBorder.none,
           enabledBorder: InputBorder.none,
@@ -144,13 +147,14 @@ class _InputSearchState extends State<InputSearch> {
             vertical: 7,
             horizontal: 8,
           ),
-          prefix: Row(
-            mainAxisSize: MainAxisSize.min,
-
-            children: [
-              SvgPicture.asset(AppIcons.find, width: 15, height: 15),
-              SizedBox(width: 8),
-            ],
+          prefixIconConstraints: const BoxConstraints(
+            maxWidth: 35,
+            maxHeight: 35,
+            minWidth: 30,
+          ),
+          prefixIcon: IconButton(
+            onPressed: () {},
+            icon: SvgPicture.asset(AppIcons.find),
           ),
         ),
         inputFormatters: [RemoveEmojiInputFormatter()],
