@@ -51,7 +51,7 @@ class AppTheme {
     textTheme: TextTheme(
       headlineLarge: _getTextStyleFromTheme(
         fontSize: 32.0,
-        color: AppColors.mainBlack,
+
         fontWeight: FontWeight.w500,
       ),
       headlineMedium: _getTextStyleFromTheme(
@@ -67,17 +67,14 @@ class AppTheme {
       titleLarge: _getTextStyleFromTheme(
         fontSize: 20.0,
         fontWeight: FontWeight.w400,
-        color: AppColors.mainBlack,
       ),
       titleMedium: _getTextStyleFromTheme(
         fontSize: 18.0,
         fontWeight: FontWeight.w400,
-        color: AppColors.mainBlack,
       ),
       titleSmall: _getTextStyleFromTheme(
         fontSize: 16.0,
         fontWeight: FontWeight.w400,
-        color: AppColors.mainBlack,
       ),
       bodyMedium: _getTextStyleFromTheme(
         fontSize: 18.0,
@@ -137,23 +134,21 @@ class AppTheme {
       ),
       headlineMedium: _getTextStyleFromTheme(
         fontSize: 22.0,
-        color: AppColors.mainBlack,
+
         fontWeight: FontWeight.w500,
       ),
       headlineSmall: _getTextStyleFromTheme(
         fontSize: 18.0,
-        color: AppColors.mainBlack,
+
         fontWeight: FontWeight.w500,
       ),
       titleLarge: _getTextStyleFromTheme(
         fontSize: 20.0,
         fontWeight: FontWeight.w400,
-        color: AppColors.mainBlack,
       ),
       titleMedium: _getTextStyleFromTheme(
         fontSize: 18.0,
         fontWeight: FontWeight.w400,
-        color: AppColors.mainBlack,
       ),
       titleSmall: _getTextStyleFromTheme(
         fontSize: 16.0,
