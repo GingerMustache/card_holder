@@ -1,7 +1,7 @@
 import 'package:card_holder/common/constants/constants.dart';
 import 'package:card_holder/common/presentation/widgets/app/my_app.dart';
 import 'package:card_holder/common/services/di_container/di_container.dart';
-import 'package:card_holder/features/first/presentation/screens/home_screen.dart';
+import 'package:card_holder/features/home/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
