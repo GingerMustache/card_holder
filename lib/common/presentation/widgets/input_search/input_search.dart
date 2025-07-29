@@ -1,4 +1,5 @@
 import 'package:card_holder/common/application/app_settings.dart';
+import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:card_holder/common/presentation/assets_parts/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show TextInputFormatter;
@@ -49,7 +50,7 @@ class _InputSearchState extends State<InputSearch> {
       padding: const EdgeInsets.only(bottom: 12),
       child: Container(
         decoration: BoxDecoration(
-          color: AppColors.mainGray,
+          color: context.color.primary,
           borderRadius: BorderRadius.circular(8),
           boxShadow: mainBoxShadow,
         ),

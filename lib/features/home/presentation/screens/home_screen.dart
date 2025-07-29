@@ -70,7 +70,7 @@ class _AppBar extends StatelessWidget {
                   indicatorSize: TabBarIndicatorSize.label,
                   labelPadding: EdgeInsets.only(right: 8),
                   dividerColor: Colors.transparent,
-                  indicator: UnderlineTabIndicator(),
+                  indicator: BoxDecoration(color: Colors.transparent),
                   unselectedLabelStyle: context.textStyles.bodySmall,
                   labelStyle: context.textStyles.titleSmall,
                   splashFactory: NoSplash.splashFactory,
@@ -107,9 +107,9 @@ class _GridCards extends StatelessWidget {
       crossAxisSpacing: 16,
       itemCount: 100,
       itemBuilder:
-          (context, index) => Container(
+          (_, index) => Container(
             decoration: BoxDecoration(
-              color: AppColors.mainGray,
+              color: context.color.primary,
               borderRadius: BorderRadius.circular(8),
               boxShadow: mainBoxShadow,
             ),

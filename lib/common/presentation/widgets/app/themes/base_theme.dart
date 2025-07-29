@@ -38,7 +38,7 @@ class AppTheme {
       color: AppColors.mainWhite,
     ),
     colorScheme: const ColorScheme.light(
-      primary: _lightPrimaryColor,
+      primary: AppColors.mainGray,
       secondary: _lightSecondaryColor,
       onPrimary: _lightOnPrimaryColor,
       onSecondary: Colors.white,
@@ -48,26 +48,6 @@ class AppTheme {
       // onSurface: Colors.black,
       secondaryContainer: Color.fromARGB(255, 255, 206, 191),
     ),
-    // iconTheme: const IconThemeData(color: AppColors.fontLightColor),
-    // elevatedButtonTheme: ElevatedButtonThemeData(
-    //   style: ElevatedButton.styleFrom(
-    //     foregroundColor: Colors.white,
-    //     backgroundColor: _lightPrimaryColor,
-    //     minimumSize: const Size(150, 50),
-    //     padding: const EdgeInsets.symmetric(horizontal: 16),
-    //     shape: const RoundedRectangleBorder(
-    //       borderRadius: BorderRadius.all(Radius.circular(10)),
-    //     ),
-    //   ),
-    // ),
-    // textButtonTheme: TextButtonThemeData(
-    //   style: TextButton.styleFrom(foregroundColor: _lightSecondaryColor),
-    // ),
-    // dividerTheme: const DividerThemeData(color: Colors.black12),
-    // textSelectionTheme: const TextSelectionThemeData(
-    //   cursorColor: Colors.black,
-    //   selectionColor: Color.fromARGB(255, 255, 147, 147),
-    // ),
     textTheme: TextTheme(
       headlineLarge: _getTextStyleFromTheme(
         fontSize: 32.0,
@@ -138,35 +118,17 @@ class AppTheme {
       iconTheme: IconThemeData(color: Colors.white),
     ),
     colorScheme: const ColorScheme.dark(
-      primary: _darkPrimaryColor,
+      primary: AppColors.suBlack,
       secondary: _darkSecondaryColor,
-      onPrimary: _darkOnPrimaryColor,
-      onSecondary: Colors.white,
+      onPrimary: Colors.green,
+      onSecondary: Colors.red,
       // onSurface: AppColors.darkGrey,
       surfaceContainerHighest: Color.fromARGB(255, 252, 210, 210),
       surface: Color.fromARGB(255, 88, 47, 47),
       // onSurface: Colors.white,
       secondaryContainer: Color.fromARGB(255, 36, 20, 20),
     ),
-    // iconTheme: const IconThemeData(color: _darkIconColor),
-    // elevatedButtonTheme: ElevatedButtonThemeData(
-    //   style: ElevatedButton.styleFrom(
-    //     backgroundColor: _darkSecondaryColor,
-    //     minimumSize: const Size(150, 50),
-    //     padding: const EdgeInsets.symmetric(horizontal: 16),
-    //     shape: const RoundedRectangleBorder(
-    //       borderRadius: BorderRadius.all(Radius.circular(10)),
-    //     ),
-    //   ),
-    // ),
-    // textButtonTheme: TextButtonThemeData(
-    //   style: TextButton.styleFrom(foregroundColor: _darkSecondaryColor),
-    // ),
-    // dividerTheme: const DividerThemeData(color: Colors.black12),
-    // textSelectionTheme: const TextSelectionThemeData(
-    //   cursorColor: Colors.white,
-    //   selectionColor: Color.fromARGB(255, 255, 147, 147),
-    // ),
+
     textTheme: TextTheme(
       headlineLarge: _getTextStyleFromTheme(
         fontSize: 32.0,
@@ -196,7 +158,7 @@ class AppTheme {
       titleSmall: _getTextStyleFromTheme(
         fontSize: 16.0,
         fontWeight: FontWeight.w400,
-        color: AppColors.mainBlack,
+        color: AppColors.mainWhite,
       ),
       bodyMedium: _getTextStyleFromTheme(
         fontSize: 18.0,

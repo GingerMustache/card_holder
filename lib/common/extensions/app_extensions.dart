@@ -7,4 +7,5 @@ extension SpaceX on num {
 
 extension TextThemeExtensions on BuildContext {
   TextTheme get textStyles => Theme.of(this).textTheme;
+  ColorScheme get color => Theme.of(this).colorScheme;
 }
