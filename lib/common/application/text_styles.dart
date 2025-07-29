@@ -23,7 +23,7 @@ final whiteSmall = _getTextStyle(
 
 final headlineLarge = _getTextStyleFromThema(
   fontSize: 32.0,
-  color: Colors.black,
+  // color: Colors.black,
   fontWeight: FontWeight.w500,
 );
 
@@ -78,10 +78,5 @@ TextStyle _getTextStyleFromThema({
   double? height,
   Color? color,
 }) {
-  return TextStyle(
-    fontSize: fontSize,
-    fontWeight: fontWeight,
-    height: height,
-    color: color ?? Colors.black,
-  );
+  return TextStyle(fontSize: fontSize, fontWeight: fontWeight, height: height);
 }

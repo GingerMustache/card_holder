@@ -40,10 +40,11 @@ class MainNavigation implements MyAppNavigation {
 
 class ScreenFactory {
   final DiContainer diContainer;
+  final ValueNotifier<ThemeMode> themeMode;
 
-  ScreenFactory({required this.diContainer});
+  ScreenFactory({required this.diContainer, required this.themeMode});
 
   Widget makeHomeScree() {
-    return HomeScreen();
+    return HomeScreen(themeMode: themeMode);
   }
 }

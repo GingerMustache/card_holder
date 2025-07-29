@@ -4,6 +4,7 @@ import 'package:card_holder/common/constants/constants.dart';
 // dart run build_runner build
 // dart run slang
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
+import 'package:card_holder/common/presentation/widgets/app/themes/base_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -15,11 +16,14 @@ abstract class MyAppNavigation {
 
 class MyApp extends StatelessWidget {
   final MyAppNavigation navigation;
+  final ValueNotifier<ThemeMode> themeMode;
 
-  const MyApp({super.key, required this.navigation});
+  const MyApp({super.key, required this.navigation, required this.themeMode});
 
   @override
   Widget build(BuildContext context) {
+    // if (kDebugMode) debugPrintRebuildDirtyWidgets = true;
+
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
         statusBarColor: AppColors.mainWhite,
@@ -28,20 +32,28 @@ class MyApp extends StatelessWidget {
         systemNavigationBarColor: AppColors.mainWhite,
       ),
     );
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      scaffoldMessengerKey: snackbarKey,
-      theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white,
-        useMaterial3: true,
-        fontFamily: 'ChackraPetch',
-        indicatorColor: AppColors.mainBlack,
-        iconTheme: const IconThemeData(color: AppColors.mainBlack),
-      ),
-      routerConfig: navigation.router(),
-      locale: TranslationProvider.of(context).flutterLocale,
-      supportedLocales: AppLocaleUtils.supportedLocales,
-      localizationsDelegates: GlobalMaterialLocalizations.delegates,
+    return ValueListenableBuilder(
+      valueListenable: themeMode,
+      builder: (context, value, child) {
+        return MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          scaffoldMessengerKey: snackbarKey,
+          theme: AppTheme.lightTheme,
+          // ThemeData(
+          //   scaffoldBackgroundColor: Colors.white,
+          //   useMaterial3: true,
+          //   fontFamily: 'ChackraPetch',
+          //   indicatorColor: AppColors.mainBlack,
+          //   iconTheme: const IconThemeData(color: AppColors.mainBlack),
+          // ),
+          darkTheme: AppTheme.darkTheme,
+          themeMode: themeMode.value,
+          routerConfig: navigation.router(),
+          locale: TranslationProvider.of(context).flutterLocale,
+          supportedLocales: AppLocaleUtils.supportedLocales,
+          localizationsDelegates: GlobalMaterialLocalizations.delegates,
+        );
+      },
     );
   }
 }
