@@ -24,7 +24,7 @@ final whiteSmall = _getTextStyle(
 final headlineLarge = _getTextStyleFromThema(
   fontSize: 32.0,
   color: Colors.black,
-  fontWeight: FontWeight.w700,
+  fontWeight: FontWeight.w500,
 );
 
 final headlineMedium = _getTextStyleFromThema(
@@ -47,24 +47,16 @@ final titleMedium = _getTextStyleFromThema(
   fontWeight: FontWeight.w600,
 );
 
-final titleSmall = _getTextStyleFromThema(
-  fontSize: 14.0,
-);
+final titleSmall = _getTextStyleFromThema(fontSize: 14.0);
 
 final bodyLarge = _getTextStyleFromThema(
   fontSize: 16.0,
   fontWeight: FontWeight.normal,
 );
 
-final bodyMedium = _getTextStyleFromThema(
-  fontSize: 14.0,
-  color: Colors.black,
-);
+final bodyMedium = _getTextStyleFromThema(fontSize: 14.0, color: Colors.black);
 
-final bodySmall = _getTextStyleFromThema(
-  fontSize: 12.0,
-  color: Colors.black,
-);
+final bodySmall = _getTextStyleFromThema(fontSize: 12.0, color: Colors.black);
 
 TextStyle _getTextStyle({
   double? fontSize,
@@ -76,7 +68,6 @@ TextStyle _getTextStyle({
     fontSize: fontSize,
     fontWeight: fontWeight,
     height: height,
-    fontFamily: 'Montserrat',
     color: color,
   );
 }

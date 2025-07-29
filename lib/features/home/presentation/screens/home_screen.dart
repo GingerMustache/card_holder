@@ -39,33 +39,17 @@ class _AppBar extends StatelessWidget {
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(150),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: mainPadding,
           child: Column(
             children: [
-              SizedBox(
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Card Holder',
-                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.w500),
-                  ),
-                ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text('Card Holder', style: headlineLarge),
               ),
               18.h,
-              InputSearch(
-                change: (String? value) {
-                  print('Search value changed: $value');
-                },
-                clear: () {
-                  print('Search cleared');
-                },
-              ),
+              InputSearch(change: (String? value) {}, clear: () {}),
               Container(
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(color: AppColors.subGrey.withAlpha(50)),
-                  ),
-                ),
+                decoration: _dividerDecor(),
                 height: 30,
 
                 child: TabBar(
@@ -84,6 +68,14 @@ class _AppBar extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  BoxDecoration _dividerDecor() {
+    return BoxDecoration(
+      border: Border(
+        bottom: BorderSide(color: AppColors.subGrey.withAlpha(50)),
       ),
     );
   }
