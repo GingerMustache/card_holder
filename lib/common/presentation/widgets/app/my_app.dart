@@ -20,32 +20,31 @@ class MyApp extends StatelessWidget {
 
   const MyApp({super.key, required this.navigation, required this.themeMode});
 
+  systemColor() {
+    final isDark = themeMode.value == ThemeMode.dark;
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: isDark ? AppColors.mainBlack : AppColors.mainWhite,
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.dark,
+        systemNavigationBarColor:
+            isDark ? AppColors.mainBlack : AppColors.mainWhite,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     // if (kDebugMode) debugPrintRebuildDirtyWidgets = true;
 
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: AppColors.mainWhite,
-        statusBarIconBrightness: Brightness.dark,
-        statusBarBrightness: Brightness.dark,
-        systemNavigationBarColor: AppColors.mainWhite,
-      ),
-    );
     return ValueListenableBuilder(
       valueListenable: themeMode,
       builder: (context, value, child) {
+        systemColor();
         return MaterialApp.router(
           debugShowCheckedModeBanner: false,
           scaffoldMessengerKey: snackbarKey,
           theme: AppTheme.lightTheme,
-          // ThemeData(
-          //   scaffoldBackgroundColor: Colors.white,
-          //   useMaterial3: true,
-          //   fontFamily: 'ChackraPetch',
-          //   indicatorColor: AppColors.mainBlack,
-          //   iconTheme: const IconThemeData(color: AppColors.mainBlack),
-          // ),
           darkTheme: AppTheme.darkTheme,
           themeMode: themeMode.value,
           routerConfig: navigation.router(),

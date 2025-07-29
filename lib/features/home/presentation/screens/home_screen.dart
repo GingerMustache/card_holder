@@ -1,5 +1,5 @@
 import 'package:card_holder/common/application/app_settings.dart';
-import 'package:card_holder/common/extensions/spaces.dart';
+import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:card_holder/common/presentation/widgets/input_search/input_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -54,7 +54,10 @@ class _AppBar extends StatelessWidget {
             children: [
               Align(
                 alignment: Alignment.centerLeft,
-                child: Text('Card Holder', style: headlineLarge),
+                child: Text(
+                  'Card Holder',
+                  style: context.textStyles.headlineLarge,
+                ),
               ),
               18.h,
               InputSearch(change: (String? value) {}, clear: () {}),
@@ -68,11 +71,11 @@ class _AppBar extends StatelessWidget {
                   labelPadding: EdgeInsets.only(right: 8),
                   dividerColor: Colors.transparent,
                   indicator: UnderlineTabIndicator(),
-                  labelColor: AppColors.mainBlack,
-                  unselectedLabelColor: AppColors.darkGrey,
+                  unselectedLabelStyle: context.textStyles.bodySmall,
+                  labelStyle: context.textStyles.titleSmall,
                   splashFactory: NoSplash.splashFactory,
                   isScrollable: true,
-                  tabs: [Text('Cards'), Tab(text: 'Settings')],
+                  tabs: [Text('Cards'), Text('Settings')],
                 ),
               ),
             ],

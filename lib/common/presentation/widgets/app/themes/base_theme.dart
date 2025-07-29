@@ -27,6 +27,7 @@ class AppTheme {
   static const Color _darkOnPrimaryColor = Colors.white;
 
   static final ThemeData lightTheme = ThemeData(
+    brightness: Brightness.light,
     scaffoldBackgroundColor: AppColors.mainWhite,
     useMaterial3: true,
     fontFamily: 'ChackraPetch',
@@ -41,7 +42,7 @@ class AppTheme {
       secondary: _lightSecondaryColor,
       onPrimary: _lightOnPrimaryColor,
       onSecondary: Colors.white,
-      onSurface: AppColors.mainBlack, // main text color
+      // onSurface: AppColors.mainBlack, // main text color
       surfaceContainerHighest: AppColors.mainBlack,
       surface: Colors.white,
       // onSurface: Colors.black,
@@ -67,25 +68,62 @@ class AppTheme {
     //   cursorColor: Colors.black,
     //   selectionColor: Color.fromARGB(255, 255, 147, 147),
     // ),
-    // textTheme: const TextTheme(
-    //   headline1: TextStyle(
-    //       fontSize: 28.0, fontWeight: FontWeight.normal, color: Colors.black),
-    //   headline2: TextStyle(
-    //       fontSize: 26.0, fontWeight: FontWeight.normal, color: Colors.black),
-    //   headline3: TextStyle(
-    //       fontSize: 24.0, fontWeight: FontWeight.normal, color: Colors.black),
-    //   headline4: TextStyle(
-    //       fontSize: 22.0, fontWeight: FontWeight.normal, color: Colors.black),
-    //   headline5: TextStyle(
-    //       fontSize: 20.0, fontWeight: FontWeight.normal, color: Colors.black),
-    //   headline6: TextStyle(
-    //       fontSize: 18.0, fontWeight: FontWeight.normal, color: Colors.black),
-    //   bodyText1: TextStyle(
-    //       fontSize: 16.0, fontWeight: FontWeight.normal, color: Colors.black),
-    //   bodyText2: TextStyle(
-    //       fontSize: 14.0, fontWeight: FontWeight.normal, color: Colors.black),
-    // ),
+    textTheme: TextTheme(
+      headlineLarge: _getTextStyleFromTheme(
+        fontSize: 32.0,
+        color: AppColors.mainBlack,
+        fontWeight: FontWeight.w500,
+      ),
+      headlineMedium: _getTextStyleFromTheme(
+        fontSize: 22.0,
+        color: AppColors.mainBlack,
+        fontWeight: FontWeight.w500,
+      ),
+      headlineSmall: _getTextStyleFromTheme(
+        fontSize: 18.0,
+        color: AppColors.mainBlack,
+        fontWeight: FontWeight.w500,
+      ),
+      titleLarge: _getTextStyleFromTheme(
+        fontSize: 20.0,
+        fontWeight: FontWeight.w400,
+        color: AppColors.mainBlack,
+      ),
+      titleMedium: _getTextStyleFromTheme(
+        fontSize: 18.0,
+        fontWeight: FontWeight.w400,
+        color: AppColors.mainBlack,
+      ),
+      titleSmall: _getTextStyleFromTheme(
+        fontSize: 16.0,
+        fontWeight: FontWeight.w400,
+        color: AppColors.mainBlack,
+      ),
+      bodyMedium: _getTextStyleFromTheme(
+        fontSize: 18.0,
+        fontWeight: FontWeight.w400,
+        color: AppColors.darkGrey,
+      ),
+      bodySmall: _getTextStyleFromTheme(
+        fontSize: 16.0,
+        fontWeight: FontWeight.w400,
+        color: AppColors.subGrey,
+      ),
+    ),
   );
+  static TextStyle _getTextStyleFromTheme({
+    double? fontSize,
+    FontWeight? fontWeight,
+    double? height,
+    Color? color,
+  }) {
+    return TextStyle(
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      height: height,
+      color: color ?? AppColors.mainBlack,
+    );
+  }
 
   static final ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
@@ -104,14 +142,13 @@ class AppTheme {
       secondary: _darkSecondaryColor,
       onPrimary: _darkOnPrimaryColor,
       onSecondary: Colors.white,
-      onSurface: AppColors.darkGrey,
+      // onSurface: AppColors.darkGrey,
       surfaceContainerHighest: Color.fromARGB(255, 252, 210, 210),
       surface: Color.fromARGB(255, 88, 47, 47),
       // onSurface: Colors.white,
       secondaryContainer: Color.fromARGB(255, 36, 20, 20),
     ),
     // iconTheme: const IconThemeData(color: _darkIconColor),
-    // textTheme: _lightTextTheme,
     // elevatedButtonTheme: ElevatedButtonThemeData(
     //   style: ElevatedButton.styleFrom(
     //     backgroundColor: _darkSecondaryColor,
@@ -130,23 +167,47 @@ class AppTheme {
     //   cursorColor: Colors.white,
     //   selectionColor: Color.fromARGB(255, 255, 147, 147),
     // ),
-    // textTheme: const TextTheme(
-    //   headline1: TextStyle(
-    //       fontSize: 28.0, fontWeight: FontWeight.normal, color: Colors.white),
-    //   headline2: TextStyle(
-    //       fontSize: 26.0, fontWeight: FontWeight.normal, color: Colors.white),
-    //   headline3: TextStyle(
-    //       fontSize: 24.0, fontWeight: FontWeight.normal, color: Colors.white),
-    //   headline4: TextStyle(
-    //       fontSize: 22.0, fontWeight: FontWeight.normal, color: Colors.white),
-    //   headline5: TextStyle(
-    //       fontSize: 20.0, fontWeight: FontWeight.normal, color: Colors.white),
-    //   headline6: TextStyle(
-    //       fontSize: 18.0, fontWeight: FontWeight.normal, color: Colors.white),
-    //   bodyText1: TextStyle(
-    //       fontSize: 16.0, fontWeight: FontWeight.normal, color: Colors.white),
-    //   bodyText2: TextStyle(
-    //       fontSize: 14.0, fontWeight: FontWeight.normal, color: Colors.white),
-    // ),
+    textTheme: TextTheme(
+      headlineLarge: _getTextStyleFromTheme(
+        fontSize: 32.0,
+        color: AppColors.darkGrey,
+        fontWeight: FontWeight.w500,
+      ),
+      headlineMedium: _getTextStyleFromTheme(
+        fontSize: 22.0,
+        color: AppColors.mainBlack,
+        fontWeight: FontWeight.w500,
+      ),
+      headlineSmall: _getTextStyleFromTheme(
+        fontSize: 18.0,
+        color: AppColors.mainBlack,
+        fontWeight: FontWeight.w500,
+      ),
+      titleLarge: _getTextStyleFromTheme(
+        fontSize: 20.0,
+        fontWeight: FontWeight.w400,
+        color: AppColors.mainBlack,
+      ),
+      titleMedium: _getTextStyleFromTheme(
+        fontSize: 18.0,
+        fontWeight: FontWeight.w400,
+        color: AppColors.mainBlack,
+      ),
+      titleSmall: _getTextStyleFromTheme(
+        fontSize: 16.0,
+        fontWeight: FontWeight.w400,
+        color: AppColors.mainBlack,
+      ),
+      bodyMedium: _getTextStyleFromTheme(
+        fontSize: 18.0,
+        fontWeight: FontWeight.w400,
+        color: AppColors.darkGrey,
+      ),
+      bodySmall: _getTextStyleFromTheme(
+        fontSize: 16.0,
+        fontWeight: FontWeight.w400,
+        color: AppColors.darkGrey,
+      ),
+    ),
   );
 }
