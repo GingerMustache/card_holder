@@ -5,6 +5,10 @@ import 'package:flutter/services.dart' show TextInputFormatter;
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+const mainBoxShadow = [
+  BoxShadow(color: Colors.black26, offset: Offset(0, 1), blurRadius: 2),
+];
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -18,19 +22,23 @@ class HomeScreen extends StatelessWidget {
         ),
         slivers: [
           SliverAppBar(
-            backgroundColor: Colors.white,
+            scrolledUnderElevation: 0,
+            backgroundColor: Colors.transparent,
             automaticallyImplyLeading: false,
             floating: true,
             toolbarHeight: 0,
             bottom: PreferredSize(
               preferredSize: Size.fromHeight(50),
-              child: InputSearch(
-                change: (String? value) {
-                  print('Search value changed: $value');
-                },
-                clear: () {
-                  print('Search cleared');
-                },
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: InputSearch(
+                  change: (String? value) {
+                    print('Search value changed: $value');
+                  },
+                  clear: () {
+                    print('Search cleared');
+                  },
+                ),
               ),
             ),
           ),
@@ -46,13 +54,7 @@ class HomeScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: AppColors.mainGray,
                       borderRadius: BorderRadius.circular(8),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Colors.black26,
-                          offset: Offset(0, 2),
-                          blurRadius: 6,
-                        ),
-                      ],
+                      boxShadow: mainBoxShadow,
                     ),
                     child: Center(
                       child: SizedBox(
@@ -121,13 +123,15 @@ class _InputSearchState extends State<InputSearch> {
       decoration: BoxDecoration(
         color: AppColors.mainGray,
         borderRadius: BorderRadius.circular(8),
+        boxShadow: mainBoxShadow,
+        border: Border.all(color: AppColors.mainWhite, width: 0.7),
       ),
 
       margin: EdgeInsets.symmetric(horizontal: 16),
-
+      padding: const EdgeInsets.only(left: 8),
       child: TextFormField(
         controller: widget.controller,
-        cursorColor: AppColors.subGrey,
+        cursorColor: AppColors.darkGrey,
         cursorWidth: 1,
         cursorHeight: 15,
         initialValue: widget.value,
@@ -152,9 +156,9 @@ class _InputSearchState extends State<InputSearch> {
             maxHeight: 35,
             minWidth: 30,
           ),
-          prefixIcon: IconButton(
-            onPressed: () {},
-            icon: SvgPicture.asset(AppIcons.find),
+          prefixIcon: SizedBox(
+            height: 18,
+            child: SvgPicture.asset(AppIcons.find),
           ),
         ),
         inputFormatters: [RemoveEmojiInputFormatter()],

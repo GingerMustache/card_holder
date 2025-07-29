@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
-        statusBarColor: Colors.white,
+        statusBarColor: AppColors.mainBlack,
         statusBarIconBrightness: Brightness.dark,
         statusBarBrightness: Brightness.dark,
       ),
@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       scaffoldMessengerKey: snackbarKey,
       theme: ThemeData(
+        scaffoldBackgroundColor: Colors.white,
         useMaterial3: true,
         fontFamily: 'ChackraPetch',
         indicatorColor: AppColors.mainBlack,
