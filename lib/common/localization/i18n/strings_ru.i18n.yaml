@@ -8,7 +8,7 @@ screen:
   settings:
     all: first
 tabs:
-  card: Cards
-  setting: Setting
+  card: Карты
+  setting: Настройки
 other:
-  search: Search
+  search: Что ищем

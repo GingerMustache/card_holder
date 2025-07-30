@@ -134,7 +134,6 @@ class AppTheme {
       ),
       headlineMedium: _getTextStyleFromTheme(
         fontSize: 22.0,
-
         fontWeight: FontWeight.w500,
       ),
       headlineSmall: _getTextStyleFromTheme(

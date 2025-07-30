@@ -41,6 +41,8 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	// Translations
 	String get title => 'title';
 	late final TranslationsScreenEn screen = TranslationsScreenEn.internal(_root);
+	late final TranslationsTabsEn tabs = TranslationsTabsEn.internal(_root);
+	late final TranslationsOtherEn other = TranslationsOtherEn.internal(_root);
 }
 
 // Path: screen
@@ -51,7 +53,28 @@ class TranslationsScreenEn {
 
 	// Translations
 	late final TranslationsScreenHomeEn home = TranslationsScreenHomeEn.internal(_root);
-	late final TranslationsScreenFirstSCreenEn firstSCreen = TranslationsScreenFirstSCreenEn.internal(_root);
+	late final TranslationsScreenSettingsEn settings = TranslationsScreenSettingsEn.internal(_root);
+}
+
+// Path: tabs
+class TranslationsTabsEn {
+	TranslationsTabsEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get card => 'Cards';
+	String get setting => 'Setting';
+}
+
+// Path: other
+class TranslationsOtherEn {
+	TranslationsOtherEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get search => 'Search';
 }
 
 // Path: screen.home
@@ -61,12 +84,12 @@ class TranslationsScreenHomeEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get all => 'all';
+	String get name => 'Card Holder';
 }
 
-// Path: screen.firstSCreen
-class TranslationsScreenFirstSCreenEn {
-	TranslationsScreenFirstSCreenEn.internal(this._root);
+// Path: screen.settings
+class TranslationsScreenSettingsEn {
+	TranslationsScreenSettingsEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -80,8 +103,11 @@ extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
 			case 'title': return 'title';
-			case 'screen.home.all': return 'all';
-			case 'screen.firstSCreen.all': return 'first';
+			case 'screen.home.name': return 'Card Holder';
+			case 'screen.settings.all': return 'first';
+			case 'tabs.card': return 'Cards';
+			case 'tabs.setting': return 'Setting';
+			case 'other.search': return 'Search';
 			default: return null;
 		}
 	}

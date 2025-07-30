@@ -7,6 +7,8 @@ import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/presentation/widgets/app/themes/base_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_i18n/flutter_i18n.dart'
+    show FlutterI18n, FlutterI18nDelegate;
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 
@@ -17,10 +19,16 @@ abstract class MyAppNavigation {
 class MyApp extends StatelessWidget {
   final MyAppNavigation navigation;
   final ValueNotifier<ThemeMode> themeMode;
+  final FlutterI18nDelegate flutterI18nDelegate;
 
-  const MyApp({super.key, required this.navigation, required this.themeMode});
+  const MyApp({
+    super.key,
+    required this.navigation,
+    required this.themeMode,
+    required this.flutterI18nDelegate,
+  });
 
-  systemColor() {
+  void systemColor() {
     final isDark = themeMode.value == ThemeMode.dark;
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
@@ -51,8 +59,14 @@ class MyApp extends StatelessWidget {
           themeMode: themeMode.value,
           routerConfig: navigation.router(),
           locale: TranslationProvider.of(context).flutterLocale,
-          supportedLocales: AppLocaleUtils.supportedLocales,
-          localizationsDelegates: GlobalMaterialLocalizations.delegates,
+          builder: FlutterI18n.rootAppBuilder(),
+          localizationsDelegates: [
+            flutterI18nDelegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: const [Locale('ru'), Locale('en')],
         );
       },
     );
