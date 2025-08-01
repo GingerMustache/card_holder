@@ -9,6 +9,9 @@ import 'package:flutter_i18n/loaders/file_translation_loader.dart';
 class LocaleClass {
   LocaleClass._();
 
+  static const Locale lngRu = Locale('ru');
+  static const Locale lngEn = Locale('en');
+
   static Future<FlutterI18nDelegate> initLocaleDelegate() async {
     _initLocale();
     String? langLocal = await SecureStorage().read(SecureKeys.lang.name);

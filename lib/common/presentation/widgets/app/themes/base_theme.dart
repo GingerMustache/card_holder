@@ -16,21 +16,17 @@ Color getColor(Set<WidgetState> states) {
 class AppTheme {
   AppTheme._();
 
-  static const Color _lightIconlColor = Colors.black;
-  static const Color _lightPrimaryColor = Color(0xFFff8166);
   static const Color _lightSecondaryColor = Color(0xFFc7513b);
   static const Color _lightOnPrimaryColor = Colors.black;
 
-  static const Color _darkIconColor = Colors.white;
   static const Color _darkPrimaryColor = Color.fromARGB(255, 75, 14, 0);
   static const Color _darkSecondaryColor = Color.fromARGB(255, 107, 16, 0);
-  static const Color _darkOnPrimaryColor = Colors.white;
 
   static final ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
     scaffoldBackgroundColor: AppColors.mainWhite,
     useMaterial3: true,
-    fontFamily: 'ChackraPetch',
+    fontFamily: 'Tektur',
     indicatorColor: AppColors.mainBlack,
     iconTheme: const IconThemeData(color: AppColors.mainBlack),
     appBarTheme: const AppBarTheme(
@@ -86,6 +82,11 @@ class AppTheme {
         fontWeight: FontWeight.w400,
         color: AppColors.subGrey,
       ),
+      displaySmall: _getTextStyleFromTheme(
+        fontSize: 16.0,
+        color: AppColors.darkGrey,
+        fontWeight: FontWeight.w600,
+      ),
     ),
   );
   static TextStyle _getTextStyleFromTheme({
@@ -106,7 +107,7 @@ class AppTheme {
     brightness: Brightness.dark,
     scaffoldBackgroundColor: AppColors.mainBlack,
     useMaterial3: true,
-    fontFamily: 'ChackraPetch',
+    fontFamily: 'Tektur',
     indicatorColor: AppColors.mainBlue,
     iconTheme: const IconThemeData(color: AppColors.mainWhite),
     appBarTheme: const AppBarTheme(
@@ -127,11 +128,6 @@ class AppTheme {
     ),
 
     textTheme: TextTheme(
-      headlineLarge: _getTextStyleFromTheme(
-        fontSize: 32.0,
-        color: AppColors.darkGrey,
-        fontWeight: FontWeight.w500,
-      ),
       headlineMedium: _getTextStyleFromTheme(
         fontSize: 22.0,
         fontWeight: FontWeight.w500,
@@ -163,6 +159,11 @@ class AppTheme {
         fontSize: 16.0,
         fontWeight: FontWeight.w400,
         color: AppColors.darkGrey,
+      ),
+      displaySmall: _getTextStyleFromTheme(
+        fontSize: 16.0,
+        color: AppColors.darkGrey,
+        fontWeight: FontWeight.w600,
       ),
     ),
   );
