@@ -2,15 +2,20 @@ import 'dart:ui';
 
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/services/secure_storage.dart';
-import 'package:flutter_i18n/flutter_i18n_delegate.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_i18n/loaders/decoders/json_decode_strategy.dart';
-import 'package:flutter_i18n/loaders/file_translation_loader.dart';
 
 class LocaleClass {
   LocaleClass._();
 
   static const Locale lngRu = Locale('ru');
   static const Locale lngEn = Locale('en');
+
+  static String lngCode(context) {
+    String code = FlutterI18n.currentLocale(context).toString();
+
+    return code.isEmpty ? 'ru' : code.substring(0, 2);
+  }
 
   static Future<FlutterI18nDelegate> initLocaleDelegate() async {
     _initLocale();
@@ -38,9 +43,8 @@ class LocaleClass {
 
       if (!['ru', 'en'].contains(lc)) lc = 'ru';
       await SecureStorage().write(key: SecureKeys.lang.name, value: lc);
-
-      _setLocale(lc);
     }
+    _setLocale(lc);
   }
 
   static void _setLocale(String lc) => switch (lc) {

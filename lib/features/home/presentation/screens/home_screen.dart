@@ -9,6 +9,10 @@ import 'package:flutter_flip_card/flutter_flip_card.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
+part '../../../settings/presentation/parts/flip_card/flip_card.dart';
+part '../../../settings/presentation/parts/flip_card/parts/choose_lang.dart';
+part '../../../settings/presentation/screens/settings_screen.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key, required this.themeMode});
 
@@ -21,14 +25,14 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
-            await SecureStorage().write(key: SecureKeys.lang.name, value: 'ru');
-            LocaleSettings.setLocale(AppLocale.ru);
-            await FlutterI18n.refresh(context, LocaleClass.lngRu);
+            // locale
+
+            // theme mode
+            // themeMode.value =
+            //     themeMode.value == ThemeMode.light
+            //         ? ThemeMode.dark
+            //         : ThemeMode.light,
           },
-          // themeMode.value =
-          //     themeMode.value == ThemeMode.light
-          //         ? ThemeMode.dark
-          //         : ThemeMode.light,
         ),
 
         body: SafeArea(
@@ -37,7 +41,7 @@ class HomeScreen extends StatelessWidget {
               parent: AlwaysScrollableScrollPhysics(),
             ),
             headerSliverBuilder: (context, innerBoxIsScrolled) => [_AppBar()],
-            body: TabBarView(children: [_GridCards(), SettingsPage()]),
+            body: TabBarView(children: [_GridCards(), _SettingsPage()]),
           ),
         ),
       ),
@@ -57,7 +61,7 @@ class _AppBar extends StatelessWidget {
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(150),
         child: Padding(
-          padding: mainPadding,
+          padding: mainHorizontalPadding,
           child: Column(
             children: [
               Align(
@@ -108,7 +112,7 @@ class _GridCards extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MasonryGridView.count(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding: mainPadding,
       physics: const BouncingScrollPhysics(
         parent: AlwaysScrollableScrollPhysics(),
       ),
@@ -137,111 +141,6 @@ class _GridCards extends StatelessWidget {
               ),
             ),
           ),
-    );
-  }
-}
-
-class SettingsPage extends StatelessWidget {
-  const SettingsPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    // List of setting items to display in the grid
-    final List<String> settingItems = [
-      'Account',
-      'Notifications',
-      'Privacy',
-      'Security',
-      'Display',
-      'Language',
-      'Help & Support',
-      'About',
-      'Logout',
-    ];
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Settings'),
-        // No search bar in the app bar, as per the image layout
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child:
-        // Grid view of settings items
-        Expanded(
-          child: GridView.builder(
-            padding: EdgeInsets.zero, // Remove default padding
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              childAspectRatio: 1.6, // Adjust aspect ratio for card height
-            ),
-            itemCount: settingItems.length,
-            itemBuilder: (context, index) {
-              return _CustomFlipCard(title: settingItems[index]);
-            },
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _CustomFlipCard extends StatelessWidget {
-  const _CustomFlipCard({required this.title});
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return FlipCard(
-      controller: FlipCardController(),
-      rotateSide: RotateSide.left,
-      animationDuration: Duration(milliseconds: 500),
-      onTapFlipping: true,
-      frontWidget: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.darkGrey.withValues(alpha: 0.2),
-              spreadRadius: 1,
-              blurRadius: 5,
-              offset: const Offset(0, 3),
-            ),
-          ],
-        ),
-        child: Center(
-          child: Text(
-            title,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ),
-      backWidget: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.darkGrey.withValues(alpha: 0.2),
-              spreadRadius: 1,
-              blurRadius: 5,
-              offset: const Offset(0, 3),
-            ),
-          ],
-        ),
-        child: Center(
-          child: Text(
-            title,
-            style: context.textStyles.displaySmall,
-
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ),
     );
   }
 }
