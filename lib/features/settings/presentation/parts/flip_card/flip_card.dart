@@ -1,4 +1,4 @@
-part of '../../../../home/presentation/screens/home_screen.dart';
+part of '../../screens/settings_screen.dart';
 
 class _FlipCard extends StatelessWidget {
   const _FlipCard(this.index, {required this.title});

@@ -8,6 +8,9 @@ import 'package:flutter_i18n/loaders/decoders/json_decode_strategy.dart';
 class LocaleClass {
   LocaleClass._();
 
+  static String _currentLang = 'ru';
+  static String get currentLang => _currentLang;
+
   static const Locale lngRu = Locale('ru');
   static const Locale lngEn = Locale('en');
 
@@ -45,6 +48,7 @@ class LocaleClass {
       await SecureStorage().write(key: SecureKeys.lang.name, value: lc);
     }
     _setLocale(lc);
+    _currentLang = lc;
   }
 
   static void _setLocale(String lc) => switch (lc) {

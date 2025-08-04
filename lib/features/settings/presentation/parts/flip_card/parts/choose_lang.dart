@@ -1,49 +1,38 @@
-part of '../../../../../home/presentation/screens/home_screen.dart';
+part of '../../../screens/settings_screen.dart';
 
-class _ChooseLang extends StatefulWidget {
-  @override
-  State<_ChooseLang> createState() => _ChooseLangState();
-}
+class _ChooseLang extends StatelessWidget {
+  void _onLanguageSelected(BuildContext context, String lang) async {
+    HapticFeedback.mediumImpact();
+    context.read<SettingsBloc>().add(SettingChangeLangEvent(lang: lang));
 
-class _ChooseLangState extends State<_ChooseLang> {
-  String _selectedLanguage = 'en';
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      setState(() => _selectedLanguage = LocaleClass.lngCode(context));
-    });
-  }
-
-  void _onLanguageSelected(String lang) async {
-    setState(() => _selectedLanguage = lang);
-    final isRu = lang == 'ru';
-
-    await SecureStorage().write(key: SecureKeys.lang.name, value: lang);
-    LocaleSettings.setLocale(isRu ? AppLocale.ru : AppLocale.en);
     await FlutterI18n.refresh(
       context,
-      isRu ? LocaleClass.lngRu : LocaleClass.lngEn,
+      lang == 'ru' ? LocaleClass.lngRu : LocaleClass.lngEn,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        _LangTab(
-          lang: 'ru',
-          isSelected: _selectedLanguage == 'ru',
-          onTap: () => _onLanguageSelected('ru'),
-        ),
-        _LangTab(
-          lang: 'en',
-          isSelected: _selectedLanguage == 'en',
-          onTap: () => _onLanguageSelected('en'),
-        ),
-      ],
+    return BlocBuilder<SettingsBloc, SettingsState>(
+      buildWhen: (previous, current) => previous.lang != current.lang,
+      builder: (context, state) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _LangTab(
+              lang: 'ru',
+              isSelected: state.lang == 'ru',
+              onTap: () => _onLanguageSelected(context, 'ru'),
+            ),
+            _LangTab(
+              lang: 'en',
+              isSelected: state.lang == 'en',
+              onTap: () => _onLanguageSelected(context, 'en'),
+            ),
+          ],
+        );
+      },
     );
   }
 }

@@ -1,17 +1,10 @@
 import 'package:card_holder/common/application/app_settings.dart';
 import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
-import 'package:card_holder/common/localization/locale/locale.dart';
 import 'package:card_holder/common/presentation/widgets/input_search/input_search.dart';
-import 'package:card_holder/common/services/secure_storage.dart';
+import 'package:card_holder/features/settings/presentation/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_flip_card/flutter_flip_card.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-
-part '../../../settings/presentation/parts/flip_card/flip_card.dart';
-part '../../../settings/presentation/parts/flip_card/parts/choose_lang.dart';
-part '../../../settings/presentation/screens/settings_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key, required this.themeMode});
@@ -41,7 +34,7 @@ class HomeScreen extends StatelessWidget {
               parent: AlwaysScrollableScrollPhysics(),
             ),
             headerSliverBuilder: (context, innerBoxIsScrolled) => [_AppBar()],
-            body: TabBarView(children: [_GridCards(), _SettingsPage()]),
+            body: TabBarView(children: [_GridCards(), SettingsPage()]),
           ),
         ),
       ),
