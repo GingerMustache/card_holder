@@ -21,7 +21,7 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<String> settingItems = [
-      'Account',
+      'Theme',
       'Notifications',
       'Privacy',
       'Security',

@@ -9,4 +9,10 @@ class SettingChangeLangEvent extends SettingsEvent {
   SettingChangeLangEvent({required this.lang});
 }
 
+class SettingChangeThemeEvent extends SettingsEvent {
+  final String theme;
+
+  SettingChangeThemeEvent({required this.theme});
+}
+
 class SettingInitEvent extends SettingsEvent {}

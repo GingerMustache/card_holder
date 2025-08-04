@@ -11,6 +11,7 @@ part 'settings_state.dart';
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   SettingsBloc() : super(SettingsState()) {
     on<SettingChangeLangEvent>(_onChangeLang);
+    on<SettingChangeLangEvent>(_onChangeLang);
     on<SettingInitEvent>(_onInit);
   }
 

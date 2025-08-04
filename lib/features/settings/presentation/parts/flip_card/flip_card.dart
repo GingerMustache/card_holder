@@ -58,7 +58,7 @@ class _UnderCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return switch (index) {
       0 => const Text('0'),
-      1 => const Text(' 1'),
+      1 => const Text('1'),
       2 => const Text('2'),
       3 => const Text('3'),
       4 => const Text('4'),
@@ -68,5 +68,42 @@ class _UnderCardWidget extends StatelessWidget {
       8 => const Text('8'),
       _ => const Text('Unknown Setting'),
     };
+  }
+}
+
+class _ChooseTheme extends StatelessWidget {
+  void _onThemeSelected(BuildContext context, String lang) async {
+    HapticFeedback.mediumImpact();
+    context.read<SettingsBloc>().add(SettingChangeLangEvent(lang: lang));
+
+    await FlutterI18n.refresh(
+      context,
+      lang == 'ru' ? LocaleClass.lngRu : LocaleClass.lngEn,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<SettingsBloc, SettingsState>(
+      buildWhen: (previous, current) => previous.lang != current.lang,
+      builder: (context, state) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _LangTab(
+              lang: 'dark',
+              isSelected: state.lang == 'dark',
+              onTap: () => _onThemeSelected(context, 'dark'),
+            ),
+            _LangTab(
+              lang: 'light',
+              isSelected: state.lang == 'light',
+              onTap: () => _onThemeSelected(context, 'light'),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
