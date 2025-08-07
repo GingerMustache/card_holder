@@ -12,3 +12,13 @@ tabs:
   setting: Setting
 other:
   search: Search
+system:
+    theme:
+      all: Theme
+      light: light
+      dark: dark
+    lang:
+      all: Language
+      ru: ru
+      en: en
+

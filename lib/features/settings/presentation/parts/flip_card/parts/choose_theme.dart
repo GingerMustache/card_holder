@@ -10,19 +10,21 @@ class _ChooseTheme extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsBloc, SettingsState>(
-      buildWhen: (previous, current) => previous.theme != current.theme,
+      buildWhen:
+          (previous, current) =>
+              previous.theme != current.theme || previous.lang != current.lang,
       builder: (context, state) {
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
             _CardTab(
-              lang: 'dark',
+              tabName: t.system.theme.dark,
               isSelected: state.theme == ThemeMode.dark,
               onTap: () => _onThemeSelected(context, ThemeMode.dark),
             ),
             _CardTab(
-              lang: 'light',
+              tabName: t.system.theme.light,
               isSelected: state.theme == ThemeMode.light,
               onTap: () => _onThemeSelected(context, ThemeMode.light),
             ),

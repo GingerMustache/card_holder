@@ -42,6 +42,7 @@ class TranslationsRu extends Translations {
 	@override late final _TranslationsScreenRu screen = _TranslationsScreenRu._(_root);
 	@override late final _TranslationsTabsRu tabs = _TranslationsTabsRu._(_root);
 	@override late final _TranslationsOtherRu other = _TranslationsOtherRu._(_root);
+	@override late final _TranslationsSystemRu system = _TranslationsSystemRu._(_root);
 }
 
 // Path: screen
@@ -76,6 +77,17 @@ class _TranslationsOtherRu extends TranslationsOtherEn {
 	@override String get search => 'Что ищем';
 }
 
+// Path: system
+class _TranslationsSystemRu extends TranslationsSystemEn {
+	_TranslationsSystemRu._(TranslationsRu root) : this._root = root, super.internal(root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsSystemThemeRu theme = _TranslationsSystemThemeRu._(_root);
+	@override late final _TranslationsSystemLangRu lang = _TranslationsSystemLangRu._(_root);
+}
+
 // Path: screen.home
 class _TranslationsScreenHomeRu extends TranslationsScreenHomeEn {
 	_TranslationsScreenHomeRu._(TranslationsRu root) : this._root = root, super.internal(root);
@@ -96,6 +108,30 @@ class _TranslationsScreenSettingsRu extends TranslationsScreenSettingsEn {
 	@override String get all => 'first';
 }
 
+// Path: system.theme
+class _TranslationsSystemThemeRu extends TranslationsSystemThemeEn {
+	_TranslationsSystemThemeRu._(TranslationsRu root) : this._root = root, super.internal(root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get all => 'Тема';
+	@override String get light => 'свет';
+	@override String get dark => 'тьма';
+}
+
+// Path: system.lang
+class _TranslationsSystemLangRu extends TranslationsSystemLangEn {
+	_TranslationsSystemLangRu._(TranslationsRu root) : this._root = root, super.internal(root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get all => 'Язык';
+	@override String get ru => 'русс';
+	@override String get en => 'англ';
+}
+
 /// Flat map(s) containing all translations.
 /// Only for edge cases! For simple maps, use the map function of this library.
 extension on TranslationsRu {
@@ -107,6 +143,12 @@ extension on TranslationsRu {
 			case 'tabs.card': return 'Карты';
 			case 'tabs.setting': return 'Настройки';
 			case 'other.search': return 'Что ищем';
+			case 'system.theme.all': return 'Тема';
+			case 'system.theme.light': return 'свет';
+			case 'system.theme.dark': return 'тьма';
+			case 'system.lang.all': return 'Язык';
+			case 'system.lang.ru': return 'русс';
+			case 'system.lang.en': return 'англ';
 			default: return null;
 		}
 	}

@@ -12,3 +12,12 @@ tabs:
   setting: Настройки
 other:
   search: Что ищем
+system:
+    theme:
+      all: Тема
+      light: свет
+      dark: тьма
+    lang:
+      all: Язык
+      ru: русс
+      en: англ

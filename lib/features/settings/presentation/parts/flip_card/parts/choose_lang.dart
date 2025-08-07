@@ -23,12 +23,12 @@ class _ChooseLang extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             _CardTab(
-              lang: 'ru',
+              tabName: t.system.lang.ru,
               isSelected: state.lang == 'ru',
               onTap: () => _onLanguageSelected(context, 'ru'),
             ),
             _CardTab(
-              lang: 'en',
+              tabName: t.system.lang.en,
               isSelected: state.lang == 'en',
               onTap: () => _onLanguageSelected(context, 'en'),
             ),

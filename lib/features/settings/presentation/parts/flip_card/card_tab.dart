@@ -2,11 +2,11 @@ part of '../../screens/settings_screen.dart';
 
 class _CardTab extends StatelessWidget {
   const _CardTab({
-    required this.lang,
+    required this.tabName,
     required this.isSelected,
     required this.onTap,
   });
-  final String lang;
+  final String tabName;
   final bool isSelected;
   final VoidCallback onTap;
 
@@ -17,7 +17,7 @@ class _CardTab extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: Text(
-          lang,
+          tabName,
           style:
               isSelected
                   ? context.textStyles.titleSmall

@@ -1,5 +1,6 @@
 import 'package:card_holder/common/application/app_settings.dart';
 import 'package:card_holder/common/extensions/app_extensions.dart';
+import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/localization/locale/locale.dart';
 import 'package:card_holder/features/settings/bloc/settings_bloc.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +11,10 @@ import 'package:flutter_flip_card/flipcard/flip_card.dart';
 import 'package:flutter_flip_card/modal/flip_side.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
+part '../parts/flip_card/card_tab.dart';
 part '../parts/flip_card/flip_card.dart';
 part '../parts/flip_card/parts/choose_lang.dart';
 part '../parts/flip_card/parts/choose_theme.dart';
-part '../parts/flip_card/card_tab.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -21,8 +22,8 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<String> settingItems = [
-      'Theme',
-      'Language',
+      t.system.theme.all,
+      t.system.lang.all,
       'Notifications',
       'Privacy',
       'Security',

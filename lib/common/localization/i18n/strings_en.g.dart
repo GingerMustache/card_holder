@@ -43,6 +43,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final TranslationsScreenEn screen = TranslationsScreenEn.internal(_root);
 	late final TranslationsTabsEn tabs = TranslationsTabsEn.internal(_root);
 	late final TranslationsOtherEn other = TranslationsOtherEn.internal(_root);
+	late final TranslationsSystemEn system = TranslationsSystemEn.internal(_root);
 }
 
 // Path: screen
@@ -77,6 +78,17 @@ class TranslationsOtherEn {
 	String get search => 'Search';
 }
 
+// Path: system
+class TranslationsSystemEn {
+	TranslationsSystemEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsSystemThemeEn theme = TranslationsSystemThemeEn.internal(_root);
+	late final TranslationsSystemLangEn lang = TranslationsSystemLangEn.internal(_root);
+}
+
 // Path: screen.home
 class TranslationsScreenHomeEn {
 	TranslationsScreenHomeEn.internal(this._root);
@@ -97,6 +109,30 @@ class TranslationsScreenSettingsEn {
 	String get all => 'first';
 }
 
+// Path: system.theme
+class TranslationsSystemThemeEn {
+	TranslationsSystemThemeEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get all => 'Theme';
+	String get light => 'light';
+	String get dark => 'dark';
+}
+
+// Path: system.lang
+class TranslationsSystemLangEn {
+	TranslationsSystemLangEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get all => 'Language';
+	String get ru => 'ru';
+	String get en => 'en';
+}
+
 /// Flat map(s) containing all translations.
 /// Only for edge cases! For simple maps, use the map function of this library.
 extension on Translations {
@@ -108,6 +144,12 @@ extension on Translations {
 			case 'tabs.card': return 'Cards';
 			case 'tabs.setting': return 'Setting';
 			case 'other.search': return 'Search';
+			case 'system.theme.all': return 'Theme';
+			case 'system.theme.light': return 'light';
+			case 'system.theme.dark': return 'dark';
+			case 'system.lang.all': return 'Language';
+			case 'system.lang.ru': return 'ru';
+			case 'system.lang.en': return 'en';
 			default: return null;
 		}
 	}
