@@ -20,12 +20,12 @@ class _ChooseLang extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            _LangTab(
+            _CardTab(
               lang: 'ru',
               isSelected: state.lang == 'ru',
               onTap: () => _onLanguageSelected(context, 'ru'),
             ),
-            _LangTab(
+            _CardTab(
               lang: 'en',
               isSelected: state.lang == 'en',
               onTap: () => _onLanguageSelected(context, 'en'),
@@ -37,8 +37,8 @@ class _ChooseLang extends StatelessWidget {
   }
 }
 
-class _LangTab extends StatelessWidget {
-  const _LangTab({
+class _CardTab extends StatelessWidget {
+  const _CardTab({
     required this.lang,
     required this.isSelected,
     required this.onTap,

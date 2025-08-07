@@ -3,14 +3,15 @@ part of 'settings_bloc.dart';
 
 @immutable
 class SettingsState extends Equatable {
-  const SettingsState({this.lang = 'en'});
+  const SettingsState({this.lang = 'en', this.theme = ThemeMode.light});
 
   final String lang;
+  final ThemeMode theme;
 
   @override
-  List<Object?> get props => [lang];
+  List<Object?> get props => [lang, theme];
 
-  SettingsState copyWith({String? lang}) {
-    return SettingsState(lang: lang ?? this.lang);
+  SettingsState copyWith({String? lang, ThemeMode? theme}) {
+    return SettingsState(lang: lang ?? this.lang, theme: theme ?? this.theme);
   }
 }

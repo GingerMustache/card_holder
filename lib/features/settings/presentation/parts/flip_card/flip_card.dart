@@ -72,14 +72,14 @@ class _UnderCardWidget extends StatelessWidget {
 }
 
 class _ChooseTheme extends StatelessWidget {
-  void _onThemeSelected(BuildContext context, String lang) async {
+  void _onThemeSelected(BuildContext context, ThemeMode theme) async {
     HapticFeedback.mediumImpact();
-    context.read<SettingsBloc>().add(SettingChangeLangEvent(lang: lang));
+    context.read<SettingsBloc>().add(SettingChangeThemeEvent(theme: theme));
 
-    await FlutterI18n.refresh(
-      context,
-      lang == 'ru' ? LocaleClass.lngRu : LocaleClass.lngEn,
-    );
+    // await FlutterI18n.refresh(
+    //   context,
+    //   lang == 'ru' ? LocaleClass.lngRu : LocaleClass.lngEn,
+    // );
   }
 
   @override
@@ -91,15 +91,15 @@ class _ChooseTheme extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            _LangTab(
+            _CardTab(
               lang: 'dark',
-              isSelected: state.lang == 'dark',
-              onTap: () => _onThemeSelected(context, 'dark'),
+              isSelected: state.theme == ThemeMode.dark,
+              onTap: () => _onThemeSelected(context, ThemeMode.dark),
             ),
-            _LangTab(
+            _CardTab(
               lang: 'light',
-              isSelected: state.lang == 'light',
-              onTap: () => _onThemeSelected(context, 'light'),
+              isSelected: state.theme == ThemeMode.light,
+              onTap: () => _onThemeSelected(context, ThemeMode.light),
             ),
           ],
         );

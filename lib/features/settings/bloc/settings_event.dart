@@ -10,7 +10,7 @@ class SettingChangeLangEvent extends SettingsEvent {
 }
 
 class SettingChangeThemeEvent extends SettingsEvent {
-  final String theme;
+  final ThemeMode theme;
 
   SettingChangeThemeEvent({required this.theme});
 }

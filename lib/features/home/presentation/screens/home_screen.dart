@@ -28,14 +28,12 @@ class HomeScreen extends StatelessWidget {
           },
         ),
 
-        body: SafeArea(
-          child: NestedScrollView(
-            physics: const BouncingScrollPhysics(
-              parent: AlwaysScrollableScrollPhysics(),
-            ),
-            headerSliverBuilder: (context, innerBoxIsScrolled) => [_AppBar()],
-            body: TabBarView(children: [_GridCards(), SettingsPage()]),
+        body: NestedScrollView(
+          physics: const BouncingScrollPhysics(
+            parent: AlwaysScrollableScrollPhysics(),
           ),
+          headerSliverBuilder: (context, innerBoxIsScrolled) => [_AppBar()],
+          body: TabBarView(children: [_GridCards(), SettingsPage()]),
         ),
       ),
     );
