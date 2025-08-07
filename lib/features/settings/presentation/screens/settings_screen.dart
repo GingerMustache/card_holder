@@ -12,6 +12,8 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 
 part '../parts/flip_card/flip_card.dart';
 part '../parts/flip_card/parts/choose_lang.dart';
+part '../parts/flip_card/parts/choose_theme.dart';
+part '../parts/flip_card/card_template.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});

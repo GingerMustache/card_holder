@@ -7,26 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key, required this.themeMode});
-
-  final ValueNotifier<ThemeMode> themeMode;
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: () async {
-            // locale
-
-            // theme mode
-            // themeMode.value =
-            //     themeMode.value == ThemeMode.light
-            //         ? ThemeMode.dark
-            //         : ThemeMode.light,
-          },
-        ),
+        floatingActionButton: FloatingActionButton(onPressed: () async {}),
 
         body: NestedScrollView(
           physics: const BouncingScrollPhysics(

@@ -9,16 +9,13 @@ abstract class DiContainerProvider {
 }
 
 class DiContainer implements DiContainerProvider {
-  final ValueNotifier<ThemeMode> themeMode = ValueNotifier(ThemeMode.light);
-  ScreenFactory _makeScreenFactory() =>
-      ScreenFactory(diContainer: this, themeMode: themeMode);
+  ScreenFactory _makeScreenFactory() => ScreenFactory(diContainer: this);
   MyAppNavigation _makeRouter() =>
       MainNavigation(screenFactory: _makeScreenFactory());
 
   @override
   Widget makeApp(FlutterI18nDelegate flutterI18nDelegate) => MyApp(
     navigation: _makeRouter(),
-    themeMode: themeMode,
     flutterI18nDelegate: flutterI18nDelegate,
   );
 

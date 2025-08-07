@@ -5,8 +5,10 @@ import 'package:card_holder/common/constants/constants.dart';
 // dart run slang
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/presentation/widgets/app/themes/base_theme.dart';
+import 'package:card_holder/features/settings/bloc/settings_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart'
     show FlutterI18n, FlutterI18nDelegate;
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -18,18 +20,17 @@ abstract class MyAppNavigation {
 
 class MyApp extends StatelessWidget {
   final MyAppNavigation navigation;
-  final ValueNotifier<ThemeMode> themeMode;
   final FlutterI18nDelegate flutterI18nDelegate;
 
   const MyApp({
     super.key,
     required this.navigation,
-    required this.themeMode,
     required this.flutterI18nDelegate,
   });
 
-  void systemColor() {
-    final isDark = themeMode.value == ThemeMode.dark;
+  void systemColor(ThemeMode theme) {
+    final isDark = theme == ThemeMode.dark;
+
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         statusBarColor: isDark ? AppColors.mainBlack : AppColors.mainWhite,
@@ -47,16 +48,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // if (kDebugMode) debugPrintRebuildDirtyWidgets = true;
 
-    return ValueListenableBuilder(
-      valueListenable: themeMode,
-      builder: (context, value, child) {
-        systemColor();
+    return BlocBuilder<SettingsBloc, SettingsState>(
+      buildWhen: (previous, current) => previous.theme != current.theme,
+      builder: (context, state) {
+        systemColor(state.theme);
+
         return MaterialApp.router(
           debugShowCheckedModeBanner: false,
           scaffoldMessengerKey: snackbarKey,
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
-          themeMode: themeMode.value,
+          themeMode: state.theme,
           routerConfig: navigation.router(),
           locale: TranslationProvider.of(context).flutterLocale,
           builder: FlutterI18n.rootAppBuilder(),

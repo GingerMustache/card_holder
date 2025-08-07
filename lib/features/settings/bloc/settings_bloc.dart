@@ -4,7 +4,6 @@ import 'package:card_holder/common/localization/locale/locale.dart';
 import 'package:card_holder/common/services/secure_storage.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 
 part 'settings_event.dart';
 part 'settings_state.dart';
@@ -18,8 +17,12 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
 
   _onInit(SettingInitEvent event, Emitter<SettingsState> emit) async {
     final currentLang = LocaleClass.currentLang;
+    final currentTheme =
+        await SecureStorage().read(SecureKeys.theme.name) == 'dark'
+            ? ThemeMode.dark
+            : ThemeMode.light;
 
-    emit(state.copyWith(lang: currentLang));
+    emit(state.copyWith(lang: currentLang, theme: currentTheme));
   }
 
   _onChangeLang(
@@ -33,16 +36,16 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
 
     emit(state.copyWith(lang: event.lang));
   }
-}
 
-_onChangeTheme(
-  SettingChangeThemeEvent event,
-  Emitter<SettingsState> emit,
-) async {
-  final isLight = event.theme == ThemeMode.light;
+  _onChangeTheme(
+    SettingChangeThemeEvent event,
+    Emitter<SettingsState> emit,
+  ) async {
+    await SecureStorage().write(
+      key: SecureKeys.theme.name,
+      value: event.theme.name,
+    );
 
-  await SecureStorage().write(
-    key: SecureKeys.lang.name,
-    value: event.theme.name,
-  );
+    emit(state.copyWith(theme: event.theme));
+  }
 }

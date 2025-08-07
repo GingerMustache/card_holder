@@ -3,7 +3,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 enum StorageError { secureStorageError }
 
-enum SecureKeys { lang }
+enum SecureKeys { lang, theme }
 
 secureStorageCheck(BuildContext context) =>
     WidgetsBinding.instance.addPostFrameCallback((_) {

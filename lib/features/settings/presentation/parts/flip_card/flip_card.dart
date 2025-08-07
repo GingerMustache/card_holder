@@ -57,53 +57,16 @@ class _UnderCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return switch (index) {
-      0 => const Text('0'),
+      0 => const _ChooseTheme(),
       1 => const Text('1'),
       2 => const Text('2'),
       3 => const Text('3'),
       4 => const Text('4'),
-      5 => _ChooseLang(),
+      5 => const _ChooseLang(),
       6 => const Text('6'),
       7 => const Text('7'),
       8 => const Text('8'),
       _ => const Text('Unknown Setting'),
     };
-  }
-}
-
-class _ChooseTheme extends StatelessWidget {
-  void _onThemeSelected(BuildContext context, ThemeMode theme) async {
-    HapticFeedback.mediumImpact();
-    context.read<SettingsBloc>().add(SettingChangeThemeEvent(theme: theme));
-
-    // await FlutterI18n.refresh(
-    //   context,
-    //   lang == 'ru' ? LocaleClass.lngRu : LocaleClass.lngEn,
-    // );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<SettingsBloc, SettingsState>(
-      buildWhen: (previous, current) => previous.lang != current.lang,
-      builder: (context, state) {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _CardTab(
-              lang: 'dark',
-              isSelected: state.theme == ThemeMode.dark,
-              onTap: () => _onThemeSelected(context, ThemeMode.dark),
-            ),
-            _CardTab(
-              lang: 'light',
-              isSelected: state.theme == ThemeMode.light,
-              onTap: () => _onThemeSelected(context, ThemeMode.light),
-            ),
-          ],
-        );
-      },
-    );
   }
 }
