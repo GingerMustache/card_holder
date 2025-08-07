@@ -13,7 +13,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 part '../parts/flip_card/flip_card.dart';
 part '../parts/flip_card/parts/choose_lang.dart';
 part '../parts/flip_card/parts/choose_theme.dart';
-part '../parts/flip_card/card_template.dart';
+part '../parts/flip_card/card_tab.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -22,11 +22,11 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<String> settingItems = [
       'Theme',
+      'Language',
       'Notifications',
       'Privacy',
       'Security',
       'Display',
-      'Language',
       'Help & Support',
       'About',
       'Logout',

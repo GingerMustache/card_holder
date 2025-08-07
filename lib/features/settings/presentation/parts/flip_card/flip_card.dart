@@ -58,11 +58,11 @@ class _UnderCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return switch (index) {
       0 => const _ChooseTheme(),
-      1 => const Text('1'),
+      1 => const _ChooseLang(),
       2 => const Text('2'),
       3 => const Text('3'),
       4 => const Text('4'),
-      5 => const _ChooseLang(),
+      5 => const Text('5'),
       6 => const Text('6'),
       7 => const Text('7'),
       8 => const Text('8'),
