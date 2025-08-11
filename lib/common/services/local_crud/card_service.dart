@@ -36,7 +36,7 @@ class CardService {
     // make shure note exist
     await getCard(id: note.id);
     // update DB
-    final updateColumn = await db.update(cardTable, {codeColumn: text});
+    final updateColumn = await db.update(_cardTable, {_codeColumn: text});
 
     if (updateColumn == 0) {
       throw CouldNotUpdateCard();
@@ -50,33 +50,58 @@ class CardService {
     }
   }
 
+  Future<DataBaseCards> openCard({required int index}) async {
+    await _ensureDbIsOpen();
+    final db = _getDatabaseOrThrow();
+    // make shure note exist
+    final currentCard = await getCard(id: index);
+    // update DB
+    final updatedCard = await db.update(
+      _cardTable,
+      {_usagePointColumn: currentCard.usagePoint + 1},
+      where: 'id = ?',
+      whereArgs: [index],
+    );
+
+    if (updatedCard == 0) {
+      throw CouldNotUpdateCard();
+    } else {
+      final openedCard = await getCard(id: index);
+      _cards.removeWhere((note) => note.id == openedCard.id);
+      _cards.add(openedCard);
+      _cardsStreamController.add(_cards);
+
+      return openedCard;
+    }
+  }
+
   Future<Iterable<DataBaseCards>> getAllCards() async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
-    final notes = await db.query(cardTable);
+    final cards = await db.query(_cardTable);
 
-    return notes.map((noteRow) => DataBaseCards.fromRow(noteRow));
+    return cards.map((noteRow) => DataBaseCards.fromRow(noteRow));
   }
 
   Future<DataBaseCards> getCard({required int id}) async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
 
-    final notes = await db.query(
-      cardTable, // где в базе искать
+    final cards = await db.query(
+      _cardTable, // где в базе искать
       limit: 1, // сколько
       where: "id = ?", // где в колонке noteTable искать
       whereArgs: [id], // аргумент поиска
     );
 
-    if (notes.isEmpty) {
+    if (cards.isEmpty) {
       throw CouldNotFindCard();
     } else {
-      final note = DataBaseCards.fromRow(notes.first);
-      _cards.removeWhere((note) => note.id == id);
-      _cards.add(note);
+      final card = DataBaseCards.fromRow(cards.first);
+      _cards.removeWhere((c) => c.id == id);
+      _cards.add(card);
       _cardsStreamController.add(_cards);
-      return note;
+      return card;
     }
   }
 
@@ -84,7 +109,7 @@ class CardService {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
 
-    final numberOfDeletions = await db.delete(cardTable);
+    final numberOfDeletions = await db.delete(_cardTable);
     _cards = [];
     _cardsStreamController.add(_cards);
     return numberOfDeletions;
@@ -96,7 +121,7 @@ class CardService {
     final db = _getDatabaseOrThrow();
 
     final deletedCount = await db.delete(
-      cardTable,
+      _cardTable,
       where: "id = ?",
       whereArgs: [id],
     );
@@ -115,9 +140,9 @@ class CardService {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
 
-    final cardId = await db.insert(cardTable, {
-      codeColumn: code,
-      usagePointColumn: 0,
+    final cardId = await db.insert(_cardTable, {
+      _codeColumn: code,
+      _usagePointColumn: 0,
     }, conflictAlgorithm: ConflictAlgorithm.replace);
 
     final card = DataBaseCards(id: cardId, code: code, usagePoint: 0);
@@ -164,12 +189,12 @@ class CardService {
       /// созданы пользователем, или которые не могут быть воссозданы вашим приложением.
       final docsPath = await getApplicationDocumentsDirectory();
       // укажет путь до базы данных
-      final dbPath = join(docsPath.path, dbName);
+      final dbPath = join(docsPath.path, _dbName);
       final db = await openDatabase(
         dbPath,
         version: 1, // bump this when schema changes
         onCreate: (db, version) async {
-          await db.execute(createCardTable);
+          await db.execute(_createCardTable);
         },
         onUpgrade: (db, oldVersion, newVersion) async {
           if (oldVersion < 2) {
@@ -193,16 +218,16 @@ class DataBaseCards extends Equatable {
   final String code;
   final int usagePoint;
 
-  DataBaseCards({
+  const DataBaseCards({
     required this.id,
     required this.code,
     required this.usagePoint,
   });
 
   DataBaseCards.fromRow(Map<String, Object?> map)
-    : id = map[idColumn] as int,
-      usagePoint = map[idColumn] as int,
-      code = map[codeColumn] as String;
+    : id = map[_idColumn] as int,
+      usagePoint = map[_usagePointColumn] as int,
+      code = map[_codeColumn] as String;
 
   @override
   String toString() => "Note, ID = $id, code = $code, usagePoint = $usagePoint";
@@ -211,12 +236,12 @@ class DataBaseCards extends Equatable {
   List<Object?> get props => [id, code, usagePoint];
 }
 
-const dbName = "card_hold.db";
-const cardTable = "card";
-const idColumn = "id";
-const codeColumn = "code";
-const usagePointColumn = "usage_point";
-const createCardTable = '''
+const _dbName = "card_hold.db";
+const _cardTable = "card";
+const _idColumn = "id";
+const _codeColumn = "code";
+const _usagePointColumn = "usage_point";
+const _createCardTable = '''
       CREATE TABLE IF NOT EXISTS "card" (
       "id"	INTEGER NOT NULL,
       "code"	TEXT,

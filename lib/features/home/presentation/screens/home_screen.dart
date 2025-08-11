@@ -20,8 +20,8 @@ class HomeScreen extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
             try {
-              // CardService().createCard(code: 'testCode_2');
-              CardService().deleteCard(id: 2);
+              CardService().createCard(code: 'testCode_2');
+              // CardService().deleteCard(id: 2);
             } catch (e) {
               print(e);
             }
@@ -57,9 +57,16 @@ class _GridCards extends StatelessWidget {
   }
 }
 
-class _CardItem extends StatelessWidget {
+class _CardItem extends StatefulWidget {
   const _CardItem(this.index);
   final int index;
+
+  @override
+  State<_CardItem> createState() => _CardItemState();
+}
+
+class _CardItemState extends State<_CardItem> {
+  DataBaseCards? cardInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -72,12 +79,21 @@ class _CardItem extends StatelessWidget {
       child: Center(
         child: SizedBox(
           height: 100,
-          child: Text(
-            'Item ${index + 1}',
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
+          child: TextButton(
+            onPressed: () async {
+              setState(() async {
+                cardInfo = await CardService().openCard(
+                  index: widget.index + 1,
+                );
+              });
+            },
+            child: Text(
+              'code ${cardInfo?.code}, usage ${cardInfo?.usagePoint} ',
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+              ),
             ),
           ),
         ),
