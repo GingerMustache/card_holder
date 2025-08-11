@@ -1,23 +1,19 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 enum StorageError { secureStorageError }
 
 enum SecureKeys { lang, theme }
 
-secureStorageCheck(BuildContext context) =>
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // if (secureStorage.errorFlag.value) {
-      //   showDialogWithSupport(
-      //     centerTitle: true,
-      //     context: context,
-      //     title: t.system.secureStorageError.title,
-      //     contentText: t.system.secureStorageError.error,
-      //   );
-      // }
-    });
+abstract final class LocalStorage {
+  Future<Map<String, String>> readAll();
+  Future<void> deleteAll();
+  Future<String> read(String key, {String insteadValue = ''});
+  Future<void> delete({required String key});
+  Future<void> write({required String key, required String value});
+  Future<bool> containsKey({required String key});
+}
 
-class SecureStorage {
+final class SecureStorage implements LocalStorage {
   static final SecureStorage _instance = SecureStorage._internal();
 
   late final FlutterSecureStorage _storage;
@@ -32,6 +28,7 @@ class SecureStorage {
 
   final bool errorFlag = false;
 
+  @override
   Future<Map<String, String>> readAll() async {
     var map = <String, String>{};
 
@@ -43,6 +40,7 @@ class SecureStorage {
     return map;
   }
 
+  @override
   Future<void> deleteAll() async {
     try {
       await _storage.deleteAll();
@@ -52,6 +50,7 @@ class SecureStorage {
   }
 
   /// use instead value, when result must not be empty
+  @override
   Future<String> read(String key, {String insteadValue = ''}) async {
     String value = '';
     if (!errorFlag) {
@@ -65,6 +64,7 @@ class SecureStorage {
     return value;
   }
 
+  @override
   Future<void> delete({required String key}) async {
     try {
       await _storage.delete(key: key);
@@ -73,6 +73,7 @@ class SecureStorage {
     }
   }
 
+  @override
   Future<void> write({required String key, required String value}) async {
     if (!errorFlag) {
       try {
@@ -84,6 +85,7 @@ class SecureStorage {
     }
   }
 
+  @override
   Future<bool> containsKey({required String key}) async {
     try {
       return await _storage.containsKey(key: key);

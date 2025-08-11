@@ -19,7 +19,10 @@ void main() async {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (context) => SettingsBloc()..add(SettingInitEvent()),
+            create:
+                (context) =>
+                    SettingsBloc(localStorage: diContainer.makeLocalStorage())
+                      ..add(SettingInitEvent()),
             lazy: false,
           ),
         ],

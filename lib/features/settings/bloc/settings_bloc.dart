@@ -9,7 +9,8 @@ part 'settings_event.dart';
 part 'settings_state.dart';
 
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
-  SettingsBloc() : super(SettingsState()) {
+  final LocalStorage localStorage;
+  SettingsBloc({required this.localStorage}) : super(SettingsState()) {
     on<SettingChangeLangEvent>(_onChangeLang);
     on<SettingChangeThemeEvent>(_onChangeTheme);
     on<SettingInitEvent>(_onInit);
@@ -18,7 +19,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   _onInit(SettingInitEvent event, Emitter<SettingsState> emit) async {
     final currentLang = LocaleClass.currentLang;
     final currentTheme =
-        await SecureStorage().read(SecureKeys.theme.name) == 'dark'
+        await localStorage.read(SecureKeys.theme.name) == 'dark'
             ? ThemeMode.dark
             : ThemeMode.light;
 
@@ -31,7 +32,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   ) async {
     final isRu = event.lang == 'ru';
 
-    await SecureStorage().write(key: SecureKeys.lang.name, value: event.lang);
+    await localStorage.write(key: SecureKeys.lang.name, value: event.lang);
     LocaleSettings.setLocale(isRu ? AppLocale.ru : AppLocale.en);
 
     emit(state.copyWith(lang: event.lang));
@@ -41,7 +42,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     SettingChangeThemeEvent event,
     Emitter<SettingsState> emit,
   ) async {
-    await SecureStorage().write(
+    await localStorage.write(
       key: SecureKeys.theme.name,
       value: event.theme.name,
     );
