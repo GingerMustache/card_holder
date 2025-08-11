@@ -66,12 +66,12 @@ class CardService {
     if (updatedCard == 0) {
       throw CouldNotUpdateCard();
     } else {
-      final openedCard = await getCard(id: index);
-      _cards.removeWhere((note) => note.id == openedCard.id);
-      _cards.add(openedCard);
+      // final openedCard = await getCard(id: index);
+      _cards.removeWhere((note) => note.id == currentCard.id);
+      _cards.add(currentCard);
       _cardsStreamController.add(_cards);
 
-      return openedCard;
+      return currentCard;
     }
   }
 
