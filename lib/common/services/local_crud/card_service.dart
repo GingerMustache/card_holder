@@ -3,7 +3,6 @@ import 'dart:async';
 
 import 'package:card_holder/common/services/local_crud/crud_exceptions.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -37,10 +36,10 @@ class CardService {
     // make shure note exist
     await getCard(id: note.id);
     // update DB
-    final updateColumn = await db.update(cardTable, {textColumn: text});
+    final updateColumn = await db.update(cardTable, {codeColumn: text});
 
     if (updateColumn == 0) {
-      throw CouldNotUpdateNote();
+      throw CouldNotUpdateCard();
     } else {
       final updateNotes = await getCard(id: note.id);
       _cards.removeWhere((note) => note.id == updateNotes.id);
@@ -71,7 +70,7 @@ class CardService {
     );
 
     if (notes.isEmpty) {
-      throw CouldNotFindNote();
+      throw CouldNotFindCard();
     } else {
       final note = DataBaseCards.fromRow(notes.first);
       _cards.removeWhere((note) => note.id == id);
@@ -102,12 +101,12 @@ class CardService {
       whereArgs: [id],
     );
     if (deletedCount == 0) {
-      throw CouldNotDeleteNote();
+      throw CouldNotDeleteCard();
     } else {
       // .removeWhere удаляет в листе 'типа', те значения, которые соответсвуют условию
       // в данном случае, в DataBaseNote есть id'шник, который мы получим в параметры функции
       // и по нему мы удалим заметку
-      _cards.removeWhere((note) => note.id == id);
+      _cards.removeWhere((card) => card.id == id);
       _cardsStreamController.add(_cards);
     }
   }
@@ -127,59 +126,6 @@ class CardService {
     _cardsStreamController.add(_cards);
 
     return card;
-  }
-
-  Future<DataBaseUser> getUser({required String email}) async {
-    await _ensureDbIsOpen();
-    final db = _getDatabaseOrThrow();
-    // кидаем запрос на пользователя
-    // в поле email
-    final result = await db.query(
-      userTable,
-      limit: 1,
-      where: "email = ?",
-      whereArgs: [email.toLowerCase()],
-    );
-    if (result.isEmpty) {
-      throw CouldNotFindUser();
-    } else {
-      return DataBaseUser.fromRow(result.first);
-    }
-  }
-
-  Future<DataBaseUser> createUser({required String email}) async {
-    await _ensureDbIsOpen();
-    // проверяем наличие email в базе данных
-    final db = _getDatabaseOrThrow();
-
-    final result = await db.query(
-      userTable,
-      limit: 1,
-      where: "email = ?",
-      whereArgs: [email.toLowerCase()],
-    );
-    // если да, кидаем ошибку
-    if (result.isNotEmpty) {
-      throw UserAlreadyExists();
-    }
-    // нет, добавляем в базу и возвращяем в userId, id'шник последней строки
-    final userId = await db.insert(userTable, {
-      emailColumn: email.toLowerCase(),
-    });
-    return DataBaseUser(id: userId, email: email);
-  }
-
-  Future<void> deleteUser({required String email}) async {
-    await _ensureDbIsOpen();
-    final db = _getDatabaseOrThrow();
-    final deletedCount = await db.delete(
-      userTable,
-      where: "email = ?",
-      whereArgs: [email.toLowerCase()],
-    );
-    if (deletedCount != 1) {
-      throw CouldNotDeleteUser();
-    }
   }
 
   Database _getDatabaseOrThrow() {
@@ -234,36 +180,12 @@ class CardService {
         },
       );
       _db = db;
-      // create note table
-      // await db.execute(createCardTable);
-      // state streamController of notes
+
       await _cacheCards();
     } on MissingPlatformDirectoryException {
       throw UnableToGetDocumentsDirectory();
     }
   }
-}
-
-@immutable
-class DataBaseUser {
-  final int id;
-  final String email;
-
-  const DataBaseUser({required this.id, required this.email});
-
-  // именнованый конструктор передающий в поля класса значение мапы по ключу
-  DataBaseUser.fromRow(Map<String, Object?> map)
-    : id = map[idColumn] as int,
-      email = map[emailColumn] as String;
-
-  @override
-  String toString() => "Person, ID = $id, email = $email";
-
-  @override
-  bool operator ==(covariant DataBaseUser other) => id == other.id;
-
-  @override
-  int get hashCode => id.hashCode;
 }
 
 class DataBaseCards extends Equatable {
@@ -280,7 +202,7 @@ class DataBaseCards extends Equatable {
   DataBaseCards.fromRow(Map<String, Object?> map)
     : id = map[idColumn] as int,
       usagePoint = map[idColumn] as int,
-      code = map[textColumn] as String;
+      code = map[codeColumn] as String;
 
   @override
   String toString() => "Note, ID = $id, code = $code, usagePoint = $usagePoint";
@@ -291,19 +213,9 @@ class DataBaseCards extends Equatable {
 
 const dbName = "card_hold.db";
 const cardTable = "card";
+const idColumn = "id";
 const codeColumn = "code";
 const usagePointColumn = "usage_point";
-const userTable = "user";
-const idColumn = "id";
-const emailColumn = "email";
-const userIdColumn = "user_id";
-const textColumn = "text";
-const createUserTable = ''' 
-      CREATE TABLE IF NOT EXISTS  "user" (
-	    "id"	INTEGER NOT NULL,
-	    "email"	TEXT NOT NULL UNIQUE,
-	    PRIMARY KEY("id" AUTOINCREMENT)
-      );''';
 const createCardTable = '''
       CREATE TABLE IF NOT EXISTS "card" (
       "id"	INTEGER NOT NULL,
