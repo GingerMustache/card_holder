@@ -1,9 +1,7 @@
 import 'package:card_holder/common/application/app_settings.dart';
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
-import 'package:card_holder/common/presentation/assets_parts/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show TextInputFormatter;
-import 'package:flutter_svg/flutter_svg.dart';
 
 class InputSearch extends StatefulWidget {
   const InputSearch({
@@ -79,10 +77,10 @@ class _InputSearchState extends State<InputSearch> {
               maxHeight: 35,
               minWidth: 30,
             ),
-            prefixIcon: SizedBox(
-              height: 18,
-              child: SvgPicture.asset(AppIcons.find),
-            ),
+            // prefixIcon: SizedBox(
+            //   height: 18,
+            //   child: SvgPicture.asset(AppIcons.find),
+            // ),
           ),
           inputFormatters: [RemoveEmojiInputFormatter()],
           onChanged: (String val) {

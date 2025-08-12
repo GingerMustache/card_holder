@@ -5,13 +5,14 @@ title: title
 screen:
   home:
     name: Card Holder
+    add: плюс
   settings:
     all: first
 tabs:
   card: Карты
   setting: Настройки
 other:
-  search: Что ищем
+  search: Поисковая строка_
 system:
     theme:
       all: Тема

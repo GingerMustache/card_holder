@@ -56,7 +56,10 @@ class _HomeScreenState extends State<HomeScreen> {
           child: FloatingActionButton.small(
             elevation: 0,
             backgroundColor: AppColors.mainWhite,
-            child: Text("add", style: context.textStyles.labelSmall),
+            child: Text(
+              t.screen.home.add,
+              style: context.textStyles.labelSmall,
+            ),
             onPressed: () async {
               try {
                 final newCard = await CardService().createCard(

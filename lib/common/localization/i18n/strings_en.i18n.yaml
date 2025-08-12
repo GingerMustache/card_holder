@@ -5,13 +5,14 @@ title: title
 screen:
   home:
     name: Card Holder
+    add: add
   settings:
     all: first
 tabs:
   card: Cards
   setting: Setting
 other:
-  search: Search
+  search: Search line_
 system:
     theme:
       all: Theme

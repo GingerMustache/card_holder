@@ -74,7 +74,7 @@ class _TranslationsOtherRu extends TranslationsOtherEn {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get search => 'Что ищем';
+	@override String get search => 'Поисковая строка_';
 }
 
 // Path: system
@@ -96,6 +96,7 @@ class _TranslationsScreenHomeRu extends TranslationsScreenHomeEn {
 
 	// Translations
 	@override String get name => 'Card Holder';
+	@override String get add => 'плюс';
 }
 
 // Path: screen.settings
@@ -139,10 +140,11 @@ extension on TranslationsRu {
 		switch (path) {
 			case 'title': return 'title';
 			case 'screen.home.name': return 'Card Holder';
+			case 'screen.home.add': return 'плюс';
 			case 'screen.settings.all': return 'first';
 			case 'tabs.card': return 'Карты';
 			case 'tabs.setting': return 'Настройки';
-			case 'other.search': return 'Что ищем';
+			case 'other.search': return 'Поисковая строка_';
 			case 'system.theme.all': return 'Тема';
 			case 'system.theme.light': return 'свет';
 			case 'system.theme.dark': return 'тьма';

@@ -75,7 +75,7 @@ class TranslationsOtherEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get search => 'Search';
+	String get search => 'Search line_';
 }
 
 // Path: system
@@ -97,6 +97,7 @@ class TranslationsScreenHomeEn {
 
 	// Translations
 	String get name => 'Card Holder';
+	String get add => 'add';
 }
 
 // Path: screen.settings
@@ -140,10 +141,11 @@ extension on Translations {
 		switch (path) {
 			case 'title': return 'title';
 			case 'screen.home.name': return 'Card Holder';
+			case 'screen.home.add': return 'add';
 			case 'screen.settings.all': return 'first';
 			case 'tabs.card': return 'Cards';
 			case 'tabs.setting': return 'Setting';
-			case 'other.search': return 'Search';
+			case 'other.search': return 'Search line_';
 			case 'system.theme.all': return 'Theme';
 			case 'system.theme.light': return 'light';
 			case 'system.theme.dark': return 'dark';
