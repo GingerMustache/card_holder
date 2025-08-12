@@ -17,23 +17,11 @@ class AddCardScreen extends StatefulWidget {
       builder: (BuildContext context) {
         return FractionallySizedBox(
           heightFactor: 0.5,
-          child: Container(
-            width: double.infinity,
-            decoration: boxDecoration,
-            child: AddCardScreen(),
-          ),
+          child: Container(width: double.infinity, child: AddCardScreen()),
         );
       },
     );
   }
-
-  static const boxDecoration = BoxDecoration(
-    color: Colors.white,
-    borderRadius: BorderRadius.only(
-      topLeft: Radius.circular(8.0),
-      topRight: Radius.circular(8.0),
-    ),
-  );
 
   @override
   State<AddCardScreen> createState() => _AddCardScreenState();
@@ -135,18 +123,14 @@ class _AddCardScreenState extends State<AddCardScreen> {
         Stack(
           children: [
             AspectRatio(
-              aspectRatio: 1.84,
+              aspectRatio: 1.80,
               child: MobileScanner(
                 controller: cameraController,
                 onDetect: search,
                 overlayBuilder: onOverlayBuilder,
               ),
             ),
-            Positioned(
-              top: 0,
-              right: 0,
-              bottom: 0,
-              left: 0,
+            Positioned.fill(
               child: Center(
                 child: TextButton(
                   onPressed: () {
