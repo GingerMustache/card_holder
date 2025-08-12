@@ -5,77 +5,24 @@ import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/presentation/widgets/input_search/input_search.dart';
 import 'package:card_holder/common/services/local_crud/card_service.dart';
 import 'package:card_holder/common/sheets/card_open_sheet.dart';
+import 'package:card_holder/features/home/bloc/cards_bloc.dart';
 import 'package:card_holder/features/settings/presentation/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 part '../parts/app_bar.dart';
+part '../parts/fab.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  final List<DataBaseCard> cards = [];
-
-  @override
-  void initState() {
-    super.initState();
-    initCards();
-  }
-
-  Future<void> initCards() async {
-    final uploadCards = await CardService().getAllCards();
-    setState(() {
-      cards.addAll(uploadCards);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        floatingActionButton: Container(
-          padding: EdgeInsets.all(4),
-          decoration: BoxDecoration(
-            color: AppColors.mainWhite,
-            borderRadius: BorderRadius.all(Radius.elliptical(8, 8)),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.darkGrey.withValues(alpha: 0.12),
-                spreadRadius: 1,
-                blurRadius: 2,
-                offset: const Offset(0, 1),
-              ),
-            ],
-          ),
-          child: FloatingActionButton.small(
-            elevation: 0,
-            backgroundColor: AppColors.mainWhite,
-            child: Text(
-              t.screen.home.add,
-              style: context.textStyles.labelSmall,
-            ),
-            onPressed: () async {
-              try {
-                final newCard = await CardService().createCard(
-                  code: 'testCode_4',
-                );
-                setState(() {
-                  cards.add(newCard);
-                });
-                // CardOpenSheet.show(context);
-                // CardService().deleteCard(id: 2);
-              } catch (e) {
-                print(e);
-              }
-            },
-          ),
-        ),
+        floatingActionButton: _Fab(),
 
         body: NestedScrollView(
           physics: const BouncingScrollPhysics(
@@ -83,7 +30,14 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           headerSliverBuilder: (context, innerBoxIsScrolled) => [_AppBar()],
           body: TabBarView(
-            children: [_GridCards(cards: cards), SettingsPage()],
+            children: [
+              BlocBuilder<CardsBloc, CardsState>(
+                builder: (context, state) {
+                  return _GridCards(cards: state.cards);
+                },
+              ),
+              SettingsPage(),
+            ],
           ),
         ),
       ),

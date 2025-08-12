@@ -22,7 +22,20 @@ const _createCardTable = '''
       PRIMARY KEY("id" AUTOINCREMENT)
       );''';
 
-class CardService {
+abstract class CardServiceAbstract {
+  Future<DataBaseCard> getCard({required int id});
+  Future<DataBaseCard> updateCard({
+    required DataBaseCard note,
+    required String text,
+  });
+  Future<DataBaseCard> openCard({required int index});
+  Future<List<DataBaseCard>> getAllCards();
+  Future<int> deleteAllCards();
+  Future<void> deleteCard({required int id});
+  Future<DataBaseCard> createCard({required String code});
+}
+
+class CardService implements CardServiceAbstract {
   Database? _db;
 
   List<DataBaseCard> _cards = [];
@@ -42,6 +55,7 @@ class CardService {
     _cardsStreamController.add(_cards);
   }
 
+  @override
   Future<DataBaseCard> updateCard({
     required DataBaseCard note,
     required String text,
@@ -64,6 +78,7 @@ class CardService {
     }
   }
 
+  @override
   Future<DataBaseCard> openCard({required int index}) async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
@@ -88,7 +103,8 @@ class CardService {
     }
   }
 
-  Future<Iterable<DataBaseCard>> getAllCards() async {
+  @override
+  Future<List<DataBaseCard>> getAllCards() async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
     final cards = await db.query(
@@ -96,9 +112,10 @@ class CardService {
       orderBy: '$_usagePointColumn DESC',
     );
 
-    return cards.map((cardRow) => DataBaseCard.fromRow(cardRow));
+    return cards.map((cardRow) => DataBaseCard.fromRow(cardRow)).toList();
   }
 
+  @override
   Future<DataBaseCard> getCard({required int id}) async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
@@ -121,6 +138,7 @@ class CardService {
     }
   }
 
+  @override
   Future<int> deleteAllCards() async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
@@ -132,6 +150,7 @@ class CardService {
     // what happened in case of empty notes list?
   }
 
+  @override
   Future<void> deleteCard({required int id}) async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
@@ -152,6 +171,7 @@ class CardService {
     }
   }
 
+  @override
   Future<DataBaseCard> createCard({required String code}) async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
