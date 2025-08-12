@@ -1,16 +1,38 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:card_holder/common/application/app_settings.dart';
 import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/presentation/widgets/input_search/input_search.dart';
 import 'package:card_holder/common/services/local_crud/card_service.dart';
+import 'package:card_holder/common/sheets/card_open_sheet.dart';
 import 'package:card_holder/features/settings/presentation/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 part '../parts/app_bar.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final List<DataBaseCards> cards = [];
+
+  @override
+  void initState() {
+    super.initState();
+    initCards();
+  }
+
+  Future<void> initCards() async {
+    final uploadCards = await CardService().getAllCards();
+    setState(() {
+      cards.addAll(uploadCards);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +40,13 @@ class HomeScreen extends StatelessWidget {
       length: 2,
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
+          elevation: null,
+
+          child: Text("add"),
           onPressed: () async {
             try {
-              CardService().createCard(code: 'testCode_2');
+              // CardService().createCard(code: 'testCode_3');
+              CardOpenSheet.show(context);
               // CardService().deleteCard(id: 2);
             } catch (e) {
               print(e);
@@ -33,7 +59,9 @@ class HomeScreen extends StatelessWidget {
             parent: AlwaysScrollableScrollPhysics(),
           ),
           headerSliverBuilder: (context, innerBoxIsScrolled) => [_AppBar()],
-          body: TabBarView(children: [_GridCards(), SettingsPage()]),
+          body: TabBarView(
+            children: [_GridCards(cards: cards), SettingsPage()],
+          ),
         ),
       ),
     );
@@ -41,6 +69,10 @@ class HomeScreen extends StatelessWidget {
 }
 
 class _GridCards extends StatelessWidget {
+  const _GridCards({required this.cards});
+
+  final List<DataBaseCards> cards;
+
   @override
   Widget build(BuildContext context) {
     return MasonryGridView.count(
@@ -51,23 +83,22 @@ class _GridCards extends StatelessWidget {
       crossAxisCount: 2,
       mainAxisSpacing: 16,
       crossAxisSpacing: 16,
-      itemCount: 100,
-      itemBuilder: (_, index) => _CardItem(index),
+      itemCount: cards.length,
+      itemBuilder: (_, index) => _CardItem(cards[index]),
     );
   }
 }
 
 class _CardItem extends StatefulWidget {
-  const _CardItem(this.index);
-  final int index;
+  const _CardItem(this.cardInfo);
+
+  final DataBaseCards? cardInfo;
 
   @override
   State<_CardItem> createState() => _CardItemState();
 }
 
 class _CardItemState extends State<_CardItem> {
-  DataBaseCards? cardInfo;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -82,13 +113,14 @@ class _CardItemState extends State<_CardItem> {
           child: TextButton(
             onPressed: () async {
               setState(() async {
-                cardInfo = await CardService().openCard(
-                  index: widget.index + 1,
+                final openedCard = await CardService().openCard(
+                  index: widget.cardInfo?.id ?? 0,
                 );
+                print('openedCard = $openedCard');
               });
             },
             child: Text(
-              'code ${cardInfo?.code}, usage ${cardInfo?.usagePoint} ',
+              'code - ${widget.cardInfo?.code},\nusage - ${widget.cardInfo?.usagePoint} ',
               style: const TextStyle(
                 color: Colors.black,
                 fontSize: 12,

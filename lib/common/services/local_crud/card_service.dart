@@ -53,9 +53,9 @@ class CardService {
   Future<DataBaseCards> openCard({required int index}) async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
-    // make shure note exist
+
     final currentCard = await getCard(id: index);
-    // update DB
+
     final updatedCard = await db.update(
       _cardTable,
       {_usagePointColumn: currentCard.usagePoint + 1},
@@ -78,9 +78,12 @@ class CardService {
   Future<Iterable<DataBaseCards>> getAllCards() async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
-    final cards = await db.query(_cardTable);
+    final cards = await db.query(
+      _cardTable,
+      orderBy: '$_usagePointColumn DESC',
+    );
 
-    return cards.map((noteRow) => DataBaseCards.fromRow(noteRow));
+    return cards.map((cardRow) => DataBaseCards.fromRow(cardRow));
   }
 
   Future<DataBaseCards> getCard({required int id}) async {
