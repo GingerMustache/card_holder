@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CardOpenSheet extends StatefulWidget {
-  const CardOpenSheet({super.key});
+  const CardOpenSheet({super.key, required this.code});
+  final String code;
 
-  static void show(BuildContext context) {
+  static void show(BuildContext context, String code) {
     showModalBottomSheet<void>(
       isScrollControlled: true,
       context: context,
@@ -14,7 +15,7 @@ class CardOpenSheet extends StatefulWidget {
           child: Container(
             width: double.infinity,
             decoration: boxDecoration,
-            child: CardOpenSheet(),
+            child: CardOpenSheet(code: code),
           ),
         );
       },
@@ -36,7 +37,7 @@ class CardOpenSheet extends StatefulWidget {
 class _CardOpenSheetState extends State<CardOpenSheet> {
   @override
   Widget build(BuildContext context) {
-    return Column(children: [_Skeleton(), Text('data')]);
+    return Column(children: [_Skeleton(), Text(widget.code)]);
   }
 }
 

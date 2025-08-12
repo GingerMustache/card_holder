@@ -35,8 +35,8 @@ class _CardTemplate extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
+        color: AppColors.mainWhite,
+        borderRadius: BorderRadius.all(Radius.elliptical(8, 8)),
         boxShadow: [
           BoxShadow(
             color: AppColors.darkGrey.withValues(alpha: 0.2),

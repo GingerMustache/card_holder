@@ -19,7 +19,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final List<DataBaseCards> cards = [];
+  final List<DataBaseCard> cards = [];
 
   @override
   void initState() {
@@ -39,19 +39,39 @@ class _HomeScreenState extends State<HomeScreen> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        floatingActionButton: FloatingActionButton(
-          elevation: null,
-
-          child: Text("add"),
-          onPressed: () async {
-            try {
-              // CardService().createCard(code: 'testCode_3');
-              CardOpenSheet.show(context);
-              // CardService().deleteCard(id: 2);
-            } catch (e) {
-              print(e);
-            }
-          },
+        floatingActionButton: Container(
+          padding: EdgeInsets.all(4),
+          decoration: BoxDecoration(
+            color: AppColors.mainWhite,
+            borderRadius: BorderRadius.all(Radius.elliptical(8, 8)),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.darkGrey.withValues(alpha: 0.12),
+                spreadRadius: 1,
+                blurRadius: 2,
+                offset: const Offset(0, 1),
+              ),
+            ],
+          ),
+          child: FloatingActionButton.small(
+            elevation: 0,
+            backgroundColor: AppColors.mainWhite,
+            child: Text("add", style: context.textStyles.labelSmall),
+            onPressed: () async {
+              try {
+                final newCard = await CardService().createCard(
+                  code: 'testCode_4',
+                );
+                setState(() {
+                  cards.add(newCard);
+                });
+                // CardOpenSheet.show(context);
+                // CardService().deleteCard(id: 2);
+              } catch (e) {
+                print(e);
+              }
+            },
+          ),
         ),
 
         body: NestedScrollView(
@@ -71,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
 class _GridCards extends StatelessWidget {
   const _GridCards({required this.cards});
 
-  final List<DataBaseCards> cards;
+  final List<DataBaseCard> cards;
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +112,7 @@ class _GridCards extends StatelessWidget {
 class _CardItem extends StatefulWidget {
   const _CardItem(this.cardInfo);
 
-  final DataBaseCards? cardInfo;
+  final DataBaseCard? cardInfo;
 
   @override
   State<_CardItem> createState() => _CardItemState();
@@ -102,22 +122,20 @@ class _CardItemState extends State<_CardItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: context.color.primary,
-        borderRadius: BorderRadius.circular(8),
-        boxShadow: mainBoxShadow,
-      ),
+      decoration: mainBoxDecoration(context),
+
       child: Center(
         child: SizedBox(
           height: 100,
           child: TextButton(
             onPressed: () async {
-              setState(() async {
-                final openedCard = await CardService().openCard(
-                  index: widget.cardInfo?.id ?? 0,
-                );
-                print('openedCard = $openedCard');
-              });
+              CardOpenSheet.show(context, widget.cardInfo?.code ?? '');
+              // setState(() async {
+              //   final openedCard = await CardService().openCard(
+              //     index: widget.cardInfo?.id ?? 0,
+              //   );
+              //   print('openedCard = $openedCard');
+              // });
             },
             child: Text(
               'code - ${widget.cardInfo?.code},\nusage - ${widget.cardInfo?.usagePoint} ',

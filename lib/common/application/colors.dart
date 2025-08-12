@@ -9,6 +9,7 @@ class AppColors {
   static const Color subBlack = Color(0xff1A1A1A);
   static const Color suBlack = Color(0xff2A2A2A);
   static const Color mainGreen = Colors.green;
+  static const Color mainRed = Color.fromARGB(255, 255, 102, 0);
   static const Color mainBlue = Colors.blue;
   static Color withAlpha = Colors.grey.withAlpha(30);
 

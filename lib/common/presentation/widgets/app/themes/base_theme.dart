@@ -87,6 +87,10 @@ class AppTheme {
         color: AppColors.darkGrey,
         fontWeight: FontWeight.w600,
       ),
+      labelSmall: _getTextStyleFromTheme(
+        fontSize: 12.0,
+        fontWeight: FontWeight.w400,
+      ),
     ),
   );
   static TextStyle _getTextStyleFromTheme({
@@ -164,6 +168,10 @@ class AppTheme {
         fontSize: 16.0,
         color: AppColors.darkGrey,
         fontWeight: FontWeight.w600,
+      ),
+      labelSmall: _getTextStyleFromTheme(
+        fontSize: 12.0,
+        fontWeight: FontWeight.w400,
       ),
     ),
   );

@@ -7,19 +7,34 @@ import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
+part '../local_crud/model/data_base_card.dart';
+
+const _dbName = "card_hold.db";
+const _cardTable = "card";
+const _idColumn = "id";
+const _codeColumn = "code";
+const _usagePointColumn = "usage_point";
+const _createCardTable = '''
+      CREATE TABLE IF NOT EXISTS "card" (
+      "id"	INTEGER NOT NULL,
+      "code"	TEXT,
+      "usage_point" INTEGER,
+      PRIMARY KEY("id" AUTOINCREMENT)
+      );''';
+
 class CardService {
   Database? _db;
 
-  List<DataBaseCards> _cards = [];
+  List<DataBaseCard> _cards = [];
 
   static final CardService _shared = CardService._sharedInstance();
   CardService._sharedInstance();
   factory CardService() => _shared;
 
   final _cardsStreamController =
-      StreamController<List<DataBaseCards>>.broadcast();
+      StreamController<List<DataBaseCard>>.broadcast();
 
-  Stream<List<DataBaseCards>> get allCards => _cardsStreamController.stream;
+  Stream<List<DataBaseCard>> get allCards => _cardsStreamController.stream;
 
   Future<void> _cacheCards() async {
     final allCards = await getAllCards();
@@ -27,30 +42,29 @@ class CardService {
     _cardsStreamController.add(_cards);
   }
 
-  Future<DataBaseCards> updateCard({
-    required DataBaseCards note,
+  Future<DataBaseCard> updateCard({
+    required DataBaseCard note,
     required String text,
   }) async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
     // make shure note exist
-    await getCard(id: note.id);
+    final currentCard = await getCard(id: note.id);
     // update DB
     final updateColumn = await db.update(_cardTable, {_codeColumn: text});
 
     if (updateColumn == 0) {
       throw CouldNotUpdateCard();
     } else {
-      final updateNotes = await getCard(id: note.id);
-      _cards.removeWhere((note) => note.id == updateNotes.id);
-      _cards.add(updateNotes);
+      _cards.removeWhere((note) => note.id == currentCard.id);
+      _cards.add(currentCard);
       _cardsStreamController.add(_cards);
 
-      return updateNotes;
+      return currentCard;
     }
   }
 
-  Future<DataBaseCards> openCard({required int index}) async {
+  Future<DataBaseCard> openCard({required int index}) async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
 
@@ -66,7 +80,6 @@ class CardService {
     if (updatedCard == 0) {
       throw CouldNotUpdateCard();
     } else {
-      // final openedCard = await getCard(id: index);
       _cards.removeWhere((note) => note.id == currentCard.id);
       _cards.add(currentCard);
       _cardsStreamController.add(_cards);
@@ -75,7 +88,7 @@ class CardService {
     }
   }
 
-  Future<Iterable<DataBaseCards>> getAllCards() async {
+  Future<Iterable<DataBaseCard>> getAllCards() async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
     final cards = await db.query(
@@ -83,10 +96,10 @@ class CardService {
       orderBy: '$_usagePointColumn DESC',
     );
 
-    return cards.map((cardRow) => DataBaseCards.fromRow(cardRow));
+    return cards.map((cardRow) => DataBaseCard.fromRow(cardRow));
   }
 
-  Future<DataBaseCards> getCard({required int id}) async {
+  Future<DataBaseCard> getCard({required int id}) async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
 
@@ -100,7 +113,7 @@ class CardService {
     if (cards.isEmpty) {
       throw CouldNotFindCard();
     } else {
-      final card = DataBaseCards.fromRow(cards.first);
+      final card = DataBaseCard.fromRow(cards.first);
       _cards.removeWhere((c) => c.id == id);
       _cards.add(card);
       _cardsStreamController.add(_cards);
@@ -139,7 +152,7 @@ class CardService {
     }
   }
 
-  Future<DataBaseCards> createCard({required String code}) async {
+  Future<DataBaseCard> createCard({required String code}) async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
 
@@ -148,7 +161,7 @@ class CardService {
       _usagePointColumn: 0,
     }, conflictAlgorithm: ConflictAlgorithm.replace);
 
-    final card = DataBaseCards(id: cardId, code: code, usagePoint: 0);
+    final card = DataBaseCard(id: cardId, code: code, usagePoint: 0);
 
     _cards.add(card);
     _cardsStreamController.add(_cards);
@@ -215,39 +228,3 @@ class CardService {
     }
   }
 }
-
-class DataBaseCards extends Equatable {
-  final int id;
-  final String code;
-  final int usagePoint;
-
-  const DataBaseCards({
-    required this.id,
-    required this.code,
-    required this.usagePoint,
-  });
-
-  DataBaseCards.fromRow(Map<String, Object?> map)
-    : id = map[_idColumn] as int,
-      usagePoint = map[_usagePointColumn] as int,
-      code = map[_codeColumn] as String;
-
-  @override
-  String toString() => "Note, ID = $id, code = $code, usagePoint = $usagePoint";
-
-  @override
-  List<Object?> get props => [id, code, usagePoint];
-}
-
-const _dbName = "card_hold.db";
-const _cardTable = "card";
-const _idColumn = "id";
-const _codeColumn = "code";
-const _usagePointColumn = "usage_point";
-const _createCardTable = '''
-      CREATE TABLE IF NOT EXISTS "card" (
-      "id"	INTEGER NOT NULL,
-      "code"	TEXT,
-      "usage_point" INTEGER,
-      PRIMARY KEY("id" AUTOINCREMENT)
-      );''';
