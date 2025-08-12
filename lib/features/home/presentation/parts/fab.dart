@@ -24,7 +24,7 @@ class _Fab extends StatelessWidget {
         backgroundColor: AppColors.mainWhite,
         child: Text(t.screen.home.add, style: context.textStyles.labelSmall),
         onPressed: () async {
-          context.read<CardsBloc>().add(CardsFetchCardsEvent());
+          AddCardScreen.show(context);
         },
       ),
     );

@@ -3,4 +3,5 @@ class AppIcons {
   static const String _basePath = 'assets/icons/';
 
   static const String find = '${_basePath}search.svg';
+  static const String barcode = '${_basePath}barcode.svg';
 }
