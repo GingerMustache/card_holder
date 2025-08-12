@@ -61,21 +61,25 @@ class _GridCards extends StatelessWidget {
       mainAxisSpacing: 16,
       crossAxisSpacing: 16,
       itemCount: cards.length,
-      itemBuilder: (_, index) => _CardItem(cards[index]),
+      itemBuilder: (_, index) => _CardItem(cards[index], index),
     );
   }
 }
 
-class _CardItem extends StatefulWidget {
-  const _CardItem(this.cardInfo);
+class _CardItem extends StatelessWidget {
+  const _CardItem(this.card, this.currentIndex);
 
-  final DataBaseCard? cardInfo;
+  final DataBaseCard? card;
+  final int currentIndex;
 
-  @override
-  State<_CardItem> createState() => _CardItemState();
-}
+  void onPressed(BuildContext context) async {
+    context.read<CardsBloc>().add(
+      CardsOpenCardEvent(id: card?.id, index: currentIndex),
+    );
 
-class _CardItemState extends State<_CardItem> {
+    CardOpenSheet.show(context, card?.code ?? '');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -85,17 +89,9 @@ class _CardItemState extends State<_CardItem> {
         child: SizedBox(
           height: 110,
           child: TextButton(
-            onPressed: () async {
-              CardOpenSheet.show(context, widget.cardInfo?.code ?? '');
-              // setState(() async {
-              // final openedCard = await CardService().openCard(
-              //   index: widget.cardInfo?.id ?? 0,
-              // );
-              //   print('openedCard = $openedCard');
-              // });
-            },
+            onPressed: () => onPressed(context),
             child: Text(
-              'code - ${widget.cardInfo?.code},\nusage - ${widget.cardInfo?.usagePoint} ',
+              'code - ${card?.code},\nusage - ${card?.usagePoint} ',
               style: const TextStyle(
                 color: Colors.black,
                 fontSize: 12,

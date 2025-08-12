@@ -11,6 +11,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState> {
     : _cardService = cardService,
       super(CardsState()) {
     on<CardsFetchCardsEvent>(_onFetchCards);
+    on<CardsOpenCardEvent>(_onOpenCard);
   }
   _onFetchCards(CardsFetchCardsEvent event, Emitter<CardsState> emit) async {
     emit(state.copyWith(isLoading: true));
@@ -18,5 +19,22 @@ class CardsBloc extends Bloc<CardsEvent, CardsState> {
     final cards = await _cardService.getAllCards();
 
     emit(state.copyWith(cards: cards, isLoading: false));
+  }
+
+  _onOpenCard(CardsOpenCardEvent event, Emitter<CardsState> emit) async {
+    emit(state.copyWith(isLoading: true));
+
+    final currentCard = await _cardService.openCard(id: event.id ?? 0);
+
+    final cards = state.cards;
+
+    cards[event.index] = currentCard.copyWith(
+      usagePoint: currentCard.usagePoint + 1,
+    );
+    cards.sort((a, b) => b.usagePoint.compareTo(a.usagePoint));
+
+    emit(
+      state.copyWith(currentCard: currentCard, cards: cards, isLoading: false),
+    );
   }
 }

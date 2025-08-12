@@ -28,7 +28,7 @@ abstract class CardServiceAbstract {
     required DataBaseCard note,
     required String text,
   });
-  Future<DataBaseCard> openCard({required int index});
+  Future<DataBaseCard> openCard({required int id});
   Future<List<DataBaseCard>> getAllCards();
   Future<int> deleteAllCards();
   Future<void> deleteCard({required int id});
@@ -62,17 +62,17 @@ class CardService implements CardServiceAbstract {
   }
 
   @override
-  Future<DataBaseCard> openCard({required int index}) async {
+  Future<DataBaseCard> openCard({required int id}) async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
 
-    final currentCard = await getCard(id: index);
+    final currentCard = await getCard(id: id);
 
     final updatedCard = await db.update(
       _cardTable,
       {_usagePointColumn: currentCard.usagePoint + 1},
       where: 'id = ?',
-      whereArgs: [index],
+      whereArgs: [id],
     );
 
     if (updatedCard == 0) {

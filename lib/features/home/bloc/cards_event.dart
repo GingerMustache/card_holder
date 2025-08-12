@@ -4,7 +4,16 @@ sealed class CardsEvent extends Equatable {
   const CardsEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class CardsFetchCardsEvent extends CardsEvent {}
+
+class CardsOpenCardEvent extends CardsEvent {
+  final int? id;
+  final int index;
+
+  const CardsOpenCardEvent({required this.id, required this.index});
+  @override
+  List<Object?> get props => [id, index];
+}
