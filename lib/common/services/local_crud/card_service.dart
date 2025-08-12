@@ -38,22 +38,9 @@ abstract class CardServiceAbstract {
 class CardService implements CardServiceAbstract {
   Database? _db;
 
-  List<DataBaseCard> _cards = [];
-
   static final CardService _shared = CardService._sharedInstance();
   CardService._sharedInstance();
   factory CardService() => _shared;
-
-  final _cardsStreamController =
-      StreamController<List<DataBaseCard>>.broadcast();
-
-  Stream<List<DataBaseCard>> get allCards => _cardsStreamController.stream;
-
-  Future<void> _cacheCards() async {
-    final allCards = await getAllCards();
-    _cards = allCards.toList();
-    _cardsStreamController.add(_cards);
-  }
 
   @override
   Future<DataBaseCard> updateCard({
@@ -70,10 +57,6 @@ class CardService implements CardServiceAbstract {
     if (updateColumn == 0) {
       throw CouldNotUpdateCard();
     } else {
-      _cards.removeWhere((note) => note.id == currentCard.id);
-      _cards.add(currentCard);
-      _cardsStreamController.add(_cards);
-
       return currentCard;
     }
   }
@@ -95,10 +78,6 @@ class CardService implements CardServiceAbstract {
     if (updatedCard == 0) {
       throw CouldNotUpdateCard();
     } else {
-      _cards.removeWhere((note) => note.id == currentCard.id);
-      _cards.add(currentCard);
-      _cardsStreamController.add(_cards);
-
       return currentCard;
     }
   }
@@ -131,9 +110,7 @@ class CardService implements CardServiceAbstract {
       throw CouldNotFindCard();
     } else {
       final card = DataBaseCard.fromRow(cards.first);
-      _cards.removeWhere((c) => c.id == id);
-      _cards.add(card);
-      _cardsStreamController.add(_cards);
+
       return card;
     }
   }
@@ -144,8 +121,6 @@ class CardService implements CardServiceAbstract {
     final db = _getDatabaseOrThrow();
 
     final numberOfDeletions = await db.delete(_cardTable);
-    _cards = [];
-    _cardsStreamController.add(_cards);
     return numberOfDeletions;
     // what happened in case of empty notes list?
   }
@@ -166,8 +141,6 @@ class CardService implements CardServiceAbstract {
       // .removeWhere удаляет в листе 'типа', те значения, которые соответсвуют условию
       // в данном случае, в DataBaseNote есть id'шник, который мы получим в параметры функции
       // и по нему мы удалим заметку
-      _cards.removeWhere((card) => card.id == id);
-      _cardsStreamController.add(_cards);
     }
   }
 
@@ -181,12 +154,7 @@ class CardService implements CardServiceAbstract {
       _usagePointColumn: 0,
     }, conflictAlgorithm: ConflictAlgorithm.replace);
 
-    final card = DataBaseCard(id: cardId, code: code, usagePoint: 0);
-
-    _cards.add(card);
-    _cardsStreamController.add(_cards);
-
-    return card;
+    return DataBaseCard(id: cardId, code: code, usagePoint: 0);
   }
 
   Database _getDatabaseOrThrow() {
@@ -221,28 +189,27 @@ class CardService implements CardServiceAbstract {
       throw DatabaseIsAlreadyOpen();
     }
     try {
-      /// Путь к каталогу, куда приложение может поместить данные, которые
-      /// созданы пользователем, или которые не могут быть воссозданы вашим приложением.
       final docsPath = await getApplicationDocumentsDirectory();
-      // укажет путь до базы данных
       final dbPath = join(docsPath.path, _dbName);
+
       final db = await openDatabase(
         dbPath,
-        version: 1, // bump this when schema changes
+        version: 2, // bump version when adding db_meta
         onCreate: (db, version) async {
           await db.execute(_createCardTable);
         },
         onUpgrade: (db, oldVersion, newVersion) async {
           if (oldVersion < 2) {
-            await db.execute(
-              'ALTER TABLE card ADD COLUMN usage_point INTEGER DEFAULT 0',
-            );
+            await db.execute('''
+            CREATE TABLE IF NOT EXISTS db_meta (
+              version INTEGER
+            )
+          ''');
           }
         },
       );
-      _db = db;
 
-      await _cacheCards();
+      _db = db;
     } on MissingPlatformDirectoryException {
       throw UnableToGetDocumentsDirectory();
     }

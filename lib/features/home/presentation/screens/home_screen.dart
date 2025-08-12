@@ -83,14 +83,14 @@ class _CardItemState extends State<_CardItem> {
 
       child: Center(
         child: SizedBox(
-          height: 100,
+          height: 110,
           child: TextButton(
             onPressed: () async {
               CardOpenSheet.show(context, widget.cardInfo?.code ?? '');
               // setState(() async {
-              //   final openedCard = await CardService().openCard(
-              //     index: widget.cardInfo?.id ?? 0,
-              //   );
+              // final openedCard = await CardService().openCard(
+              //   index: widget.cardInfo?.id ?? 0,
+              // );
               //   print('openedCard = $openedCard');
               // });
             },

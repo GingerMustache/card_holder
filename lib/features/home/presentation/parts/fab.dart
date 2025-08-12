@@ -1,7 +1,7 @@
 part of '../screens/home_screen.dart';
 
 class _Fab extends StatelessWidget {
-  const _Fab({super.key});
+  const _Fab();
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,9 @@ class _Fab extends StatelessWidget {
         elevation: 0,
         backgroundColor: AppColors.mainWhite,
         child: Text(t.screen.home.add, style: context.textStyles.labelSmall),
-        onPressed: () async {},
+        onPressed: () async {
+          context.read<CardsBloc>().add(CardsFetchCardsEvent());
+        },
       ),
     );
   }

@@ -14,5 +14,5 @@ final class CardsState extends Equatable {
   }
 
   @override
-  List<Object> get props => [isLoading, cards];
+  List<Object> get props => [cards];
 }
