@@ -2,6 +2,7 @@ part of "app_settings.dart";
 
 class AppColors {
   static const Color mainWhite = Colors.white;
+  static const Color steam = Color(0xFFDDDDDD);
   static const Color mainGray = Color(0xfff2f4f6);
   static const Color subGrey = Color(0xFF9CA3AF);
   static const Color darkGrey = Color(0xff6B7280);

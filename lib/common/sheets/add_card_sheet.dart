@@ -11,13 +11,14 @@ class AddCardScreen extends StatefulWidget {
   const AddCardScreen({super.key});
   static void show(BuildContext context) {
     showModalBottomSheet<void>(
+      backgroundColor: Colors.transparent,
       isScrollControlled: true,
       context: context,
       useRootNavigator: true,
       builder: (BuildContext context) {
         return FractionallySizedBox(
           heightFactor: 0.5,
-          child: Container(width: double.infinity, child: AddCardScreen()),
+          child: SizedBox(width: double.infinity, child: AddCardScreen()),
         );
       },
     );
@@ -118,16 +119,24 @@ class _AddCardScreenState extends State<AddCardScreen> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Skeleton(),
+        5.h,
+
         Stack(
           children: [
             AspectRatio(
-              aspectRatio: 1.80,
-              child: MobileScanner(
-                controller: cameraController,
-                onDetect: search,
-                overlayBuilder: onOverlayBuilder,
+              aspectRatio: 1.9,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.elliptical(8, 8),
+                  topRight: Radius.elliptical(8, 8),
+                ),
+                child: MobileScanner(
+                  controller: cameraController,
+                  onDetect: search,
+                  overlayBuilder: onOverlayBuilder,
+                ),
               ),
             ),
             Positioned.fill(
@@ -137,32 +146,97 @@ class _AddCardScreenState extends State<AddCardScreen> {
                     cameraControllerSubscription.resume();
                     cameraController.start();
                   },
-                  child: SvgPicture.asset(
-                    AppIcons.barcode,
-                    // width: 100,
-                    height: 200,
-                    colorFilter: ColorFilter.mode(
-                      AppColors.mainRed.withValues(alpha: 0.7),
-                      BlendMode.srcIn,
-                    ),
-                  ),
+                  child: _ScanFrame(),
                 ),
               ),
             ),
           ],
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 18),
-          child: Column(
-            children: [
-              40.h,
-              Text(
-                'Просканируйте штрих-код товара или введите код товара вручную для поиска',
-              ),
-              40.h,
-            ],
+        Expanded(
+          child: Container(
+            color: Colors.white,
+            child: Column(
+              children: [
+                5.h,
+                Divider(color: AppColors.subGrey.withAlpha(50)),
+                // Text(
+                //   'Просканируйте штрих-код товара или введите код товара вручную для поиска',
+                // ),
+                40.h,
+              ],
+            ),
           ),
         ),
+      ],
+    );
+  }
+}
+
+class _ScanFrame extends StatelessWidget {
+  const _ScanFrame();
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        SvgPicture.asset(
+          AppIcons.barcode,
+          height: 300,
+          colorFilter: ColorFilter.mode(
+            AppColors.mainWhite.withValues(alpha: 0.5),
+            BlendMode.srcIn,
+          ),
+        ),
+        Center(
+          child: Text(
+            '||||||',
+            style: TextStyle(
+              fontSize: 60,
+              color: AppColors.mainWhite.withValues(alpha: 0.5),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class Skeleton extends StatelessWidget {
+  const Skeleton({
+    super.key,
+    this.width = 35,
+    this.height = 5,
+    this.radius = 2.5,
+    this.color,
+
+    this.padding,
+    this.margin,
+  });
+
+  final double width;
+  final double height;
+  final double radius;
+  final Color? color;
+  final EdgeInsetsGeometry? padding;
+  final EdgeInsetsGeometry? margin;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Center(
+          child: Container(
+            padding: padding,
+            margin: margin,
+            width: width,
+            height: height,
+            decoration: BoxDecoration(
+              color: AppColors.steam.withAlpha(220),
+              borderRadius: BorderRadius.circular(radius),
+            ),
+          ),
+        ),
+        5.h,
       ],
     );
   }

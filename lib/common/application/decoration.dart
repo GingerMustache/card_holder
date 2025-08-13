@@ -5,3 +5,7 @@ BoxDecoration mainBoxDecoration(BuildContext context) => BoxDecoration(
   borderRadius: BorderRadius.all(Radius.elliptical(8, 8)),
   boxShadow: mainBoxShadow,
 );
+
+final BoxDecoration dividerDecor = BoxDecoration(
+  border: Border(bottom: BorderSide(color: AppColors.subGrey.withAlpha(50))),
+);

@@ -27,7 +27,7 @@ class _AppBar extends StatelessWidget {
               18.h,
               InputSearch(change: (String? value) {}, clear: () {}),
               Container(
-                decoration: _dividerDecor(),
+                decoration: dividerDecor,
                 height: 30,
 
                 child: TabBar(
@@ -46,14 +46,6 @@ class _AppBar extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  BoxDecoration _dividerDecor() {
-    return BoxDecoration(
-      border: Border(
-        bottom: BorderSide(color: AppColors.subGrey.withAlpha(50)),
       ),
     );
   }
