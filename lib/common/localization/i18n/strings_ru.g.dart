@@ -63,8 +63,8 @@ class _TranslationsTabsRu extends TranslationsTabsEn {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get card => 'Карты';
-	@override String get setting => 'Настройки';
+	@override String get card => 'карты';
+	@override String get setting => 'настройки';
 }
 
 // Path: other
@@ -74,7 +74,7 @@ class _TranslationsOtherRu extends TranslationsOtherEn {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get search => 'Поисковая строка_';
+	@override String get search => 'поисковая строка_';
 }
 
 // Path: system
@@ -116,7 +116,7 @@ class _TranslationsSystemThemeRu extends TranslationsSystemThemeEn {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get all => 'Тема';
+	@override String get all => 'тема';
 	@override String get light => 'свет';
 	@override String get dark => 'тьма';
 }
@@ -128,7 +128,7 @@ class _TranslationsSystemLangRu extends TranslationsSystemLangEn {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get all => 'Язык';
+	@override String get all => 'язык';
 	@override String get ru => 'русс';
 	@override String get en => 'англ';
 }
@@ -142,13 +142,13 @@ extension on TranslationsRu {
 			case 'screen.home.name': return 'Card Holder';
 			case 'screen.home.add': return 'плюс';
 			case 'screen.settings.all': return 'first';
-			case 'tabs.card': return 'Карты';
-			case 'tabs.setting': return 'Настройки';
-			case 'other.search': return 'Поисковая строка_';
-			case 'system.theme.all': return 'Тема';
+			case 'tabs.card': return 'карты';
+			case 'tabs.setting': return 'настройки';
+			case 'other.search': return 'поисковая строка_';
+			case 'system.theme.all': return 'тема';
 			case 'system.theme.light': return 'свет';
 			case 'system.theme.dark': return 'тьма';
-			case 'system.lang.all': return 'Язык';
+			case 'system.lang.all': return 'язык';
 			case 'system.lang.ru': return 'русс';
 			case 'system.lang.en': return 'англ';
 			default: return null;

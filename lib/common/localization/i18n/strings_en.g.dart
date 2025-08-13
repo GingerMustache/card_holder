@@ -64,8 +64,8 @@ class TranslationsTabsEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get card => 'Cards';
-	String get setting => 'Setting';
+	String get card => 'cards';
+	String get setting => 'setting';
 }
 
 // Path: other
@@ -75,7 +75,7 @@ class TranslationsOtherEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get search => 'Search line_';
+	String get search => 'search line_';
 }
 
 // Path: system
@@ -117,7 +117,7 @@ class TranslationsSystemThemeEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get all => 'Theme';
+	String get all => 'theme';
 	String get light => 'light';
 	String get dark => 'dark';
 }
@@ -129,7 +129,7 @@ class TranslationsSystemLangEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get all => 'Language';
+	String get all => 'language';
 	String get ru => 'ru';
 	String get en => 'en';
 }
@@ -143,13 +143,13 @@ extension on Translations {
 			case 'screen.home.name': return 'Card Holder';
 			case 'screen.home.add': return 'add';
 			case 'screen.settings.all': return 'first';
-			case 'tabs.card': return 'Cards';
-			case 'tabs.setting': return 'Setting';
-			case 'other.search': return 'Search line_';
-			case 'system.theme.all': return 'Theme';
+			case 'tabs.card': return 'cards';
+			case 'tabs.setting': return 'setting';
+			case 'other.search': return 'search line_';
+			case 'system.theme.all': return 'theme';
 			case 'system.theme.light': return 'light';
 			case 'system.theme.dark': return 'dark';
-			case 'system.lang.all': return 'Language';
+			case 'system.lang.all': return 'language';
 			case 'system.lang.ru': return 'ru';
 			case 'system.lang.en': return 'en';
 			default: return null;

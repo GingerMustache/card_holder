@@ -9,17 +9,17 @@ screen:
   settings:
     all: first
 tabs:
-  card: Cards
-  setting: Setting
+  card: cards
+  setting: setting
 other:
-  search: Search line_
+  search: search line_
 system:
     theme:
-      all: Theme
+      all: theme
       light: light
       dark: dark
     lang:
-      all: Language
+      all: language
       ru: ru
       en: en
 

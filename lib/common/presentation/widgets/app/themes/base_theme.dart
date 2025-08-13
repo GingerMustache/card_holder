@@ -45,6 +45,12 @@ class AppTheme {
       secondaryContainer: Color.fromARGB(255, 255, 206, 191),
     ),
     textTheme: TextTheme(
+      displayMedium: _getTextStyleFromTheme(
+        fontSize: 20.0,
+        letterSpacing: 2.5,
+        color: AppColors.darkGrey,
+        fontWeight: FontWeight.bold,
+      ),
       headlineLarge: _getTextStyleFromTheme(
         fontSize: 32.0,
 
@@ -98,10 +104,12 @@ class AppTheme {
     FontWeight? fontWeight,
     double? height,
     Color? color,
+    double? letterSpacing,
   }) {
     return TextStyle(
       fontSize: fontSize,
       fontWeight: fontWeight,
+      letterSpacing: letterSpacing,
       height: height,
       color: color ?? AppColors.mainBlack,
     );
@@ -132,6 +140,11 @@ class AppTheme {
     ),
 
     textTheme: TextTheme(
+      displayMedium: _getTextStyleFromTheme(
+        fontSize: 20.0,
+        letterSpacing: 2,
+        fontWeight: FontWeight.bold,
+      ),
       headlineMedium: _getTextStyleFromTheme(
         fontSize: 22.0,
         fontWeight: FontWeight.w500,

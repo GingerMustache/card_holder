@@ -9,16 +9,16 @@ screen:
   settings:
     all: first
 tabs:
-  card: Карты
-  setting: Настройки
+  card: карты
+  setting: настройки
 other:
-  search: Поисковая строка_
+  search: поисковая строка_
 system:
     theme:
-      all: Тема
+      all: тема
       light: свет
       dark: тьма
     lang:
-      all: Язык
+      all: язык
       ru: русс
       en: англ

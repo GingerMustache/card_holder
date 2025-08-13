@@ -155,13 +155,34 @@ class _AddCardScreenState extends State<AddCardScreen> {
             child: Padding(
               padding: mainHorizontalPadding,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   5.h,
                   Divider(color: AppColors.subGrey.withAlpha(50)),
+                  15.h,
+                  Text('detected code', style: context.textStyles.labelSmall),
+                  5.h,
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 12,
+                      horizontal: 16,
+                    ),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: AppColors.steam),
+
+                      borderRadius: BorderRadius.all(Radius.elliptical(8, 8)),
+                    ),
+                    child: Center(
+                      child: Text(
+                        '4839 2910 4728',
+                        style: context.textStyles.displayMedium,
+                      ),
+                    ),
+                  ),
                   // Text(
                   //   'Просканируйте штрих-код товара или введите код товара вручную для поиска',
                   // ),
-                  40.h,
                 ],
               ),
             ),
