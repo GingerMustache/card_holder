@@ -21,6 +21,7 @@ class _Fab extends StatelessWidget {
       ),
       child: FloatingActionButton.small(
         elevation: 0,
+        splashColor: AppColors.mainWhite,
         backgroundColor: AppColors.mainWhite,
         child: Text(t.screen.home.add, style: context.textStyles.labelSmall),
         onPressed: () async {

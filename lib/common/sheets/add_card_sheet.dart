@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:card_holder/common/application/app_settings.dart';
 import 'package:card_holder/common/extensions/app_extensions.dart';
+import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/presentation/assets_parts/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -17,7 +18,7 @@ class AddCardScreen extends StatefulWidget {
       useRootNavigator: true,
       builder: (BuildContext context) {
         return FractionallySizedBox(
-          heightFactor: 0.5,
+          heightFactor: 0.59,
           child: SizedBox(width: double.infinity, child: AddCardScreen()),
         );
       },
@@ -160,7 +161,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                   3.h,
                   Center(
                     child: Text(
-                      'position barcode within frame to scan automatically',
+                      t.screen.home.addCard.barcodeScan,
                       style: context.textStyles.labelSmall?.copyWith(
                         fontSize: 10,
                       ),
@@ -169,7 +170,10 @@ class _AddCardScreenState extends State<AddCardScreen> {
 
                   Divider(color: AppColors.subGrey.withAlpha(50)),
                   10.h,
-                  Text('detected code', style: context.textStyles.labelSmall),
+                  Text(
+                    t.screen.home.addCard.detectedCode,
+                    style: context.textStyles.labelSmall,
+                  ),
                   5.h,
                   Container(
                     width: double.infinity,
@@ -189,11 +193,12 @@ class _AddCardScreenState extends State<AddCardScreen> {
                       ),
                     ),
                   ),
-                  20.h,
-                  Text('enter code', style: context.textStyles.labelSmall),
-
+                  15.h,
+                  Text(
+                    t.screen.home.addCard.manualCode,
+                    style: context.textStyles.labelSmall,
+                  ),
                   5.h,
-
                   TextFormField(
                     cursorColor: AppColors.darkGrey,
                     cursorWidth: 1,
@@ -203,12 +208,23 @@ class _AddCardScreenState extends State<AddCardScreen> {
                     textCapitalization: TextCapitalization.characters,
                     style: TextStyle(fontSize: 16, color: AppColors.subGrey),
                     decoration: InputDecoration(
-                      hintText: 'enter code manually_',
+                      hintText: t.screen.home.addCard.code,
                       hintStyle: TextStyle(color: AppColors.subGrey),
                       border: outlineInputBorder,
                       focusedBorder: outlineInputBorder,
                       enabledBorder: outlineInputBorder,
                     ),
+                  ),
+                  20.h,
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 15,
+                      horizontal: 16,
+                    ),
+                    color: AppColors.mainWhite,
+
+                    child: Center(child: Text(t.screen.home.addCard.add)),
                   ),
                 ],
               ),

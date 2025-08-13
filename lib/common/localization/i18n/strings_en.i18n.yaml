@@ -6,6 +6,12 @@ screen:
   home:
     name: Card Holder
     add: add
+    addCard:
+      barcodeScan: position barcode within frame to scan automatically
+      detectedCode: detected code
+      manualCode: enter code manually'
+      code: code_
+      add: add
   settings:
     all: first
 tabs:

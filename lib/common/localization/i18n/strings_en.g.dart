@@ -98,6 +98,7 @@ class TranslationsScreenHomeEn {
 	// Translations
 	String get name => 'Card Holder';
 	String get add => 'add';
+	late final TranslationsScreenHomeAddCardEn addCard = TranslationsScreenHomeAddCardEn.internal(_root);
 }
 
 // Path: screen.settings
@@ -134,6 +135,20 @@ class TranslationsSystemLangEn {
 	String get en => 'en';
 }
 
+// Path: screen.home.addCard
+class TranslationsScreenHomeAddCardEn {
+	TranslationsScreenHomeAddCardEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get barcodeScan => 'position barcode within frame to scan automatically';
+	String get detectedCode => 'detected code';
+	String get manualCode => 'enter code manually\'';
+	String get code => 'code_';
+	String get add => 'add';
+}
+
 /// Flat map(s) containing all translations.
 /// Only for edge cases! For simple maps, use the map function of this library.
 extension on Translations {
@@ -142,6 +157,11 @@ extension on Translations {
 			case 'title': return 'title';
 			case 'screen.home.name': return 'Card Holder';
 			case 'screen.home.add': return 'add';
+			case 'screen.home.addCard.barcodeScan': return 'position barcode within frame to scan automatically';
+			case 'screen.home.addCard.detectedCode': return 'detected code';
+			case 'screen.home.addCard.manualCode': return 'enter code manually\'';
+			case 'screen.home.addCard.code': return 'code_';
+			case 'screen.home.addCard.add': return 'add';
 			case 'screen.settings.all': return 'first';
 			case 'tabs.card': return 'cards';
 			case 'tabs.setting': return 'setting';

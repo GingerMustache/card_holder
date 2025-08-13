@@ -97,6 +97,7 @@ class _TranslationsScreenHomeRu extends TranslationsScreenHomeEn {
 	// Translations
 	@override String get name => 'Card Holder';
 	@override String get add => 'плюс';
+	@override late final _TranslationsScreenHomeAddCardRu addCard = _TranslationsScreenHomeAddCardRu._(_root);
 }
 
 // Path: screen.settings
@@ -133,6 +134,20 @@ class _TranslationsSystemLangRu extends TranslationsSystemLangEn {
 	@override String get en => 'англ';
 }
 
+// Path: screen.home.addCard
+class _TranslationsScreenHomeAddCardRu extends TranslationsScreenHomeAddCardEn {
+	_TranslationsScreenHomeAddCardRu._(TranslationsRu root) : this._root = root, super.internal(root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get barcodeScan => 'разместите штрих-код внутри рамки для сканирования';
+	@override String get detectedCode => 'отсканированный код';
+	@override String get manualCode => 'введите код вручную';
+	@override String get code => 'код_';
+	@override String get add => 'добавить';
+}
+
 /// Flat map(s) containing all translations.
 /// Only for edge cases! For simple maps, use the map function of this library.
 extension on TranslationsRu {
@@ -141,6 +156,11 @@ extension on TranslationsRu {
 			case 'title': return 'title';
 			case 'screen.home.name': return 'Card Holder';
 			case 'screen.home.add': return 'плюс';
+			case 'screen.home.addCard.barcodeScan': return 'разместите штрих-код внутри рамки для сканирования';
+			case 'screen.home.addCard.detectedCode': return 'отсканированный код';
+			case 'screen.home.addCard.manualCode': return 'введите код вручную';
+			case 'screen.home.addCard.code': return 'код_';
+			case 'screen.home.addCard.add': return 'добавить';
 			case 'screen.settings.all': return 'first';
 			case 'tabs.card': return 'карты';
 			case 'tabs.setting': return 'настройки';

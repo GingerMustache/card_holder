@@ -6,6 +6,12 @@ screen:
   home:
     name: Card Holder
     add: плюс
+    addCard:
+      barcodeScan: разместите штрих-код внутри рамки для сканирования
+      detectedCode: отсканированный код
+      manualCode: введите код вручную
+      code: код_
+      add: добавить  
   settings:
     all: first
 tabs:
