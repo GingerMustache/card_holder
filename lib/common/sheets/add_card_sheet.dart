@@ -118,19 +118,16 @@ class _AddCardScreenState extends State<AddCardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Skeleton(
       children: [
-        Skeleton(),
-        5.h,
-
         Stack(
           children: [
             AspectRatio(
               aspectRatio: 1.9,
               child: ClipRRect(
                 borderRadius: const BorderRadius.only(
-                  topLeft: Radius.elliptical(8, 8),
-                  topRight: Radius.elliptical(8, 8),
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8),
                 ),
                 child: MobileScanner(
                   controller: cameraController,
@@ -154,16 +151,19 @@ class _AddCardScreenState extends State<AddCardScreen> {
         ),
         Expanded(
           child: Container(
-            color: Colors.white,
-            child: Column(
-              children: [
-                5.h,
-                Divider(color: AppColors.subGrey.withAlpha(50)),
-                // Text(
-                //   'Просканируйте штрих-код товара или введите код товара вручную для поиска',
-                // ),
-                40.h,
-              ],
+            color: AppColors.mainWhite,
+            child: Padding(
+              padding: mainHorizontalPadding,
+              child: Column(
+                children: [
+                  5.h,
+                  Divider(color: AppColors.subGrey.withAlpha(50)),
+                  // Text(
+                  //   'Просканируйте штрих-код товара или введите код товара вручную для поиска',
+                  // ),
+                  40.h,
+                ],
+              ),
             ),
           ),
         ),
@@ -202,23 +202,9 @@ class _ScanFrame extends StatelessWidget {
 }
 
 class Skeleton extends StatelessWidget {
-  const Skeleton({
-    super.key,
-    this.width = 35,
-    this.height = 5,
-    this.radius = 2.5,
-    this.color,
+  const Skeleton({super.key, required this.children});
 
-    this.padding,
-    this.margin,
-  });
-
-  final double width;
-  final double height;
-  final double radius;
-  final Color? color;
-  final EdgeInsetsGeometry? padding;
-  final EdgeInsetsGeometry? margin;
+  final List<Widget> children;
 
   @override
   Widget build(BuildContext context) {
@@ -226,17 +212,16 @@ class Skeleton extends StatelessWidget {
       children: [
         Center(
           child: Container(
-            padding: padding,
-            margin: margin,
-            width: width,
-            height: height,
+            width: 35,
+            height: 5,
             decoration: BoxDecoration(
               color: AppColors.steam.withAlpha(220),
-              borderRadius: BorderRadius.circular(radius),
+              borderRadius: BorderRadius.circular(2.5),
             ),
           ),
         ),
         5.h,
+        ...children,
       ],
     );
   }

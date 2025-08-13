@@ -1,4 +1,4 @@
-import 'package:card_holder/common/extensions/app_extensions.dart';
+import 'package:card_holder/common/sheets/add_card_sheet.dart';
 import 'package:flutter/material.dart';
 
 class CardOpenSheet extends StatelessWidget {
@@ -33,21 +33,6 @@ class CardOpenSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [_Skeleton(), Text(code)]);
-  }
-}
-
-class _Skeleton extends StatelessWidget {
-  const _Skeleton();
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        8.h,
-        Container(width: 32, height: 1.5, color: Colors.black),
-        27.h,
-      ],
-    );
+    return Skeleton(children: [Text(code)]);
   }
 }
