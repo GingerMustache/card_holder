@@ -157,9 +157,18 @@ class _AddCardScreenState extends State<AddCardScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  5.h,
+                  3.h,
+                  Center(
+                    child: Text(
+                      'position barcode within frame to scan automatically',
+                      style: context.textStyles.labelSmall?.copyWith(
+                        fontSize: 10,
+                      ),
+                    ),
+                  ),
+
                   Divider(color: AppColors.subGrey.withAlpha(50)),
-                  15.h,
+                  10.h,
                   Text('detected code', style: context.textStyles.labelSmall),
                   5.h,
                   Container(
@@ -180,9 +189,27 @@ class _AddCardScreenState extends State<AddCardScreen> {
                       ),
                     ),
                   ),
-                  // Text(
-                  //   'Просканируйте штрих-код товара или введите код товара вручную для поиска',
-                  // ),
+                  20.h,
+                  Text('enter code', style: context.textStyles.labelSmall),
+
+                  5.h,
+
+                  TextFormField(
+                    cursorColor: AppColors.darkGrey,
+                    cursorWidth: 1,
+                    cursorHeight: 15,
+                    // initialValue: widget.value,
+                    // focusNode: widget.focusNode,
+                    textCapitalization: TextCapitalization.characters,
+                    style: TextStyle(fontSize: 16, color: AppColors.subGrey),
+                    decoration: InputDecoration(
+                      hintText: 'enter code manually_',
+                      hintStyle: TextStyle(color: AppColors.subGrey),
+                      border: outlineInputBorder,
+                      focusedBorder: outlineInputBorder,
+                      enabledBorder: outlineInputBorder,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -191,6 +218,11 @@ class _AddCardScreenState extends State<AddCardScreen> {
       ],
     );
   }
+
+  static const outlineInputBorder = OutlineInputBorder(
+    borderRadius: BorderRadius.all(Radius.elliptical(8, 8)),
+    borderSide: BorderSide(color: AppColors.steam),
+  );
 }
 
 class _ScanFrame extends StatelessWidget {
