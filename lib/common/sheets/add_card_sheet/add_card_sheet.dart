@@ -4,9 +4,14 @@ import 'package:card_holder/common/application/app_settings.dart';
 import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/presentation/assets_parts/app_icons.dart';
+import 'package:card_holder/common/presentation/widgets/skeleton_wrapper/skeleton_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+
+part 'parts/scan_frame.dart';
+part 'parts/text_field.dart';
+part 'parts/entered_code.dart';
 
 class AddCardScreen extends StatefulWidget {
   const AddCardScreen({super.key});
@@ -119,7 +124,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Skeleton(
+    return SkeletonWrapper(
       children: [
         Stack(
           children: [
@@ -175,67 +180,16 @@ class _AddCardScreenState extends State<AddCardScreen> {
                     style: context.textStyles.labelSmall,
                   ),
                   5.h,
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 12,
-                      horizontal: 16,
-                    ),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: AppColors.steam),
-
-                      borderRadius: BorderRadius.all(Radius.elliptical(8, 8)),
-                    ),
-                    child: Center(
-                      child: Text(
-                        '0000 0000 0000',
-                        style: context.textStyles.displayMedium,
-                      ),
-                    ),
+                  _EnteredCodeWidget(),
+                  15.h,
+                  _TextField(
+                    hintText: t.screen.home.addCard.code,
+                    labelText: t.screen.home.addCard.manualCode,
                   ),
                   15.h,
-                  Text(
-                    t.screen.home.addCard.manualCode,
-                    style: context.textStyles.labelSmall,
-                  ),
-                  5.h,
-                  TextFormField(
-                    cursorColor: AppColors.darkGrey,
-                    cursorWidth: 1,
-                    cursorHeight: 15,
-                    // initialValue: widget.value,
-                    // focusNode: widget.focusNode,
-                    textCapitalization: TextCapitalization.characters,
-                    style: TextStyle(fontSize: 16, color: AppColors.subGrey),
-                    decoration: InputDecoration(
-                      hintText: t.screen.home.addCard.code,
-                      hintStyle: TextStyle(color: AppColors.subGrey),
-                      border: outlineInputBorder,
-                      focusedBorder: outlineInputBorder,
-                      enabledBorder: outlineInputBorder,
-                    ),
-                  ),
-                  15.h,
-                  Text(
-                    t.screen.home.addCard.cardName,
-                    style: context.textStyles.labelSmall,
-                  ),
-                  5.h,
-                  TextFormField(
-                    cursorColor: AppColors.darkGrey,
-                    cursorWidth: 1,
-                    cursorHeight: 15,
-                    // initialValue: widget.value,
-                    // focusNode: widget.focusNode,
-                    textCapitalization: TextCapitalization.characters,
-                    style: TextStyle(fontSize: 16, color: AppColors.subGrey),
-                    decoration: InputDecoration(
-                      hintText: t.screen.home.addCard.name,
-                      hintStyle: TextStyle(color: AppColors.subGrey),
-                      border: outlineInputBorder,
-                      focusedBorder: outlineInputBorder,
-                      enabledBorder: outlineInputBorder,
-                    ),
+                  _TextField(
+                    hintText: t.screen.home.addCard.name,
+                    labelText: t.screen.home.addCard.cardName,
                   ),
                   20.h,
                   Container(
@@ -253,66 +207,6 @@ class _AddCardScreenState extends State<AddCardScreen> {
             ),
           ),
         ),
-      ],
-    );
-  }
-
-  static const outlineInputBorder = OutlineInputBorder(
-    borderRadius: BorderRadius.all(Radius.elliptical(8, 8)),
-    borderSide: BorderSide(color: AppColors.steam),
-  );
-}
-
-class _ScanFrame extends StatelessWidget {
-  const _ScanFrame();
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        SvgPicture.asset(
-          AppIcons.barcode,
-          height: 300,
-          colorFilter: ColorFilter.mode(
-            AppColors.mainWhite.withValues(alpha: 0.5),
-            BlendMode.srcIn,
-          ),
-        ),
-        Center(
-          child: Text(
-            '||||||',
-            style: TextStyle(
-              fontSize: 60,
-              color: AppColors.mainWhite.withValues(alpha: 0.5),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class Skeleton extends StatelessWidget {
-  const Skeleton({super.key, required this.children});
-
-  final List<Widget> children;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Center(
-          child: Container(
-            width: 35,
-            height: 5,
-            decoration: BoxDecoration(
-              color: AppColors.steam.withAlpha(220),
-              borderRadius: BorderRadius.circular(2.5),
-            ),
-          ),
-        ),
-        5.h,
-        ...children,
       ],
     );
   }

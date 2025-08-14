@@ -1,4 +1,4 @@
-import 'package:card_holder/common/sheets/add_card_sheet.dart';
+import 'package:card_holder/common/presentation/widgets/skeleton_wrapper/skeleton_wrapper.dart';
 import 'package:flutter/material.dart';
 
 class CardOpenSheet extends StatelessWidget {
@@ -33,6 +33,6 @@ class CardOpenSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Skeleton(children: [Text(code)]);
+    return SkeletonWrapper(children: [Text(code)]);
   }
 }
