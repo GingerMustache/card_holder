@@ -144,8 +144,10 @@ class TranslationsScreenHomeAddCardEn {
 	// Translations
 	String get barcodeScan => 'position barcode within frame to scan automatically';
 	String get detectedCode => 'detected code';
-	String get manualCode => 'enter code manually\'';
+	String get manualCode => 'enter code manually';
+	String get cardName => 'card name';
 	String get code => 'code_';
+	String get name => 'name_';
 	String get add => 'add';
 }
 
@@ -159,8 +161,10 @@ extension on Translations {
 			case 'screen.home.add': return 'add';
 			case 'screen.home.addCard.barcodeScan': return 'position barcode within frame to scan automatically';
 			case 'screen.home.addCard.detectedCode': return 'detected code';
-			case 'screen.home.addCard.manualCode': return 'enter code manually\'';
+			case 'screen.home.addCard.manualCode': return 'enter code manually';
+			case 'screen.home.addCard.cardName': return 'card name';
 			case 'screen.home.addCard.code': return 'code_';
+			case 'screen.home.addCard.name': return 'name_';
 			case 'screen.home.addCard.add': return 'add';
 			case 'screen.settings.all': return 'first';
 			case 'tabs.card': return 'cards';

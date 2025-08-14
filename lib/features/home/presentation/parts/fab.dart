@@ -6,7 +6,9 @@ class _Fab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(4),
+      width: 58,
+      height: 55,
+      // padding: EdgeInsets.all(4),
       decoration: BoxDecoration(
         color: AppColors.mainWhite,
         borderRadius: BorderRadius.all(Radius.elliptical(8, 8)),
@@ -19,10 +21,7 @@ class _Fab extends StatelessWidget {
           ),
         ],
       ),
-      child: FloatingActionButton.small(
-        elevation: 0,
-        splashColor: AppColors.mainWhite,
-        backgroundColor: AppColors.mainWhite,
+      child: TextButton(
         child: Text(t.screen.home.add, style: context.textStyles.labelSmall),
         onPressed: () async {
           AddCardScreen.show(context);

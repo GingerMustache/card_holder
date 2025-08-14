@@ -18,7 +18,7 @@ class AddCardScreen extends StatefulWidget {
       useRootNavigator: true,
       builder: (BuildContext context) {
         return FractionallySizedBox(
-          heightFactor: 0.59,
+          heightFactor: 0.69,
           child: SizedBox(width: double.infinity, child: AddCardScreen()),
         );
       },
@@ -188,7 +188,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                     ),
                     child: Center(
                       child: Text(
-                        '4839 2910 4728',
+                        '0000 0000 0000',
                         style: context.textStyles.displayMedium,
                       ),
                     ),
@@ -209,6 +209,28 @@ class _AddCardScreenState extends State<AddCardScreen> {
                     style: TextStyle(fontSize: 16, color: AppColors.subGrey),
                     decoration: InputDecoration(
                       hintText: t.screen.home.addCard.code,
+                      hintStyle: TextStyle(color: AppColors.subGrey),
+                      border: outlineInputBorder,
+                      focusedBorder: outlineInputBorder,
+                      enabledBorder: outlineInputBorder,
+                    ),
+                  ),
+                  15.h,
+                  Text(
+                    t.screen.home.addCard.cardName,
+                    style: context.textStyles.labelSmall,
+                  ),
+                  5.h,
+                  TextFormField(
+                    cursorColor: AppColors.darkGrey,
+                    cursorWidth: 1,
+                    cursorHeight: 15,
+                    // initialValue: widget.value,
+                    // focusNode: widget.focusNode,
+                    textCapitalization: TextCapitalization.characters,
+                    style: TextStyle(fontSize: 16, color: AppColors.subGrey),
+                    decoration: InputDecoration(
+                      hintText: t.screen.home.addCard.name,
                       hintStyle: TextStyle(color: AppColors.subGrey),
                       border: outlineInputBorder,
                       focusedBorder: outlineInputBorder,

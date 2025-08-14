@@ -144,7 +144,9 @@ class _TranslationsScreenHomeAddCardRu extends TranslationsScreenHomeAddCardEn {
 	@override String get barcodeScan => 'разместите штрих-код внутри рамки для сканирования';
 	@override String get detectedCode => 'отсканированный код';
 	@override String get manualCode => 'введите код вручную';
+	@override String get cardName => 'имя карты';
 	@override String get code => 'код_';
+	@override String get name => 'имя_';
 	@override String get add => 'добавить';
 }
 
@@ -159,7 +161,9 @@ extension on TranslationsRu {
 			case 'screen.home.addCard.barcodeScan': return 'разместите штрих-код внутри рамки для сканирования';
 			case 'screen.home.addCard.detectedCode': return 'отсканированный код';
 			case 'screen.home.addCard.manualCode': return 'введите код вручную';
+			case 'screen.home.addCard.cardName': return 'имя карты';
 			case 'screen.home.addCard.code': return 'код_';
+			case 'screen.home.addCard.name': return 'имя_';
 			case 'screen.home.addCard.add': return 'добавить';
 			case 'screen.settings.all': return 'first';
 			case 'tabs.card': return 'карты';

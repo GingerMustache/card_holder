@@ -9,8 +9,10 @@ screen:
     addCard:
       barcodeScan: position barcode within frame to scan automatically
       detectedCode: detected code
-      manualCode: enter code manually'
+      manualCode: enter code manually
+      cardName: card name
       code: code_
+      name: name_
       add: add
   settings:
     all: first

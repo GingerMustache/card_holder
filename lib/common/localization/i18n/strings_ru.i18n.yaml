@@ -10,7 +10,9 @@ screen:
       barcodeScan: разместите штрих-код внутри рамки для сканирования
       detectedCode: отсканированный код
       manualCode: введите код вручную
+      cardName: имя карты
       code: код_
+      name: имя_
       add: добавить  
   settings:
     all: first
