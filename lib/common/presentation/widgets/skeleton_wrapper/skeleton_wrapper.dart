@@ -9,24 +9,26 @@ class SkeletonWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: 610 + MediaQuery.of(context).viewInsets.bottom,
-      child: Column(
-        children: [
-          Center(
-            child: Container(
-              width: 35,
-              height: 5,
-              decoration: BoxDecoration(
-                color: AppColors.steam.withAlpha(220),
-                borderRadius: BorderRadius.circular(2.5),
+    return SingleChildScrollView(
+      child: SizedBox(
+        width: double.infinity,
+        height: 610 + MediaQuery.of(context).viewInsets.bottom,
+        child: Column(
+          children: [
+            Center(
+              child: Container(
+                width: 35,
+                height: 5,
+                decoration: BoxDecoration(
+                  color: AppColors.steam.withAlpha(220),
+                  borderRadius: BorderRadius.circular(2.5),
+                ),
               ),
             ),
-          ),
-          5.h,
-          ...children,
-        ],
+            5.h,
+            ...children,
+          ],
+        ),
       ),
     );
   }
