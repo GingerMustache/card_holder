@@ -4,7 +4,7 @@ import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/presentation/widgets/input_search/input_search.dart';
 import 'package:card_holder/common/services/local_crud/card_service.dart';
-import 'package:card_holder/common/sheets/add_card_sheet/add_card_sheet.dart';
+import 'package:card_holder/features/add_new_card/presentation/add_card_sheet.dart';
 import 'package:card_holder/common/sheets/card_open_sheet.dart';
 import 'package:card_holder/features/home/bloc/cards_bloc.dart';
 import 'package:card_holder/features/settings/presentation/screens/settings_screen.dart';

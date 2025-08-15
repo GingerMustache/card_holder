@@ -9,9 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
+part 'parts/entered_code.dart';
 part 'parts/scan_frame.dart';
 part 'parts/text_field.dart';
-part 'parts/entered_code.dart';
 
 class AddCardScreen extends StatefulWidget {
   const AddCardScreen({super.key});
@@ -54,8 +54,6 @@ class _AddCardScreenState extends State<AddCardScreen> {
     );
   }
 
-  setLoading(bool value) => setState(() => loading = value);
-
   search(BarcodeCapture barcodes) async {
     if (!loading &&
         barcodes.barcodes.isNotEmpty &&
@@ -73,28 +71,6 @@ class _AddCardScreenState extends State<AddCardScreen> {
       return false;
     }
 
-    // setLoading(true);
-    // final int id = AppModel.instance.personalUser?.id ?? 0;
-    // List<ProductModel> products = await PersonalService.searchProducts({
-    //   'query_text': _controller.text,
-    //   'user_id': id,
-    // });
-    // setLoading(false);
-
-    // if (products.isNotEmpty) {
-    //   _controller.clear();
-    //   if (products.length == 1) {
-    //     context.pushNamed(LeftoversConst.product, extra: products.first);
-    //   } else {
-    //     context.pushNamed(LeftoversConst.searchProducts, extra: products);
-    //   }
-
-    //   fetchHistory();
-    // } else {
-    //   AnimatedSnackBar.show('Позиция не найдена');
-
-    //   _controller.clear();
-    // }
     return true;
   }
 
@@ -181,12 +157,10 @@ class _AddCardScreenState extends State<AddCardScreen> {
                   ),
                   5.h,
                   _EnteredCodeWidget(),
-                  15.h,
                   _TextField(
                     hintText: t.screen.home.addCard.code,
                     labelText: t.screen.home.addCard.manualCode,
                   ),
-                  15.h,
                   _TextField(
                     hintText: t.screen.home.addCard.name,
                     labelText: t.screen.home.addCard.cardName,
