@@ -1,10 +1,15 @@
 part of '../add_card_sheet.dart';
 
 class _TextField extends StatelessWidget {
-  const _TextField({required this.hintText, required this.labelText});
+  const _TextField({
+    required this.hintText,
+    required this.labelText,
+    required this.onChanged,
+  });
 
   final String hintText;
   final String labelText;
+  final void Function(String)? onChanged;
 
   static const outlineInputBorder = OutlineInputBorder(
     borderRadius: BorderRadius.all(Radius.elliptical(8, 8)),
@@ -19,6 +24,7 @@ class _TextField extends StatelessWidget {
         15.h,
         Text(labelText, style: context.textStyles.labelSmall),
         5.h,
+
         TextFormField(
           cursorColor: AppColors.darkGrey,
           cursorWidth: 1,
@@ -34,6 +40,7 @@ class _TextField extends StatelessWidget {
             focusedBorder: outlineInputBorder,
             enabledBorder: outlineInputBorder,
           ),
+          onChanged: onChanged,
         ),
       ],
     );
