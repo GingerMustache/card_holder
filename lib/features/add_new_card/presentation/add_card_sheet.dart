@@ -24,7 +24,10 @@ class AddCardScreen extends StatefulWidget {
       context: context,
       useRootNavigator: true,
       builder: (BuildContext context) {
-        return AddCardScreen();
+        return BlocProvider(
+          create: (context) => AddCardBloc(),
+          child: AddCardScreen(),
+        );
       },
     );
   }
@@ -92,113 +95,105 @@ class _AddCardScreenState extends State<AddCardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AddCardBloc(),
-      child: SkeletonWrapper(
-        children: [
-          Stack(
-            children: [
-              AspectRatio(
-                aspectRatio: 1.9,
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(8),
-                    topRight: Radius.circular(8),
-                  ),
-                  child: MobileScanner(
-                    controller: cameraController,
-                    onDetect: search,
-                    overlayBuilder: onOverlayBuilder,
-                  ),
+    return SkeletonWrapper(
+      children: [
+        Stack(
+          children: [
+            AspectRatio(
+              aspectRatio: 1.9,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8),
                 ),
-              ),
-              Positioned.fill(
-                child: Center(
-                  child: TextButton(
-                    onPressed: () {
-                      cameraControllerSubscription.resume();
-                      cameraController.start();
-                    },
-                    child: _ScanFrame(),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Expanded(
-            child: Container(
-              color: AppColors.mainWhite,
-              child: Padding(
-                padding: mainHorizontalPadding,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    3.h,
-                    Center(
-                      child: Text(
-                        t.screen.home.addCard.barcodeScan,
-                        style: context.textStyles.labelSmall?.copyWith(
-                          fontSize: 10,
-                        ),
-                      ),
-                    ),
-
-                    Divider(color: AppColors.subGrey.withAlpha(50)),
-                    10.h,
-                    BlocBuilder<AddCardBloc, AddCardState>(
-                      buildWhen:
-                          (previous, current) => previous.code != current.code,
-                      builder: (context, state) {
-                        if (state.code.isNotEmpty) {
-                          return Text(
-                            state.code,
-                            style: context.textStyles.labelSmall,
-                          );
-                        } else if (state.detectedCode.isNotEmpty) {
-                          return Text(
-                            state.detectedCode,
-                            style: context.textStyles.labelSmall,
-                          );
-                        }
-                        return Text(
-                          t.screen.home.addCard.detectedCode,
-                          style: context.textStyles.labelSmall,
-                        );
-                      },
-                    ),
-                    5.h,
-                    _EnteredCodeWidget(),
-                    _TextField(
-                      onChanged:
-                          (v) => context.read<AddCardBloc>().add(
-                            AddCardChangeCodeEvent(v),
-                          ),
-                      hintText: t.screen.home.addCard.code,
-                      labelText: t.screen.home.addCard.manualCode,
-                    ),
-                    _TextField(
-                      onChanged: (p0) => {},
-                      hintText: t.screen.home.addCard.name,
-                      labelText: t.screen.home.addCard.cardName,
-                    ),
-                    20.h,
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 15,
-                        horizontal: 16,
-                      ),
-                      color: AppColors.mainWhite,
-
-                      child: Center(child: Text(t.screen.home.addCard.add)),
-                    ),
-                  ],
+                child: MobileScanner(
+                  controller: cameraController,
+                  onDetect: search,
+                  overlayBuilder: onOverlayBuilder,
                 ),
               ),
             ),
+            Positioned.fill(
+              child: Center(
+                child: TextButton(
+                  onPressed: () {
+                    cameraControllerSubscription.resume();
+                    cameraController.start();
+                  },
+                  child: _ScanFrame(),
+                ),
+              ),
+            ),
+          ],
+        ),
+        Expanded(
+          child: Container(
+            color: AppColors.mainWhite,
+            child: Padding(
+              padding: mainHorizontalPadding,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  3.h,
+                  Center(
+                    child: Text(
+                      t.screen.home.addCard.barcodeScan,
+                      style: context.textStyles.labelSmall?.copyWith(
+                        fontSize: 10,
+                      ),
+                    ),
+                  ),
+
+                  Divider(color: AppColors.subGrey.withAlpha(50)),
+                  10.h,
+                  Text(
+                    t.screen.home.addCard.detectedCode,
+                    style: context.textStyles.labelSmall,
+                  ),
+
+                  5.h,
+                  BlocBuilder<AddCardBloc, AddCardState>(
+                    buildWhen:
+                        (previous, current) => previous.code != current.code,
+                    builder: (context, state) {
+                      final code =
+                          state.code.isNotEmpty
+                              ? state.code
+                              : state.detectedCode;
+                      return _EnteredCodeWidget(code);
+                    },
+                  ),
+                  _TextField(
+                    numericKeyboard: true,
+                    onChanged:
+                        (v) => context.read<AddCardBloc>().add(
+                          AddCardChangeCodeEvent(v),
+                        ),
+                    hintText: t.screen.home.addCard.code,
+                    labelText: t.screen.home.addCard.manualCode,
+                  ),
+                  _TextField(
+                    onChanged: (p0) => {},
+                    hintText: t.screen.home.addCard.name,
+                    labelText: t.screen.home.addCard.cardName,
+                  ),
+                  20.h,
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 15,
+                      horizontal: 16,
+                    ),
+                    color: AppColors.mainWhite,
+
+                    child: Center(child: Text(t.screen.home.addCard.add)),
+                  ),
+                ],
+              ),
+            ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

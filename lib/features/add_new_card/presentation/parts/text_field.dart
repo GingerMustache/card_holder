@@ -5,11 +5,13 @@ class _TextField extends StatelessWidget {
     required this.hintText,
     required this.labelText,
     required this.onChanged,
+    this.numericKeyboard = false,
   });
 
   final String hintText;
   final String labelText;
   final void Function(String)? onChanged;
+  final bool numericKeyboard;
 
   static const outlineInputBorder = OutlineInputBorder(
     borderRadius: BorderRadius.all(Radius.elliptical(8, 8)),
@@ -26,9 +28,14 @@ class _TextField extends StatelessWidget {
         5.h,
 
         TextFormField(
+          keyboardType:
+              numericKeyboard
+                  ? TextInputType.numberWithOptions()
+                  : TextInputType.multiline,
           cursorColor: AppColors.darkGrey,
           cursorWidth: 1,
           cursorHeight: 15,
+
           // initialValue: widget.value,
           // focusNode: widget.focusNode,
           textCapitalization: TextCapitalization.characters,

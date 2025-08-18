@@ -1,7 +1,8 @@
 part of '../add_card_sheet.dart';
 
 class _EnteredCodeWidget extends StatelessWidget {
-  const _EnteredCodeWidget();
+  const _EnteredCodeWidget(this.code);
+  final String code;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,10 @@ class _EnteredCodeWidget extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.elliptical(8, 8)),
       ),
       child: Center(
-        child: Text('0000 0000 0000', style: context.textStyles.displayMedium),
+        child: Text(
+          code.isNotEmpty ? code : '0000 0000 0000',
+          style: context.textStyles.displayMedium,
+        ),
       ),
     );
   }
