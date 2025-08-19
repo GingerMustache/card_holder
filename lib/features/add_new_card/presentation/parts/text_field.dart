@@ -26,7 +26,6 @@ class _TextField extends StatelessWidget {
         15.h,
         Text(labelText, style: context.textStyles.labelSmall),
         5.h,
-
         TextFormField(
           keyboardType:
               numericKeyboard
@@ -38,7 +37,6 @@ class _TextField extends StatelessWidget {
 
           // initialValue: widget.value,
           // focusNode: widget.focusNode,
-          textCapitalization: TextCapitalization.characters,
           style: TextStyle(fontSize: 16, color: AppColors.subGrey),
           decoration: InputDecoration(
             hintText: hintText,

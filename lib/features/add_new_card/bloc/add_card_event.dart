@@ -9,3 +9,11 @@ class AddCardChangeCodeEvent extends AddCardEvent {
   @override
   List<Object?> get props => [code];
 }
+
+class AddCardChangeNameEvent extends AddCardEvent {
+  AddCardChangeNameEvent(this.name);
+  final String name;
+
+  @override
+  List<Object?> get props => [name];
+}

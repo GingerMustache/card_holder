@@ -10,6 +10,7 @@ part 'add_card_state.dart';
 class AddCardBloc extends Bloc<AddCardEvent, AddCardState> {
   AddCardBloc() : super(AddCardState()) {
     on<AddCardChangeCodeEvent>(_onAddCode, transformer: _debounceRestartable());
+    on<AddCardChangeNameEvent>(_onAddName, transformer: _debounceRestartable());
   }
   EventTransformer<CatalogEvent> _debounceRestartable<CatalogEvent>() {
     return (events, mapper) => restartable<CatalogEvent>().call(
@@ -23,12 +24,22 @@ class AddCardBloc extends Bloc<AddCardEvent, AddCardState> {
     Emitter<AddCardState> emit,
   ) async {
     final onlyNumbers = event.code.replaceAll(RegExp(r'[^0-9]'), '');
+    if (onlyNumbers.isEmpty) {
+      emit(state.copyWith(code: ''));
+    } else {
+      final formatter = NumberFormat('#,###', 'en');
+      final formattedCode = formatter
+          .format(int.tryParse(onlyNumbers))
+          .replaceAll(',', ' ');
 
-    final formatter = NumberFormat('#,###', 'en');
-    final formattedCode = formatter
-        .format(int.parse(onlyNumbers))
-        .replaceAll(',', ' ');
+      emit(state.copyWith(code: formattedCode));
+    }
+  }
 
-    emit(state.copyWith(code: formattedCode));
+  Future<void> _onAddName(
+    AddCardChangeNameEvent event,
+    Emitter<AddCardState> emit,
+  ) async {
+    emit(state.copyWith(name: event.name.replaceAll(' ', '')));
   }
 }

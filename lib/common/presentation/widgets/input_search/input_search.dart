@@ -57,7 +57,7 @@ class _InputSearchState extends State<InputSearch> {
           cursorHeight: 15,
           initialValue: widget.value,
           focusNode: widget.focusNode,
-          textCapitalization: TextCapitalization.characters,
+
           style: TextStyle(fontSize: widget.fontSize, color: AppColors.subGrey),
 
           decoration: InputDecoration(
@@ -82,7 +82,7 @@ class _InputSearchState extends State<InputSearch> {
             //   child: SvgPicture.asset(AppIcons.find),
             // ),
           ),
-          inputFormatters: [RemoveEmojiInputFormatter()],
+          // inputFormatters: [RemoveEmojiInputFormatter()],
           onChanged: (String val) {
             if (widget.change != null) {
               widget.change!(val);

@@ -40,12 +40,15 @@ class AddCardScreen extends StatefulWidget {
 class _AddCardScreenState extends State<AddCardScreen> {
   late MobileScannerController cameraController;
   late StreamSubscription cameraControllerSubscription;
+  late final AddCardBloc addCardBloc;
 
   bool loading = false;
 
   @override
   void initState() {
     super.initState();
+    addCardBloc = context.read<AddCardBloc>();
+
     cameraController = MobileScannerController(detectionTimeoutMs: 1500);
 
     cameraControllerSubscription = cameraController.barcodes.listen(
@@ -157,14 +160,13 @@ class _AddCardScreenState extends State<AddCardScreen> {
                   _TextField(
                     numericKeyboard: true,
                     onChanged:
-                        (v) => context.read<AddCardBloc>().add(
-                          AddCardChangeCodeEvent(v),
-                        ),
+                        (v) => addCardBloc.add(AddCardChangeCodeEvent(v)),
                     hintText: t.screen.home.addCard.code,
                     labelText: t.screen.home.addCard.manualCode,
                   ),
                   _TextField(
-                    onChanged: (p0) => {},
+                    onChanged:
+                        (v) => addCardBloc.add(AddCardChangeNameEvent(v)),
                     hintText: t.screen.home.addCard.name,
                     labelText: t.screen.home.addCard.cardName,
                   ),
