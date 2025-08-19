@@ -10,7 +10,6 @@ import 'package:card_holder/features/home/bloc/cards_bloc.dart';
 import 'package:card_holder/features/settings/presentation/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 part '../parts/app_bar.dart';
 part '../parts/fab.dart';
@@ -53,14 +52,18 @@ class _GridCards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MasonryGridView.count(
+    return GridView.builder(
       padding: mainPadding,
       physics: const BouncingScrollPhysics(
         parent: AlwaysScrollableScrollPhysics(),
       ),
-      crossAxisCount: 2,
-      mainAxisSpacing: 16,
-      crossAxisSpacing: 16,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        mainAxisSpacing: 13,
+        crossAxisSpacing: 13,
+        childAspectRatio: 1.5,
+      ),
+
       itemCount: cards.length,
       itemBuilder: (_, index) => _CardItem(cards[index], index),
     );

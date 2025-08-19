@@ -47,6 +47,7 @@ class _TextField extends StatelessWidget {
             focusedBorder: outlineInputBorder,
             enabledBorder: outlineInputBorder,
           ),
+          inputFormatters: [RemoveEmojiInputFormatter()],
           onChanged: onChanged,
         ),
       ],

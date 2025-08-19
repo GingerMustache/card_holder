@@ -22,7 +22,7 @@ class AddCardBloc extends Bloc<AddCardEvent, AddCardState> {
     AddCardChangeCodeEvent event,
     Emitter<AddCardState> emit,
   ) async {
-    final formatter = NumberFormat('#,###', 'en'); // will use commas
+    final formatter = NumberFormat('#,###', 'en');
     final formattedCode = formatter
         .format(int.parse(event.code))
         .replaceAll(',', ' ');

@@ -4,6 +4,7 @@ import 'package:card_holder/common/application/app_settings.dart';
 import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/presentation/assets_parts/app_icons.dart';
+import 'package:card_holder/common/presentation/widgets/input_search/input_search.dart';
 import 'package:card_holder/common/presentation/widgets/skeleton_wrapper/skeleton_wrapper.dart';
 import 'package:card_holder/features/add_new_card/bloc/add_card_bloc.dart';
 import 'package:flutter/material.dart';
@@ -152,17 +153,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                   ),
 
                   5.h,
-                  BlocBuilder<AddCardBloc, AddCardState>(
-                    buildWhen:
-                        (previous, current) => previous.code != current.code,
-                    builder: (context, state) {
-                      final code =
-                          state.code.isNotEmpty
-                              ? state.code
-                              : state.detectedCode;
-                      return _EnteredCodeWidget(code);
-                    },
-                  ),
+                  _EnteredCodeWidget(),
                   _TextField(
                     numericKeyboard: true,
                     onChanged:
