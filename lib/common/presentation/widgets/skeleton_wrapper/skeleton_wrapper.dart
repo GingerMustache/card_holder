@@ -16,14 +16,7 @@ class SkeletonWrapper extends StatelessWidget {
         child: Column(
           children: [
             Center(
-              child: Container(
-                width: 35,
-                height: 5,
-                decoration: BoxDecoration(
-                  color: AppColors.steam.withAlpha(220),
-                  borderRadius: BorderRadius.circular(2.5),
-                ),
-              ),
+              child: Container(width: 35, height: 5, decoration: boxDecoration),
             ),
             5.h,
             ...children,
@@ -32,4 +25,9 @@ class SkeletonWrapper extends StatelessWidget {
       ),
     );
   }
+
+  static final boxDecoration = BoxDecoration(
+    color: AppColors.steam.withAlpha(220),
+    borderRadius: BorderRadius.circular(2.5),
+  );
 }

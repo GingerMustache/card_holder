@@ -91,7 +91,7 @@ class _CreateCardScreenState extends State<CreateCardScreen> {
           ],
         ),
         Expanded(
-          child: Container(
+          child: ColoredBox(
             color: AppColors.mainWhite,
             child: Padding(
               padding: mainHorizontalPadding,
