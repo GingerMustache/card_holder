@@ -11,7 +11,7 @@ class DataBaseCard extends Equatable {
     required this.id,
     required this.code,
     required this.name,
-    required this.usagePoint,
+    this.usagePoint = 0,
   });
 
   DataBaseCard.fromRow(Map<String, Object?> map)

@@ -24,7 +24,9 @@ class _Fab extends StatelessWidget {
       child: TextButton(
         child: Text(t.screen.home.add, style: context.textStyles.labelSmall),
         onPressed: () async {
-          CreateCardScreen.show(context);
+          final cardsBloc = context.read<CardsBloc>();
+
+          CreateCardScreen.show(context, cardsBloc);
         },
       ),
     );

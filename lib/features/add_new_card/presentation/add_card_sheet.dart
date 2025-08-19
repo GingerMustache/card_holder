@@ -1,10 +1,14 @@
+import 'dart:async' show Completer;
+
 import 'package:card_holder/common/application/app_settings.dart';
 import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/presentation/assets_parts/app_icons.dart';
 import 'package:card_holder/common/presentation/widgets/input_search/input_search.dart';
 import 'package:card_holder/common/presentation/widgets/skeleton_wrapper/skeleton_wrapper.dart';
+import 'package:card_holder/common/services/local_crud/card_service.dart';
 import 'package:card_holder/features/add_new_card/bloc/create_card_bloc.dart';
+import 'package:card_holder/features/home/bloc/cards_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -16,8 +20,10 @@ part 'parts/scan_frame.dart';
 part 'parts/text_field.dart';
 
 class CreateCardScreen extends StatefulWidget {
-  const CreateCardScreen({super.key});
-  static void show(BuildContext context) {
+  const CreateCardScreen(this.cardsBloc, {super.key});
+  final CardsBloc cardsBloc;
+
+  static void show(BuildContext context, CardsBloc cardsBloc) {
     showModalBottomSheet<void>(
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
@@ -26,7 +32,7 @@ class CreateCardScreen extends StatefulWidget {
       builder: (BuildContext context) {
         return BlocProvider(
           create: (context) => CreateCardBloc(),
-          child: CreateCardScreen(),
+          child: CreateCardScreen(cardsBloc),
         );
       },
     );
@@ -123,7 +129,29 @@ class _CreateCardScreenState extends State<CreateCardScreen> {
                     labelText: t.screen.home.addCard.cardName,
                   ),
                   20.h,
-                  _AddButton(onTap: () => print('object')),
+                  _AddButton(
+                    onTap: () async {
+                      final completer = Completer<DataBaseCard>();
+                      final code =
+                          bloc.state.detectedCode.isNotEmpty
+                              ? bloc.state.detectedCode
+                              : bloc.state.code;
+
+                      widget.cardsBloc.add(
+                        CardsAddCardEvent(
+                          code: code,
+                          name: bloc.state.name,
+                          completer: completer,
+                        ),
+                      );
+                      try {
+                        await completer.future;
+                        Navigator.pop(context);
+                      } catch (e) {
+                        // add snack
+                      }
+                    },
+                  ),
                 ],
               ),
             ),
