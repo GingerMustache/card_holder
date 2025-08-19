@@ -22,9 +22,11 @@ class AddCardBloc extends Bloc<AddCardEvent, AddCardState> {
     AddCardChangeCodeEvent event,
     Emitter<AddCardState> emit,
   ) async {
+    final onlyNumbers = event.code.replaceAll(RegExp(r'[^0-9]'), '');
+
     final formatter = NumberFormat('#,###', 'en');
     final formattedCode = formatter
-        .format(int.parse(event.code))
+        .format(int.parse(onlyNumbers))
         .replaceAll(',', ' ');
 
     emit(state.copyWith(code: formattedCode));
