@@ -17,3 +17,11 @@ class AddCardChangeNameEvent extends AddCardEvent {
   @override
   List<Object?> get props => [name];
 }
+
+class AddCardSearchEvent extends AddCardEvent {
+  AddCardSearchEvent(this.barcodes);
+  final BarcodeCapture barcodes;
+
+  @override
+  List<Object?> get props => [barcodes];
+}

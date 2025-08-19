@@ -25,9 +25,7 @@ class HomeScreen extends StatelessWidget {
         floatingActionButton: _Fab(),
 
         body: NestedScrollView(
-          physics: const BouncingScrollPhysics(
-            parent: AlwaysScrollableScrollPhysics(),
-          ),
+          physics: const ClampingScrollPhysics(),
           headerSliverBuilder: (context, innerBoxIsScrolled) => [_AppBar()],
           body: TabBarView(
             children: [

@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:card_holder/common/application/app_settings.dart';
 import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
@@ -38,47 +36,18 @@ class AddCardScreen extends StatefulWidget {
 }
 
 class _AddCardScreenState extends State<AddCardScreen> {
-  late MobileScannerController cameraController;
-  late StreamSubscription cameraControllerSubscription;
-  late final AddCardBloc addCardBloc;
-
-  bool loading = false;
+  late final AddCardBloc bloc;
 
   @override
   void initState() {
     super.initState();
-    addCardBloc = context.read<AddCardBloc>();
-
-    cameraController = MobileScannerController(detectionTimeoutMs: 1500);
-
-    cameraControllerSubscription = cameraController.barcodes.listen(
-      (event) => {},
-    );
-  }
-
-  search(BarcodeCapture barcodes) async {
-    if (!loading &&
-        barcodes.barcodes.isNotEmpty &&
-        barcodes.barcodes.first.rawValue != null) {
-      await submit(context);
-      cameraControllerSubscription.pause();
-    }
-  }
-
-  Future<bool> submit(BuildContext context) async {
-    // if (_controller.text.isEmpty) {
-    //   print('Введите штрих-код или артикул');
-
-    //   return false;
-    // }
-
-    return true;
+    bloc = context.read<AddCardBloc>();
   }
 
   Widget onOverlayBuilder(BuildContext context, BoxConstraints constraints) {
-    if (cameraControllerSubscription.isPaused) {
+    if (bloc.cameraControllerSubscription.isPaused) {
       WidgetsBinding.instance.addPostFrameCallback((_) async {
-        cameraController.stop();
+        bloc.cameraController.stop();
       });
       return const Text(
         'Нажмите чтобы продолжить',
@@ -86,15 +55,6 @@ class _AddCardScreenState extends State<AddCardScreen> {
       );
     }
     return const SizedBox();
-  }
-
-  @override
-  void dispose() {
-    cameraControllerSubscription.cancel();
-    cameraController.stop();
-    cameraController.dispose();
-
-    super.dispose();
   }
 
   @override
@@ -111,8 +71,9 @@ class _AddCardScreenState extends State<AddCardScreen> {
                   topRight: Radius.circular(8),
                 ),
                 child: MobileScanner(
-                  controller: cameraController,
-                  onDetect: search,
+                  controller: bloc.cameraController,
+                  onDetect:
+                      (barcodes) => bloc.add(AddCardSearchEvent(barcodes)),
                   overlayBuilder: onOverlayBuilder,
                 ),
               ),
@@ -121,8 +82,8 @@ class _AddCardScreenState extends State<AddCardScreen> {
               child: Center(
                 child: TextButton(
                   onPressed: () {
-                    cameraControllerSubscription.resume();
-                    cameraController.start();
+                    bloc.cameraControllerSubscription.resume();
+                    bloc.cameraController.start();
                   },
                   child: _ScanFrame(),
                 ),
@@ -159,14 +120,12 @@ class _AddCardScreenState extends State<AddCardScreen> {
                   _EnteredCodeWidget(),
                   _TextField(
                     numericKeyboard: true,
-                    onChanged:
-                        (v) => addCardBloc.add(AddCardChangeCodeEvent(v)),
+                    onChanged: (v) => bloc.add(AddCardChangeCodeEvent(v)),
                     hintText: t.screen.home.addCard.code,
                     labelText: t.screen.home.addCard.manualCode,
                   ),
                   _TextField(
-                    onChanged:
-                        (v) => addCardBloc.add(AddCardChangeNameEvent(v)),
+                    onChanged: (v) => bloc.add(AddCardChangeNameEvent(v)),
                     hintText: t.screen.home.addCard.name,
                     labelText: t.screen.home.addCard.cardName,
                   ),
@@ -190,19 +149,3 @@ class _AddCardScreenState extends State<AddCardScreen> {
     );
   }
 }
-
-// Widget _loadingPlaceHolder(BuildContext context) {
-//   return ShimmerContainer(
-//     child: Padding(
-//       padding: const EdgeInsets.symmetric(horizontal: 18),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           SizedBox(height: AppScale.scaleHorizontally(context, 88)),
-//           Text('история поиска'.toUpperCase(), style: context.regular_20),
-//           SizedBox(height: AppScale.scaleHorizontally(context, 20)),
-//         ],
-//       ),
-//     ),
-//   );
-// }
