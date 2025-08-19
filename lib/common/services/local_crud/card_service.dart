@@ -12,12 +12,14 @@ part '../local_crud/model/data_base_card.dart';
 const _dbName = "card_hold.db";
 const _cardTable = "card";
 const _idColumn = "id";
+const _name = "name";
 const _codeColumn = "code";
 const _usagePointColumn = "usage_point";
 const _createCardTable = '''
       CREATE TABLE IF NOT EXISTS "card" (
       "id"	INTEGER NOT NULL,
       "code"	TEXT,
+      "name"	TEXT,
       "usage_point" INTEGER,
       PRIMARY KEY("id" AUTOINCREMENT)
       );''';
@@ -32,7 +34,7 @@ abstract class CardServiceAbstract {
   Future<List<DataBaseCard>> getAllCards();
   Future<int> deleteAllCards();
   Future<void> deleteCard({required int id});
-  Future<DataBaseCard> createCard({required String code});
+  Future<DataBaseCard> createCard({required String code, required String name});
 }
 
 class CardService implements CardServiceAbstract {
@@ -145,16 +147,20 @@ class CardService implements CardServiceAbstract {
   }
 
   @override
-  Future<DataBaseCard> createCard({required String code}) async {
+  Future<DataBaseCard> createCard({
+    required String code,
+    required String name,
+  }) async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
 
     final cardId = await db.insert(_cardTable, {
       _codeColumn: code,
+      _name: name,
       _usagePointColumn: 0,
     }, conflictAlgorithm: ConflictAlgorithm.replace);
 
-    return DataBaseCard(id: cardId, code: code, usagePoint: 0);
+    return DataBaseCard(id: cardId, code: code, name: name, usagePoint: 0);
   }
 
   Database _getDatabaseOrThrow() {

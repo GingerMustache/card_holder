@@ -1,12 +1,13 @@
 part of '../add_card_sheet.dart';
 
 class _AddButton extends StatelessWidget {
-  const _AddButton();
+  const _AddButton({required this.onTap});
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => print('Add card pressed'),
+      onTap: onTap,
       splashColor: AppColors.mainWhite,
       splashFactory: null,
       child: Container(

@@ -4,7 +4,7 @@ import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/presentation/assets_parts/app_icons.dart';
 import 'package:card_holder/common/presentation/widgets/input_search/input_search.dart';
 import 'package:card_holder/common/presentation/widgets/skeleton_wrapper/skeleton_wrapper.dart';
-import 'package:card_holder/features/add_new_card/bloc/add_card_bloc.dart';
+import 'package:card_holder/features/add_new_card/bloc/create_card_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -15,8 +15,8 @@ part 'parts/entered_code.dart';
 part 'parts/scan_frame.dart';
 part 'parts/text_field.dart';
 
-class AddCardScreen extends StatefulWidget {
-  const AddCardScreen({super.key});
+class CreateCardScreen extends StatefulWidget {
+  const CreateCardScreen({super.key});
   static void show(BuildContext context) {
     showModalBottomSheet<void>(
       backgroundColor: Colors.transparent,
@@ -25,24 +25,24 @@ class AddCardScreen extends StatefulWidget {
       useRootNavigator: true,
       builder: (BuildContext context) {
         return BlocProvider(
-          create: (context) => AddCardBloc(),
-          child: AddCardScreen(),
+          create: (context) => CreateCardBloc(),
+          child: CreateCardScreen(),
         );
       },
     );
   }
 
   @override
-  State<AddCardScreen> createState() => _AddCardScreenState();
+  State<CreateCardScreen> createState() => _CreateCardScreenState();
 }
 
-class _AddCardScreenState extends State<AddCardScreen> {
-  late final AddCardBloc bloc;
+class _CreateCardScreenState extends State<CreateCardScreen> {
+  late final CreateCardBloc bloc;
 
   @override
   void initState() {
     super.initState();
-    bloc = context.read<AddCardBloc>();
+    bloc = context.read<CreateCardBloc>();
   }
 
   Widget onOverlayBuilder(BuildContext context, BoxConstraints constraints) {
@@ -71,7 +71,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                 child: MobileScanner(
                   controller: bloc.cameraController,
                   onDetect:
-                      (barcodes) => bloc.add(AddCardSearchEvent(barcodes)),
+                      (barcodes) => bloc.add(CreateCardSearchEvent(barcodes)),
                   overlayBuilder: onOverlayBuilder,
                 ),
               ),
@@ -113,17 +113,17 @@ class _AddCardScreenState extends State<AddCardScreen> {
                   _EnteredCodeWidget(),
                   _TextField(
                     numericKeyboard: true,
-                    onChanged: (v) => bloc.add(AddCardChangeCodeEvent(v)),
+                    onChanged: (v) => bloc.add(CreateCardChangeCodeEvent(v)),
                     hintText: t.screen.home.addCard.code,
                     labelText: t.screen.home.addCard.manualCode,
                   ),
                   _TextField(
-                    onChanged: (v) => bloc.add(AddCardChangeNameEvent(v)),
+                    onChanged: (v) => bloc.add(CreateCardChangeNameEvent(v)),
                     hintText: t.screen.home.addCard.name,
                     labelText: t.screen.home.addCard.cardName,
                   ),
                   20.h,
-                  _AddButton(),
+                  _AddButton(onTap: () => print('object')),
                 ],
               ),
             ),

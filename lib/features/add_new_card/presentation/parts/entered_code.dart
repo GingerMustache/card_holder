@@ -14,7 +14,7 @@ class _EnteredCodeWidget extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.elliptical(8, 8)),
       ),
       child: Center(
-        child: BlocBuilder<AddCardBloc, AddCardState>(
+        child: BlocBuilder<CreateCardBloc, CreateCardState>(
           buildWhen: (previous, current) => previous.code != current.code,
           builder: (context, state) {
             final code =

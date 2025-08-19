@@ -7,17 +7,23 @@ import 'package:intl/intl.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:rxdart/rxdart.dart';
 
-part 'add_card_event.dart';
-part 'add_card_state.dart';
+part 'create_card_event.dart';
+part 'create_card_state.dart';
 
-class AddCardBloc extends Bloc<AddCardEvent, AddCardState> {
+class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState> {
   late final MobileScannerController cameraController;
   late final StreamSubscription cameraControllerSubscription;
 
-  AddCardBloc() : super(AddCardState()) {
-    on<AddCardChangeCodeEvent>(_onAddCode, transformer: _debounceRestartable());
-    on<AddCardChangeNameEvent>(_onAddName, transformer: _debounceRestartable());
-    on<AddCardSearchEvent>(_onSearch, transformer: _debounceRestartable());
+  CreateCardBloc() : super(CreateCardState()) {
+    on<CreateCardChangeCodeEvent>(
+      _onAddCode,
+      transformer: _debounceRestartable(),
+    );
+    on<CreateCardChangeNameEvent>(
+      _onAddName,
+      transformer: _debounceRestartable(),
+    );
+    on<CreateCardSearchEvent>(_onSearch, transformer: _debounceRestartable());
 
     cameraController = MobileScannerController(detectionTimeoutMs: 1500);
     cameraControllerSubscription = cameraController.barcodes.listen(
@@ -33,8 +39,8 @@ class AddCardBloc extends Bloc<AddCardEvent, AddCardState> {
   }
 
   Future<void> _onAddCode(
-    AddCardChangeCodeEvent event,
-    Emitter<AddCardState> emit,
+    CreateCardChangeCodeEvent event,
+    Emitter<CreateCardState> emit,
   ) async {
     final onlyNumbers = event.code.replaceAll(RegExp(r'[^0-9]'), '');
     if (onlyNumbers.isEmpty) {
@@ -50,13 +56,13 @@ class AddCardBloc extends Bloc<AddCardEvent, AddCardState> {
   }
 
   Future<void> _onAddName(
-    AddCardChangeNameEvent event,
-    Emitter<AddCardState> emit,
+    CreateCardChangeNameEvent event,
+    Emitter<CreateCardState> emit,
   ) async => emit(state.copyWith(name: event.name.replaceAll(' ', '')));
 
   Future<void> _onSearch(
-    AddCardSearchEvent event,
-    Emitter<AddCardState> emit,
+    CreateCardSearchEvent event,
+    Emitter<CreateCardState> emit,
   ) async {
     final barcodes = event.barcodes;
     if (barcodes.barcodes.isNotEmpty &&

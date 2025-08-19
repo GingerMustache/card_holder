@@ -8,7 +8,7 @@ class _Fab extends StatelessWidget {
     return Container(
       width: 58,
       height: 55,
-      // padding: EdgeInsets.all(4),
+
       decoration: BoxDecoration(
         color: AppColors.mainWhite,
         borderRadius: BorderRadius.all(Radius.elliptical(8, 8)),
@@ -24,7 +24,7 @@ class _Fab extends StatelessWidget {
       child: TextButton(
         child: Text(t.screen.home.add, style: context.textStyles.labelSmall),
         onPressed: () async {
-          AddCardScreen.show(context);
+          CreateCardScreen.show(context);
         },
       ),
     );

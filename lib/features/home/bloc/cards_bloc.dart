@@ -37,4 +37,12 @@ class CardsBloc extends Bloc<CardsEvent, CardsState> {
       state.copyWith(currentCard: currentCard, cards: cards, isLoading: false),
     );
   }
+
+  // _onFetchCards(CardsFetchCardsEvent event, Emitter<CardsState> emit) async {
+  //   emit(state.copyWith(isLoading: true));
+
+  //   final cards = await _cardService.getAllCards();
+
+  //   emit(state.copyWith(cards: cards, isLoading: false));
+  // }
 }

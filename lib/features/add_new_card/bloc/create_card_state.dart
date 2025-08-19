@@ -1,7 +1,7 @@
-part of 'add_card_bloc.dart';
+part of 'create_card_bloc.dart';
 
-final class AddCardState extends Equatable {
-  const AddCardState({
+final class CreateCardState extends Equatable {
+  const CreateCardState({
     this.code = '',
     this.detectedCode = '',
     this.name = '',
@@ -14,14 +14,14 @@ final class AddCardState extends Equatable {
   final String detectedName;
   final bool isFetching;
 
-  AddCardState copyWith({
+  CreateCardState copyWith({
     String? code,
     String? detectedCode,
     String? detectedName,
     String? name,
     bool? isFetching,
   }) {
-    return AddCardState(
+    return CreateCardState(
       detectedName: detectedName ?? this.detectedName,
       code: code ?? this.code,
       detectedCode: detectedCode ?? this.detectedCode,

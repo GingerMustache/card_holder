@@ -17,3 +17,12 @@ class CardsOpenCardEvent extends CardsEvent {
   @override
   List<Object?> get props => [id, index];
 }
+
+// class CardsAddCardEvent extends CardsEvent {
+//   final int? id;
+//   final int index;
+
+//   const CardsOpenCardEvent({required this.id, required this.index});
+//   @override
+//   List<Object?> get props => [id, index];
+// }
