@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
+part 'parts/add_button.dart';
 part 'parts/entered_code.dart';
 part 'parts/scan_frame.dart';
 part 'parts/text_field.dart';
@@ -66,10 +67,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
             AspectRatio(
               aspectRatio: 1.9,
               child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(8),
-                  topRight: Radius.circular(8),
-                ),
+                borderRadius: borderRadius,
                 child: MobileScanner(
                   controller: bloc.cameraController,
                   onDetect:
@@ -78,16 +76,11 @@ class _AddCardScreenState extends State<AddCardScreen> {
                 ),
               ),
             ),
-            Positioned.fill(
-              child: Center(
-                child: TextButton(
-                  onPressed: () {
-                    bloc.cameraControllerSubscription.resume();
-                    bloc.cameraController.start();
-                  },
-                  child: _ScanFrame(),
-                ),
-              ),
+            _ScanFrame(
+              onPressed: () {
+                bloc.cameraControllerSubscription.resume();
+                bloc.cameraController.start();
+              },
             ),
           ],
         ),
@@ -130,16 +123,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                     labelText: t.screen.home.addCard.cardName,
                   ),
                   20.h,
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 15,
-                      horizontal: 16,
-                    ),
-                    color: AppColors.mainWhite,
-
-                    child: Center(child: Text(t.screen.home.addCard.add)),
-                  ),
+                  _AddButton(),
                 ],
               ),
             ),
@@ -148,4 +132,9 @@ class _AddCardScreenState extends State<AddCardScreen> {
       ],
     );
   }
+
+  static const borderRadius = BorderRadius.only(
+    topLeft: Radius.circular(8),
+    topRight: Radius.circular(8),
+  );
 }
