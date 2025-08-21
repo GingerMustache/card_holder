@@ -1,8 +1,10 @@
-part of '../add_card_sheet.dart';
+import 'package:card_holder/common/application/app_settings.dart';
+import 'package:flutter/material.dart';
 
-class _AddButton extends StatelessWidget {
-  const _AddButton({required this.onTap});
+class DefaultButton extends StatelessWidget {
+  const DefaultButton({super.key, required this.onTap, required this.text});
   final VoidCallback onTap;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,7 @@ class _AddButton extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
         color: AppColors.mainWhite,
 
-        child: Center(child: Text(t.screen.home.addCard.add)),
+        child: Center(child: Text(text)),
       ),
     );
   }

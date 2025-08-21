@@ -1,7 +1,11 @@
-part of '../add_card_sheet.dart';
+import 'package:card_holder/common/application/app_settings.dart';
+import 'package:card_holder/common/extensions/app_extensions.dart';
+import 'package:card_holder/common/presentation/widgets/input_search/input_search.dart';
+import 'package:flutter/material.dart';
 
-class _TextField extends StatelessWidget {
-  const _TextField({
+class FrameTextField extends StatelessWidget {
+  const FrameTextField({
+    super.key,
     required this.hintText,
     required this.labelText,
     required this.onChanged,
@@ -12,11 +16,6 @@ class _TextField extends StatelessWidget {
   final String labelText;
   final void Function(String)? onChanged;
   final bool numericKeyboard;
-
-  static const outlineInputBorder = OutlineInputBorder(
-    borderRadius: BorderRadius.all(Radius.elliptical(8, 8)),
-    borderSide: BorderSide(color: AppColors.steam),
-  );
 
   @override
   Widget build(BuildContext context) {
@@ -51,4 +50,9 @@ class _TextField extends StatelessWidget {
       ],
     );
   }
+
+  static const outlineInputBorder = OutlineInputBorder(
+    borderRadius: BorderRadius.all(Radius.elliptical(8, 8)),
+    borderSide: BorderSide(color: AppColors.steam),
+  );
 }

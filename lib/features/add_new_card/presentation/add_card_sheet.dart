@@ -4,20 +4,21 @@ import 'package:card_holder/common/application/app_settings.dart';
 import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/presentation/assets_parts/app_icons.dart';
-import 'package:card_holder/common/presentation/widgets/input_search/input_search.dart';
+import 'package:card_holder/common/presentation/widgets/buttons/default_button.dart';
+import 'package:card_holder/common/presentation/widgets/containers/frame_container.dart';
 import 'package:card_holder/common/presentation/widgets/skeleton_wrapper/skeleton_wrapper.dart';
+import 'package:card_holder/common/presentation/widgets/text_fields/frame_text_field.dart';
 import 'package:card_holder/common/services/local_crud/card_service.dart';
 import 'package:card_holder/features/add_new_card/bloc/create_card_bloc.dart';
 import 'package:card_holder/features/home/bloc/cards_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
-part 'parts/add_button.dart';
 part 'parts/entered_code.dart';
 part 'parts/scan_frame.dart';
-part 'parts/text_field.dart';
 
 class CreateCardScreen extends StatefulWidget {
   const CreateCardScreen(this.cardsBloc, {super.key});
@@ -117,19 +118,20 @@ class _CreateCardScreenState extends State<CreateCardScreen> {
 
                   5.h,
                   _EnteredCodeWidget(),
-                  _TextField(
+                  FrameTextField(
                     numericKeyboard: true,
                     onChanged: (v) => bloc.add(CreateCardChangeCodeEvent(v)),
                     hintText: t.screen.home.addCard.code,
                     labelText: t.screen.home.addCard.manualCode,
                   ),
-                  _TextField(
+                  FrameTextField(
                     onChanged: (v) => bloc.add(CreateCardChangeNameEvent(v)),
                     hintText: t.screen.home.addCard.name,
                     labelText: t.screen.home.addCard.cardName,
                   ),
                   20.h,
-                  _AddButton(
+                  DefaultButton(
+                    text: t.screen.home.addCard.add,
                     onTap: () async {
                       final completer = Completer<DataBaseCard>();
                       final code =
@@ -146,7 +148,7 @@ class _CreateCardScreenState extends State<CreateCardScreen> {
                       );
                       try {
                         await completer.future;
-                        Navigator.pop(context);
+                        context.pop();
                       } catch (e) {
                         // add snack
                       }

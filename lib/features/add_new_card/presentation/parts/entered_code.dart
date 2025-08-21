@@ -5,14 +5,7 @@ class _EnteredCodeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-      decoration: BoxDecoration(
-        border: Border.all(color: AppColors.steam),
-
-        borderRadius: BorderRadius.all(Radius.elliptical(8, 8)),
-      ),
+    return FrameContainer(
       child: Center(
         child: BlocBuilder<CreateCardBloc, CreateCardState>(
           buildWhen: (previous, current) => previous.code != current.code,

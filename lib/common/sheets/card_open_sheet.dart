@@ -1,5 +1,9 @@
 import 'package:card_holder/common/application/app_settings.dart';
+import 'package:card_holder/common/extensions/app_extensions.dart';
+import 'package:card_holder/common/localization/i18n/strings.g.dart';
+import 'package:card_holder/common/presentation/widgets/buttons/default_button.dart';
 import 'package:card_holder/common/presentation/widgets/skeleton_wrapper/skeleton_wrapper.dart';
+import 'package:card_holder/common/presentation/widgets/text_fields/frame_text_field.dart';
 import 'package:flutter/material.dart';
 
 class CardOpenSheet extends StatelessWidget {
@@ -29,7 +33,7 @@ class CardOpenSheet extends StatelessWidget {
             child: Column(
               children: [
                 AspectRatio(
-                  aspectRatio: 1.4,
+                  aspectRatio: 1.15,
                   child: ClipRRect(
                     borderRadius: allBorderRadius,
                     child: Stack(
@@ -47,15 +51,52 @@ class CardOpenSheet extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Positioned.fill(
-                          right: 10,
-                          child: Text('5 uses in this month'),
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              '5 uses',
+                              style: context.textStyles.labelSmall?.copyWith(
+                                color: AppColors.darkGrey,
+                              ),
+                            ),
+                          ),
                         ),
                       ],
                     ),
                   ),
                 ),
-                Padding(padding: mainHorizontalPadding),
+                Padding(
+                  padding: mainHorizontalPadding,
+                  child: Column(
+                    children: [
+                      Divider(color: AppColors.subGrey.withAlpha(50)),
+                      FrameTextField(
+                        numericKeyboard: true,
+                        onChanged: (v) => {},
+                        hintText: t.screen.home.addCard.code,
+                        labelText: t.screen.home.addCard.manualCode,
+                      ),
+                      FrameTextField(
+                        onChanged: (v) => {},
+                        hintText: t.screen.home.addCard.name,
+                        labelText: t.screen.home.addCard.cardName,
+                      ),
+                      20.h,
+                      Row(
+                        children: [
+                          Expanded(
+                            child: DefaultButton(text: 'edit', onTap: () {}),
+                          ),
+                          Expanded(
+                            child: DefaultButton(text: 'share', onTap: () {}),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
