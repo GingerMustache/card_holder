@@ -73,7 +73,7 @@ class _CreateCardScreenState extends State<CreateCardScreen> {
         Stack(
           children: [
             AspectRatio(
-              aspectRatio: 1.9,
+              aspectRatio: 1.7,
               child: ClipRRect(
                 borderRadius: borderRadius,
                 child: MobileScanner(

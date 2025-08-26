@@ -17,7 +17,7 @@ class SkeletonWrapper extends StatelessWidget {
     return SingleChildScrollView(
       child: SizedBox(
         width: double.infinity,
-        height: height + MediaQuery.of(context).viewInsets.bottom,
+        height: height + context.bottomPadding,
         child: Column(
           children: [
             Center(

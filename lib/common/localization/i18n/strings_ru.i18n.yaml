@@ -15,7 +15,7 @@ screen:
       name: имя_
       add: добавить
     openCard:
-      uses: 5 использований
+      uses: 5 раз
       edit: принять
       share: поделиться
   settings:
