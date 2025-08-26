@@ -1,7 +1,7 @@
 import 'dart:async' show Completer;
 
 import 'package:bloc/bloc.dart';
-import 'package:card_holder/common/services/local_crud/card_service.dart';
+import 'package:card_holder/common/services/local_crud/local_card_service.dart';
 import 'package:equatable/equatable.dart';
 
 part 'cards_event.dart';

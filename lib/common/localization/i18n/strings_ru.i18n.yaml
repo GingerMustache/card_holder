@@ -13,7 +13,11 @@ screen:
       cardName: имя карты
       code: код_
       name: имя_
-      add: добавить  
+      add: добавить
+    openCard:
+      uses: 5 использований
+      edit: принять
+      share: поделиться
   settings:
     all: first
 tabs:

@@ -99,6 +99,7 @@ class TranslationsScreenHomeEn {
 	String get name => 'Card Holder';
 	String get add => 'add';
 	late final TranslationsScreenHomeAddCardEn addCard = TranslationsScreenHomeAddCardEn.internal(_root);
+	late final TranslationsScreenHomeOpenCardEn openCard = TranslationsScreenHomeOpenCardEn.internal(_root);
 }
 
 // Path: screen.settings
@@ -151,6 +152,18 @@ class TranslationsScreenHomeAddCardEn {
 	String get add => 'add';
 }
 
+// Path: screen.home.openCard
+class TranslationsScreenHomeOpenCardEn {
+	TranslationsScreenHomeOpenCardEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get uses => '5 uses';
+	String get edit => 'edit';
+	String get share => 'share';
+}
+
 /// Flat map(s) containing all translations.
 /// Only for edge cases! For simple maps, use the map function of this library.
 extension on Translations {
@@ -166,6 +179,9 @@ extension on Translations {
 			case 'screen.home.addCard.code': return 'code_';
 			case 'screen.home.addCard.name': return 'name_';
 			case 'screen.home.addCard.add': return 'add';
+			case 'screen.home.openCard.uses': return '5 uses';
+			case 'screen.home.openCard.edit': return 'edit';
+			case 'screen.home.openCard.share': return 'share';
 			case 'screen.settings.all': return 'first';
 			case 'tabs.card': return 'cards';
 			case 'tabs.setting': return 'setting';

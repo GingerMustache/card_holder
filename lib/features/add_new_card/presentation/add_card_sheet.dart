@@ -8,7 +8,7 @@ import 'package:card_holder/common/presentation/widgets/buttons/default_button.d
 import 'package:card_holder/common/presentation/widgets/containers/frame_container.dart';
 import 'package:card_holder/common/presentation/widgets/skeleton_wrapper/skeleton_wrapper.dart';
 import 'package:card_holder/common/presentation/widgets/text_fields/frame_text_field.dart';
-import 'package:card_holder/common/services/local_crud/card_service.dart';
+import 'package:card_holder/common/services/local_crud/local_card_service.dart';
 import 'package:card_holder/features/add_new_card/bloc/create_card_bloc.dart';
 import 'package:card_holder/features/home/bloc/cards_bloc.dart';
 import 'package:flutter/material.dart';
@@ -68,6 +68,7 @@ class _CreateCardScreenState extends State<CreateCardScreen> {
   @override
   Widget build(BuildContext context) {
     return SkeletonWrapper(
+      height: 640,
       children: [
         Stack(
           children: [

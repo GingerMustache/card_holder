@@ -3,16 +3,21 @@ import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:flutter/material.dart';
 
 class SkeletonWrapper extends StatelessWidget {
-  const SkeletonWrapper({super.key, required this.children});
+  const SkeletonWrapper({
+    super.key,
+    required this.children,
+    required this.height,
+  });
 
   final List<Widget> children;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: SizedBox(
         width: double.infinity,
-        height: 710 + MediaQuery.of(context).viewInsets.bottom,
+        height: height + MediaQuery.of(context).viewInsets.bottom,
         child: Column(
           children: [
             Center(

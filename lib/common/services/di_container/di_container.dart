@@ -1,6 +1,6 @@
 import 'package:card_holder/common/presentation/widgets/app/my_app.dart';
 import 'package:card_holder/common/routing/routes.dart';
-import 'package:card_holder/common/services/local_crud/card_service.dart';
+import 'package:card_holder/common/services/local_crud/local_card_service.dart';
 import 'package:card_holder/common/services/secure_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n_delegate.dart'
@@ -16,7 +16,7 @@ class DiContainer implements DiContainerProvider {
   @override
   LocalStorage makeLocalStorage() => SecureStorage();
   @override
-  CardServiceAbstract makeCardService() => CardService();
+  CardServiceAbstract makeCardService() => LocalCardService();
 
   ScreenFactory _makeScreenFactory() => ScreenFactory(diContainer: this);
   MyAppNavigation _makeRouter() =>

@@ -17,7 +17,7 @@ class CardOpenSheet extends StatelessWidget {
       context: context,
       useRootNavigator: true,
       builder: (BuildContext context) {
-        return CardOpenSheet(code: code);
+        return SizedBox(child: CardOpenSheet(code: code));
       },
     );
   }
@@ -25,6 +25,7 @@ class CardOpenSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SkeletonWrapper(
+      height: 670,
       children: [
         Expanded(
           child: Container(
@@ -41,14 +42,12 @@ class CardOpenSheet extends StatelessWidget {
                         Container(
                           color: AppColors.subGrey.withAlpha(50),
                           padding: EdgeInsets.all(35),
-                          child: Expanded(
-                            child: Container(
-                              decoration: boxDecoration.copyWith(
-                                color: AppColors.mainWhite,
-                                borderRadius: allBorderRadius,
-                              ),
-                              child: Center(child: Text(code)),
+                          child: Container(
+                            decoration: boxDecoration.copyWith(
+                              color: AppColors.mainWhite,
+                              borderRadius: allBorderRadius,
                             ),
+                            child: Center(child: Text(code)),
                           ),
                         ),
                         Align(
@@ -56,7 +55,7 @@ class CardOpenSheet extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              '5 uses',
+                              t.screen.home.openCard.uses,
                               style: context.textStyles.labelSmall?.copyWith(
                                 color: AppColors.darkGrey,
                               ),
@@ -87,10 +86,16 @@ class CardOpenSheet extends StatelessWidget {
                       Row(
                         children: [
                           Expanded(
-                            child: DefaultButton(text: 'edit', onTap: () {}),
+                            child: DefaultButton(
+                              text: t.screen.home.openCard.edit,
+                              onTap: () {},
+                            ),
                           ),
                           Expanded(
-                            child: DefaultButton(text: 'share', onTap: () {}),
+                            child: DefaultButton(
+                              text: t.screen.home.openCard.share,
+                              onTap: () {},
+                            ),
                           ),
                         ],
                       ),

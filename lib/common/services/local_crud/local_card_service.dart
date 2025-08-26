@@ -9,6 +9,19 @@ import 'package:sqflite/sqflite.dart';
 
 part '../local_crud/model/data_base_card.dart';
 
+abstract class CardServiceAbstract {
+  Future<DataBaseCard> getCard({required int id});
+  Future<DataBaseCard> updateCard({
+    required DataBaseCard note,
+    required String text,
+  });
+  Future<DataBaseCard> openCard({required int id});
+  Future<List<DataBaseCard>> getAllCards();
+  Future<int> deleteAllCards();
+  Future<void> deleteCard({required int id});
+  Future<DataBaseCard> createCard({required String code, required String name});
+}
+
 const _dbName = "card_hold.db";
 const _cardTable = "card";
 const _idColumn = "id";
@@ -24,25 +37,12 @@ const _createCardTable = '''
       PRIMARY KEY("id" AUTOINCREMENT)
       );''';
 
-abstract class CardServiceAbstract {
-  Future<DataBaseCard> getCard({required int id});
-  Future<DataBaseCard> updateCard({
-    required DataBaseCard note,
-    required String text,
-  });
-  Future<DataBaseCard> openCard({required int id});
-  Future<List<DataBaseCard>> getAllCards();
-  Future<int> deleteAllCards();
-  Future<void> deleteCard({required int id});
-  Future<DataBaseCard> createCard({required String code, required String name});
-}
-
-class CardService implements CardServiceAbstract {
+class LocalCardService implements CardServiceAbstract {
   Database? _db;
 
-  static final CardService _shared = CardService._sharedInstance();
-  CardService._sharedInstance();
-  factory CardService() => _shared;
+  static final LocalCardService _shared = LocalCardService._sharedInstance();
+  LocalCardService._sharedInstance();
+  factory LocalCardService() => _shared;
 
   @override
   Future<DataBaseCard> updateCard({
