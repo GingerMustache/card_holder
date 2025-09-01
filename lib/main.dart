@@ -1,7 +1,7 @@
 // need to run dart run build_runner build
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/localization/locale/locale.dart';
-import 'package:card_holder/common/services/di_container/di_container.dart';
+import 'package:card_holder/common/di_container/di_container.dart';
 import 'package:card_holder/features/settings/bloc/settings_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart'

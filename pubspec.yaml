@@ -60,6 +60,7 @@ dependencies:
   mobile_scanner: ^7.0.1
   bloc_concurrency: ^0.3.0
   rxdart: ^0.28.0
+  dartz: ^0.10.1
 
 dev_dependencies:
   flutter_test:

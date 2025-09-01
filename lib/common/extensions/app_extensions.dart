@@ -15,3 +15,13 @@ extension SizeExtension on BuildContext {
   double get width => MediaQuery.of(this).size.width;
   double get bottomPadding => MediaQuery.of(this).viewInsets.bottom;
 }
+
+extension PaddingExtension on Widget {
+  Widget padAll(double value) =>
+      Padding(padding: EdgeInsets.all(value), child: this);
+
+  Widget padSymmetric({double v = 0, double h = 0}) => Padding(
+    padding: EdgeInsets.symmetric(vertical: v, horizontal: h),
+    child: this,
+  );
+}

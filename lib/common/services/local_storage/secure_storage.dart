@@ -4,7 +4,7 @@ enum StorageError { secureStorageError }
 
 enum SecureKeys { lang, theme }
 
-abstract final class LocalStorage {
+abstract final class LocalStorageService {
   Future<Map<String, String>> readAll();
   Future<void> deleteAll();
   Future<String> read(String key, {String insteadValue = ''});
@@ -13,7 +13,7 @@ abstract final class LocalStorage {
   Future<bool> containsKey({required String key});
 }
 
-final class SecureStorage implements LocalStorage {
+final class SecureStorage implements LocalStorageService {
   static final SecureStorage _instance = SecureStorage._internal();
 
   late final FlutterSecureStorage _storage;

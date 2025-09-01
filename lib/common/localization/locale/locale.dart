@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
-import 'package:card_holder/common/services/secure_storage.dart';
+import 'package:card_holder/common/services/local_storage/secure_storage.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_i18n/loaders/decoders/json_decode_strategy.dart';
 

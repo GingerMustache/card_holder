@@ -1,6 +1,8 @@
 import 'dart:async' show Completer;
 
 import 'package:bloc/bloc.dart';
+import 'package:card_holder/common/repositories/card_repository.dart';
+import 'package:card_holder/common/services/local_crud/crud_exceptions.dart';
 import 'package:card_holder/common/services/local_crud/local_card_service.dart';
 import 'package:equatable/equatable.dart';
 
@@ -8,9 +10,10 @@ part 'cards_event.dart';
 part 'cards_state.dart';
 
 class CardsBloc extends Bloc<CardsEvent, CardsState> {
-  final CardServiceAbstract _cardService;
-  CardsBloc({required CardServiceAbstract cardService})
-    : _cardService = cardService,
+  final CardRepository _cardRepo;
+
+  CardsBloc({required CardRepository cardRepo})
+    : _cardRepo = cardRepo,
       super(CardsState()) {
     on<CardsFetchCardsEvent>(_onFetchCards);
     on<CardsOpenCardEvent>(_onOpenCard);
@@ -19,42 +22,62 @@ class CardsBloc extends Bloc<CardsEvent, CardsState> {
   _onFetchCards(CardsFetchCardsEvent event, Emitter<CardsState> emit) async {
     emit(state.copyWith(isLoading: true));
 
-    final cards = await _cardService.getAllCards();
+    final cards = await _cardRepo.getCards();
 
-    emit(state.copyWith(cards: cards, isLoading: false));
+    cards.fold(
+      (Exception e) =>
+          e is LocalDataBaseException
+              ? emit(
+                state.copyWith(cards: state.cards, isLoading: false, error: e),
+              )
+              : {},
+
+      (List<DataBaseCard> cards) =>
+          emit(state.copyWith(cards: cards, isLoading: false)),
+    );
   }
 
   _onOpenCard(CardsOpenCardEvent event, Emitter<CardsState> emit) async {
     emit(state.copyWith(isLoading: true));
 
-    final currentCard = await _cardService.openCard(id: event.id ?? 0);
+    final result = await _cardRepo.openCard(id: event.id ?? 0);
 
     final cards = state.cards;
 
-    cards[event.index] = currentCard.copyWith(
-      usagePoint: currentCard.usagePoint + 1,
-    );
-    cards.sort((a, b) => b.usagePoint.compareTo(a.usagePoint));
+    result.fold(
+      (Exception e) {
+        if (e is LocalDataBaseException) {
+          emit(state.copyWith(cards: state.cards, isLoading: false, error: e));
+        }
+      },
 
-    emit(
-      state.copyWith(currentCard: currentCard, cards: cards, isLoading: false),
+      (DataBaseCard card) {
+        cards[event.index] = card.copyWith(usagePoint: card.usagePoint + 1);
+        cards.sort((a, b) => b.usagePoint.compareTo(a.usagePoint));
+
+        emit(state.copyWith(currentCard: card, cards: cards, isLoading: false));
+      },
     );
   }
 
   _onAddCards(CardsAddCardEvent event, Emitter<CardsState> emit) async {
     emit(state.copyWith(isLoading: true));
+    final result = await _cardRepo.createCard(
+      code: event.code,
+      name: event.name,
+    );
+    result.fold(
+      (Exception e) {
+        if (e is LocalDataBaseException) {
+          emit(state.copyWith(cards: state.cards, isLoading: false));
+          event.completer.completeError(e);
+        }
+      },
 
-    try {
-      final card = await _cardService.createCard(
-        code: event.code,
-        name: event.name,
-      );
-
-      emit(state.copyWith(cards: [...state.cards, card], isLoading: false));
-      event.completer.complete(card);
-    } catch (e, st) {
-      emit(state.copyWith(cards: state.cards, isLoading: false));
-      event.completer.completeError(e, st);
-    }
+      (DataBaseCard card) {
+        emit(state.copyWith(cards: [...state.cards, card], isLoading: false));
+        event.completer.complete(card);
+      },
+    );
   }
 }

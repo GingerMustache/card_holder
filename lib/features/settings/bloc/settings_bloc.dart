@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/localization/locale/locale.dart';
-import 'package:card_holder/common/services/secure_storage.dart';
+import 'package:card_holder/common/services/local_storage/secure_storage.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
@@ -9,8 +9,8 @@ part 'settings_event.dart';
 part 'settings_state.dart';
 
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
-  final LocalStorage _localStorage;
-  SettingsBloc({required LocalStorage localStorage})
+  final LocalStorageService _localStorage;
+  SettingsBloc({required LocalStorageService localStorage})
     : _localStorage = localStorage,
       super(SettingsState()) {
     on<SettingChangeLangEvent>(_onChangeLang);

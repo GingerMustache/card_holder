@@ -1,17 +1,19 @@
-class DatabaseIsAlreadyOpen implements Exception {}
+abstract class LocalDataBaseException implements Exception {}
 
-class UnableToGetDocumentsDirectory implements Exception {}
+class DatabaseIsAlreadyOpen implements LocalDataBaseException {}
 
-class DatabaseIsNotOpen implements Exception {}
+class UnableToGetDocumentsDirectory implements LocalDataBaseException {}
 
-class CouldNotDeleteUser implements Exception {}
+class DatabaseIsNotOpen implements LocalDataBaseException {}
 
-class UserAlreadyExists implements Exception {}
+class CouldNotDeleteUser implements LocalDataBaseException {}
 
-class CouldNotFindUser implements Exception {}
+class UserAlreadyExists implements LocalDataBaseException {}
 
-class CouldNotDeleteCard implements Exception {}
+class CouldNotFindUser implements LocalDataBaseException {}
 
-class CouldNotFindCard implements Exception {}
+class CouldNotDeleteCard implements LocalDataBaseException {}
 
-class CouldNotUpdateCard implements Exception {}
+class CouldNotFindCard implements LocalDataBaseException {}
+
+class CouldNotUpdateCard implements LocalDataBaseException {}
