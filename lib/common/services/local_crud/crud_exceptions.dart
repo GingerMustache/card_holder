@@ -17,3 +17,5 @@ class CouldNotDeleteCard implements LocalDataBaseException {}
 class CouldNotFindCard implements LocalDataBaseException {}
 
 class CouldNotUpdateCard implements LocalDataBaseException {}
+
+class CouldNotOpenCard implements LocalDataBaseException {}

@@ -78,7 +78,7 @@ class LocalCardService implements CardServiceAbstract {
     );
 
     if (updatedCard == 0) {
-      throw CouldNotUpdateCard();
+      throw CouldNotOpenCard();
     } else {
       return currentCard;
     }

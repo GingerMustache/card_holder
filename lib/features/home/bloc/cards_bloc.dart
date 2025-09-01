@@ -25,12 +25,11 @@ class CardsBloc extends Bloc<CardsEvent, CardsState> {
     final cards = await _cardRepo.getCards();
 
     cards.fold(
-      (Exception e) =>
-          e is LocalDataBaseException
-              ? emit(
-                state.copyWith(cards: state.cards, isLoading: false, error: e),
-              )
-              : {},
+      (Exception e) {
+        if (e is LocalDataBaseException) {
+          emit(state.copyWith(cards: state.cards, isLoading: false, error: e));
+        }
+      },
 
       (List<DataBaseCard> cards) =>
           emit(state.copyWith(cards: cards, isLoading: false)),
