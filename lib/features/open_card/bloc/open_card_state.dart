@@ -28,7 +28,7 @@ class OpenCardState extends Equatable {
   }
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [code, name];
 }
 
 final class OpenCardInitial extends OpenCardState {}

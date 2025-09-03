@@ -33,8 +33,8 @@ class CardsAddCardEvent extends CardsEvent {
 }
 
 class CardsUpdateCardEvent extends CardsEvent {
-  final String name;
-  final String code;
+  final String? name;
+  final String? code;
   final Completer<DataBaseCard>? completer;
 
   const CardsUpdateCardEvent({

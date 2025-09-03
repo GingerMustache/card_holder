@@ -87,7 +87,8 @@ class CardsBloc extends Bloc<CardsEvent, CardsState> {
 
     final result = await _cardRepo.updateCard(
       id: state.currentCard!.id,
-      text: event.code,
+      code: event.code ?? state.currentCard?.code ?? '',
+      name: event.name ?? state.currentCard?.name ?? '',
     );
     result.fold(
       (Exception e) {
@@ -98,7 +99,12 @@ class CardsBloc extends Bloc<CardsEvent, CardsState> {
       },
 
       (DataBaseCard card) {
-        emit(state.copyWith(currentCard: card, isLoading: false));
+        emit(
+          state.copyWith(
+            currentCard: card.copyWith(code: event.code, name: event.name),
+            isLoading: false,
+          ),
+        );
         event.completer?.complete(card);
       },
     );

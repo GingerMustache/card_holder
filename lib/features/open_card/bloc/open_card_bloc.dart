@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:card_holder/features/add_new_card/bloc/create_card_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:intl/intl.dart';
 
 part 'open_card_event.dart';
 part 'open_card_state.dart';
@@ -21,10 +20,7 @@ class OpenCardBloc extends Bloc<OpenCardEvent, OpenCardState>
     if (onlyNumbers.isEmpty) {
       emit(state.copyWith(code: ''));
     } else {
-      final formatter = NumberFormat('#,###', 'en');
-      final formattedCode = formatter
-          .format(int.tryParse(onlyNumbers))
-          .replaceAll(',', ' ');
+      final formattedCode = int.tryParse(onlyNumbers).toString();
 
       emit(state.copyWith(code: formattedCode));
     }
