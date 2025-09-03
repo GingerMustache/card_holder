@@ -75,11 +75,11 @@ class _CardItem extends StatelessWidget {
   final int currentIndex;
 
   void onPressed(BuildContext context) async {
-    context.read<CardsBloc>().add(
-      CardsOpenCardEvent(id: card?.id, index: currentIndex),
-    );
+    final bloc = context.read<CardsBloc>();
 
-    CardOpenSheet.show(context, card?.code ?? '');
+    bloc.add(CardsOpenCardEvent(id: card?.id, index: currentIndex));
+
+    CardOpenSheet.show(context, bloc);
   }
 
   @override

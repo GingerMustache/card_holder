@@ -61,6 +61,7 @@ dependencies:
   bloc_concurrency: ^0.3.0
   rxdart: ^0.28.0
   dartz: ^0.10.1
+  barcode_widget: ^2.0.4
 
 dev_dependencies:
   flutter_test:

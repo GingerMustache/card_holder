@@ -147,12 +147,9 @@ class _CreateCardScreenState extends State<CreateCardScreen> {
                           completer: completer,
                         ),
                       );
-                      try {
-                        await completer.future;
-                        context.pop();
-                      } catch (e) {
-                        // add snack
-                      }
+
+                      await completer.future;
+                      context.pop();
                     },
                   ),
                 ],

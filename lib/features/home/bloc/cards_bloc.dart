@@ -18,6 +18,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState> {
     on<CardsFetchCardsEvent>(_onFetchCards);
     on<CardsOpenCardEvent>(_onOpenCard);
     on<CardsAddCardEvent>(_onAddCards);
+    on<CardsUpdateCardEvent>(_onUpdateCards);
   }
   _onFetchCards(CardsFetchCardsEvent event, Emitter<CardsState> emit) async {
     emit(state.copyWith(isLoading: true));
@@ -76,6 +77,29 @@ class CardsBloc extends Bloc<CardsEvent, CardsState> {
       (DataBaseCard card) {
         emit(state.copyWith(cards: [...state.cards, card], isLoading: false));
         event.completer.complete(card);
+      },
+    );
+  }
+
+  _onUpdateCards(CardsUpdateCardEvent event, Emitter<CardsState> emit) async {
+    emit(state.copyWith(isLoading: true));
+    //TODO need to make this part in correct form
+
+    final result = await _cardRepo.updateCard(
+      id: state.currentCard!.id,
+      text: event.code,
+    );
+    result.fold(
+      (Exception e) {
+        if (e is LocalDataBaseException) {
+          emit(state.copyWith(cards: state.cards, isLoading: false));
+          event.completer?.completeError(e);
+        }
+      },
+
+      (DataBaseCard card) {
+        emit(state.copyWith(currentCard: card, isLoading: false));
+        event.completer?.complete(card);
       },
     );
   }

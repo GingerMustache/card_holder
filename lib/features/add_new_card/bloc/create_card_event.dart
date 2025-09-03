@@ -1,9 +1,13 @@
 part of 'create_card_bloc.dart';
 
-sealed class CreateCardEvent extends Equatable {}
+abstract class BlocEventAbstract {}
+
+sealed class CreateCardEvent extends Equatable implements BlocEventAbstract {
+  const CreateCardEvent();
+}
 
 class CreateCardChangeCodeEvent extends CreateCardEvent {
-  CreateCardChangeCodeEvent(this.code);
+  const CreateCardChangeCodeEvent(this.code);
   final String code;
 
   @override
@@ -11,7 +15,7 @@ class CreateCardChangeCodeEvent extends CreateCardEvent {
 }
 
 class CreateCardChangeNameEvent extends CreateCardEvent {
-  CreateCardChangeNameEvent(this.name);
+  const CreateCardChangeNameEvent(this.name);
   final String name;
 
   @override
@@ -19,7 +23,7 @@ class CreateCardChangeNameEvent extends CreateCardEvent {
 }
 
 class CreateCardSearchEvent extends CreateCardEvent {
-  CreateCardSearchEvent(this.barcodes);
+  const CreateCardSearchEvent(this.barcodes);
   final BarcodeCapture barcodes;
 
   @override

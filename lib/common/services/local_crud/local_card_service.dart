@@ -10,10 +10,7 @@ import 'package:sqflite/sqflite.dart';
 part '../local_crud/model/data_base_card.dart';
 
 abstract class CardServiceAbstract {
-  Future<DataBaseCard> updateCard({
-    required DataBaseCard card,
-    required String text,
-  });
+  Future<DataBaseCard> updateCard({required int id, required String text});
   Future<DataBaseCard> getCard({required int id});
   Future<DataBaseCard> openCard({required int id});
   Future<List<DataBaseCard>> getCards();
@@ -46,14 +43,14 @@ class LocalCardService implements CardServiceAbstract {
 
   @override
   Future<DataBaseCard> updateCard({
-    required DataBaseCard card,
+    required int id,
     required String text,
   }) async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
-    // make shure note exist
-    final currentCard = await getCard(id: card.id);
-    // update DB
+
+    final currentCard = await getCard(id: id);
+
     final updateColumn = await db.update(_cardTable, {_codeColumn: text});
 
     if (updateColumn == 0) {

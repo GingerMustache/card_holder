@@ -10,31 +10,34 @@ import 'package:rxdart/rxdart.dart';
 part 'create_card_event.dart';
 part 'create_card_state.dart';
 
-class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState> {
+mixin EventTransformerMixin {
+  EventTransformer<BlocEventAbstract> debounceRestartable<BlocEventAbstract>() {
+    return (events, mapper) => restartable<BlocEventAbstract>().call(
+      events.debounceTime(const Duration(milliseconds: 300)),
+      mapper,
+    );
+  }
+}
+
+class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
+    with EventTransformerMixin {
   late final MobileScannerController cameraController;
   late final StreamSubscription cameraControllerSubscription;
 
   CreateCardBloc() : super(CreateCardState()) {
     on<CreateCardChangeCodeEvent>(
       _onAddCode,
-      transformer: _debounceRestartable(),
+      transformer: debounceRestartable(),
     );
     on<CreateCardChangeNameEvent>(
       _onAddName,
-      transformer: _debounceRestartable(),
+      transformer: debounceRestartable(),
     );
-    on<CreateCardSearchEvent>(_onSearch, transformer: _debounceRestartable());
+    on<CreateCardSearchEvent>(_onSearch, transformer: debounceRestartable());
 
     cameraController = MobileScannerController(detectionTimeoutMs: 1500);
     cameraControllerSubscription = cameraController.barcodes.listen(
       (event) => {},
-    );
-  }
-
-  EventTransformer<CatalogEvent> _debounceRestartable<CatalogEvent>() {
-    return (events, mapper) => restartable<CatalogEvent>().call(
-      events.debounceTime(const Duration(milliseconds: 300)),
-      mapper,
     );
   }
 

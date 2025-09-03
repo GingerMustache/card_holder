@@ -3,15 +3,15 @@ import 'package:card_holder/common/services/local_crud/local_card_service.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class CardRepository {
-  Future<Either<Exception, DataBaseCard>> updateCard({
-    required DataBaseCard card,
-    required String text,
-  });
   Future<Either<Exception, DataBaseCard>> getCard({required int id});
   Future<Either<Exception, DataBaseCard>> openCard({required int id});
   Future<Either<Exception, List<DataBaseCard>>> getCards();
   Future<Either<Exception, void>> deleteAllCards();
   Future<Either<Exception, void>> deleteCard({required int id});
+  Future<Either<Exception, DataBaseCard>> updateCard({
+    required int id,
+    required String text,
+  });
   Future<Either<Exception, DataBaseCard>> createCard({
     required String code,
     required String name,
@@ -24,43 +24,34 @@ class CardRepositoryImpl with ErrorHandlerMixin implements CardRepository {
   CardRepositoryImpl({required this.localCardService});
 
   @override
-  Future<Either<Exception, List<DataBaseCard>>> getCards() {
-    return safeCall(() => localCardService.getCards());
-  }
+  Future<Either<Exception, List<DataBaseCard>>> getCards() =>
+      safeCall(() => localCardService.getCards());
 
   @override
-  Future<Either<Exception, DataBaseCard>> getCard({required int id}) {
-    return safeCall(() => localCardService.getCard(id: id));
-  }
+  Future<Either<Exception, DataBaseCard>> getCard({required int id}) =>
+      safeCall(() => localCardService.getCard(id: id));
 
   @override
   Future<Either<Exception, DataBaseCard>> createCard({
     required String code,
     required String name,
-  }) {
-    return safeCall(() => localCardService.createCard(code: code, name: name));
-  }
+  }) => safeCall(() => localCardService.createCard(code: code, name: name));
 
   @override
-  Future<Either<Exception, void>> deleteAllCards() {
-    return safeCall(() => localCardService.deleteAllCards());
-  }
+  Future<Either<Exception, void>> deleteAllCards() =>
+      safeCall(() => localCardService.deleteAllCards());
 
   @override
-  Future<Either<Exception, void>> deleteCard({required int id}) {
-    return safeCall(() => localCardService.deleteCard(id: id));
-  }
+  Future<Either<Exception, void>> deleteCard({required int id}) =>
+      safeCall(() => localCardService.deleteCard(id: id));
 
   @override
   Future<Either<Exception, DataBaseCard>> updateCard({
-    required DataBaseCard card,
+    required int id,
     required String text,
-  }) {
-    return safeCall(() => localCardService.updateCard(card: card, text: text));
-  }
+  }) => safeCall(() => localCardService.updateCard(id: id, text: text));
 
   @override
-  Future<Either<Exception, DataBaseCard>> openCard({required int id}) {
-    return safeCall(() => localCardService.openCard(id: id));
-  }
+  Future<Either<Exception, DataBaseCard>> openCard({required int id}) =>
+      safeCall(() => localCardService.openCard(id: id));
 }

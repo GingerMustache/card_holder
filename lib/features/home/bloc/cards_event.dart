@@ -31,3 +31,17 @@ class CardsAddCardEvent extends CardsEvent {
   @override
   List<Object?> get props => [code, name];
 }
+
+class CardsUpdateCardEvent extends CardsEvent {
+  final String name;
+  final String code;
+  final Completer<DataBaseCard>? completer;
+
+  const CardsUpdateCardEvent({
+    required this.name,
+    required this.code,
+    this.completer,
+  });
+  @override
+  List<Object?> get props => [name];
+}
