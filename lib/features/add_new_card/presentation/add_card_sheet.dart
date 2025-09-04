@@ -5,6 +5,7 @@ import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/presentation/assets_parts/app_icons.dart';
 import 'package:card_holder/common/presentation/widgets/buttons/default_button.dart';
+import 'package:card_holder/common/presentation/widgets/color_wheel/color_wheel.dart';
 import 'package:card_holder/common/presentation/widgets/containers/frame_container.dart';
 import 'package:card_holder/common/presentation/widgets/skeleton_wrapper/skeleton_wrapper.dart';
 import 'package:card_holder/common/presentation/widgets/text_fields/frame_text_field.dart';
@@ -21,10 +22,9 @@ part 'parts/entered_code.dart';
 part 'parts/scan_frame.dart';
 
 class CreateCardScreen extends StatefulWidget {
-  const CreateCardScreen(this.cardsBloc, {super.key});
-  final CardsBloc cardsBloc;
+  const CreateCardScreen({super.key});
 
-  static void show(BuildContext context, CardsBloc cardsBloc) {
+  static void show(BuildContext context) {
     showModalBottomSheet<void>(
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
@@ -33,7 +33,7 @@ class CreateCardScreen extends StatefulWidget {
       builder: (BuildContext context) {
         return BlocProvider(
           create: (context) => CreateCardBloc(),
-          child: CreateCardScreen(cardsBloc),
+          child: CreateCardScreen(),
         );
       },
     );
@@ -44,25 +44,35 @@ class CreateCardScreen extends StatefulWidget {
 }
 
 class _CreateCardScreenState extends State<CreateCardScreen> {
-  late final CreateCardBloc bloc;
+  late final CreateCardBloc createBloc;
+  bool isTappedMark = false;
+  Color _currentColor = Colors.blue;
+  final _controller = CircleColorPickerController(initialColor: Colors.blue);
 
   @override
   void initState() {
     super.initState();
-    bloc = context.read<CreateCardBloc>();
+    createBloc = context.read<CreateCardBloc>();
   }
 
-  Widget onOverlayBuilder(BuildContext context, BoxConstraints constraints) {
-    if (bloc.cameraControllerSubscription.isPaused) {
-      WidgetsBinding.instance.addPostFrameCallback((_) async {
-        bloc.cameraController.stop();
-      });
-      return const Text(
-        'Нажмите чтобы продолжить',
-        style: TextStyle(color: Colors.black),
-      );
-    }
-    return const SizedBox();
+  Future<void> onAdd() async {
+    final completer = Completer<DataBaseCard>();
+    final createState = createBloc.state;
+
+    final code =
+        createState.detectedCode.isNotEmpty
+            ? createState.detectedCode
+            : createState.code;
+
+    context.read<CardsBloc>().add(
+      CardsAddCardEvent(
+        code: code,
+        name: createState.name,
+        completer: completer,
+      ),
+    );
+
+    completer.future.then((_) => context.pop());
   }
 
   @override
@@ -77,17 +87,18 @@ class _CreateCardScreenState extends State<CreateCardScreen> {
               child: ClipRRect(
                 borderRadius: borderRadius,
                 child: MobileScanner(
-                  controller: bloc.cameraController,
+                  controller: createBloc.cameraController,
                   onDetect:
-                      (barcodes) => bloc.add(CreateCardSearchEvent(barcodes)),
+                      (barcodes) =>
+                          createBloc.add(CreateCardSearchEvent(barcodes)),
                   overlayBuilder: onOverlayBuilder,
                 ),
               ),
             ),
             _ScanFrame(
               onPressed: () {
-                bloc.cameraControllerSubscription.resume();
-                bloc.cameraController.start();
+                createBloc.cameraControllerSubscription.resume();
+                createBloc.cameraController.start();
               },
             ),
           ],
@@ -97,60 +108,78 @@ class _CreateCardScreenState extends State<CreateCardScreen> {
             color: AppColors.mainWhite,
             child: Padding(
               padding: mainHorizontalPadding,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Stack(
                 children: [
-                  3.h,
-                  Center(
-                    child: Text(
-                      t.screen.home.addCard.barcodeScan,
-                      style: context.textStyles.labelSmall?.copyWith(
-                        fontSize: 10,
-                      ),
-                    ),
-                  ),
-
-                  Divider(color: AppColors.subGrey.withAlpha(50)),
-                  10.h,
-                  Text(
-                    t.screen.home.addCard.detectedCode,
-                    style: context.textStyles.labelSmall,
-                  ),
-
-                  5.h,
-                  _EnteredCodeWidget(),
-                  FrameTextField(
-                    numericKeyboard: true,
-                    onChanged: (v) => bloc.add(CreateCardChangeCodeEvent(v)),
-                    hintText: t.screen.home.addCard.code,
-                    labelText: t.screen.home.addCard.manualCode,
-                  ),
-                  FrameTextField(
-                    onChanged: (v) => bloc.add(CreateCardChangeNameEvent(v)),
-                    hintText: t.screen.home.addCard.name,
-                    labelText: t.screen.home.addCard.cardName,
-                  ),
-                  20.h,
-                  DefaultButton(
-                    text: t.screen.home.addCard.add,
-                    onTap: () async {
-                      final completer = Completer<DataBaseCard>();
-                      final code =
-                          bloc.state.detectedCode.isNotEmpty
-                              ? bloc.state.detectedCode
-                              : bloc.state.code;
-
-                      widget.cardsBloc.add(
-                        CardsAddCardEvent(
-                          code: code,
-                          name: bloc.state.name,
-                          completer: completer,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      3.h,
+                      Center(
+                        child: Text(
+                          t.screen.home.addCard.barcodeScan,
+                          style: context.textStyles.labelSmall?.copyWith(
+                            fontSize: 10,
+                          ),
                         ),
-                      );
+                      ),
 
-                      await completer.future;
-                      context.pop();
-                    },
+                      Divider(color: AppColors.subGrey.withAlpha(50)),
+                      10.h,
+                      Text(
+                        t.screen.home.addCard.detectedCode,
+                        style: context.textStyles.labelSmall,
+                      ),
+
+                      5.h,
+                      _EnteredCodeWidget(),
+                      FrameTextField(
+                        numericKeyboard: true,
+                        onChanged:
+                            (v) => createBloc.add(CreateCardChangeCodeEvent(v)),
+                        hintText: t.screen.home.addCard.code,
+                        labelText: t.screen.home.addCard.manualCode,
+                      ),
+                      FrameTextField(
+                        onChanged:
+                            (v) => createBloc.add(CreateCardChangeNameEvent(v)),
+                        hintText: t.screen.home.addCard.name,
+                        labelText: t.screen.home.addCard.cardName,
+                      ),
+                      20.h,
+                      DefaultButton(
+                        text: t.screen.home.addCard.add,
+                        onTap: () async => onAdd(),
+                      ),
+                    ],
+                  ),
+                  Align(
+                    alignment: Alignment(0.9, -0.9),
+                    child:
+                        isTappedMark
+                            ? CircleColorPicker(
+                              controller: _controller,
+                              size: const Size(70, 70),
+                              strokeWidth: 4,
+                              thumbSize: 20,
+                              onChanged: (color) {
+                                setState(() => _currentColor = color);
+                              },
+                            )
+                            : InkWell(
+                              onTap: () {
+                                setState(() {
+                                  isTappedMark = !isTappedMark;
+                                });
+                              },
+                              child: SvgPicture.asset(
+                                AppIcons.bookmark,
+                                height: 25,
+                                colorFilter: ColorFilter.mode(
+                                  AppColors.mainRed.withAlpha(220),
+                                  BlendMode.srcIn,
+                                ),
+                              ),
+                            ),
                   ),
                 ],
               ),
@@ -159,6 +188,19 @@ class _CreateCardScreenState extends State<CreateCardScreen> {
         ),
       ],
     );
+  }
+
+  Widget onOverlayBuilder(BuildContext context, BoxConstraints constraints) {
+    if (createBloc.cameraControllerSubscription.isPaused) {
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        createBloc.cameraController.stop();
+      });
+      return const Text(
+        'Нажмите чтобы продолжить',
+        style: TextStyle(color: Colors.black),
+      );
+    }
+    return const SizedBox();
   }
 
   static const borderRadius = BorderRadius.only(
