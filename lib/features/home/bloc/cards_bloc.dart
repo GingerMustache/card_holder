@@ -1,6 +1,7 @@
 import 'dart:async' show Completer;
 
 import 'package:bloc/bloc.dart';
+import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:card_holder/common/repositories/card_repository.dart';
 import 'package:card_holder/common/services/local_crud/crud_exceptions.dart';
 import 'package:card_holder/common/services/local_crud/local_card_service.dart';
@@ -83,12 +84,19 @@ class CardsBloc extends Bloc<CardsEvent, CardsState> {
 
   _onUpdateCards(CardsUpdateCardEvent event, Emitter<CardsState> emit) async {
     emit(state.copyWith(isLoading: true));
-    //TODO need to make this part in correct form
+    final String code =
+        event.code.notNull.isNotEmpty
+            ? event.code.notNull
+            : state.currentCard?.code ?? '';
+    final String name =
+        event.name.notNull.isNotEmpty
+            ? event.name.notNull
+            : state.currentCard?.name ?? '';
 
     final result = await _cardRepo.updateCard(
       id: state.currentCard!.id,
-      code: event.code ?? state.currentCard?.code ?? '',
-      name: event.name ?? state.currentCard?.name ?? '',
+      code: code,
+      name: name,
     );
     result.fold(
       (Exception e) {
@@ -99,9 +107,16 @@ class CardsBloc extends Bloc<CardsEvent, CardsState> {
       },
 
       (DataBaseCard card) {
+        final cards = state.cards;
+        final currentCardIndex = state.cards.indexWhere((e) => e.id == card.id);
+        final updatedCard = card.copyWith(code: code, name: name);
+
+        cards[currentCardIndex] = updatedCard;
+
         emit(
           state.copyWith(
-            currentCard: card.copyWith(code: event.code, name: event.name),
+            cards: cards,
+            currentCard: updatedCard,
             isLoading: false,
           ),
         );

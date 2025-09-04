@@ -56,10 +56,12 @@ class LocalCardService implements CardServiceAbstract {
 
     final currentCard = await getCard(id: id);
 
-    final updateColumn = await db.update(_cardTable, {
-      _codeColumn: code,
-      _name: name,
-    });
+    final updateColumn = await db.update(
+      _cardTable,
+      {_codeColumn: code, _name: name},
+      where: 'id = ?',
+      whereArgs: [id],
+    );
 
     if (updateColumn == 0) {
       throw CouldNotUpdateCard();

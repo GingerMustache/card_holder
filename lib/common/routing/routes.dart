@@ -1,10 +1,8 @@
 import 'package:card_holder/common/constants/constants.dart';
 import 'package:card_holder/common/di_container/di_container.dart';
 import 'package:card_holder/common/presentation/widgets/app/my_app.dart';
-import 'package:card_holder/features/home/bloc/cards_bloc.dart';
 import 'package:card_holder/features/home/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 enum MainRoutes { home, init }
@@ -46,13 +44,6 @@ class ScreenFactory {
   ScreenFactory({required this.diContainer});
 
   Widget makeHomeScree() {
-    return BlocProvider(
-      lazy: false,
-      create:
-          (context) =>
-              CardsBloc(cardRepo: diContainer.makeCardRepository())
-                ..add(CardsFetchCardsEvent()),
-      child: HomeScreen(),
-    );
+    return HomeScreen();
   }
 }

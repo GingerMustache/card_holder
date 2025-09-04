@@ -25,3 +25,7 @@ extension PaddingExtension on Widget {
     child: this,
   );
 }
+
+extension StringExtension on String? {
+  String get notNull => this ?? '';
+}

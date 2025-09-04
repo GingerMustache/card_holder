@@ -13,18 +13,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class CardOpenSheet extends StatefulWidget {
   const CardOpenSheet({super.key});
 
-  static void show(BuildContext context, CardsBloc cardsBloc) {
+  static void show(BuildContext context) {
     showModalBottomSheet(
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
       context: context,
       useRootNavigator: true,
       builder: (BuildContext context) {
-        return MultiBlocProvider(
-          providers: [
-            BlocProvider(create: (context) => cardsBloc),
-            BlocProvider(create: (context) => OpenCardBloc()),
-          ],
+        return BlocProvider(
+          create: (context) => OpenCardBloc(),
+
           child: SizedBox(child: CardOpenSheet()),
         );
       },
