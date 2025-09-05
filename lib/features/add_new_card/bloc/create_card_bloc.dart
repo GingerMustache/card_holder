@@ -1,23 +1,14 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:bloc/bloc.dart';
-import 'package:bloc_concurrency/bloc_concurrency.dart';
+import 'package:card_holder/common/mixins/event_transformer_mixin.dart';
 import 'package:equatable/equatable.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import 'package:rxdart/rxdart.dart';
 
 part 'create_card_event.dart';
 part 'create_card_state.dart';
-
-mixin EventTransformerMixin {
-  EventTransformer<BlocEventAbstract> debounceRestartable<BlocEventAbstract>() {
-    return (events, mapper) => restartable<BlocEventAbstract>().call(
-      events.debounceTime(const Duration(milliseconds: 300)),
-      mapper,
-    );
-  }
-}
 
 class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
     with EventTransformerMixin {
@@ -33,6 +24,9 @@ class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
       _onAddName,
       transformer: debounceRestartable(),
     );
+    on<CreateCardChangeColorEvent>(_onChangeColor);
+    on<CreateCardSetInitColorEvent>(_onSetInitColor);
+    on<CreateCardChangeMarkTapEvent>(_onChangeMarkTap);
     on<CreateCardSearchEvent>(_onSearch, transformer: debounceRestartable());
 
     cameraController = MobileScannerController(detectionTimeoutMs: 1500);
@@ -56,6 +50,25 @@ class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
 
       emit(state.copyWith(code: formattedCode));
     }
+  }
+
+  Future<void> _onChangeColor(
+    CreateCardChangeColorEvent event,
+    Emitter<CreateCardState> emit,
+  ) async => emit(state.copyWith(intColor: event.intColor));
+
+  Future<void> _onChangeMarkTap(
+    CreateCardChangeMarkTapEvent event,
+    Emitter<CreateCardState> emit,
+  ) async => emit(state.copyWith(isMarkTapped: !state.isMarkTapped));
+
+  Future<void> _onSetInitColor(
+    CreateCardSetInitColorEvent event,
+    Emitter<CreateCardState> emit,
+  ) async {
+    final int randomColor = (Random().nextDouble() * 0xFFFFFF).toInt();
+
+    emit(state.copyWith(intColor: randomColor));
   }
 
   Future<void> _onAddName(

@@ -8,16 +8,18 @@ class DefaultButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      splashColor: AppColors.mainWhite,
-      splashFactory: null,
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
-        color: AppColors.mainWhite,
+    return Center(
+      child: InkWell(
+        onTap: onTap,
+        splashColor: AppColors.mainWhite,
+        splashFactory: null,
+        child: Container(
+          width: 100,
+          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
+          color: AppColors.mainWhite,
 
-        child: Center(child: Text(text)),
+          child: Center(child: Text(text)),
+        ),
       ),
     );
   }

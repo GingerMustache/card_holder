@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:card_holder/common/mixins/event_transformer_mixin.dart';
 import 'package:card_holder/features/add_new_card/bloc/create_card_bloc.dart';
 import 'package:equatable/equatable.dart';
 

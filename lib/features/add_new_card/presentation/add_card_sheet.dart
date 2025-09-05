@@ -32,7 +32,8 @@ class CreateCardScreen extends StatefulWidget {
       useRootNavigator: true,
       builder: (BuildContext context) {
         return BlocProvider(
-          create: (context) => CreateCardBloc(),
+          create:
+              (context) => CreateCardBloc()..add(CreateCardSetInitColorEvent()),
           child: CreateCardScreen(),
         );
       },
@@ -46,7 +47,6 @@ class CreateCardScreen extends StatefulWidget {
 class _CreateCardScreenState extends State<CreateCardScreen> {
   late final CreateCardBloc createBloc;
   bool isTappedMark = false;
-  Color _currentColor = Colors.blue;
   final _controller = CircleColorPickerController(initialColor: Colors.blue);
 
   @override
@@ -152,24 +152,7 @@ class _CreateCardScreenState extends State<CreateCardScreen> {
                       ),
                     ],
                   ),
-                  Align(
-                    alignment: Alignment(0.9, -0.9),
-                    child: InkWell(
-                      onTap: () {
-                        setState(() {
-                          isTappedMark = !isTappedMark;
-                        });
-                      },
-                      child: SvgPicture.asset(
-                        AppIcons.bookmark,
-                        height: 25,
-                        colorFilter: ColorFilter.mode(
-                          _currentColor.withAlpha(220),
-                          BlendMode.srcIn,
-                        ),
-                      ),
-                    ),
-                  ),
+                  ColorMark(),
                   if (isTappedMark)
                     Align(
                       alignment: Alignment(0.8, 0.8),
@@ -178,9 +161,7 @@ class _CreateCardScreenState extends State<CreateCardScreen> {
                         child: CircleColorPicker(
                           controller: _controller,
                           onChanged: (color) {
-                            setState(() {
-                              _currentColor = color;
-                            });
+                            createBloc.add(CreateCardChangeColorEvent(color));
                           },
                         ),
                       ),
@@ -211,4 +192,46 @@ class _CreateCardScreenState extends State<CreateCardScreen> {
     topLeft: Radius.circular(8),
     topRight: Radius.circular(8),
   );
+}
+
+class ColorMark extends StatelessWidget {
+  const ColorMark({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment(0.8, -0.9),
+      child: InkWell(
+        onTap:
+            () => context.read<CreateCardBloc>().add(
+              CreateCardChangeMarkTapEvent(),
+            ),
+        child: BlocBuilder<CreateCardBloc, CreateCardState>(
+          buildWhen:
+              (previous, current) => previous.intColor != current.intColor,
+          builder: (context, state) {
+            return Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SvgPicture.asset(
+                  AppIcons.bookmark,
+                  height: 25,
+                  colorFilter: ColorFilter.mode(
+                    Color(state.intColor).withAlpha(220),
+                    BlendMode.srcIn,
+                  ),
+                ),
+                Text(
+                  'color',
+                  style: context.textStyles.labelSmall?.copyWith(
+                    color: Color(state.intColor).withAlpha(220),
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+      ),
+    );
+  }
 }
