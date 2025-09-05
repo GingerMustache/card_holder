@@ -154,33 +154,37 @@ class _CreateCardScreenState extends State<CreateCardScreen> {
                   ),
                   Align(
                     alignment: Alignment(0.9, -0.9),
-                    child:
-                        isTappedMark
-                            ? CircleColorPicker(
-                              controller: _controller,
-                              size: const Size(70, 70),
-                              strokeWidth: 4,
-                              thumbSize: 20,
-                              onChanged: (color) {
-                                setState(() => _currentColor = color);
-                              },
-                            )
-                            : InkWell(
-                              onTap: () {
-                                setState(() {
-                                  isTappedMark = !isTappedMark;
-                                });
-                              },
-                              child: SvgPicture.asset(
-                                AppIcons.bookmark,
-                                height: 25,
-                                colorFilter: ColorFilter.mode(
-                                  AppColors.mainRed.withAlpha(220),
-                                  BlendMode.srcIn,
-                                ),
-                              ),
-                            ),
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          isTappedMark = !isTappedMark;
+                        });
+                      },
+                      child: SvgPicture.asset(
+                        AppIcons.bookmark,
+                        height: 25,
+                        colorFilter: ColorFilter.mode(
+                          _currentColor.withAlpha(220),
+                          BlendMode.srcIn,
+                        ),
+                      ),
+                    ),
                   ),
+                  if (isTappedMark)
+                    Align(
+                      alignment: Alignment(0.8, 0.8),
+                      child: Container(
+                        decoration: fabDecor,
+                        child: CircleColorPicker(
+                          controller: _controller,
+                          onChanged: (color) {
+                            setState(() {
+                              _currentColor = color;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
                 ],
               ),
             ),

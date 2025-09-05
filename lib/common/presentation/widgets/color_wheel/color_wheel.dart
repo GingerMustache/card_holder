@@ -23,9 +23,9 @@ class CircleColorPicker extends StatefulWidget {
     super.key,
     this.onChanged,
     this.onEnded,
-    this.size = const Size(280, 280),
-    this.strokeWidth = 2,
-    this.thumbSize = 32,
+    this.size = const Size(78, 78),
+    this.strokeWidth = 3,
+    this.thumbSize = 20,
     this.controller,
 
     this.colorCodeBuilder,
