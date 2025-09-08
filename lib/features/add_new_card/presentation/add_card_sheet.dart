@@ -161,7 +161,7 @@ class _CreateCardScreenState extends State<CreateCardScreen> {
                         child: CircleColorPicker(
                           controller: _controller,
                           onChanged: (color) {
-                            createBloc.add(CreateCardChangeColorEvent(color));
+                            // createBloc.add(CreateCardChangeColorEvent(color));
                           },
                         ),
                       ),
