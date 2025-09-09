@@ -46,7 +46,6 @@ class CreateCardScreen extends StatefulWidget {
 
 class _CreateCardScreenState extends State<CreateCardScreen> {
   late final CreateCardBloc createBloc;
-  bool isTappedMark = false;
   final _controller = CircleColorPickerController(initialColor: Colors.blue);
 
   @override
@@ -153,19 +152,33 @@ class _CreateCardScreenState extends State<CreateCardScreen> {
                     ],
                   ),
                   ColorMark(),
-                  if (isTappedMark)
-                    Align(
-                      alignment: Alignment(0.8, 0.8),
-                      child: Container(
-                        decoration: fabDecor,
-                        child: CircleColorPicker(
-                          controller: _controller,
-                          onChanged: (color) {
-                            // createBloc.add(CreateCardChangeColorEvent(color));
-                          },
-                        ),
+
+                  Align(
+                    alignment: Alignment(0.8, 0.8),
+                    child: Container(
+                      decoration: fabDecor,
+                      child: BlocBuilder<CreateCardBloc, CreateCardState>(
+                        buildWhen:
+                            (prev, cur) =>
+                                prev.isMarkTapped != cur.isMarkTapped,
+                        builder: (context, state) {
+                          return state.isMarkTapped
+                              ? CircleColorPicker(
+                                controller: _controller,
+                                onChanged: (color) {
+                                  _controller.color = color;
+                                  createBloc.add(
+                                    CreateCardChangeColorEvent(
+                                      color.toARGB32(),
+                                    ),
+                                  );
+                                },
+                              )
+                              : const SizedBox();
+                        },
                       ),
                     ),
+                  ),
                 ],
               ),
             ),
@@ -197,15 +210,15 @@ class _CreateCardScreenState extends State<CreateCardScreen> {
 class ColorMark extends StatelessWidget {
   const ColorMark({super.key});
 
+  void onTap(BuildContext context) =>
+      context.read<CreateCardBloc>().add(CreateCardChangeMarkTapEvent());
+
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: Alignment(0.8, -0.9),
+      alignment: Alignment(1, -0.9),
       child: InkWell(
-        onTap:
-            () => context.read<CreateCardBloc>().add(
-              CreateCardChangeMarkTapEvent(),
-            ),
+        onTap: () => onTap(context),
         child: BlocBuilder<CreateCardBloc, CreateCardState>(
           buildWhen:
               (previous, current) => previous.intColor != current.intColor,

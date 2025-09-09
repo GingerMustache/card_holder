@@ -154,14 +154,13 @@ class _CircleColorPickerState extends State<CircleColorPicker>
 
 class _HuePicker extends StatefulWidget {
   const _HuePicker({
-    Key? key,
     required this.hue,
     required this.onChanged,
     required this.onEnded,
     required this.size,
     required this.strokeWidth,
     required this.thumbSize,
-  }) : super(key: key);
+  });
 
   final double hue;
 
@@ -311,7 +310,7 @@ class _CirclePickerPainter extends CustomPainter {
     double radio = min(size.width, size.height) / 2 - strokeWidth;
 
     const sweepGradient = SweepGradient(
-      colors: const [
+      colors: [
         Color.fromARGB(255, 255, 0, 0),
         Color.fromARGB(255, 255, 255, 0),
         Color.fromARGB(255, 0, 255, 0),
