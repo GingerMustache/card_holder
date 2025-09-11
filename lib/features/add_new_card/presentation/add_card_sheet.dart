@@ -46,7 +46,6 @@ class CreateCardScreen extends StatefulWidget {
 
 class _CreateCardScreenState extends State<CreateCardScreen> {
   late final CreateCardBloc createBloc;
-  final _controller = CircleColorPickerController(initialColor: Colors.blue);
 
   @override
   void initState() {
@@ -164,9 +163,10 @@ class _CreateCardScreenState extends State<CreateCardScreen> {
                         builder: (context, state) {
                           return state.isMarkTapped
                               ? CircleColorPicker(
-                                controller: _controller,
+                                controller: CircleColorPickerController(
+                                  initialColor: Color(state.initColor),
+                                ),
                                 onChanged: (color) {
-                                  _controller.color = color;
                                   createBloc.add(
                                     CreateCardChangeColorEvent(
                                       color.toARGB32(),
@@ -221,7 +221,7 @@ class ColorMark extends StatelessWidget {
         onTap: () => onTap(context),
         child: BlocBuilder<CreateCardBloc, CreateCardState>(
           buildWhen:
-              (previous, current) => previous.intColor != current.intColor,
+              (previous, current) => previous.initColor != current.initColor,
           builder: (context, state) {
             return Row(
               mainAxisSize: MainAxisSize.min,
@@ -230,14 +230,14 @@ class ColorMark extends StatelessWidget {
                   AppIcons.bookmark,
                   height: 25,
                   colorFilter: ColorFilter.mode(
-                    Color(state.intColor).withAlpha(220),
+                    Color(state.initColor).withAlpha(220),
                     BlendMode.srcIn,
                   ),
                 ),
                 Text(
                   'color',
                   style: context.textStyles.labelSmall?.copyWith(
-                    color: Color(state.intColor).withAlpha(220),
+                    color: Color(state.initColor).withAlpha(220),
                   ),
                 ),
               ],
