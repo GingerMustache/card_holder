@@ -15,11 +15,11 @@ class CreateCardChangeCodeEvent extends CreateCardEvent {
 }
 
 class CreateCardChangeColorEvent extends CreateCardEvent {
-  const CreateCardChangeColorEvent(this.intColor);
-  final int intColor;
+  const CreateCardChangeColorEvent(this.color);
+  final int color;
 
   @override
-  List<Object?> get props => [intColor];
+  List<Object?> get props => [color];
 }
 
 class CreateCardSetInitColorEvent extends CreateCardEvent {

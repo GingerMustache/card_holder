@@ -64,6 +64,7 @@ class _CreateCardScreenState extends State<CreateCardScreen> {
 
     context.read<CardsBloc>().add(
       CardsAddCardEvent(
+        color: createState.color,
         code: code,
         name: createState.name,
         completer: completer,

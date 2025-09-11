@@ -21,15 +21,17 @@ class CardsOpenCardEvent extends CardsEvent {
 class CardsAddCardEvent extends CardsEvent {
   final String name;
   final String code;
+  final int color;
   final Completer<DataBaseCard> completer;
 
   const CardsAddCardEvent({
     required this.code,
     required this.name,
+    required this.color,
     required this.completer,
   });
   @override
-  List<Object?> get props => [code, name];
+  List<Object?> get props => [code, name, color];
 }
 
 class CardsUpdateCardEvent extends CardsEvent {

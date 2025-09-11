@@ -55,7 +55,7 @@ class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
   Future<void> _onChangeColor(
     CreateCardChangeColorEvent event,
     Emitter<CreateCardState> emit,
-  ) async => emit(state.copyWith(intColor: event.intColor));
+  ) async => emit(state.copyWith(color: event.color));
 
   Future<void> _onChangeMarkTap(
     CreateCardChangeMarkTapEvent event,
@@ -68,7 +68,7 @@ class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
   ) async {
     final int randomColor = (Random().nextDouble() * 0xFFFFFF).toInt();
 
-    emit(state.copyWith(intColor: randomColor));
+    emit(state.copyWith(color: randomColor));
   }
 
   Future<void> _onAddName(

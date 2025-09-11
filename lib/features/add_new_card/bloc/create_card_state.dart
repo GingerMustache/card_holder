@@ -5,17 +5,18 @@ final class CreateCardState extends Equatable {
     this.code = '',
     this.detectedCode = '',
     this.name = '',
+    this.color = 0xffffffff,
     this.detectedName = '',
     this.isFetching = false,
-    this.initColor = 0xffffffff,
     this.isMarkTapped = false,
   });
   final String code;
   final String detectedCode;
   final String name;
+  final int color;
   final String detectedName;
   final bool isFetching;
-  final int initColor;
+
   final bool isMarkTapped;
 
   CreateCardState copyWith({
@@ -24,11 +25,11 @@ final class CreateCardState extends Equatable {
     String? detectedName,
     String? name,
     bool? isFetching,
-    int? intColor,
+    int? color,
     bool? isMarkTapped,
   }) {
     return CreateCardState(
-      initColor: intColor ?? this.initColor,
+      color: color ?? this.color,
       isMarkTapped: isMarkTapped ?? this.isMarkTapped,
       detectedName: detectedName ?? this.detectedName,
       code: code ?? this.code,
@@ -45,7 +46,7 @@ final class CreateCardState extends Equatable {
     detectedCode,
     detectedName,
     isFetching,
-    initColor,
+    color,
     isMarkTapped,
   ];
 }

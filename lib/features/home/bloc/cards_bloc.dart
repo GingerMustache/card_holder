@@ -66,6 +66,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState> {
     final result = await _cardRepo.createCard(
       code: event.code,
       name: event.name,
+      color: event.color,
     );
     result.fold(
       (Exception e) {

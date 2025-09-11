@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:card_holder/common/services/local_crud/crud_exceptions.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/widgets.dart';
 import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -20,17 +21,23 @@ abstract class CardServiceAbstract {
   Future<List<DataBaseCard>> getCards();
   Future<int> deleteAllCards();
   Future<void> deleteCard({required int id});
-  Future<DataBaseCard> createCard({required String code, required String name});
+  Future<DataBaseCard> createCard({
+    required String code,
+    required String name,
+    required int color,
+  });
 }
 
 const _dbName = "card_hold.db";
 const _cardTable = "card";
 const _idColumn = "id";
 const _name = "name";
+const _color = "color";
 const _codeColumn = "code";
 const _usagePointColumn = "usage_point";
 const _createCardTable = '''
       CREATE TABLE IF NOT EXISTS "card" (
+      "color" INTEGER NOT NULL,
       "id"	INTEGER NOT NULL,
       "code"	TEXT,
       "name"	TEXT,
@@ -157,6 +164,7 @@ class LocalCardService implements CardServiceAbstract {
   Future<DataBaseCard> createCard({
     required String code,
     required String name,
+    required int color,
   }) async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
