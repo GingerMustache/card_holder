@@ -105,7 +105,11 @@ class _CircleColorPickerState extends State<CircleColorPicker>
         strokeWidth: widget.strokeWidth,
         thumbSize: widget.thumbSize,
         onEnded: _onEnded,
-        onChanged: (hue) => _hueController.value = hue,
+        onChanged: (hue) {
+          setState(() {
+            _hueController.value = hue;
+          });
+        },
       ),
     );
   }
