@@ -165,7 +165,7 @@ class _CreateCardScreenState extends State<CreateCardScreen> {
                           return state.isMarkTapped
                               ? CircleColorPicker(
                                 controller: CircleColorPickerController(
-                                  initialColor: Color(state.initColor),
+                                  initialColor: Color(state.color),
                                 ),
                                 onChanged:
                                     (color) => createBloc.add(
@@ -220,8 +220,7 @@ class ColorMark extends StatelessWidget {
       child: InkWell(
         onTap: () => onTap(context),
         child: BlocBuilder<CreateCardBloc, CreateCardState>(
-          buildWhen:
-              (previous, current) => previous.initColor != current.initColor,
+          buildWhen: (previous, current) => previous.color != current.color,
           builder: (context, state) {
             return Row(
               mainAxisSize: MainAxisSize.min,
@@ -230,14 +229,14 @@ class ColorMark extends StatelessWidget {
                   AppIcons.bookmark,
                   height: 25,
                   colorFilter: ColorFilter.mode(
-                    Color(state.initColor).withAlpha(220),
+                    Color(state.color).withAlpha(220),
                     BlendMode.srcIn,
                   ),
                 ),
                 Text(
                   'color',
                   style: context.textStyles.labelSmall?.copyWith(
-                    color: Color(state.initColor).withAlpha(220),
+                    color: Color(state.color).withAlpha(220),
                   ),
                 ),
               ],

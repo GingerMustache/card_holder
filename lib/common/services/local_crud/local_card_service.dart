@@ -3,7 +3,6 @@ import 'dart:async';
 
 import 'package:card_holder/common/services/local_crud/crud_exceptions.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/widgets.dart';
 import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -172,10 +171,17 @@ class LocalCardService implements CardServiceAbstract {
     final cardId = await db.insert(_cardTable, {
       _codeColumn: code,
       _name: name,
+      _color: color,
       _usagePointColumn: 0,
     }, conflictAlgorithm: ConflictAlgorithm.replace);
 
-    return DataBaseCard(id: cardId, code: code, name: name, usagePoint: 0);
+    return DataBaseCard(
+      id: cardId,
+      color: color,
+      code: code,
+      name: name,
+      usagePoint: 0,
+    );
   }
 
   Database _getDatabaseOrThrow() {

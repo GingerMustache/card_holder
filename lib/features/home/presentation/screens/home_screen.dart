@@ -93,10 +93,10 @@ class _CardItem extends StatelessWidget {
           child: TextButton(
             onPressed: () => onPressed(context),
             child: Text(
-              'code - ${card?.code},\nname - ${card?.name}\nusage - ${card?.usagePoint}',
+              'code - ${card?.code},\nname - ${card?.name}\nusage - ${card?.usagePoint}\ncolor - ${card?.color}',
 
-              style: const TextStyle(
-                color: Colors.black,
+              style: TextStyle(
+                color: Color(card?.color ?? 0x00000000).withAlpha(220),
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
               ),
