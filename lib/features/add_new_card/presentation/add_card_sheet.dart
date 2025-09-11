@@ -166,13 +166,12 @@ class _CreateCardScreenState extends State<CreateCardScreen> {
                                 controller: CircleColorPickerController(
                                   initialColor: Color(state.initColor),
                                 ),
-                                onChanged: (color) {
-                                  createBloc.add(
-                                    CreateCardChangeColorEvent(
-                                      color.toARGB32(),
+                                onChanged:
+                                    (color) => createBloc.add(
+                                      CreateCardChangeColorEvent(
+                                        color.toARGB32(),
+                                      ),
                                     ),
-                                  );
-                                },
                               )
                               : const SizedBox();
                         },

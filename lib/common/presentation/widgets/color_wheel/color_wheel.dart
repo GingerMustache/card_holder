@@ -106,9 +106,7 @@ class _CircleColorPickerState extends State<CircleColorPicker>
         thumbSize: widget.thumbSize,
         onEnded: _onEnded,
         onChanged: (hue) {
-          setState(() {
-            _hueController.value = hue;
-          });
+          setState(() => _hueController.value = hue);
         },
       ),
     );
@@ -135,6 +133,9 @@ class _CircleColorPickerState extends State<CircleColorPicker>
   @override
   void dispose() {
     widget.controller?.removeListener(_setColor);
+    _hueController.dispose();
+    _lightnessController.dispose();
+
     super.dispose();
   }
 
@@ -272,6 +273,13 @@ class _HuePickerState extends State<_HuePicker> with TickerProviderStateMixin {
       _scaleController.forward();
       widget.onEnded();
     });
+  }
+
+  @override
+  void dispose() {
+    _cancelTimer?.cancel();
+    _scaleController.dispose();
+    super.dispose();
   }
 
   void _updatePosition(Offset position) {
