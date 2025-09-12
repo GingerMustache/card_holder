@@ -18,7 +18,7 @@ class ColorMark extends StatelessWidget {
           AppIcons.bookmark,
           height: 25,
           colorFilter: ColorFilter.mode(
-            Color(color).withAlpha(220),
+            Color(color).withAlpha(255),
             BlendMode.srcIn,
           ),
         ),
@@ -26,7 +26,7 @@ class ColorMark extends StatelessWidget {
           Text(
             t.screen.home.addCard.color,
             style: context.textStyles.labelSmall?.copyWith(
-              color: Color(color).withAlpha(220),
+              color: Color(color).withAlpha(250),
             ),
           ),
       ],
