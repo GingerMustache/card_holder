@@ -160,7 +160,7 @@ class TranslationsScreenHomeOpenCardEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get uses => '5 uses';
+	String get uses => 'uses';
 	String get edit => 'edit';
 	String get share => 'share';
 }
@@ -181,7 +181,7 @@ extension on Translations {
 			case 'screen.home.addCard.name': return 'name_';
 			case 'screen.home.addCard.color': return 'color_';
 			case 'screen.home.addCard.add': return 'add';
-			case 'screen.home.openCard.uses': return '5 uses';
+			case 'screen.home.openCard.uses': return 'uses';
 			case 'screen.home.openCard.edit': return 'edit';
 			case 'screen.home.openCard.share': return 'share';
 			case 'screen.settings.all': return 'first';

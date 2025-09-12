@@ -159,7 +159,7 @@ class _TranslationsScreenHomeOpenCardRu extends TranslationsScreenHomeOpenCardEn
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get uses => '5 раз';
+	@override String get uses => 'раз';
 	@override String get edit => 'принять';
 	@override String get share => 'поделиться';
 }
@@ -180,7 +180,7 @@ extension on TranslationsRu {
 			case 'screen.home.addCard.name': return 'имя_';
 			case 'screen.home.addCard.color': return 'цвет_';
 			case 'screen.home.addCard.add': return 'добавить';
-			case 'screen.home.openCard.uses': return '5 раз';
+			case 'screen.home.openCard.uses': return 'раз';
 			case 'screen.home.openCard.edit': return 'принять';
 			case 'screen.home.openCard.share': return 'поделиться';
 			case 'screen.settings.all': return 'first';

@@ -16,7 +16,7 @@ screen:
       color: цвет_
       add: добавить
     openCard:
-      uses: 5 раз
+      uses: раз
       edit: принять
       share: поделиться
   settings:

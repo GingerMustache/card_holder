@@ -86,6 +86,7 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
                 Column(
                   children: [
                     _ShowBarcode(
+                      pickTime: widget.curCard.usagePoint,
                       allBorderRadius: CardOpenSheet.allBorderRadius,
                       boxDecoration: CardOpenSheet.boxDecoration,
                     ),

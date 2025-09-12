@@ -4,10 +4,12 @@ class _ShowBarcode extends StatelessWidget {
   const _ShowBarcode({
     required this.allBorderRadius,
     required this.boxDecoration,
+    required this.pickTime,
   });
 
   final BorderRadius allBorderRadius;
   final BoxDecoration boxDecoration;
+  final int pickTime;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +47,7 @@ class _ShowBarcode extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  t.screen.home.openCard.uses,
+                  '$pickTime ${t.screen.home.openCard.uses}',
                   style: context.textStyles.labelSmall?.copyWith(
                     color: AppColors.darkGrey,
                   ),

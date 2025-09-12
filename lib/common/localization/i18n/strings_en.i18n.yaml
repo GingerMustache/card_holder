@@ -16,7 +16,7 @@ screen:
       color: color_
       add: add
     openCard:
-      uses: 5 uses
+      uses: uses
       edit: edit
       share: share
   settings:

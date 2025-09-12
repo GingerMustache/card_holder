@@ -54,7 +54,8 @@ class CardsBloc extends Bloc<CardsEvent, CardsState> {
       },
 
       (DataBaseCard card) {
-        cards[event.index] = card.copyWith(usagePoint: card.usagePoint + 1);
+        card = card.copyWith(usagePoint: card.usagePoint + 1);
+        cards[event.index] = card;
         cards.sort((a, b) => b.usagePoint.compareTo(a.usagePoint));
 
         emit(state.copyWith(currentCard: card, cards: cards, isLoading: false));
