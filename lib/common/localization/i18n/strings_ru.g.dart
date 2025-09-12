@@ -148,6 +148,7 @@ class _TranslationsScreenHomeAddCardRu extends TranslationsScreenHomeAddCardEn {
 	@override String get cardName => 'имя карты';
 	@override String get code => 'код_';
 	@override String get name => 'имя_';
+	@override String get color => 'цвет_';
 	@override String get add => 'добавить';
 }
 
@@ -177,6 +178,7 @@ extension on TranslationsRu {
 			case 'screen.home.addCard.cardName': return 'имя карты';
 			case 'screen.home.addCard.code': return 'код_';
 			case 'screen.home.addCard.name': return 'имя_';
+			case 'screen.home.addCard.color': return 'цвет_';
 			case 'screen.home.addCard.add': return 'добавить';
 			case 'screen.home.openCard.uses': return '5 раз';
 			case 'screen.home.openCard.edit': return 'принять';

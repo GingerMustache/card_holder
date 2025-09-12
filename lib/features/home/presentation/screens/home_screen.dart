@@ -89,7 +89,10 @@ class _CardItem extends StatelessWidget {
       decoration: mainBoxDecoration(context),
       child: Stack(
         children: [
-          ColorMark(card?.color ?? 0x00000000, needText: false),
+          Align(
+            alignment: Alignment(1, -1),
+            child: ColorMark(card?.color ?? 0x00000000, needText: false),
+          ),
           Center(
             child: TextButton(
               onPressed: () => onPressed(context),

@@ -155,7 +155,6 @@ class _CreateCardScreenState extends State<CreateCardScreen> {
                     ],
                   ),
                   _ColorMarkWidget(),
-
                   BlocBuilder<CreateCardBloc, CreateCardState>(
                     buildWhen:
                         (prev, cur) => prev.isMarkTapped != cur.isMarkTapped,

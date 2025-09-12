@@ -13,6 +13,7 @@ screen:
       cardName: имя карты
       code: код_
       name: имя_
+      color: цвет_
       add: добавить
     openCard:
       uses: 5 раз

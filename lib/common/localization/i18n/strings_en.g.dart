@@ -149,6 +149,7 @@ class TranslationsScreenHomeAddCardEn {
 	String get cardName => 'card name';
 	String get code => 'code_';
 	String get name => 'name_';
+	String get color => 'color_';
 	String get add => 'add';
 }
 
@@ -178,6 +179,7 @@ extension on Translations {
 			case 'screen.home.addCard.cardName': return 'card name';
 			case 'screen.home.addCard.code': return 'code_';
 			case 'screen.home.addCard.name': return 'name_';
+			case 'screen.home.addCard.color': return 'color_';
 			case 'screen.home.addCard.add': return 'add';
 			case 'screen.home.openCard.uses': return '5 uses';
 			case 'screen.home.openCard.edit': return 'edit';

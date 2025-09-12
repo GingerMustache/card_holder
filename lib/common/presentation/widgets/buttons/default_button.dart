@@ -14,7 +14,7 @@ class DefaultButton extends StatelessWidget {
         splashColor: AppColors.mainWhite,
         splashFactory: null,
         child: Container(
-          width: 100,
+          width: 150,
           padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
           color: AppColors.mainWhite,
 

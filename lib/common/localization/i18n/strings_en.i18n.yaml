@@ -13,6 +13,7 @@ screen:
       cardName: card name
       code: code_
       name: name_
+      color: color_
       add: add
     openCard:
       uses: 5 uses
