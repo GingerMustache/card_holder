@@ -12,6 +12,7 @@ abstract class CardRepository {
     required int id,
     required String code,
     required String name,
+    required int color,
   });
   Future<Either<Exception, DataBaseCard>> createCard({
     required String code,
@@ -55,8 +56,14 @@ class CardRepositoryImpl with ErrorHandlerMixin implements CardRepository {
     required int id,
     required String code,
     required String name,
+    required int color,
   }) => safeCall(
-    () => localCardService.updateCard(id: id, code: code, name: name),
+    () => localCardService.updateCard(
+      id: id,
+      code: code,
+      name: name,
+      color: color,
+    ),
   );
 
   @override

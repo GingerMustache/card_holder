@@ -101,7 +101,9 @@ class CardsBloc extends Bloc<CardsEvent, CardsState> {
       id: state.currentCard!.id,
       code: code,
       name: name,
+      color: event.color,
     );
+
     result.fold(
       (Exception e) {
         if (e is LocalDataBaseException) {

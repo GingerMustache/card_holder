@@ -5,9 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ColorMark extends StatelessWidget {
-  const ColorMark(this.color, {super.key, this.needText = true});
+  const ColorMark(
+    this.color, {
+    super.key,
+    this.needText = true,
+    this.heigh = 25,
+  });
   final int color;
   final bool needText;
+  final double heigh;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +22,7 @@ class ColorMark extends StatelessWidget {
       children: [
         SvgPicture.asset(
           AppIcons.bookmark,
-          height: 25,
+          height: heigh,
           colorFilter: ColorFilter.mode(
             Color(color).withAlpha(255),
             BlendMode.srcIn,

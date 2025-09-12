@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:card_holder/common/application/app_settings.dart';
 import 'package:card_holder/common/extensions/app_extensions.dart';
@@ -12,6 +14,7 @@ import 'package:card_holder/features/home/bloc/cards_bloc.dart';
 import 'package:card_holder/features/open_card/bloc/open_card_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 part 'parts/show_barcode.dart';
 
@@ -59,12 +62,17 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
   }
 
   void onEdit(BuildContext context) {
+    final completer = Completer<DataBaseCard>();
+
     context.read<CardsBloc>().add(
       CardsUpdateCardEvent(
+        color: openBloc.state.color,
         code: openBloc.state.code,
         name: openBloc.state.name,
+        completer: completer,
       ),
     );
+    completer.future.then((_) => context.pop());
   }
 
   void onChangeColor(Color color) =>

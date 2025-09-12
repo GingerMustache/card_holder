@@ -14,6 +14,7 @@ abstract class CardServiceAbstract {
     required int id,
     required String code,
     required String name,
+    required int color,
   });
   Future<DataBaseCard> getCard({required int id});
   Future<DataBaseCard> openCard({required int id});
@@ -56,6 +57,7 @@ class LocalCardService implements CardServiceAbstract {
     required int id,
     required String code,
     required String name,
+    required int color,
   }) async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
@@ -64,7 +66,7 @@ class LocalCardService implements CardServiceAbstract {
 
     final updateColumn = await db.update(
       _cardTable,
-      {_codeColumn: code, _name: name},
+      {_codeColumn: code, _name: name, _color: color},
       where: 'id = ?',
       whereArgs: [id],
     );
