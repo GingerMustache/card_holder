@@ -27,7 +27,9 @@ class CardOpenSheet extends StatefulWidget {
       useRootNavigator: true,
       builder: (BuildContext context) {
         return BlocProvider(
-          create: (context) => OpenCardBloc(),
+          create:
+              (context) =>
+                  OpenCardBloc()..add(OpenCardSetCurrentCardEvent(curCard)),
           child: SizedBox(child: CardOpenSheet(curCard)),
         );
       },
@@ -38,7 +40,7 @@ class CardOpenSheet extends StatefulWidget {
   State<CardOpenSheet> createState() => _CardOpenSheetState();
 
   static const boxDecoration = BoxDecoration(
-    color: AppColors.mainRed,
+    color: AppColors.mainWhite,
     borderRadius: BorderRadius.only(
       topLeft: Radius.circular(8.0),
       topRight: Radius.circular(8.0),
@@ -128,8 +130,8 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
                   ],
                 ),
                 BlocBuilder<OpenCardBloc, OpenCardState>(
-                  // buildWhen:
-                  //     (previous, current) => previous.color != current.color,
+                  buildWhen:
+                      (previous, current) => previous.color != current.color,
                   builder: (context, state) {
                     return ColorMarkWidget(
                       alignment: Alignment(0.9, 0.13),

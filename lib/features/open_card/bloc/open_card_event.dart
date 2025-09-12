@@ -12,6 +12,14 @@ class OpenCardChangeNameEvent extends OpenCardEvent {
   List<Object?> get props => [name];
 }
 
+class OpenCardSetCurrentCardEvent extends OpenCardEvent {
+  const OpenCardSetCurrentCardEvent(this.curCard);
+  final DataBaseCard curCard;
+
+  @override
+  List<Object?> get props => [curCard];
+}
+
 class OpenCardChangeCodeEvent extends OpenCardEvent {
   const OpenCardChangeCodeEvent(this.code);
   final String code;

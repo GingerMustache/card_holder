@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:card_holder/common/mixins/event_transformer_mixin.dart';
+import 'package:card_holder/common/services/local_crud/local_card_service.dart';
 import 'package:card_holder/features/add_new_card/bloc/create_card_bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -11,6 +12,7 @@ class OpenCardBloc extends Bloc<OpenCardEvent, OpenCardState>
   OpenCardBloc() : super(OpenCardInitial()) {
     on<OpenCardChangeCodeEvent>(_onAddCode, transformer: debounceRestartable());
     on<OpenCardChangeNameEvent>(_onAddName, transformer: debounceRestartable());
+    on<OpenCardSetCurrentCardEvent>(_onSetInitColor);
     on<OpenCardChangeColorEvent>(_onChangeColor);
     on<OpenCardChangeMarkTapEvent>(_onChangeMarkTap);
   }
@@ -27,6 +29,19 @@ class OpenCardBloc extends Bloc<OpenCardEvent, OpenCardState>
 
       emit(state.copyWith(code: formattedCode));
     }
+  }
+
+  Future<void> _onSetInitColor(
+    OpenCardSetCurrentCardEvent event,
+    Emitter<OpenCardState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        code: event.curCard.code,
+        name: event.curCard.name,
+        color: event.curCard.color,
+      ),
+    );
   }
 
   Future<void> _onAddName(
