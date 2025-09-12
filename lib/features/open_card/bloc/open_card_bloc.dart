@@ -11,6 +11,8 @@ class OpenCardBloc extends Bloc<OpenCardEvent, OpenCardState>
   OpenCardBloc() : super(OpenCardInitial()) {
     on<OpenCardChangeCodeEvent>(_onAddCode, transformer: debounceRestartable());
     on<OpenCardChangeNameEvent>(_onAddName, transformer: debounceRestartable());
+    on<OpenCardChangeColorEvent>(_onChangeColor);
+    on<OpenCardChangeMarkTapEvent>(_onChangeMarkTap);
   }
 
   Future<void> _onAddCode(
@@ -31,4 +33,14 @@ class OpenCardBloc extends Bloc<OpenCardEvent, OpenCardState>
     OpenCardChangeNameEvent event,
     Emitter<OpenCardState> emit,
   ) async => emit(state.copyWith(name: event.name.replaceAll(' ', '')));
+
+  Future<void> _onChangeColor(
+    OpenCardChangeColorEvent event,
+    Emitter<OpenCardState> emit,
+  ) async => emit(state.copyWith(color: event.color));
+
+  Future<void> _onChangeMarkTap(
+    OpenCardChangeMarkTapEvent event,
+    Emitter<OpenCardState> emit,
+  ) async => emit(state.copyWith(isMarkTapped: !state.isMarkTapped));
 }

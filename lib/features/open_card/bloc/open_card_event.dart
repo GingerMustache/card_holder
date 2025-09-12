@@ -19,3 +19,18 @@ class OpenCardChangeCodeEvent extends OpenCardEvent {
   @override
   List<Object?> get props => [code];
 }
+
+class OpenCardChangeColorEvent extends OpenCardEvent {
+  const OpenCardChangeColorEvent(this.color);
+  final int color;
+
+  @override
+  List<Object?> get props => [color];
+}
+
+class OpenCardChangeMarkTapEvent extends OpenCardEvent {
+  const OpenCardChangeMarkTapEvent();
+
+  @override
+  List<Object?> get props => [];
+}

@@ -5,8 +5,8 @@ import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/presentation/assets_parts/app_icons.dart';
 import 'package:card_holder/common/presentation/widgets/buttons/default_button.dart';
-import 'package:card_holder/common/presentation/widgets/color_mark/color_mark.dart';
-import 'package:card_holder/common/presentation/widgets/color_wheel_widget/color_wheel_widget.dart';
+import 'package:card_holder/common/presentation/widgets/color_mark/color_mark_widget.dart';
+import 'package:card_holder/common/presentation/widgets/color_wheel/color_wheel_widget.dart';
 import 'package:card_holder/common/presentation/widgets/containers/frame_container.dart';
 import 'package:card_holder/common/presentation/widgets/skeleton_wrapper/skeleton_wrapper.dart';
 import 'package:card_holder/common/presentation/widgets/text_fields/frame_text_field.dart';
@@ -19,7 +19,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
-part 'parts/color_mark_widget.dart';
 part 'parts/entered_code.dart';
 part 'parts/scan_frame.dart';
 
@@ -78,6 +77,8 @@ class _CreateCardScreenState extends State<CreateCardScreen> {
 
   void onChangeColor(Color color) =>
       createBloc.add(CreateCardChangeColorEvent(color.toARGB32()));
+
+  void onTapColorWidget() => createBloc.add(CreateCardChangeMarkTapEvent());
 
   @override
   Widget build(BuildContext context) {
@@ -154,7 +155,16 @@ class _CreateCardScreenState extends State<CreateCardScreen> {
                       ),
                     ],
                   ),
-                  _ColorMarkWidget(),
+                  BlocBuilder<CreateCardBloc, CreateCardState>(
+                    buildWhen:
+                        (previous, current) => previous.color != current.color,
+                    builder: (context, state) {
+                      return ColorMarkWidget(
+                        initColor: state.color,
+                        onTap: onTapColorWidget,
+                      );
+                    },
+                  ),
                   BlocBuilder<CreateCardBloc, CreateCardState>(
                     buildWhen:
                         (prev, cur) => prev.isMarkTapped != cur.isMarkTapped,

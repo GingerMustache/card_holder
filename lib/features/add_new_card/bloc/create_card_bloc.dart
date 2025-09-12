@@ -24,8 +24,8 @@ class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
       _onAddName,
       transformer: debounceRestartable(),
     );
-    on<CreateCardChangeColorEvent>(_onChangeColor);
     on<CreateCardSetInitColorEvent>(_onSetInitColor);
+    on<CreateCardChangeColorEvent>(_onChangeColor);
     on<CreateCardChangeMarkTapEvent>(_onChangeMarkTap);
     on<CreateCardSearchEvent>(_onSearch, transformer: debounceRestartable());
 
