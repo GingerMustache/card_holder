@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:async';
+
 import 'package:card_holder/common/application/app_settings.dart';
 import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
@@ -76,11 +78,18 @@ class _CardItem extends StatelessWidget {
   final int currentIndex;
 
   void onPressed(BuildContext context) async {
-    context.read<CardsBloc>().add(
-      CardsOpenCardEvent(id: card?.id, index: currentIndex),
-    );
+    final completer = Completer<DataBaseCard>();
 
-    CardOpenSheet.show(context);
+    context.read<CardsBloc>().add(
+      CardsOpenCardEvent(
+        id: card?.id,
+        index: currentIndex,
+        completer: completer,
+      ),
+    );
+    completer.future.then(
+      (currentCard) => CardOpenSheet.show(context, currentCard),
+    );
   }
 
   @override

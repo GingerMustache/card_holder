@@ -12,8 +12,13 @@ class CardsFetchCardsEvent extends CardsEvent {}
 class CardsOpenCardEvent extends CardsEvent {
   final int? id;
   final int index;
+  final Completer<DataBaseCard> completer;
 
-  const CardsOpenCardEvent({required this.id, required this.index});
+  const CardsOpenCardEvent({
+    required this.id,
+    required this.index,
+    required this.completer,
+  });
   @override
   List<Object?> get props => [id, index];
 }

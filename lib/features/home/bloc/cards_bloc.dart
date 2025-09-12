@@ -49,6 +49,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState> {
       (Exception e) {
         if (e is LocalDataBaseException) {
           emit(state.copyWith(cards: state.cards, isLoading: false, error: e));
+          event.completer.completeError(e);
         }
       },
 
@@ -57,6 +58,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState> {
         cards.sort((a, b) => b.usagePoint.compareTo(a.usagePoint));
 
         emit(state.copyWith(currentCard: card, cards: cards, isLoading: false));
+        event.completer.complete(card);
       },
     );
   }

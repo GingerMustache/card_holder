@@ -5,15 +5,17 @@ import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/presentation/widgets/buttons/default_button.dart';
 import 'package:card_holder/common/presentation/widgets/skeleton_wrapper/skeleton_wrapper.dart';
 import 'package:card_holder/common/presentation/widgets/text_fields/frame_text_field.dart';
+import 'package:card_holder/common/services/local_crud/local_card_service.dart';
 import 'package:card_holder/features/home/bloc/cards_bloc.dart';
 import 'package:card_holder/features/open_card/bloc/open_card_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CardOpenSheet extends StatefulWidget {
-  const CardOpenSheet({super.key});
+  const CardOpenSheet(this.curCard, {super.key});
+  final DataBaseCard curCard;
 
-  static void show(BuildContext context) {
+  static void show(BuildContext context, DataBaseCard curCard) {
     showModalBottomSheet(
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
@@ -22,8 +24,7 @@ class CardOpenSheet extends StatefulWidget {
       builder: (BuildContext context) {
         return BlocProvider(
           create: (context) => OpenCardBloc(),
-
-          child: SizedBox(child: CardOpenSheet()),
+          child: SizedBox(child: CardOpenSheet(curCard)),
         );
       },
     );
@@ -84,13 +85,13 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
                         numericKeyboard: true,
                         onChanged:
                             (v) => openBloc.add(OpenCardChangeCodeEvent(v)),
-                        hintText: t.screen.home.addCard.code,
+                        hintText: widget.curCard.code,
                         labelText: t.screen.home.addCard.manualCode,
                       ),
                       FrameTextField(
                         onChanged:
                             (v) => openBloc.add(OpenCardChangeNameEvent(v)),
-                        hintText: t.screen.home.addCard.name,
+                        hintText: widget.curCard.name,
                         labelText: t.screen.home.addCard.cardName,
                       ),
                       20.h,
