@@ -2,6 +2,7 @@
 import 'package:card_holder/common/application/app_settings.dart';
 import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
+import 'package:card_holder/common/presentation/widgets/color_mark/color_mark.dart';
 import 'package:card_holder/common/presentation/widgets/input_search/input_search.dart';
 import 'package:card_holder/common/services/local_crud/local_card_service.dart';
 import 'package:card_holder/common/sheets/card_open_sheet.dart';
@@ -86,23 +87,23 @@ class _CardItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: mainBoxDecoration(context),
-
-      child: Center(
-        child: SizedBox(
-          height: 110,
-          child: TextButton(
-            onPressed: () => onPressed(context),
-            child: Text(
-              'code - ${card?.code},\nname - ${card?.name}\nusage - ${card?.usagePoint}\ncolor - ${card?.color} ',
-
-              style: TextStyle(
-                color: Color(card?.color ?? 0x00000000).withAlpha(220),
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
+      child: Stack(
+        children: [
+          ColorMark(card?.color ?? 0x00000000, needText: false),
+          Center(
+            child: TextButton(
+              onPressed: () => onPressed(context),
+              child: Text(
+                'code - ${card?.code},\nname - ${card?.name}\nusage - ${card?.usagePoint}\ncolor - ${card?.color} ',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
