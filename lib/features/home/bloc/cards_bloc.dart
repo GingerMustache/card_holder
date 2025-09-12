@@ -115,7 +115,11 @@ class CardsBloc extends Bloc<CardsEvent, CardsState> {
       (DataBaseCard card) {
         final cards = state.cards;
         final currentCardIndex = state.cards.indexWhere((e) => e.id == card.id);
-        final updatedCard = card.copyWith(code: code, name: name);
+        final updatedCard = card.copyWith(
+          code: code,
+          name: name,
+          color: event.color,
+        );
 
         cards[currentCardIndex] = updatedCard;
 
