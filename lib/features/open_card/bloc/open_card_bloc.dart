@@ -17,6 +17,8 @@ class OpenCardBloc extends Bloc<OpenCardEvent, OpenCardState>
     on<OpenCardChangeMarkTapEvent>(_onChangeMarkTap);
   }
 
+
+
   Future<void> _onAddCode(
     OpenCardChangeCodeEvent event,
     Emitter<OpenCardState> emit,

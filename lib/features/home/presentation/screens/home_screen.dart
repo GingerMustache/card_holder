@@ -92,6 +92,7 @@ class _CardItem extends StatelessWidget {
     );
   }
 
+  // item container
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -104,17 +105,27 @@ class _CardItem extends StatelessWidget {
               card?.color ?? 0x00000000,
               needText: false,
               heigh: 20,
+
             ),
           ),
-          Center(
+          Positioned.fill(
             child: TextButton(
               onPressed: () => onPressed(context),
-              child: Text(
-                'code - ${card?.code},\nname - ${card?.name}\nusage - ${card?.usagePoint}\ncolor - ${card?.color} ',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
+              style: TextButton.styleFrom(
+                padding: EdgeInsets.zero,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              child: Center(
+                child: Text(
+                  'code - ${card?.code},\nname - ${card?.name}\nusage - ${card?.usagePoint}\ncolor - ${card?.color} ',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
               ),
             ),
