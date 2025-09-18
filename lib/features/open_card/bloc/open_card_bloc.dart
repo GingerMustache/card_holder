@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:card_holder/common/mixins/event_transformer_mixin.dart';
+import 'package:card_holder/common/services/brightness_controll/brightness_control_service.dart';
 import 'package:card_holder/common/services/local_crud/local_card_service.dart';
-import 'package:card_holder/features/add_new_card/bloc/create_card_bloc.dart';
+import 'package:card_holder/features/add_new_card/bloc/add_card_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:screen_brightness/screen_brightness.dart';
 
 part 'open_card_event.dart';
 part 'open_card_state.dart';
@@ -17,8 +19,6 @@ class OpenCardBloc extends Bloc<OpenCardEvent, OpenCardState>
     on<OpenCardChangeMarkTapEvent>(_onChangeMarkTap);
   }
 
-
-
   Future<void> _onAddCode(
     OpenCardChangeCodeEvent event,
     Emitter<OpenCardState> emit,
@@ -29,7 +29,7 @@ class OpenCardBloc extends Bloc<OpenCardEvent, OpenCardState>
     } else {
       final formattedCode = int.tryParse(onlyNumbers).toString();
 
-      emit(state.copyWith(code: formattedCode));
+      emit(state.copyWith(code: formattedCode, isMarkTapped: false));
     }
   }
 
@@ -49,7 +49,9 @@ class OpenCardBloc extends Bloc<OpenCardEvent, OpenCardState>
   Future<void> _onAddName(
     OpenCardChangeNameEvent event,
     Emitter<OpenCardState> emit,
-  ) async => emit(state.copyWith(name: event.name.replaceAll(' ', '')));
+  ) async => emit(
+    state.copyWith(name: event.name.replaceAll(' ', ''), isMarkTapped: false),
+  );
 
   Future<void> _onChangeColor(
     OpenCardChangeColorEvent event,

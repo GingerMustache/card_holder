@@ -7,7 +7,7 @@ import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/presentation/widgets/color_mark/color_mark.dart';
 import 'package:card_holder/common/presentation/widgets/input_search/input_search.dart';
 import 'package:card_holder/common/services/local_crud/local_card_service.dart';
-import 'package:card_holder/features/add_new_card/presentation/add_card_sheet.dart';
+import 'package:card_holder/features/add_new_card/presentation/card_add_sheet.dart';
 import 'package:card_holder/features/home/bloc/cards_bloc.dart';
 import 'package:card_holder/features/open_card/presentation/card_open_sheet.dart';
 import 'package:card_holder/features/settings/presentation/screens/settings_screen.dart';
@@ -105,7 +105,6 @@ class _CardItem extends StatelessWidget {
               card?.color ?? 0x00000000,
               needText: false,
               heigh: 20,
-
             ),
           ),
           Positioned.fill(

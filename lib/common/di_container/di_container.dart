@@ -1,6 +1,7 @@
 import 'package:card_holder/common/presentation/widgets/app/my_app.dart';
 import 'package:card_holder/common/repositories/card_repository.dart';
 import 'package:card_holder/common/routing/routes.dart';
+import 'package:card_holder/common/services/brightness_controll/brightness_control_service.dart';
 import 'package:card_holder/common/services/local_crud/local_card_service.dart';
 import 'package:card_holder/common/services/local_storage/secure_storage.dart';
 import 'package:flutter/material.dart';
@@ -12,9 +13,13 @@ abstract class DiContainerProvider {
   LocalStorageService makeLocalStorage();
   CardServiceAbstract makeCardService();
   CardRepository makeCardRepository();
+  BrightnessService makeBrightnessService();
 }
 
 class DiContainer implements DiContainerProvider {
+  @override
+  BrightnessService makeBrightnessService() => BrightnessServiceImpl();
+
   @override
   LocalStorageService makeLocalStorage() => SecureStorage();
   @override

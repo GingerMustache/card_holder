@@ -21,9 +21,10 @@ void main() async {
         providers: [
           BlocProvider(
             create:
-                (context) =>
-                    SettingsBloc(localStorage: diContainer.makeLocalStorage())
-                      ..add(SettingInitEvent()),
+                (context) => SettingsBloc(
+                  localStorage: diContainer.makeLocalStorage(),
+                  brightnessService: diContainer.makeBrightnessService(),
+                )..add(SettingInitEvent()),
             lazy: false,
           ),
           BlocProvider(

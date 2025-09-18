@@ -1,4 +1,4 @@
-part of 'create_card_bloc.dart';
+part of 'add_card_bloc.dart';
 
 final class CreateCardState extends Equatable {
   const CreateCardState({

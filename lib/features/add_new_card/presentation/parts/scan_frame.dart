@@ -1,4 +1,4 @@
-part of '../add_card_sheet.dart';
+part of '../card_add_sheet.dart';
 
 class _ScanFrame extends StatelessWidget {
   const _ScanFrame({required this.onPressed});

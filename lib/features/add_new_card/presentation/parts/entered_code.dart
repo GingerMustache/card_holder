@@ -1,4 +1,4 @@
-part of '../add_card_sheet.dart';
+part of '../card_add_sheet.dart';
 
 class _EnteredCodeWidget extends StatelessWidget {
   const _EnteredCodeWidget();

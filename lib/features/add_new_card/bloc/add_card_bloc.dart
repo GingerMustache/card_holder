@@ -7,8 +7,8 @@ import 'package:equatable/equatable.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
-part 'create_card_event.dart';
-part 'create_card_state.dart';
+part 'add_card_event.dart';
+part 'add_card_state.dart';
 
 class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
     with EventTransformerMixin {
@@ -48,14 +48,14 @@ class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
           .format(int.tryParse(onlyNumbers))
           .replaceAll(',', ' ');
 
-      emit(state.copyWith(code: formattedCode));
+      emit(state.copyWith(code: formattedCode, isMarkTapped: false));
     }
   }
 
   Future<void> _onChangeColor(
     CreateCardChangeColorEvent event,
     Emitter<CreateCardState> emit,
-  ) async => emit(state.copyWith(color: event.color));
+  ) async => emit(state.copyWith(color: event.color, isMarkTapped: false));
 
   Future<void> _onChangeMarkTap(
     CreateCardChangeMarkTapEvent event,
@@ -74,7 +74,9 @@ class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
   Future<void> _onAddName(
     CreateCardChangeNameEvent event,
     Emitter<CreateCardState> emit,
-  ) async => emit(state.copyWith(name: event.name.replaceAll(' ', '')));
+  ) async => emit(
+    state.copyWith(name: event.name.replaceAll(' ', ''), isMarkTapped: false),
+  );
 
   Future<void> _onSearch(
     CreateCardSearchEvent event,

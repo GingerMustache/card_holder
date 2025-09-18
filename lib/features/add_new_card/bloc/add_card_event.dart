@@ -1,4 +1,4 @@
-part of 'create_card_bloc.dart';
+part of 'add_card_bloc.dart';
 
 abstract class BlocEventAbstract {}
 
