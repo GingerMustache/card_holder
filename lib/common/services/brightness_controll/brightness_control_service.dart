@@ -10,9 +10,6 @@ abstract class BrightnessService {
   Future<double> getSavedBrightness();
 }
 
-// Custom exception for brightness errors
-
-// Implementation of brightness service with local storage
 class BrightnessServiceImpl implements BrightnessService {
   @override
   Future<void> setMaxBrightness() async {

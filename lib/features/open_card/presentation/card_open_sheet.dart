@@ -9,6 +9,7 @@ import 'package:card_holder/common/presentation/widgets/color_mark/color_mark_wi
 import 'package:card_holder/common/presentation/widgets/color_wheel/color_wheel_widget.dart';
 import 'package:card_holder/common/presentation/widgets/skeleton_wrapper/skeleton_wrapper.dart';
 import 'package:card_holder/common/presentation/widgets/text_fields/frame_text_field.dart';
+import 'package:card_holder/common/services/brightness_controll/brightness_control_service.dart';
 import 'package:card_holder/common/services/local_crud/local_card_service.dart';
 import 'package:card_holder/features/home/bloc/cards_bloc.dart';
 import 'package:card_holder/features/open_card/bloc/open_card_bloc.dart';
@@ -31,8 +32,9 @@ class CardOpenSheet extends StatefulWidget {
       builder: (BuildContext context) {
         return BlocProvider(
           create:
-              (context) =>
-                  OpenCardBloc()..add(OpenCardSetCurrentCardEvent(curCard)),
+              (context) => OpenCardBloc(
+                brightnessService: context.read<BrightnessService>(),
+              )..add(OpenCardSetCurrentCardEvent(curCard)),
           child: SizedBox(child: CardOpenSheet(curCard)),
         );
       },

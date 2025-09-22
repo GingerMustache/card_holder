@@ -15,6 +15,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState> {
 
   CardsBloc({required CardRepository cardRepo})
     : _cardRepo = cardRepo,
+
       super(CardsState()) {
     on<CardsFetchCardsEvent>(_onFetchCards);
     on<CardsOpenCardEvent>(_onOpenCard);
