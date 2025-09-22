@@ -17,9 +17,10 @@ class OpenCardBloc extends Bloc<OpenCardEvent, OpenCardState>
       super(OpenCardInitial()) {
     on<OpenCardChangeCodeEvent>(_onAddCode, transformer: debounceRestartable());
     on<OpenCardChangeNameEvent>(_onAddName, transformer: debounceRestartable());
-    on<OpenCardSetCurrentCardEvent>(_onSetInitColor);
+    on<OpenCardSetCurrentCardEvent>(_onSetCurrentCard);
     on<OpenCardChangeColorEvent>(_onChangeColor);
     on<OpenCardChangeMarkTapEvent>(_onChangeMarkTap);
+    on<OpenCardChangeBrightnessEvent>(_onChangeBrightness);
   }
 
   Future<void> _onAddCode(
@@ -36,10 +37,11 @@ class OpenCardBloc extends Bloc<OpenCardEvent, OpenCardState>
     }
   }
 
-  Future<void> _onSetInitColor(
+  Future<void> _onSetCurrentCard(
     OpenCardSetCurrentCardEvent event,
     Emitter<OpenCardState> emit,
   ) async {
+    _brightnessService.setMaxBrightness();
     emit(
       state.copyWith(
         code: event.curCard.code,
@@ -65,4 +67,16 @@ class OpenCardBloc extends Bloc<OpenCardEvent, OpenCardState>
     OpenCardChangeMarkTapEvent event,
     Emitter<OpenCardState> emit,
   ) async => emit(state.copyWith(isMarkTapped: !state.isMarkTapped));
+
+  Future<void> _onChangeBrightness(
+    OpenCardChangeBrightnessEvent event,
+    Emitter<OpenCardState> emit,
+  ) async {
+    if (state.turnBrightnessOn) {
+      _brightnessService.setMaxBrightness();
+    } else {
+      _brightnessService.resetApplicationScreenBrightness();
+    }
+    emit(state.copyWith(turnBrightnessOn: !state.turnBrightnessOn));
+  }
 }

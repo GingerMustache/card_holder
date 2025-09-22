@@ -42,8 +42,9 @@ class _ShowBarcode extends StatelessWidget {
                 ),
               ),
             ),
+            _BrightnessSwitcher(),
             Align(
-              alignment: Alignment.topRight,
+              alignment: Alignment.topLeft,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
@@ -55,6 +56,45 @@ class _ShowBarcode extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _BrightnessSwitcher extends StatelessWidget {
+  const _BrightnessSwitcher();
+
+  onLightTap(BuildContext context) =>
+      context.read<OpenCardBloc>().add(OpenCardChangeBrightnessEvent());
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () => onLightTap(context),
+      splashFactory: null,
+      child: Align(
+        alignment: Alignment.topRight,
+        child: SizedBox(
+          width: 47,
+          height: 32,
+          child: Center(
+            child: BlocBuilder<OpenCardBloc, OpenCardState>(
+              buildWhen:
+                  (prev, cur) => prev.turnBrightnessOn != cur.turnBrightnessOn,
+              builder: (context, state) {
+                final isBrightnessOn = state.turnBrightnessOn;
+
+                return Text(
+                  'light',
+                  style: context.textStyles.labelSmall?.copyWith(
+                    color:
+                        isBrightnessOn ? AppColors.darkGrey : AppColors.mainRed,
+                  ),
+                );
+              },
+            ),
+          ),
         ),
       ),
     );

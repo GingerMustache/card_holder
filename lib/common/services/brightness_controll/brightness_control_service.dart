@@ -1,5 +1,6 @@
 // Abstract brightness service
 import 'package:screen_brightness/screen_brightness.dart';
+
 part 'brightness_exception.dart';
 
 abstract class BrightnessService {
@@ -8,13 +9,16 @@ abstract class BrightnessService {
   Future<double> getBrightness();
   Future<void> saveBrightness(double brightness);
   Future<double> getSavedBrightness();
+  Future<void> resetApplicationScreenBrightness();
 }
 
 class BrightnessServiceImpl implements BrightnessService {
+  final _brightness = ScreenBrightness.instance;
+
   @override
   Future<void> setMaxBrightness() async {
     try {
-      await ScreenBrightness.instance.setSystemScreenBrightness(1);
+      await _brightness.setSystemScreenBrightness(1);
     } catch (e) {
       throw BrightnessException(
         'Failed to set screen max brightness: ${e.toString()}',
@@ -25,7 +29,7 @@ class BrightnessServiceImpl implements BrightnessService {
   @override
   Future<void> setBrightness(double brightness) async {
     try {
-      await ScreenBrightness.instance.setSystemScreenBrightness(brightness);
+      await _brightness.setSystemScreenBrightness(brightness);
     } catch (e) {
       throw BrightnessException(
         'Failed to set screen brightness: ${e.toString()}',
@@ -36,10 +40,21 @@ class BrightnessServiceImpl implements BrightnessService {
   @override
   Future<double> getBrightness() async {
     try {
-      return await ScreenBrightness.instance.system;
+      return await _brightness.system;
     } catch (e) {
       throw BrightnessException(
         'Failed to get screen brightness: ${e.toString()}',
+      );
+    }
+  }
+
+  @override
+  Future<void> resetApplicationScreenBrightness() async {
+    try {
+      await _brightness.resetApplicationScreenBrightness();
+    } catch (e) {
+      throw BrightnessException(
+        'Failed to reset application brightness: ${e.toString()}',
       );
     }
   }

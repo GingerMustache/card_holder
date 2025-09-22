@@ -21,6 +21,7 @@ void main() async {
       child: MultiBlocProvider(
         providers: [
           RepositoryProvider<BrightnessService>(
+            lazy: false,
             create: (_) => diContainer.makeBrightnessService(),
           ),
           BlocProvider(
