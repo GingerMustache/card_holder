@@ -25,7 +25,12 @@ class _AppBar extends StatelessWidget {
                 ),
               ),
               18.h,
-              InputSearch(change: (String? value) {}, clear: () {}),
+              InputSearch(
+                change:
+                    (String? value) =>
+                        context.read<CardsBloc>().add(CardsSearchEvent(value)),
+                clear: () {},
+              ),
               Container(
                 decoration: dividerDecor,
                 height: 30,

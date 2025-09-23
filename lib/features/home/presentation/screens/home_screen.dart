@@ -34,7 +34,11 @@ class HomeScreen extends StatelessWidget {
             children: [
               BlocBuilder<CardsBloc, CardsState>(
                 builder: (context, state) {
-                  return _GridCards(cards: state.cards);
+                  final cards =
+                      state.searchListCards.isNotEmpty
+                          ? state.searchListCards
+                          : state.cards;
+                  return _GridCards(cards: cards);
                 },
               ),
               SettingsPage(),

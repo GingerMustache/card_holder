@@ -6,19 +6,17 @@ import 'package:flutter/services.dart' show TextInputFormatter;
 class InputSearch extends StatefulWidget {
   const InputSearch({
     super.key,
-    this.value,
+
     this.fontSize = 16,
     this.focusNode,
-    this.controller,
+
     this.change,
     this.clear,
   });
 
-  final String? value;
   final double fontSize;
 
   final FocusNode? focusNode;
-  final TextEditingController? controller;
   final Function(String? value)? change;
   final Function()? clear;
 
@@ -27,19 +25,12 @@ class InputSearch extends StatefulWidget {
 }
 
 class _InputSearchState extends State<InputSearch> {
-  String? value;
+  late final TextEditingController controller;
 
   @override
   void initState() {
     super.initState();
-
-    widget.controller?.addListener(() {
-      setState(() => value = widget.controller!.text);
-    });
-
-    setState(() {
-      value = widget.value;
-    });
+    controller = TextEditingController();
   }
 
   @override
@@ -51,15 +42,13 @@ class _InputSearchState extends State<InputSearch> {
 
         padding: const EdgeInsets.only(left: 8),
         child: TextFormField(
-          controller: widget.controller,
+          controller: controller,
           cursorColor: AppColors.darkGrey,
           cursorWidth: 1,
           cursorHeight: 15,
-          initialValue: widget.value,
+
           focusNode: widget.focusNode,
-
           style: TextStyle(fontSize: widget.fontSize, color: AppColors.subGrey),
-
           decoration: InputDecoration(
             hintText: t.other.search,
             hintStyle: TextStyle(color: AppColors.subGrey),
@@ -77,15 +66,13 @@ class _InputSearchState extends State<InputSearch> {
               maxHeight: 35,
               minWidth: 30,
             ),
-            // prefixIcon: SizedBox(
-            //   height: 18,
-            //   child: SvgPicture.asset(AppIcons.find),
-            // ),
           ),
-          // inputFormatters: [RemoveEmojiInputFormatter()],
+          inputFormatters: [RemoveEmojiInputFormatter()],
           onChanged: (String val) {
+            controller.text = val.replaceAll(' ', '');
+
             if (widget.change != null) {
-              widget.change!(val);
+              widget.change!(controller.text);
             }
           },
         ),

@@ -4,18 +4,21 @@ final class CardsState extends Equatable {
   const CardsState({
     this.isLoading = false,
     this.cards = const [],
+    this.searchListCards = const [],
     this.currentCard,
     this.error,
   });
 
   final bool isLoading;
   final List<DataBaseCard> cards;
+  final List<DataBaseCard> searchListCards;
   final DataBaseCard? currentCard;
   final Object? error;
 
   CardsState copyWith({
     bool? isLoading,
     List<DataBaseCard>? cards,
+    List<DataBaseCard>? searchListCards,
     DataBaseCard? currentCard,
     Object? error,
   }) {
@@ -23,10 +26,11 @@ final class CardsState extends Equatable {
       error: error ?? this.error,
       isLoading: isLoading ?? this.isLoading,
       cards: cards ?? this.cards,
+      searchListCards: searchListCards ?? this.searchListCards,
       currentCard: currentCard ?? this.currentCard,
     );
   }
 
   @override
-  List<Object?> get props => [cards, currentCard];
+  List<Object?> get props => [cards, currentCard, searchListCards];
 }

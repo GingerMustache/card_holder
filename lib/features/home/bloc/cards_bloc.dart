@@ -2,6 +2,7 @@ import 'dart:async' show Completer;
 
 import 'package:bloc/bloc.dart';
 import 'package:card_holder/common/extensions/app_extensions.dart';
+import 'package:card_holder/common/mixins/event_transformer_mixin.dart';
 import 'package:card_holder/common/repositories/card_repository.dart';
 import 'package:card_holder/common/services/local_crud/crud_exceptions.dart';
 import 'package:card_holder/common/services/local_crud/local_card_service.dart';
@@ -10,7 +11,8 @@ import 'package:equatable/equatable.dart';
 part 'cards_event.dart';
 part 'cards_state.dart';
 
-class CardsBloc extends Bloc<CardsEvent, CardsState> {
+class CardsBloc extends Bloc<CardsEvent, CardsState>
+    with EventTransformerMixin {
   final CardRepository _cardRepo;
 
   CardsBloc({required CardRepository cardRepo})
@@ -21,6 +23,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState> {
     on<CardsOpenCardEvent>(_onOpenCard);
     on<CardsAddCardEvent>(_onAddCards);
     on<CardsUpdateCardEvent>(_onUpdateCards);
+    on<CardsSearchEvent>(_onCardSearch, transformer: debounceRestartable());
   }
   _onFetchCards(CardsFetchCardsEvent event, Emitter<CardsState> emit) async {
     emit(state.copyWith(isLoading: true));
@@ -134,5 +137,33 @@ class CardsBloc extends Bloc<CardsEvent, CardsState> {
         event.completer?.complete(card);
       },
     );
+  }
+
+  _onCardSearch(CardsSearchEvent event, Emitter<CardsState> emit) async {
+    emit(state.copyWith(isLoading: true));
+    List<DataBaseCard> cards = state.cards;
+
+    if (event.text != null && event.text!.isNotEmpty) {
+      final List<DataBaseCard> foundCards =
+          cards.where((element) => element.name.contains(event.text!)).toList();
+
+      foundCards.isEmpty
+          ? emit(
+            state.copyWith(
+              isLoading: false,
+              cards: state.cards,
+              searchListCards: [],
+            ),
+          )
+          : emit(state.copyWith(isLoading: false, searchListCards: foundCards));
+    } else {
+      emit(
+        state.copyWith(
+          isLoading: false,
+          cards: state.cards,
+          searchListCards: [],
+        ),
+      );
+    }
   }
 }

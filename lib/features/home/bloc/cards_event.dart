@@ -54,3 +54,11 @@ class CardsUpdateCardEvent extends CardsEvent {
   @override
   List<Object?> get props => [name, code, color];
 }
+
+class CardsSearchEvent extends CardsEvent {
+  final String? text;
+
+  const CardsSearchEvent(this.text);
+  @override
+  List<Object?> get props => [text];
+}
