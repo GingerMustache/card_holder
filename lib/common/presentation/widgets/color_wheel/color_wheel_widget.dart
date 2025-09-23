@@ -8,15 +8,17 @@ class ColorWheelWidget extends StatelessWidget {
     required this.initialColor,
     required this.onChanged,
     required this.isShow,
+    this.alignment = const Alignment(0.8, 0.8),
   });
   final int initialColor;
   final void Function(Color)? onChanged;
   final bool isShow;
+  final Alignment alignment;
 
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: Alignment(0.8, 0.8),
+      alignment: alignment,
       child: Container(
         decoration: fabDecor,
         child:

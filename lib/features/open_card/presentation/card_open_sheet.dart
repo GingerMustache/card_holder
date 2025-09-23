@@ -155,6 +155,7 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
                                 prev.isMarkTapped != cur.isMarkTapped,
                         builder: (context, state) {
                           return ColorWheelWidget(
+                            alignment: Alignment(0.7, 0.7),
                             initialColor: state.color,
                             isShow: state.isMarkTapped,
                             onChanged: onChangeColor,
