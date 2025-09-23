@@ -91,18 +91,18 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
           child: Container(
             decoration: CardOpenSheet.boxDecoration,
             width: double.infinity,
-            child: Stack(
+            child: Column(
               children: [
-                Column(
-                  children: [
-                    _ShowBarcode(
-                      pickTime: widget.curCard.usagePoint,
-                      allBorderRadius: CardOpenSheet.allBorderRadius,
-                      boxDecoration: CardOpenSheet.boxDecoration,
-                    ),
-                    Padding(
-                      padding: mainHorizontalPadding,
-                      child: Column(
+                _ShowBarcode(
+                  pickTime: widget.curCard.usagePoint,
+                  allBorderRadius: CardOpenSheet.allBorderRadius,
+                  boxDecoration: CardOpenSheet.boxDecoration,
+                ),
+                Padding(
+                  padding: mainHorizontalPadding,
+                  child: Stack(
+                    children: [
+                      Column(
                         children: [
                           Divider(color: AppColors.subGrey.withAlpha(50)),
                           FrameTextField(
@@ -137,30 +137,32 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
                           ),
                         ],
                       ),
-                    ),
-                  ],
-                ),
-                BlocBuilder<OpenCardBloc, OpenCardState>(
-                  buildWhen:
-                      (previous, current) => previous.color != current.color,
-                  builder: (context, state) {
-                    return ColorMarkWidget(
-                      alignment: Alignment(0.9, 0.13),
-                      initColor: state.color,
-                      onTap: onTapColorWidget,
-                    );
-                  },
-                ),
-                BlocBuilder<OpenCardBloc, OpenCardState>(
-                  buildWhen:
-                      (prev, cur) => prev.isMarkTapped != cur.isMarkTapped,
-                  builder: (context, state) {
-                    return ColorWheelWidget(
-                      initialColor: state.color,
-                      isShow: state.isMarkTapped,
-                      onChanged: onChangeColor,
-                    );
-                  },
+                      BlocBuilder<OpenCardBloc, OpenCardState>(
+                        buildWhen:
+                            (previous, current) =>
+                                previous.color != current.color,
+                        builder: (context, state) {
+                          return ColorMarkWidget(
+                            alignment: Alignment(0.9, 0.13),
+                            initColor: state.color,
+                            onTap: onTapColorWidget,
+                          );
+                        },
+                      ),
+                      BlocBuilder<OpenCardBloc, OpenCardState>(
+                        buildWhen:
+                            (prev, cur) =>
+                                prev.isMarkTapped != cur.isMarkTapped,
+                        builder: (context, state) {
+                          return ColorWheelWidget(
+                            initialColor: state.color,
+                            isShow: state.isMarkTapped,
+                            onChanged: onChangeColor,
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

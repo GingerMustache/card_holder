@@ -77,7 +77,7 @@ class _CardItem extends StatelessWidget {
   final DataBaseCard? card;
   final int currentIndex;
 
-  void onPressed(BuildContext context) async {
+  void onPressed(BuildContext context) {
     final completer = Completer<DataBaseCard>();
 
     context.read<CardsBloc>().add(
