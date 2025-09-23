@@ -1,6 +1,21 @@
 part of '../screens/home_screen.dart';
 
 class _AppBar extends StatelessWidget {
+  final TabController _tabController;
+
+  const _AppBar(this._tabController);
+
+  onChange(String? value, BuildContext context, int page) {
+    if (value != null && value.isEmpty) {
+      context.read<CardsBloc>().add(CardsSearchEvent(value));
+      context.read<SettingsBloc>().add(SettingSearchEvent(query: value));
+    } else {
+      page == 0
+          ? context.read<CardsBloc>().add(CardsSearchEvent(value))
+          : context.read<SettingsBloc>().add(SettingSearchEvent(query: value));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
@@ -28,13 +43,14 @@ class _AppBar extends StatelessWidget {
               InputSearch(
                 change:
                     (String? value) =>
-                        context.read<CardsBloc>().add(CardsSearchEvent(value)),
+                        onChange(value, context, _tabController.index),
               ),
               Container(
                 decoration: dividerDecor,
                 height: 30,
 
                 child: TabBar(
+                  controller: _tabController,
                   tabAlignment: TabAlignment.start,
                   indicatorSize: TabBarIndicatorSize.label,
                   labelPadding: EdgeInsets.only(right: 8),

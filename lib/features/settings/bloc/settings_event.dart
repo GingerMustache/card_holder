@@ -24,3 +24,12 @@ class SettingInitEvent extends SettingsEvent {
   @override
   List<Object?> get props => [];
 }
+
+class SettingSearchEvent extends SettingsEvent {
+  final String? query;
+
+  SettingSearchEvent({required this.query});
+
+  @override
+  List<Object?> get props => [query];
+}

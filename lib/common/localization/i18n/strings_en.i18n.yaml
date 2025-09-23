@@ -26,6 +26,7 @@ tabs:
   setting: setting
 other:
   search: search line_
+  clear: del
 system:
     theme:
       all: theme

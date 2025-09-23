@@ -21,32 +21,28 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> settingItems = [
-      t.system.theme.all,
-      t.system.lang.all,
-      'Notifications',
-      'Privacy',
-      'Security',
-      'Display',
-      'Help & Support',
-      'About',
-      'Logout',
-    ];
-
     return Padding(
       padding: mainPadding,
-      child: GridView.builder(
-        addAutomaticKeepAlives: false,
-        padding: EdgeInsets.zero,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          mainAxisSpacing: 16,
-          crossAxisSpacing: 16,
-          childAspectRatio: 1.6,
-        ),
-        itemCount: settingItems.length,
-        itemBuilder: (context, index) {
-          return _FlipCard(title: settingItems[index], index);
+      child: BlocBuilder<SettingsBloc, SettingsState>(
+        builder: (context, state) {
+          final settings =
+              state.searchItems.isNotEmpty
+                  ? state.searchItems
+                  : state.settingItems;
+          return GridView.builder(
+            addAutomaticKeepAlives: false,
+            padding: EdgeInsets.zero,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 16,
+              crossAxisSpacing: 16,
+              childAspectRatio: 1.6,
+            ),
+            itemCount: settings.length,
+            itemBuilder: (context, index) {
+              return _FlipCard(title: settings[index], index);
+            },
+          );
         },
       ),
     );

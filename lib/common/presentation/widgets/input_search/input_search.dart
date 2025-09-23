@@ -38,6 +38,12 @@ class _InputSearchState extends State<InputSearch> {
   }
 
   @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
@@ -62,7 +68,7 @@ class _InputSearchState extends State<InputSearch> {
                   splashFactory: null,
                   onTap: widget.clear ?? onTap,
                   child: Text(
-                    'del',
+                    t.other.clear,
                     style: context.textStyles.labelSmall?.copyWith(
                       color: AppColors.darkGrey,
                     ),

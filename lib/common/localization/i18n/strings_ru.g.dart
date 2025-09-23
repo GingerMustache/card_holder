@@ -75,6 +75,7 @@ class _TranslationsOtherRu extends TranslationsOtherEn {
 
 	// Translations
 	@override String get search => 'поисковая строка_';
+	@override String get clear => 'чист';
 }
 
 // Path: system
@@ -187,6 +188,7 @@ extension on TranslationsRu {
 			case 'tabs.card': return 'карты';
 			case 'tabs.setting': return 'настройки';
 			case 'other.search': return 'поисковая строка_';
+			case 'other.clear': return 'чист';
 			case 'system.theme.all': return 'тема';
 			case 'system.theme.light': return 'свет';
 			case 'system.theme.dark': return 'тьма';

@@ -26,6 +26,7 @@ tabs:
   setting: настройки
 other:
   search: поисковая строка_
+  clear: чист
 system:
     theme:
       all: тема

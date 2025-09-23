@@ -18,6 +18,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     on<SettingChangeLangEvent>(_onChangeLang);
     on<SettingChangeThemeEvent>(_onChangeTheme);
     on<SettingInitEvent>(_onInit);
+    on<SettingSearchEvent>(_onSettingSearch);
   }
 
   _onInit(SettingInitEvent event, Emitter<SettingsState> emit) async {
@@ -26,8 +27,25 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
         await _localStorage.read(SecureKeys.theme.name) == 'dark'
             ? ThemeMode.dark
             : ThemeMode.light;
+    final settingItems = [
+      t.system.theme.all,
+      t.system.lang.all,
+      'Notifications',
+      'Privacy',
+      'Security',
+      'Display',
+      'Help & Support',
+      'About',
+      'Logout',
+    ];
 
-    emit(state.copyWith(lang: currentLang, theme: currentTheme));
+    emit(
+      state.copyWith(
+        lang: currentLang,
+        theme: currentTheme,
+        settingItems: settingItems,
+      ),
+    );
   }
 
   _onChangeLang(
@@ -52,5 +70,25 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     );
 
     emit(state.copyWith(theme: event.theme));
+  }
+
+  _onSettingSearch(
+    SettingSearchEvent event,
+    Emitter<SettingsState> emit,
+  ) async {
+    List<String> settings = state.settingItems;
+
+    if (event.query != null && event.query!.isNotEmpty) {
+      final List<String> foundSetting =
+          settings
+              .where((element) => element.contains(event.query ?? ''))
+              .toList();
+
+      foundSetting.isEmpty
+          ? emit(state.copyWith(settingItems: state.settingItems))
+          : emit(state.copyWith(searchItems: foundSetting));
+    } else {
+      emit(state.copyWith(settingItems: state.settingItems, searchItems: []));
+    }
   }
 }

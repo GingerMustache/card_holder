@@ -39,7 +39,10 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	Translations $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => Translations(meta: meta ?? this.$meta);
 
 	// Translations
+
+	/// en: 'title'
 	String get title => 'title';
+
 	late final TranslationsScreenEn screen = TranslationsScreenEn.internal(_root);
 	late final TranslationsTabsEn tabs = TranslationsTabsEn.internal(_root);
 	late final TranslationsOtherEn other = TranslationsOtherEn.internal(_root);
@@ -64,7 +67,11 @@ class TranslationsTabsEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'cards'
 	String get card => 'cards';
+
+	/// en: 'setting'
 	String get setting => 'setting';
 }
 
@@ -75,7 +82,12 @@ class TranslationsOtherEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'search line_'
 	String get search => 'search line_';
+
+	/// en: 'del'
+	String get clear => 'del';
 }
 
 // Path: system
@@ -96,8 +108,13 @@ class TranslationsScreenHomeEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Card Holder'
 	String get name => 'Card Holder';
+
+	/// en: 'add'
 	String get add => 'add';
+
 	late final TranslationsScreenHomeAddCardEn addCard = TranslationsScreenHomeAddCardEn.internal(_root);
 	late final TranslationsScreenHomeOpenCardEn openCard = TranslationsScreenHomeOpenCardEn.internal(_root);
 }
@@ -109,6 +126,8 @@ class TranslationsScreenSettingsEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'first'
 	String get all => 'first';
 }
 
@@ -119,8 +138,14 @@ class TranslationsSystemThemeEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'theme'
 	String get all => 'theme';
+
+	/// en: 'light'
 	String get light => 'light';
+
+	/// en: 'dark'
 	String get dark => 'dark';
 }
 
@@ -131,8 +156,14 @@ class TranslationsSystemLangEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'language'
 	String get all => 'language';
+
+	/// en: 'ru'
 	String get ru => 'ru';
+
+	/// en: 'en'
 	String get en => 'en';
 }
 
@@ -143,13 +174,29 @@ class TranslationsScreenHomeAddCardEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'position barcode within frame to scan automatically'
 	String get barcodeScan => 'position barcode within frame to scan automatically';
+
+	/// en: 'detected code'
 	String get detectedCode => 'detected code';
+
+	/// en: 'enter code manually'
 	String get manualCode => 'enter code manually';
+
+	/// en: 'card name'
 	String get cardName => 'card name';
+
+	/// en: 'code_'
 	String get code => 'code_';
+
+	/// en: 'name_'
 	String get name => 'name_';
+
+	/// en: 'color_'
 	String get color => 'color_';
+
+	/// en: 'add'
 	String get add => 'add';
 }
 
@@ -160,8 +207,14 @@ class TranslationsScreenHomeOpenCardEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'uses'
 	String get uses => 'uses';
+
+	/// en: 'edit'
 	String get edit => 'edit';
+
+	/// en: 'share'
 	String get share => 'share';
 }
 
@@ -188,6 +241,7 @@ extension on Translations {
 			case 'tabs.card': return 'cards';
 			case 'tabs.setting': return 'setting';
 			case 'other.search': return 'search line_';
+			case 'other.clear': return 'del';
 			case 'system.theme.all': return 'theme';
 			case 'system.theme.light': return 'light';
 			case 'system.theme.dark': return 'dark';

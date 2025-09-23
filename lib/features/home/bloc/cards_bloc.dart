@@ -145,7 +145,9 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
 
     if (event.text != null && event.text!.isNotEmpty) {
       final List<DataBaseCard> foundCards =
-          cards.where((element) => element.name.contains(event.text!)).toList();
+          cards
+              .where((element) => element.name.contains(event.text ?? ''))
+              .toList();
 
       foundCards.isEmpty
           ? emit(

@@ -10,6 +10,7 @@ import 'package:card_holder/common/services/local_crud/local_card_service.dart';
 import 'package:card_holder/features/add_new_card/presentation/card_add_sheet.dart';
 import 'package:card_holder/features/home/bloc/cards_bloc.dart';
 import 'package:card_holder/features/open_card/presentation/card_open_sheet.dart';
+import 'package:card_holder/features/settings/bloc/settings_bloc.dart';
 import 'package:card_holder/features/settings/presentation/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,33 +18,51 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part '../parts/app_bar.dart';
 part '../parts/fab.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        floatingActionButton: _Fab(),
+  State<HomeScreen> createState() => _HomeScreenState();
+}
 
-        body: NestedScrollView(
-          physics: const ClampingScrollPhysics(),
-          headerSliverBuilder: (context, innerBoxIsScrolled) => [_AppBar()],
-          body: TabBarView(
-            children: [
-              BlocBuilder<CardsBloc, CardsState>(
-                builder: (context, state) {
-                  final cards =
-                      state.searchListCards.isNotEmpty
-                          ? state.searchListCards
-                          : state.cards;
-                  return _GridCards(cards: cards);
-                },
-              ),
-              SettingsPage(),
-            ],
-          ),
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
+  late final TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      floatingActionButton: _Fab(),
+
+      body: NestedScrollView(
+        physics: const ClampingScrollPhysics(),
+        headerSliverBuilder:
+            (context, innerBoxIsScrolled) => [_AppBar(_tabController)],
+        body: TabBarView(
+          controller: _tabController,
+          children: [
+            BlocBuilder<CardsBloc, CardsState>(
+              builder: (context, state) {
+                final cards =
+                    state.searchListCards.isNotEmpty
+                        ? state.searchListCards
+                        : state.cards;
+                return _GridCards(cards: cards);
+              },
+            ),
+            SettingsPage(),
+          ],
         ),
       ),
     );
