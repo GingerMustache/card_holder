@@ -1,4 +1,5 @@
 import 'package:card_holder/common/application/app_settings.dart';
+import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show TextInputFormatter;
@@ -6,18 +7,16 @@ import 'package:flutter/services.dart' show TextInputFormatter;
 class InputSearch extends StatefulWidget {
   const InputSearch({
     super.key,
-
     this.fontSize = 16,
     this.focusNode,
-
-    this.change,
+    required this.change,
     this.clear,
   });
 
   final double fontSize;
 
   final FocusNode? focusNode;
-  final Function(String? value)? change;
+  final Function(String? value) change;
   final Function()? clear;
 
   @override
@@ -31,6 +30,11 @@ class _InputSearchState extends State<InputSearch> {
   void initState() {
     super.initState();
     controller = TextEditingController();
+  }
+
+  void onTap() {
+    controller.clear();
+    widget.change('');
   }
 
   @override
@@ -50,6 +54,23 @@ class _InputSearchState extends State<InputSearch> {
           focusNode: widget.focusNode,
           style: TextStyle(fontSize: widget.fontSize, color: AppColors.subGrey),
           decoration: InputDecoration(
+            suffix: ValueListenableBuilder(
+              valueListenable: controller,
+              builder: (context, value, _) {
+                if (value.text.isEmpty) return const SizedBox();
+                return InkWell(
+                  splashFactory: null,
+                  onTap: widget.clear ?? onTap,
+                  child: Text(
+                    'del',
+                    style: context.textStyles.labelSmall?.copyWith(
+                      color: AppColors.darkGrey,
+                    ),
+                  ),
+                );
+              },
+            ),
+
             hintText: t.other.search,
             hintStyle: TextStyle(color: AppColors.subGrey),
             border: InputBorder.none,
@@ -69,11 +90,8 @@ class _InputSearchState extends State<InputSearch> {
           ),
           inputFormatters: [RemoveEmojiInputFormatter()],
           onChanged: (String val) {
-            controller.text = val.replaceAll(' ', '');
-
-            if (widget.change != null) {
-              widget.change!(controller.text);
-            }
+            controller.text = val;
+            widget.change(val);
           },
         ),
       ),
