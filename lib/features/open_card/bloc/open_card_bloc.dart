@@ -72,10 +72,10 @@ class OpenCardBloc extends Bloc<OpenCardEvent, OpenCardState>
     OpenCardChangeBrightnessEvent event,
     Emitter<OpenCardState> emit,
   ) async {
-    if (state.turnBrightnessOn) {
-      _brightnessService.setMaxBrightness();
+    if (state.turnBrightnessOn || event.dismissSheet) {
+      _brightnessService.setDefaultSystemBrightness();
     } else {
-      _brightnessService.resetApplicationScreenBrightness();
+      _brightnessService.setMaxBrightness();
     }
     emit(state.copyWith(turnBrightnessOn: !state.turnBrightnessOn));
   }

@@ -63,6 +63,12 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
     openBloc = context.read<OpenCardBloc>();
   }
 
+  @override
+  void dispose() {
+    openBloc.add(OpenCardChangeBrightnessEvent(dismissSheet: true));
+    super.dispose();
+  }
+
   void onEdit(BuildContext context) {
     final completer = Completer<DataBaseCard>();
 

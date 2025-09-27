@@ -9,16 +9,19 @@ abstract class BrightnessService {
   Future<double> getBrightness();
   Future<void> saveBrightness(double brightness);
   Future<double> getSavedBrightness();
-  Future<void> resetApplicationScreenBrightness();
+  Future<void> setDefaultSystemBrightness();
 }
 
 class BrightnessServiceImpl implements BrightnessService {
   final _brightness = ScreenBrightness.instance;
+  static double _currentBrightness = 0;
 
   @override
   Future<void> setMaxBrightness() async {
     try {
-      await _brightness.setSystemScreenBrightness(1);
+      await getBrightness();
+      await _brightness.setApplicationScreenBrightness(0.7);
+      // await _brightness.setSystemScreenBrightness(0.7);
     } catch (e) {
       throw BrightnessException(
         'Failed to set screen max brightness: ${e.toString()}',
@@ -40,7 +43,8 @@ class BrightnessServiceImpl implements BrightnessService {
   @override
   Future<double> getBrightness() async {
     try {
-      return await _brightness.system;
+      _currentBrightness = await _brightness.system;
+      return _currentBrightness;
     } catch (e) {
       throw BrightnessException(
         'Failed to get screen brightness: ${e.toString()}',
@@ -49,9 +53,9 @@ class BrightnessServiceImpl implements BrightnessService {
   }
 
   @override
-  Future<void> resetApplicationScreenBrightness() async {
+  Future<void> setDefaultSystemBrightness() async {
     try {
-      await _brightness.resetApplicationScreenBrightness();
+      await _brightness.setApplicationScreenBrightness(_currentBrightness);
     } catch (e) {
       throw BrightnessException(
         'Failed to reset application brightness: ${e.toString()}',

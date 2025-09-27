@@ -44,8 +44,9 @@ class OpenCardChangeMarkTapEvent extends OpenCardEvent {
 }
 
 class OpenCardChangeBrightnessEvent extends OpenCardEvent {
-  const OpenCardChangeBrightnessEvent();
+  const OpenCardChangeBrightnessEvent({this.dismissSheet = false});
+  final bool dismissSheet;
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [dismissSheet];
 }
