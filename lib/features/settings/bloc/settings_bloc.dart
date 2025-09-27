@@ -30,7 +30,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     final settingItems = [
       t.system.theme.all,
       t.system.lang.all,
-      'Notifications',
+      'brightness',
       'Privacy',
       'Security',
       'Display',

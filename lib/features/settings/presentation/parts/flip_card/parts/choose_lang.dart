@@ -16,7 +16,7 @@ class _ChooseLang extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsBloc, SettingsState>(
-      buildWhen: (previous, current) => previous.lang != current.lang,
+      // buildWhen: (previous, current) => previous.lang != current.lang,
       builder: (context, state) {
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -59,7 +59,7 @@ class _UnderCardWidget extends StatelessWidget {
     return switch (index) {
       0 => const _ChooseTheme(),
       1 => const _ChooseLang(),
-      2 => const Text('2'),
+      2 => const _ChooseBrightness(),
       3 => const Text('3'),
       4 => const Text('4'),
       5 => const Text('5'),
@@ -68,5 +68,45 @@ class _UnderCardWidget extends StatelessWidget {
       8 => const Text('8'),
       _ => const Text('Unknown Setting'),
     };
+  }
+}
+
+class _ChooseBrightness extends StatelessWidget {
+  const _ChooseBrightness();
+
+  void _onLanguageSelected(BuildContext context, String lang) async {
+    HapticFeedback.mediumImpact();
+    context.read<SettingsBloc>().add(SettingChangeLangEvent(lang: lang));
+
+    await FlutterI18n.refresh(
+      context,
+      lang == 'ru' ? LocaleClass.lngRu : LocaleClass.lngEn,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<SettingsBloc, SettingsState>(
+      // buildWhen: (previous, current) => previous.lang != current.lang,
+      builder: (context, state) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _CardTab(
+              tabName: 'auto',
+
+              isSelected: state.lang == 'ru',
+              onTap: () => _onLanguageSelected(context, 'ru'),
+            ),
+            _CardTab(
+              tabName: 'handle',
+              isSelected: state.lang == 'en',
+              onTap: () => _onLanguageSelected(context, 'en'),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
