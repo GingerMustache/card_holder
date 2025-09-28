@@ -3,6 +3,8 @@ import 'package:screen_brightness/screen_brightness.dart';
 
 part 'brightness_exception.dart';
 
+enum BrightnessMode { auto, handle }
+
 abstract class BrightnessService {
   Future<void> setBrightness(double brightness);
   Future<void> setMaxBrightness();

@@ -12,6 +12,15 @@ class SettingChangeLangEvent extends SettingsEvent {
   List<Object?> get props => [lang];
 }
 
+class SettingChangeBrightnessEvent extends SettingsEvent {
+  final BrightnessMode mode;
+
+  SettingChangeBrightnessEvent({required this.mode});
+
+  @override
+  List<Object?> get props => [mode];
+}
+
 class SettingChangeThemeEvent extends SettingsEvent {
   final ThemeMode theme;
 

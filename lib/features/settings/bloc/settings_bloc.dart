@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
-import 'package:card_holder/common/localization/locale/locale.dart';
+import 'package:card_holder/common/services/brightness_controll/brightness_control_service.dart';
 import 'package:card_holder/common/services/local_storage/secure_storage.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -19,14 +19,25 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     on<SettingChangeThemeEvent>(_onChangeTheme);
     on<SettingInitEvent>(_onInit);
     on<SettingSearchEvent>(_onSettingSearch);
+    on<SettingChangeBrightnessEvent>(_onBrightnessChange);
   }
 
   _onInit(SettingInitEvent event, Emitter<SettingsState> emit) async {
-    final currentLang = LocaleClass.currentLang;
+    final currentLang = await _localStorage.read(
+      SecureKeys.lang.name,
+      insteadValue: 'ru',
+    );
+
     final currentTheme =
         await _localStorage.read(SecureKeys.theme.name) == 'dark'
             ? ThemeMode.dark
             : ThemeMode.light;
+
+    final currentBrightnessMode =
+        await _localStorage.read(SecureKeys.brightness.name) == 'handle'
+            ? BrightnessMode.handle
+            : BrightnessMode.auto;
+
     final settingItems = [
       t.system.theme.all,
       t.system.lang.all,
@@ -43,6 +54,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       state.copyWith(
         lang: currentLang,
         theme: currentTheme,
+        brightnessMode: currentBrightnessMode,
         settingItems: settingItems,
       ),
     );
@@ -58,6 +70,18 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     LocaleSettings.setLocale(isRu ? AppLocale.ru : AppLocale.en);
 
     emit(state.copyWith(lang: event.lang));
+  }
+
+  _onBrightnessChange(
+    SettingChangeBrightnessEvent event,
+    Emitter<SettingsState> emit,
+  ) async {
+    await _localStorage.write(
+      key: SecureKeys.brightness.name,
+      value: event.mode.name.toString(),
+    );
+
+    emit(state.copyWith(brightnessMode: event.mode));
   }
 
   _onChangeTheme(

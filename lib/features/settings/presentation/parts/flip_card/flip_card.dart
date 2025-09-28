@@ -74,20 +74,17 @@ class _UnderCardWidget extends StatelessWidget {
 class _ChooseBrightness extends StatelessWidget {
   const _ChooseBrightness();
 
-  void _onLanguageSelected(BuildContext context, String lang) async {
+  void _onBrightnessSelected(BuildContext context, BrightnessMode mode) async {
     HapticFeedback.mediumImpact();
-    context.read<SettingsBloc>().add(SettingChangeLangEvent(lang: lang));
-
-    await FlutterI18n.refresh(
-      context,
-      lang == 'ru' ? LocaleClass.lngRu : LocaleClass.lngEn,
-    );
+    context.read<SettingsBloc>().add(SettingChangeBrightnessEvent(mode: mode));
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsBloc, SettingsState>(
-      // buildWhen: (previous, current) => previous.lang != current.lang,
+      // buildWhen:
+      //     (previous, current) =>
+      // previous.brightnessMode != current.brightnessMode,
       builder: (context, state) {
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -96,13 +93,15 @@ class _ChooseBrightness extends StatelessWidget {
             _CardTab(
               tabName: 'auto',
 
-              isSelected: state.lang == 'ru',
-              onTap: () => _onLanguageSelected(context, 'ru'),
+              isSelected: state.brightnessMode == BrightnessMode.auto,
+              onTap: () => _onBrightnessSelected(context, BrightnessMode.auto),
             ),
             _CardTab(
               tabName: 'handle',
-              isSelected: state.lang == 'en',
-              onTap: () => _onLanguageSelected(context, 'en'),
+
+              isSelected: state.brightnessMode == BrightnessMode.handle,
+              onTap:
+                  () => _onBrightnessSelected(context, BrightnessMode.handle),
             ),
           ],
         );

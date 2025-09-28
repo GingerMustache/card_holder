@@ -13,6 +13,7 @@ import 'package:card_holder/common/services/brightness_controll/brightness_contr
 import 'package:card_holder/common/services/local_crud/local_card_service.dart';
 import 'package:card_holder/features/home/bloc/cards_bloc.dart';
 import 'package:card_holder/features/open_card/bloc/open_card_bloc.dart';
+import 'package:card_holder/features/settings/bloc/settings_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -24,6 +25,8 @@ class CardOpenSheet extends StatefulWidget {
   final DataBaseCard curCard;
 
   static void show(BuildContext context, DataBaseCard curCard) {
+    final brightnessMode = context.read<SettingsBloc>().state.brightnessMode;
+
     showModalBottomSheet(
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
@@ -34,8 +37,8 @@ class CardOpenSheet extends StatefulWidget {
           create:
               (context) => OpenCardBloc(
                 brightnessService: context.read<BrightnessService>(),
-              )..add(OpenCardSetCurrentCardEvent(curCard)),
-          child: SizedBox(child: CardOpenSheet(curCard)),
+              )..add(OpenCardInitEvent(curCard, brightnessMode)),
+          child: CardOpenSheet(curCard),
         );
       },
     );

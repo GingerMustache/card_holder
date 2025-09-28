@@ -2,7 +2,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 enum StorageError { secureStorageError }
 
-enum SecureKeys { lang, theme }
+enum SecureKeys { lang, theme, brightness }
 
 abstract final class LocalStorageService {
   Future<Map<String, String>> readAll();
