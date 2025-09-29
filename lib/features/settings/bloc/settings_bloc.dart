@@ -10,6 +10,17 @@ part 'settings_state.dart';
 
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   final LocalStorageService _localStorage;
+  List<String> get _settingItems => [
+    t.system.theme.all,
+    t.system.lang.all,
+    t.screen.home.openCard.brightness.all,
+    'Privacy',
+    'Security',
+    'Display',
+    'Help & Support',
+    'About',
+    'Logout',
+  ];
 
   SettingsBloc({required LocalStorageService localStorage})
     : _localStorage = localStorage,
@@ -38,24 +49,12 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
             ? BrightnessMode.handle
             : BrightnessMode.auto;
 
-    final settingItems = [
-      t.system.theme.all,
-      t.system.lang.all,
-      'brightness',
-      'Privacy',
-      'Security',
-      'Display',
-      'Help & Support',
-      'About',
-      'Logout',
-    ];
-
     emit(
       state.copyWith(
         lang: currentLang,
         theme: currentTheme,
         brightnessMode: currentBrightnessMode,
-        settingItems: settingItems,
+        settingItems: _settingItems,
       ),
     );
   }
@@ -67,9 +66,9 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     final isRu = event.lang == 'ru';
 
     await _localStorage.write(key: SecureKeys.lang.name, value: event.lang);
-    LocaleSettings.setLocale(isRu ? AppLocale.ru : AppLocale.en);
+    await LocaleSettings.setLocale(isRu ? AppLocale.ru : AppLocale.en);
 
-    emit(state.copyWith(lang: event.lang));
+    emit(state.copyWith(lang: event.lang, settingItems: _settingItems));
   }
 
   _onBrightnessChange(

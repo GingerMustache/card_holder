@@ -163,6 +163,19 @@ class _TranslationsScreenHomeOpenCardRu extends TranslationsScreenHomeOpenCardEn
 	@override String get uses => 'раз';
 	@override String get edit => 'принять';
 	@override String get share => 'поделиться';
+	@override late final _TranslationsScreenHomeOpenCardBrightnessRu brightness = _TranslationsScreenHomeOpenCardBrightnessRu._(_root);
+}
+
+// Path: screen.home.openCard.brightness
+class _TranslationsScreenHomeOpenCardBrightnessRu extends TranslationsScreenHomeOpenCardBrightnessEn {
+	_TranslationsScreenHomeOpenCardBrightnessRu._(TranslationsRu root) : this._root = root, super.internal(root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get all => 'яркость';
+	@override String get auto => 'авто';
+	@override String get handle => 'ручной';
 }
 
 /// Flat map(s) containing all translations.
@@ -184,6 +197,9 @@ extension on TranslationsRu {
 			case 'screen.home.openCard.uses': return 'раз';
 			case 'screen.home.openCard.edit': return 'принять';
 			case 'screen.home.openCard.share': return 'поделиться';
+			case 'screen.home.openCard.brightness.all': return 'яркость';
+			case 'screen.home.openCard.brightness.auto': return 'авто';
+			case 'screen.home.openCard.brightness.handle': return 'ручной';
 			case 'screen.settings.all': return 'first';
 			case 'tabs.card': return 'карты';
 			case 'tabs.setting': return 'настройки';

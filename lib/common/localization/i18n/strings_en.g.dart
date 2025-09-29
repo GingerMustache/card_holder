@@ -216,6 +216,26 @@ class TranslationsScreenHomeOpenCardEn {
 
 	/// en: 'share'
 	String get share => 'share';
+
+	late final TranslationsScreenHomeOpenCardBrightnessEn brightness = TranslationsScreenHomeOpenCardBrightnessEn.internal(_root);
+}
+
+// Path: screen.home.openCard.brightness
+class TranslationsScreenHomeOpenCardBrightnessEn {
+	TranslationsScreenHomeOpenCardBrightnessEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'brightness'
+	String get all => 'brightness';
+
+	/// en: 'auto'
+	String get auto => 'auto';
+
+	/// en: 'handle'
+	String get handle => 'handle';
 }
 
 /// Flat map(s) containing all translations.
@@ -237,6 +257,9 @@ extension on Translations {
 			case 'screen.home.openCard.uses': return 'uses';
 			case 'screen.home.openCard.edit': return 'edit';
 			case 'screen.home.openCard.share': return 'share';
+			case 'screen.home.openCard.brightness.all': return 'brightness';
+			case 'screen.home.openCard.brightness.auto': return 'auto';
+			case 'screen.home.openCard.brightness.handle': return 'handle';
 			case 'screen.settings.all': return 'first';
 			case 'tabs.card': return 'cards';
 			case 'tabs.setting': return 'setting';
