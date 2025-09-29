@@ -98,6 +98,7 @@ class _TranslationsScreenHomeRu extends TranslationsScreenHomeEn {
 	// Translations
 	@override String get name => 'Card Holder';
 	@override String get add => 'плюс';
+	@override String get empty => 'пустовато';
 	@override late final _TranslationsScreenHomeAddCardRu addCard = _TranslationsScreenHomeAddCardRu._(_root);
 	@override late final _TranslationsScreenHomeOpenCardRu openCard = _TranslationsScreenHomeOpenCardRu._(_root);
 }
@@ -186,6 +187,7 @@ extension on TranslationsRu {
 			case 'title': return 'title';
 			case 'screen.home.name': return 'Card Holder';
 			case 'screen.home.add': return 'плюс';
+			case 'screen.home.empty': return 'пустовато';
 			case 'screen.home.addCard.barcodeScan': return 'разместите штрих-код внутри рамки для сканирования';
 			case 'screen.home.addCard.detectedCode': return 'отсканированный код';
 			case 'screen.home.addCard.manualCode': return 'введите код вручную';

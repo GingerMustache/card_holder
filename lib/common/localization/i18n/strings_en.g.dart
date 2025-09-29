@@ -115,6 +115,9 @@ class TranslationsScreenHomeEn {
 	/// en: 'add'
 	String get add => 'add';
 
+	/// en: 'so empty'
+	String get empty => 'so empty';
+
 	late final TranslationsScreenHomeAddCardEn addCard = TranslationsScreenHomeAddCardEn.internal(_root);
 	late final TranslationsScreenHomeOpenCardEn openCard = TranslationsScreenHomeOpenCardEn.internal(_root);
 }
@@ -246,6 +249,7 @@ extension on Translations {
 			case 'title': return 'title';
 			case 'screen.home.name': return 'Card Holder';
 			case 'screen.home.add': return 'add';
+			case 'screen.home.empty': return 'so empty';
 			case 'screen.home.addCard.barcodeScan': return 'position barcode within frame to scan automatically';
 			case 'screen.home.addCard.detectedCode': return 'detected code';
 			case 'screen.home.addCard.manualCode': return 'enter code manually';

@@ -75,6 +75,11 @@ class _GridCards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (cards.isEmpty) {
+      return Center(
+        child: Text(t.screen.home.empty, style: context.textStyles.bodyMedium),
+      );
+    }
     return GridView.builder(
       padding: mainPadding,
       physics: const BouncingScrollPhysics(
