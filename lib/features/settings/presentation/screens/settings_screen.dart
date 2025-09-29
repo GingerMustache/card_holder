@@ -16,6 +16,7 @@ part '../parts/flip_card/card_tab.dart';
 part '../parts/flip_card/flip_card.dart';
 part '../parts/flip_card/parts/choose_lang.dart';
 part '../parts/flip_card/parts/choose_theme.dart';
+part '../parts/flip_card/parts/choose_brightness.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});

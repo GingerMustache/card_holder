@@ -1,4 +1,4 @@
-part of '../screens/home_screen.dart';
+part of '../home_screen.dart';
 
 class _Fab extends StatelessWidget {
   const _Fab();

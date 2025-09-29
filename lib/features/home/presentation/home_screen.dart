@@ -15,8 +15,9 @@ import 'package:card_holder/features/settings/presentation/screens/settings_scre
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-part '../parts/app_bar.dart';
-part '../parts/fab.dart';
+part 'parts/app_bar.dart';
+part 'parts/fab.dart';
+part 'parts/card_item.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -94,70 +95,6 @@ class _GridCards extends StatelessWidget {
 
       itemCount: cards.length,
       itemBuilder: (_, index) => _CardItem(cards[index], index),
-    );
-  }
-}
-
-class _CardItem extends StatelessWidget {
-  const _CardItem(this.card, this.currentIndex);
-
-  final DataBaseCard? card;
-  final int currentIndex;
-
-  void onPressed(BuildContext context) {
-    final completer = Completer<DataBaseCard>();
-
-    context.read<CardsBloc>().add(
-      CardsOpenCardEvent(
-        id: card?.id,
-        index: currentIndex,
-        completer: completer,
-      ),
-    );
-    completer.future.then(
-      (currentCard) => CardOpenSheet.show(context, currentCard),
-    );
-  }
-
-  // item container
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: mainBoxDecoration(context),
-      child: Stack(
-        children: [
-          Align(
-            alignment: Alignment(1, -1),
-            child: ColorMark(
-              card?.color ?? 0x00000000,
-              needText: false,
-              heigh: 20,
-            ),
-          ),
-          Positioned.fill(
-            child: TextButton(
-              onPressed: () => onPressed(context),
-              style: TextButton.styleFrom(
-                padding: EdgeInsets.zero,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-              child: Center(
-                child: Text(
-                  'code - ${card?.code},\nname - ${card?.name}\nusage - ${card?.usagePoint}\ncolor - ${card?.color} ',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

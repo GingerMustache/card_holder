@@ -62,6 +62,7 @@ dependencies:
   barcode_widget: ^2.0.4
   screen_brightness: ^2.1.7
   collection: ^1.19.1
+  share_plus: ^11.1.0
   
 
 dev_dependencies:
