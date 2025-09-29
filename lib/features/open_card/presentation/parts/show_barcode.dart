@@ -5,11 +5,13 @@ class _ShowBarcode extends StatelessWidget {
     required this.allBorderRadius,
     required this.boxDecoration,
     required this.pickTime,
+    required this.barcodeKey,
   });
 
   final BorderRadius allBorderRadius;
   final BoxDecoration boxDecoration;
   final int pickTime;
+  final GlobalKey barcodeKey;
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +32,15 @@ class _ShowBarcode extends StatelessWidget {
                 child: Center(
                   child: BlocBuilder<CardsBloc, CardsState>(
                     builder: (context, state) {
-                      return BarcodeWidget(
-                        barcode: Barcode.code128(),
-                        padding: EdgeInsets.symmetric(horizontal: 12),
-                        width: double.infinity,
-                        height: 200,
-                        data: state.currentCard?.code ?? '',
+                      return RepaintBoundary(
+                        key: barcodeKey,
+                        child: BarcodeWidget(
+                          barcode: Barcode.code128(),
+                          padding: EdgeInsets.symmetric(horizontal: 12),
+                          width: double.infinity,
+                          height: 200,
+                          data: state.currentCard?.code ?? '',
+                        ),
                       );
                     },
                   ),
