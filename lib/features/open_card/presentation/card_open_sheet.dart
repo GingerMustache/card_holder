@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 
 import 'package:barcode_widget/barcode_widget.dart';
@@ -83,7 +85,7 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
         completer: completer,
       ),
     );
-    completer.future.then((_) => context.pop());
+    completer.future.then((_) => mounted ? context.pop() : null);
   }
 
   void onChangeColor(Color color) =>
@@ -100,18 +102,18 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
           child: Container(
             decoration: CardOpenSheet.boxDecoration,
             width: double.infinity,
-            child: Column(
+            child: Stack(
               children: [
-                _ShowBarcode(
-                  pickTime: widget.curCard.usagePoint,
-                  allBorderRadius: CardOpenSheet.allBorderRadius,
-                  boxDecoration: CardOpenSheet.boxDecoration,
-                ),
-                Padding(
-                  padding: mainHorizontalPadding,
-                  child: Stack(
-                    children: [
-                      Column(
+                Column(
+                  children: [
+                    _ShowBarcode(
+                      pickTime: widget.curCard.usagePoint,
+                      allBorderRadius: CardOpenSheet.allBorderRadius,
+                      boxDecoration: CardOpenSheet.boxDecoration,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
                         children: [
                           Divider(color: AppColors.subGrey.withAlpha(50)),
                           FrameTextField(
@@ -146,33 +148,31 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
                           ),
                         ],
                       ),
-                      BlocBuilder<OpenCardBloc, OpenCardState>(
-                        buildWhen:
-                            (previous, current) =>
-                                previous.color != current.color,
-                        builder: (context, state) {
-                          return ColorMarkWidget(
-                            alignment: Alignment(0.9, 0.13),
-                            initColor: state.color,
-                            onTap: onTapColorWidget,
-                          );
-                        },
-                      ),
-                      BlocBuilder<OpenCardBloc, OpenCardState>(
-                        buildWhen:
-                            (prev, cur) =>
-                                prev.isMarkTapped != cur.isMarkTapped,
-                        builder: (context, state) {
-                          return ColorWheelWidget(
-                            alignment: Alignment(0.7, 0.7),
-                            initialColor: state.color,
-                            isShow: state.isMarkTapped,
-                            onChanged: onChangeColor,
-                          );
-                        },
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
+                ),
+                BlocBuilder<OpenCardBloc, OpenCardState>(
+                  buildWhen:
+                      (previous, current) => previous.color != current.color,
+                  builder: (context, state) {
+                    return ColorMarkWidget(
+                      alignment: Alignment(0.9, 0.13),
+                      initColor: state.color,
+                      onTap: onTapColorWidget,
+                    );
+                  },
+                ),
+                BlocBuilder<OpenCardBloc, OpenCardState>(
+                  buildWhen:
+                      (prev, cur) => prev.isMarkTapped != cur.isMarkTapped,
+                  builder: (context, state) {
+                    return ColorWheelWidget(
+                      alignment: Alignment(0.7, 0.7),
+                      initialColor: state.color,
+                      isShow: state.isMarkTapped,
+                      onChanged: onChangeColor,
+                    );
+                  },
                 ),
               ],
             ),
