@@ -115,8 +115,8 @@ class TranslationsScreenHomeEn {
 	/// en: 'add'
 	String get add => 'add';
 
-	/// en: 'so empty'
-	String get empty => 'so empty';
+	/// en: 'so empty...'
+	String get empty => 'so empty...';
 
 	late final TranslationsScreenHomeAddCardEn addCard = TranslationsScreenHomeAddCardEn.internal(_root);
 	late final TranslationsScreenHomeOpenCardEn openCard = TranslationsScreenHomeOpenCardEn.internal(_root);
@@ -231,8 +231,8 @@ class TranslationsScreenHomeOpenCardBrightnessEn {
 
 	// Translations
 
-	/// en: 'brightness'
-	String get all => 'brightness';
+	/// en: 'bright'
+	String get all => 'bright';
 
 	/// en: 'auto'
 	String get auto => 'auto';
@@ -249,7 +249,7 @@ extension on Translations {
 			case 'title': return 'title';
 			case 'screen.home.name': return 'Card Holder';
 			case 'screen.home.add': return 'add';
-			case 'screen.home.empty': return 'so empty';
+			case 'screen.home.empty': return 'so empty...';
 			case 'screen.home.addCard.barcodeScan': return 'position barcode within frame to scan automatically';
 			case 'screen.home.addCard.detectedCode': return 'detected code';
 			case 'screen.home.addCard.manualCode': return 'enter code manually';
@@ -261,7 +261,7 @@ extension on Translations {
 			case 'screen.home.openCard.uses': return 'uses';
 			case 'screen.home.openCard.edit': return 'edit';
 			case 'screen.home.openCard.share': return 'share';
-			case 'screen.home.openCard.brightness.all': return 'brightness';
+			case 'screen.home.openCard.brightness.all': return 'bright';
 			case 'screen.home.openCard.brightness.auto': return 'auto';
 			case 'screen.home.openCard.brightness.handle': return 'handle';
 			case 'screen.settings.all': return 'first';

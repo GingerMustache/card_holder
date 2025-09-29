@@ -70,29 +70,36 @@ class _BrightnessSwitcher extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => onLightTap(context),
-      splashFactory: null,
-      child: Align(
-        alignment: Alignment.topRight,
-        child: SizedBox(
-          width: 47,
-          height: 32,
-          child: Center(
-            child: BlocBuilder<OpenCardBloc, OpenCardState>(
-              buildWhen:
-                  (prev, cur) => prev.turnBrightnessOn != cur.turnBrightnessOn,
-              builder: (context, state) {
-                final isBrightnessOn = state.turnBrightnessOn;
+    return Padding(
+      padding: const EdgeInsets.only(right: 4),
+      child: InkWell(
+        onTap: () => onLightTap(context),
+        splashFactory: null,
+        child: Align(
+          alignment: Alignment.topRight,
+          child: SizedBox(
+            width: 57,
+            height: 32,
+            child: Center(
+              child: BlocBuilder<OpenCardBloc, OpenCardState>(
+                buildWhen:
+                    (prev, cur) =>
+                        prev.turnBrightnessOn != cur.turnBrightnessOn,
+                builder: (context, state) {
+                  final isBrightnessOn = state.turnBrightnessOn;
 
-                return Text(
-                  'light',
-                  style: context.textStyles.labelSmall?.copyWith(
-                    color:
-                        isBrightnessOn ? AppColors.darkGrey : AppColors.mainRed,
-                  ),
-                );
-              },
+                  return Text(
+                    textAlign: TextAlign.right,
+                    t.screen.home.openCard.brightness.all,
+                    style: context.textStyles.labelSmall?.copyWith(
+                      color:
+                          isBrightnessOn
+                              ? AppColors.darkGrey
+                              : AppColors.mainRed,
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         ),

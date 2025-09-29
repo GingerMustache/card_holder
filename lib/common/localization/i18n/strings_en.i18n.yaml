@@ -6,7 +6,7 @@ screen:
   home:
     name: Card Holder
     add: add
-    empty: so empty
+    empty: so empty...
     addCard:
       barcodeScan: position barcode within frame to scan automatically
       detectedCode: detected code
@@ -21,7 +21,7 @@ screen:
       edit: edit
       share: share
       brightness:
-        all: brightness
+        all: bright
         auto: auto
         handle: handle
   settings:

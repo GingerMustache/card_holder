@@ -6,7 +6,7 @@ screen:
   home:
     name: Card Holder
     add: плюс
-    empty: пустовато
+    empty: пустовато...
     addCard:
       barcodeScan: разместите штрих-код внутри рамки для сканирования
       detectedCode: отсканированный код
