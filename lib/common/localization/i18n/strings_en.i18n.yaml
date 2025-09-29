@@ -19,6 +19,10 @@ screen:
       uses: uses
       edit: edit
       share: share
+      brightness:
+        all: brightness
+        auto: auto
+        handle: handle
   settings:
     all: first
 tabs:

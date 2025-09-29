@@ -19,6 +19,10 @@ screen:
       uses: раз
       edit: принять
       share: поделиться
+      brightness:
+        all: яркость
+        auto: авто
+        handle: ручной
   settings:
     all: first
 tabs:

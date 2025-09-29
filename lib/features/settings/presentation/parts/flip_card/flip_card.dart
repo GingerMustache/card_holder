@@ -82,23 +82,21 @@ class _ChooseBrightness extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsBloc, SettingsState>(
-      // buildWhen:
-      //     (previous, current) =>
-      // previous.brightnessMode != current.brightnessMode,
+      buildWhen:
+          (previous, current) =>
+              previous.brightnessMode != current.brightnessMode,
       builder: (context, state) {
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
             _CardTab(
-              tabName: 'auto',
-
+              tabName: t.screen.home.openCard.brightness.auto,
               isSelected: state.brightnessMode == BrightnessMode.auto,
               onTap: () => _onBrightnessSelected(context, BrightnessMode.auto),
             ),
             _CardTab(
-              tabName: 'handle',
-
+              tabName: t.screen.home.openCard.brightness.handle,
               isSelected: state.brightnessMode == BrightnessMode.handle,
               onTap:
                   () => _onBrightnessSelected(context, BrightnessMode.handle),
