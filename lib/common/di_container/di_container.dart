@@ -1,33 +1,44 @@
+import 'package:card_holder/common/helpers/image/image_convert_helper.dart';
 import 'package:card_holder/common/presentation/widgets/app/my_app.dart';
 import 'package:card_holder/common/repositories/card_repository.dart';
+import 'package:card_holder/common/repositories/shared_repository.dart';
 import 'package:card_holder/common/routing/routes.dart';
 import 'package:card_holder/common/services/brightness_controll/brightness_control_service.dart';
 import 'package:card_holder/common/services/local_crud/local_card_service.dart';
 import 'package:card_holder/common/services/local_storage/secure_storage.dart';
+import 'package:card_holder/common/services/share/shared_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n_delegate.dart'
     show FlutterI18nDelegate;
 
 abstract class DiContainerProvider {
   Widget makeApp(FlutterI18nDelegate flutterI18nDelegate);
-  LocalStorageService makeLocalStorage();
   CardServiceAbstract makeCardService();
-  CardRepository makeCardRepository();
   BrightnessService makeBrightnessService();
+  ShareService makeShareService();
+  CardRepository makeCardRepository();
+  ShareRepository makeShareRepository();
+  LocalStorageService makeLocalStorage();
+  ImageConvertHelper makeImageConverterHelper();
 }
 
 class DiContainer implements DiContainerProvider {
   @override
   BrightnessService makeBrightnessService() => BrightnessServiceImpl();
+  @override
+  CardServiceAbstract makeCardService() => LocalCardService();
+  @override
+  ShareService makeShareService() => ShareServiceImpl();
 
   @override
   LocalStorageService makeLocalStorage() => SecureStorage();
-  @override
-  CardServiceAbstract makeCardService() => LocalCardService();
 
   @override
   CardRepository makeCardRepository() =>
       CardRepositoryImpl(localCardService: makeCardService());
+  @override
+  ShareRepository makeShareRepository() =>
+      ShareRepositoryImpl(shareService: makeShareService());
 
   ScreenFactory _makeScreenFactory() => ScreenFactory(diContainer: this);
   MyAppNavigation _makeRouter() =>
@@ -40,4 +51,7 @@ class DiContainer implements DiContainerProvider {
   );
 
   DiContainer();
+
+  @override
+  ImageConvertHelper makeImageConverterHelper() => ImageConvertHelper();
 }

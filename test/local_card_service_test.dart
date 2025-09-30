@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:card_holder/common/services/local_crud/crud_exceptions.dart';
+import 'package:card_holder/common/services/local_crud/exceptions/crud_exceptions.dart';
 import 'package:card_holder/common/services/local_crud/local_card_service.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';

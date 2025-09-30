@@ -34,9 +34,11 @@ void main() async {
           BlocProvider(
             lazy: false,
             create:
-                (context) =>
-                    CardsBloc(cardRepo: diContainer.makeCardRepository())
-                      ..add(CardsFetchCardsEvent()),
+                (context) => CardsBloc(
+                  imageConvertHelper: diContainer.makeImageConverterHelper(),
+                  shareRepository: diContainer.makeShareRepository(),
+                  cardRepo: diContainer.makeCardRepository(),
+                )..add(CardsFetchCardsEvent()),
           ),
         ],
         child: app,

@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
 
-import 'package:card_holder/common/services/local_crud/crud_exceptions.dart';
+import 'package:card_holder/common/services/local_crud/exceptions/crud_exceptions.dart';
 import 'package:equatable/equatable.dart';
 import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart';

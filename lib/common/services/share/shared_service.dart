@@ -1,9 +1,7 @@
+import 'package:card_holder/common/services/share/exceptions/shared_service_exceptions.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 
-enum ShareError { shareError }
-
-/// Abstract interface
 abstract final class ShareService {
   Future<void> shareText({required String text, String? subject});
 
@@ -15,7 +13,6 @@ abstract final class ShareService {
   });
 }
 
-/// Implementation with share_plus
 final class ShareServiceImpl implements ShareService {
   static final ShareServiceImpl _instance = ShareServiceImpl._internal();
 
@@ -27,12 +24,10 @@ final class ShareServiceImpl implements ShareService {
 
   @override
   Future<void> shareText({required String text, String? subject}) async {
-    if (errorFlag) return;
-
     try {
       await SharePlus.instance.share(ShareParams(text: text, subject: subject));
-    } catch (e, stackTrace) {
-      errorAction(e, stackTrace);
+    } catch (e) {
+      throw TextSharedException();
     }
   }
 
@@ -58,19 +53,8 @@ final class ShareServiceImpl implements ShareService {
               box != null ? box.localToGlobal(Offset.zero) & box.size : null,
         ),
       );
-    } catch (e, stackTrace) {
-      errorAction(e, stackTrace);
+    } catch (e) {
+      throw FileSharedException();
     }
-  }
-
-  void errorAction(Object e, StackTrace stackTrace) {
-    // talker.error(e);
-    // AppMetrica.reportErrorWithGroup(
-    //   'ShareService',
-    //   errorDescription: AppMetricaErrorDescription(
-    //     stackTrace,
-    //     message: 'Error - $e',
-    //   ),
-    // );
   }
 }

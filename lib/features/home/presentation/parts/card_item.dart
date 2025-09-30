@@ -51,7 +51,7 @@ class _CardItem extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   card?.name ?? '',
                   textAlign: TextAlign.center,
-                  style: context.textStyles.bodyMedium,
+                  style: context.textStyles.bodySmall,
                 ),
               ),
             ),

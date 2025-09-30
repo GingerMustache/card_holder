@@ -1,9 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:async';
-import 'dart:io';
-import 'dart:typed_data';
-import 'dart:ui' as ui;
 
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:card_holder/common/application/app_settings.dart';
@@ -16,15 +13,12 @@ import 'package:card_holder/common/presentation/widgets/skeleton_wrapper/skeleto
 import 'package:card_holder/common/presentation/widgets/text_fields/frame_text_field.dart';
 import 'package:card_holder/common/services/brightness_controll/brightness_control_service.dart';
 import 'package:card_holder/common/services/local_crud/local_card_service.dart';
-import 'package:card_holder/common/services/share/shared_service.dart';
 import 'package:card_holder/features/home/bloc/cards_bloc.dart';
 import 'package:card_holder/features/open_card/bloc/open_card_bloc.dart';
 import 'package:card_holder/features/settings/bloc/settings_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:path_provider/path_provider.dart';
 
 part 'parts/show_barcode.dart';
 
@@ -81,38 +75,10 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
     super.dispose();
   }
 
-  Future<void> _captureAndShareBarcode(BuildContext context) async {
-    try {
-      // Capture the widget as image
-      final boundary =
-          _barcodeKey.currentContext!.findRenderObject()
-              as RenderRepaintBoundary;
-      final image = await boundary.toImage(
-        pixelRatio: 3.0,
-      ); // Higher ratio for better quality
-      final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
-      final Uint8List pngBytes = byteData!.buffer.asUint8List();
-
-      // Save to temp file
-      final tempDir = await getTemporaryDirectory();
-      final String filePath = '${tempDir.path}/barcode.png';
-      await File(filePath).writeAsBytes(pngBytes);
-
-      // Share using your ShareService
-      final shareService = ShareServiceImpl();
-      await shareService.shareFiles(
-        paths: [filePath],
-        text:
-            'Check out this barcode!', // Optional text to accompany the image, need to add card name
-
-        context: context,
-      );
-    } catch (e) {
-      // Handle error, e.g., show a snackbar
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('Error sharing barcode: $e')));
-    }
+  void captureAndShareBarcode() {
+    context.read<CardsBloc>().add(
+      CardsShareEvent(barcodeKey: _barcodeKey, cardName: openBloc.state.name),
+    );
   }
 
   void onEdit(BuildContext context) {
@@ -183,7 +149,7 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
                               Expanded(
                                 child: DefaultButton(
                                   text: t.screen.home.openCard.share,
-                                  onTap: () => _captureAndShareBarcode(context),
+                                  onTap: captureAndShareBarcode,
                                 ),
                               ),
                             ],
