@@ -28,7 +28,7 @@ class DiContainer implements DiContainerProvider {
   @override
   CardServiceAbstract makeCardService() => LocalCardService();
   @override
-  ShareService makeShareService() => ShareServiceImpl();
+  ShareService makeShareService() => NetShareServiceImpl();
 
   @override
   LocalStorageService makeLocalStorage() => SecureStorage();

@@ -13,12 +13,12 @@ abstract final class ShareService {
   });
 }
 
-final class ShareServiceImpl implements ShareService {
-  static final ShareServiceImpl _instance = ShareServiceImpl._internal();
+final class NetShareServiceImpl implements ShareService {
+  static final NetShareServiceImpl _instance = NetShareServiceImpl._internal();
 
-  ShareServiceImpl._internal();
+  NetShareServiceImpl._internal();
 
-  factory ShareServiceImpl() => _instance;
+  factory NetShareServiceImpl() => _instance;
 
   final bool errorFlag = false;
 

@@ -63,6 +63,7 @@ dependencies:
   screen_brightness: ^2.1.7
   collection: ^1.19.1
   share_plus: ^11.1.0
+  flutter_animate: ^4.5.2
   
 
 dev_dependencies:
