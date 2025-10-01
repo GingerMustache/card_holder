@@ -1,6 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
 
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:card_holder/common/application/app_settings.dart';
@@ -20,6 +22,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:path_provider/path_provider.dart';
 
 part 'parts/choose_share_sheet.dart';
 part 'parts/show_barcode.dart';
@@ -71,7 +74,7 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
   }
 
   void captureAndShareBarcode() =>
-      ChooseShareSheet.show(context, openBloc, _barcodeKey);
+      ChooseShareSheet.show(context, openBloc, _barcodeKey, widget.curCard);
 
   void onEdit(BuildContext context) {
     final completer = Completer<DataBaseCard>();

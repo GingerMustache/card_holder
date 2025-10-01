@@ -5,14 +5,17 @@ class ChooseShareSheet extends StatefulWidget {
     super.key,
     required this.openBloc,
     required this.barcodeKey,
+    required this.card,
   });
   final OpenCardBloc openBloc;
   final GlobalKey barcodeKey; // Key
+  final DataBaseCard card;
 
   static void show(
     BuildContext context,
     OpenCardBloc openBloc,
     GlobalKey barcodeKey,
+    DataBaseCard card,
   ) {
     showModalBottomSheet(
       backgroundColor: Colors.transparent,
@@ -20,7 +23,11 @@ class ChooseShareSheet extends StatefulWidget {
       isDismissible: true,
       context: context,
       builder: (BuildContext context) {
-        return ChooseShareSheet(openBloc: openBloc, barcodeKey: barcodeKey);
+        return ChooseShareSheet(
+          openBloc: openBloc,
+          barcodeKey: barcodeKey,
+          card: card,
+        );
       },
     );
   }
@@ -30,7 +37,19 @@ class ChooseShareSheet extends StatefulWidget {
 }
 
 class _ChooseShareSheetState extends State<ChooseShareSheet> {
-  void onTapFile() {}
+  void onTapFile(DataBaseCard card, String filePath) async {
+    // get current path
+    final currentPath = await getApplicationDocumentsDirectory();
+    final file = File('${currentPath.path}/$filePath');
+    final jsonList = {
+      'code': card.code,
+      'name': card.name,
+      'color': card.color,
+    };
+
+    final fileToExport = await file.writeAsString(jsonEncode(jsonList));
+    print(fileToExport);
+  }
 
   void onTapImage() => context.read<CardsBloc>().add(
     CardsShareEvent(
@@ -73,7 +92,10 @@ class _ChooseShareSheetState extends State<ChooseShareSheet> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    _ShareCase(title: 'file', onTap: onTapFile),
+                    _ShareCase(
+                      title: 'file',
+                      onTap: () => onTapFile(widget.card, 'cards.json'),
+                    ),
                     _VerticalDivider(),
                     _ShareCase(title: 'image', onTap: onTapImage),
                   ],
