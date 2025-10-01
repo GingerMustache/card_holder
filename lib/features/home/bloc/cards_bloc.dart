@@ -189,7 +189,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
       event.barcodeKey,
     );
 
-    result.fold(
+    await result.fold(
       (Exception e) {
         if (e is RenderObjectNotConverted) {
           emit(state.copyWith(cards: state.cards, isLoading: false));
@@ -208,7 +208,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
               emit(state.copyWith(cards: state.cards, isLoading: false));
             }
           },
-          (void _) {
+          (_) {
             emit(state.copyWith(isLoading: false));
           },
         );
