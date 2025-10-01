@@ -21,113 +21,8 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+part 'parts/choose_share_sheet.dart';
 part 'parts/show_barcode.dart';
-
-class ChooseShareSheet extends StatefulWidget {
-  const ChooseShareSheet({super.key});
-
-  static void show(BuildContext context) {
-    showModalBottomSheet(
-      backgroundColor: Colors.transparent,
-      isScrollControlled: true,
-      isDismissible: true,
-      context: context,
-      builder: (BuildContext context) {
-        return ChooseShareSheet();
-      },
-    );
-  }
-
-  @override
-  State<ChooseShareSheet> createState() => _ChooseShareSheetState();
-}
-
-class _ChooseShareSheetState extends State<ChooseShareSheet> {
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 230,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Expanded(
-            child: GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTap: () => Navigator.pop(context),
-              child: const SizedBox.expand(),
-            ),
-          ),
-
-          Container(
-            decoration: const BoxDecoration(
-              color: AppColors.mainWhite,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(8.0),
-                topRight: Radius.circular(8.0),
-              ),
-            ),
-            width: context.width / 2,
-            padding: EdgeInsets.only(top: 10),
-            height: 150,
-            child: Column(
-              children: [
-                Text(
-                  t.screen.home.openCard.share,
-                ).animate().fadeIn(duration: 550.ms),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Divider(color: AppColors.subGrey.withAlpha(50)),
-                ),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Expanded(
-                      child: SizedBox(
-                        width: double.infinity,
-                        height: 50,
-
-                        child: Center(
-                          child: const Text(
-                            textAlign: TextAlign.center,
-                            'file',
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-                      width: 2,
-                      height: 90,
-                      color: AppColors.subGrey.withAlpha(50),
-                    ),
-
-                    Expanded(
-                      child: InkWell(
-                        onTap: () => (),
-                        child: SizedBox(
-                          height: 90,
-                          width: double.infinity,
-                          child: Center(
-                            child: const Text(
-                              textAlign: TextAlign.center,
-                              'image',
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 class CardOpenSheet extends StatefulWidget {
   const CardOpenSheet(this.curCard, {super.key});
@@ -156,13 +51,6 @@ class CardOpenSheet extends StatefulWidget {
   @override
   State<CardOpenSheet> createState() => _CardOpenSheetState();
 
-  static const boxDecoration = BoxDecoration(
-    color: AppColors.mainWhite,
-    borderRadius: BorderRadius.only(
-      topLeft: Radius.circular(8.0),
-      topRight: Radius.circular(8.0),
-    ),
-  );
   static const allBorderRadius = BorderRadius.all(Radius.circular(8));
 }
 
@@ -182,12 +70,8 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
     super.dispose();
   }
 
-  void captureAndShareBarcode() {
-    ChooseShareSheet.show(context);
-    // context.read<CardsBloc>().add(
-    //   CardsShareEvent(barcodeKey: _barcodeKey, cardName: openBloc.state.name),
-    // );
-  }
+  void captureAndShareBarcode() =>
+      ChooseShareSheet.show(context, openBloc, _barcodeKey);
 
   void onEdit(BuildContext context) {
     final completer = Completer<DataBaseCard>();
@@ -215,7 +99,7 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
       children: [
         Expanded(
           child: Container(
-            decoration: CardOpenSheet.boxDecoration,
+            decoration: roundUpCornersDecoration,
             width: double.infinity,
             child: Stack(
               children: [
@@ -225,7 +109,7 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
                       barcodeKey: _barcodeKey,
                       pickTime: widget.curCard.usagePoint,
                       allBorderRadius: CardOpenSheet.allBorderRadius,
-                      boxDecoration: CardOpenSheet.boxDecoration,
+                      boxDecoration: roundUpCornersDecoration,
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),

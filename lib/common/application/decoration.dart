@@ -22,3 +22,11 @@ final BoxDecoration fabDecor = BoxDecoration(
     ),
   ],
 );
+
+const BoxDecoration roundUpCornersDecoration = BoxDecoration(
+  color: AppColors.mainWhite,
+  borderRadius: BorderRadius.only(
+    topLeft: Radius.circular(8.0),
+    topRight: Radius.circular(8.0),
+  ),
+);

@@ -13,6 +13,7 @@ extension TextThemeExtensions on BuildContext {
 extension SizeExtension on BuildContext {
   double get height => MediaQuery.of(this).size.height;
   double get width => MediaQuery.of(this).size.width;
+  double get halfWidth => MediaQuery.of(this).size.width / 2;
   double get bottomPadding => MediaQuery.of(this).viewInsets.bottom;
 }
 
