@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
@@ -8,7 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
 import 'package:path_provider/path_provider.dart';
 
-class ImageConvertHelper {
+class ConvertHelper {
   Future<Either<Exception, String>> getImagePathFromRenderObject(
     GlobalKey renderKey,
   ) async {
@@ -26,6 +27,21 @@ class ImageConvertHelper {
       return Right(filePath);
     } catch (e) {
       return Left(RenderObjectNotConverted());
+    }
+  }
+
+  Future<Either<Exception, String>> getJsonFilePath({
+    required String fileName,
+    required Map<String, Object> jsonList,
+  }) async {
+    try {
+      final currentPath = await getApplicationDocumentsDirectory();
+      final file = File('${currentPath.path}/$fileName');
+      await file.writeAsString(jsonEncode(jsonList));
+
+      return Right(file.path);
+    } catch (e) {
+      return Left(JsonFileNotConverted());
     }
   }
 }

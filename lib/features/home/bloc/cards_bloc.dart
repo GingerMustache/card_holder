@@ -2,8 +2,8 @@ import 'dart:async' show Completer;
 
 import 'package:bloc/bloc.dart';
 import 'package:card_holder/common/extensions/app_extensions.dart';
+import 'package:card_holder/common/helpers/image/convert_helper.dart';
 import 'package:card_holder/common/helpers/image/exceptions/image_helper_exceptions.dart';
-import 'package:card_holder/common/helpers/image/image_convert_helper.dart';
 import 'package:card_holder/common/mixins/event_transformer_mixin.dart';
 import 'package:card_holder/common/repositories/card_repository.dart';
 import 'package:card_holder/common/repositories/shared_repository.dart';
@@ -19,16 +19,14 @@ part 'cards_state.dart';
 class CardsBloc extends Bloc<CardsEvent, CardsState>
     with EventTransformerMixin {
   final CardRepository _cardRepo;
-  final ShareRepository _shareRepository;
-  final ImageConvertHelper _imageConvertHelper;
+  final ConvertHelper _convertHelper;
 
   CardsBloc({
     required CardRepository cardRepo,
-    required ImageConvertHelper imageConvertHelper,
+    required ConvertHelper imageConvertHelper,
     required ShareRepository shareRepository,
   }) : _cardRepo = cardRepo,
-       _imageConvertHelper = imageConvertHelper,
-       _shareRepository = shareRepository,
+       _convertHelper = imageConvertHelper,
 
        super(CardsState()) {
     on<CardsFetchCardsEvent>(_onFetchCards);
@@ -36,7 +34,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
     on<CardsAddCardEvent>(_onAddCards);
     on<CardsUpdateCardEvent>(_onUpdateCards);
     on<CardsSearchEvent>(_onCardSearch, transformer: debounceRestartable());
-    on<CardsShareEvent>(_onCardShare);
+    on<CardsShareImageEvent>(_onCardShareImage);
   }
   _onFetchCards(CardsFetchCardsEvent event, Emitter<CardsState> emit) async {
     emit(state.copyWith(isLoading: true));
@@ -182,10 +180,13 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
     }
   }
 
-  _onCardShare(CardsShareEvent event, Emitter<CardsState> emit) async {
+  _onCardShareImage(
+    CardsShareImageEvent event,
+    Emitter<CardsState> emit,
+  ) async {
     emit(state.copyWith(isLoading: true));
 
-    final result = await _imageConvertHelper.getImagePathFromRenderObject(
+    final result = await _convertHelper.getImagePathFromRenderObject(
       event.barcodeKey,
     );
 
@@ -198,7 +199,50 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
       },
 
       (String filePath) async {
-        final shareResult = await _shareRepository.shareFiles(
+        final shareResult = await _cardRepo.shareCardNet(
+          paths: [filePath],
+          text: event.cardName,
+        );
+        shareResult.fold(
+          (Exception e) {
+            if (e is FileSharedException) {
+              emit(state.copyWith(cards: state.cards, isLoading: false));
+            }
+          },
+          (_) {
+            emit(state.copyWith(isLoading: false));
+          },
+        );
+
+        // event.completer?.complete(card);
+      },
+    );
+  }
+
+  _onCardShareFile(CardsShareImageEvent event, Emitter<CardsState> emit) async {
+    emit(state.copyWith(isLoading: true));
+
+    final jsonList = {
+      'code': state.currentCard?.code ?? '',
+      'name': state.currentCard?.name ?? '',
+      'color': state.currentCard?.color ?? 0x00000000,
+    };
+
+    final result = await _convertHelper.getJsonFilePath(
+      jsonList: jsonList,
+      fileName: '${state.currentCard?.name}.json',
+    );
+
+    await result.fold(
+      (Exception e) {
+        if (e is RenderObjectNotConverted) {
+          emit(state.copyWith(cards: state.cards, isLoading: false));
+          // event.completer?.completeError(e);
+        }
+      },
+
+      (String filePath) async {
+        final shareResult = await _cardRepo.shareCardNet(
           paths: [filePath],
           text: event.cardName,
         );

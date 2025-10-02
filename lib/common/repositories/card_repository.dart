@@ -1,4 +1,5 @@
 import 'package:card_holder/common/mixins/error_handler_mixin.dart';
+import 'package:card_holder/common/repositories/shared_repository.dart';
 import 'package:card_holder/common/services/local_crud/local_card_service.dart';
 import 'package:dartz/dartz.dart';
 
@@ -8,6 +9,10 @@ abstract class CardRepository {
   Future<Either<Exception, List<DataBaseCard>>> getCards();
   Future<Either<Exception, void>> deleteAllCards();
   Future<Either<Exception, void>> deleteCard({required int id});
+  Future<Either<Exception, void>> shareCardNet({
+    required List<String> paths,
+    required String text,
+  });
   Future<Either<Exception, DataBaseCard>> updateCard({
     required int id,
     required String code,
@@ -23,8 +28,12 @@ abstract class CardRepository {
 
 class CardRepositoryImpl with ErrorHandlerMixin implements CardRepository {
   final CardServiceAbstract localCardService;
+  final ShareRepository netShareRepository;
 
-  CardRepositoryImpl({required this.localCardService});
+  CardRepositoryImpl({
+    required this.localCardService,
+    required this.netShareRepository,
+  });
 
   @override
   Future<Either<Exception, List<DataBaseCard>>> getCards() =>
@@ -67,6 +76,12 @@ class CardRepositoryImpl with ErrorHandlerMixin implements CardRepository {
   );
 
   @override
-  Future<Either<Exception, DataBaseCard>> openCard({required int id}) =>
+  Future<Either<Exception, DataBaseCard>> openCard({required int id}) async =>
       safeCall(() => localCardService.openCard(id: id));
+
+  @override
+  Future<Either<Exception, void>> shareCardNet({
+    required List<String> paths,
+    required String text,
+  }) async => netShareRepository.shareFiles(paths: paths, text: text);
 }

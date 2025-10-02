@@ -37,22 +37,22 @@ class ChooseShareSheet extends StatefulWidget {
 }
 
 class _ChooseShareSheetState extends State<ChooseShareSheet> {
-  void onTapFile(DataBaseCard card, String filePath) async {
+  void onTapFile(DataBaseCard card, String fileName) async {
     // get current path
     final currentPath = await getApplicationDocumentsDirectory();
-    final file = File('${currentPath.path}/$filePath');
+    final file = File('${currentPath.path}/$fileName');
     final jsonList = {
       'code': card.code,
       'name': card.name,
       'color': card.color,
     };
 
-    final fileToExport = await file.writeAsString(jsonEncode(jsonList));
-    print(fileToExport);
+    await file.writeAsString(jsonEncode(jsonList));
+    NetShareServiceImpl().shareFiles(paths: [file.path], text: card.name);
   }
 
   void onTapImage() => context.read<CardsBloc>().add(
-    CardsShareEvent(
+    CardsShareImageEvent(
       barcodeKey: widget.barcodeKey,
       cardName: widget.openBloc.state.name,
     ),
@@ -94,7 +94,11 @@ class _ChooseShareSheetState extends State<ChooseShareSheet> {
                   children: [
                     _ShareCase(
                       title: 'file',
-                      onTap: () => onTapFile(widget.card, 'cards.json'),
+                      onTap:
+                          () => onTapFile(
+                            widget.card,
+                            '${widget.card.name}.json',
+                          ),
                     ),
                     _VerticalDivider(),
                     _ShareCase(title: 'image', onTap: onTapImage),

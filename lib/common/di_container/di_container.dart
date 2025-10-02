@@ -1,4 +1,4 @@
-import 'package:card_holder/common/helpers/image/image_convert_helper.dart';
+import 'package:card_holder/common/helpers/image/convert_helper.dart';
 import 'package:card_holder/common/presentation/widgets/app/my_app.dart';
 import 'package:card_holder/common/repositories/card_repository.dart';
 import 'package:card_holder/common/repositories/shared_repository.dart';
@@ -19,7 +19,7 @@ abstract class DiContainerProvider {
   CardRepository makeCardRepository();
   ShareRepository makeShareRepository();
   LocalStorageService makeLocalStorage();
-  ImageConvertHelper makeImageConverterHelper();
+  ConvertHelper makeImageConverterHelper();
 }
 
 class DiContainer implements DiContainerProvider {
@@ -34,8 +34,11 @@ class DiContainer implements DiContainerProvider {
   LocalStorageService makeLocalStorage() => SecureStorage();
 
   @override
-  CardRepository makeCardRepository() =>
-      CardRepositoryImpl(localCardService: makeCardService());
+  CardRepository makeCardRepository() => CardRepositoryImpl(
+    localCardService: makeCardService(),
+    netShareRepository: makeShareRepository(),
+  );
+
   @override
   ShareRepository makeShareRepository() =>
       ShareRepositoryImpl(shareService: makeShareService());
@@ -53,5 +56,5 @@ class DiContainer implements DiContainerProvider {
   DiContainer();
 
   @override
-  ImageConvertHelper makeImageConverterHelper() => ImageConvertHelper();
+  ConvertHelper makeImageConverterHelper() => ConvertHelper();
 }

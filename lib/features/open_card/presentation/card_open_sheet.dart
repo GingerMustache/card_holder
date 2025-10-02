@@ -15,6 +15,7 @@ import 'package:card_holder/common/presentation/widgets/skeleton_wrapper/skeleto
 import 'package:card_holder/common/presentation/widgets/text_fields/frame_text_field.dart';
 import 'package:card_holder/common/services/brightness_controll/brightness_control_service.dart';
 import 'package:card_holder/common/services/local_crud/local_card_service.dart';
+import 'package:card_holder/common/services/share/shared_service.dart';
 import 'package:card_holder/features/home/bloc/cards_bloc.dart';
 import 'package:card_holder/features/open_card/bloc/open_card_bloc.dart';
 import 'package:card_holder/features/settings/bloc/settings_bloc.dart';
