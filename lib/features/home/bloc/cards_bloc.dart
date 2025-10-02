@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_visible_for_testing_member
+
 import 'dart:async' show Completer;
 
 import 'package:bloc/bloc.dart';
@@ -35,6 +37,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
     on<CardsUpdateCardEvent>(_onUpdateCards);
     on<CardsSearchEvent>(_onCardSearch, transformer: debounceRestartable());
     on<CardsShareImageEvent>(_onCardShareImage);
+    on<CardsShareFileEvent>(_onCardShareFile);
   }
   _onFetchCards(CardsFetchCardsEvent event, Emitter<CardsState> emit) async {
     emit(state.copyWith(isLoading: true));
@@ -199,27 +202,14 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
       },
 
       (String filePath) async {
-        final shareResult = await _cardRepo.shareCardNet(
-          paths: [filePath],
-          text: event.cardName,
-        );
-        shareResult.fold(
-          (Exception e) {
-            if (e is FileSharedException) {
-              emit(state.copyWith(cards: state.cards, isLoading: false));
-            }
-          },
-          (_) {
-            emit(state.copyWith(isLoading: false));
-          },
-        );
+        _shareCardNet(filePath, state.currentCard?.name ?? '');
 
         // event.completer?.complete(card);
       },
     );
   }
 
-  _onCardShareFile(CardsShareImageEvent event, Emitter<CardsState> emit) async {
+  _onCardShareFile(CardsShareFileEvent event, Emitter<CardsState> emit) async {
     emit(state.copyWith(isLoading: true));
 
     final jsonList = {
@@ -235,29 +225,33 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
 
     await result.fold(
       (Exception e) {
-        if (e is RenderObjectNotConverted) {
+        if (e is JsonFileNotConverted) {
           emit(state.copyWith(cards: state.cards, isLoading: false));
           // event.completer?.completeError(e);
         }
       },
-
       (String filePath) async {
-        final shareResult = await _cardRepo.shareCardNet(
-          paths: [filePath],
-          text: event.cardName,
-        );
-        shareResult.fold(
-          (Exception e) {
-            if (e is FileSharedException) {
-              emit(state.copyWith(cards: state.cards, isLoading: false));
-            }
-          },
-          (_) {
-            emit(state.copyWith(isLoading: false));
-          },
-        );
+        _shareCardNet(filePath, state.currentCard?.name ?? '');
 
         // event.completer?.complete(card);
+      },
+    );
+  }
+
+  // others func
+  Future<void> _shareCardNet(String filePath, String cardName) async {
+    final shareResult = await _cardRepo.shareCardNet(
+      paths: [filePath],
+      text: cardName,
+    );
+    shareResult.fold(
+      (Exception e) {
+        if (e is FileSharedException) {
+          emit(state.copyWith(cards: state.cards, isLoading: false));
+        }
+      },
+      (_) {
+        emit(state.copyWith(isLoading: false));
       },
     );
   }

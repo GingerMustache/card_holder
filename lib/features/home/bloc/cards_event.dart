@@ -65,12 +65,14 @@ class CardsSearchEvent extends CardsEvent {
 
 class CardsShareImageEvent extends CardsEvent {
   final GlobalKey barcodeKey;
-  final String cardName;
 
-  const CardsShareImageEvent({
-    required this.barcodeKey,
-    required this.cardName,
-  });
+  const CardsShareImageEvent({required this.barcodeKey});
   @override
-  List<Object?> get props => [barcodeKey, cardName];
+  List<Object?> get props => [barcodeKey];
+}
+
+class CardsShareFileEvent extends CardsEvent {
+  const CardsShareFileEvent();
+  @override
+  List<Object?> get props => [];
 }
