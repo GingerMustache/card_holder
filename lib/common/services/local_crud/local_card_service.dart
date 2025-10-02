@@ -171,7 +171,7 @@ class LocalCardService implements CardServiceAbstract {
     final db = _getDatabaseOrThrow();
 
     final cardId = await db.insert(_cardTable, {
-      _codeColumn: code,
+      _codeColumn: code.replaceAll(' ', ''),
       _name: name,
       _color: color,
       _usagePointColumn: 0,

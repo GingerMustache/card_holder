@@ -37,6 +37,7 @@ void main() async {
                 (context) => CardsBloc(
                   imageConvertHelper: diContainer.makeImageConverterHelper(),
                   shareRepository: diContainer.makeShareRepository(),
+                  filePickRepository: diContainer.makeFilePickRepository(),
                   cardRepo: diContainer.makeCardRepository(),
                 )..add(CardsFetchCardsEvent()),
           ),

@@ -1,9 +1,11 @@
 import 'package:card_holder/common/helpers/image/convert_helper.dart';
 import 'package:card_holder/common/presentation/widgets/app/my_app.dart';
 import 'package:card_holder/common/repositories/card_repository.dart';
+import 'package:card_holder/common/repositories/file_pick_repository.dart';
 import 'package:card_holder/common/repositories/shared_repository.dart';
 import 'package:card_holder/common/routing/routes.dart';
 import 'package:card_holder/common/services/brightness_controll/brightness_control_service.dart';
+import 'package:card_holder/common/services/file_pick/file_pick_service.dart';
 import 'package:card_holder/common/services/local_crud/local_card_service.dart';
 import 'package:card_holder/common/services/local_storage/secure_storage.dart';
 import 'package:card_holder/common/services/share/shared_service.dart';
@@ -16,8 +18,10 @@ abstract class DiContainerProvider {
   CardServiceAbstract makeCardService();
   BrightnessService makeBrightnessService();
   ShareService makeShareService();
+  FilePickService makeFilePickService();
   CardRepository makeCardRepository();
   ShareRepository makeShareRepository();
+  FilePickRepository makeFilePickRepository();
   LocalStorageService makeLocalStorage();
   ConvertHelper makeImageConverterHelper();
 }
@@ -29,6 +33,8 @@ class DiContainer implements DiContainerProvider {
   CardServiceAbstract makeCardService() => LocalCardService();
   @override
   ShareService makeShareService() => NetShareServiceImpl();
+  @override
+  FilePickService makeFilePickService() => NetFilePickServiceImpl();
 
   @override
   LocalStorageService makeLocalStorage() => SecureStorage();
@@ -38,6 +44,10 @@ class DiContainer implements DiContainerProvider {
     localCardService: makeCardService(),
     netShareRepository: makeShareRepository(),
   );
+
+  @override
+  FilePickRepository makeFilePickRepository() =>
+      FilePickRepositoryImpl(filePickService: makeFilePickService());
 
   @override
   ShareRepository makeShareRepository() =>

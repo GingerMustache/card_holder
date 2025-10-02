@@ -39,6 +39,14 @@ class CardsAddCardEvent extends CardsEvent {
   List<Object?> get props => [code, name, color];
 }
 
+class CardsAddFileCardEvent extends CardsEvent {
+  final Completer<DataBaseCard> completer;
+
+  const CardsAddFileCardEvent({required this.completer});
+  @override
+  List<Object?> get props => [];
+}
+
 class CardsUpdateCardEvent extends CardsEvent {
   final String? name;
   final String? code;

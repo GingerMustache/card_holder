@@ -44,4 +44,18 @@ class ConvertHelper {
       return Left(JsonFileNotConverted());
     }
   }
+
+  Future<Either<Exception, Map<String, dynamic>>> jsonFromFile({
+    required String filePath,
+  }) async {
+    try {
+      File file = File(filePath);
+      final contents = await file.readAsString();
+      final Map<String, dynamic> jsonList = jsonDecode(contents);
+
+      return Right(jsonList);
+    } catch (e) {
+      return Left(JsonFromFileFailed());
+    }
+  }
 }

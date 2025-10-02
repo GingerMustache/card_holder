@@ -8,11 +8,14 @@ import 'package:card_holder/common/helpers/image/convert_helper.dart';
 import 'package:card_holder/common/helpers/image/exceptions/image_helper_exceptions.dart';
 import 'package:card_holder/common/mixins/event_transformer_mixin.dart';
 import 'package:card_holder/common/repositories/card_repository.dart';
+import 'package:card_holder/common/repositories/file_pick_repository.dart';
 import 'package:card_holder/common/repositories/shared_repository.dart';
+import 'package:card_holder/common/services/file_pick/exceptions/file_pick_service_exceptions.dart';
 import 'package:card_holder/common/services/local_crud/exceptions/crud_exceptions.dart';
 import 'package:card_holder/common/services/local_crud/local_card_service.dart';
 import 'package:card_holder/common/services/share/exceptions/shared_service_exceptions.dart';
 import 'package:equatable/equatable.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 
 part 'cards_event.dart';
@@ -21,19 +24,23 @@ part 'cards_state.dart';
 class CardsBloc extends Bloc<CardsEvent, CardsState>
     with EventTransformerMixin {
   final CardRepository _cardRepo;
+  final FilePickRepository _filePickRepository;
   final ConvertHelper _convertHelper;
 
   CardsBloc({
     required CardRepository cardRepo,
     required ConvertHelper imageConvertHelper,
     required ShareRepository shareRepository,
+    required FilePickRepository filePickRepository,
   }) : _cardRepo = cardRepo,
        _convertHelper = imageConvertHelper,
+       _filePickRepository = filePickRepository,
 
        super(CardsState()) {
     on<CardsFetchCardsEvent>(_onFetchCards);
     on<CardsOpenCardEvent>(_onOpenCard);
-    on<CardsAddCardEvent>(_onAddCards);
+    on<CardsAddCardEvent>(_onAddCard);
+    on<CardsAddFileCardEvent>(_onAddFileCards);
     on<CardsUpdateCardEvent>(_onUpdateCards);
     on<CardsSearchEvent>(_onCardSearch, transformer: debounceRestartable());
     on<CardsShareImageEvent>(_onCardShareImage);
@@ -82,7 +89,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
     );
   }
 
-  _onAddCards(CardsAddCardEvent event, Emitter<CardsState> emit) async {
+  _onAddCard(CardsAddCardEvent event, Emitter<CardsState> emit) async {
     emit(state.copyWith(isLoading: true));
     final result = await _cardRepo.createCard(
       code: event.code,
@@ -100,6 +107,49 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
       (DataBaseCard card) {
         emit(state.copyWith(cards: [...state.cards, card], isLoading: false));
         event.completer.complete(card);
+      },
+    );
+  }
+
+  _onAddFileCards(CardsAddFileCardEvent event, Emitter<CardsState> emit) async {
+    emit(state.copyWith(isLoading: true));
+
+    final result = await _filePickRepository.pickJsonFile();
+
+    await result.fold(
+      (Exception e) {
+        if (e is FilePickException) {
+          emit(state.copyWith(cards: state.cards, isLoading: false));
+          event.completer.completeError(e);
+        }
+      },
+      // right
+      (FilePickerResult? pickerResult) async {
+        if (pickerResult != null) {
+          final jsonResult = await _convertHelper.jsonFromFile(
+            filePath: pickerResult.files.single.path ?? '',
+          );
+
+          jsonResult.fold(
+            (Exception e) {
+              if (e is JsonFromFileFailed) {
+                emit(state.copyWith(cards: state.cards, isLoading: false));
+                event.completer.completeError(e);
+              }
+            },
+            // right
+            (Map<String, dynamic> cardMap) {
+              add(
+                CardsAddCardEvent(
+                  code: cardMap['code'],
+                  name: cardMap['name'],
+                  color: cardMap['color'] ?? 0x00000000,
+                  completer: event.completer,
+                ),
+              );
+            },
+          );
+        }
       },
     );
   }

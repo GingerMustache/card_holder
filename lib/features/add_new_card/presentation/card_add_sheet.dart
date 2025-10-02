@@ -75,6 +75,13 @@ class _CreateCardScreenState extends State<CreateCardScreen> {
     completer.future.then((_) => context.pop());
   }
 
+  Future<void> onAddFile() async {
+    final completer = Completer<DataBaseCard>();
+    context.read<CardsBloc>().add(CardsAddFileCardEvent(completer: completer));
+
+    completer.future.then((_) => context.pop());
+  }
+
   void onChangeColor(Color color) =>
       createBloc.add(CreateCardChangeColorEvent(color.toARGB32()));
 
@@ -149,9 +156,21 @@ class _CreateCardScreenState extends State<CreateCardScreen> {
                         labelText: t.screen.home.addCard.cardName,
                       ),
                       20.h,
-                      DefaultButton(
-                        text: t.screen.home.addCard.add,
-                        onTap: () async => onAdd(),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: DefaultButton(
+                              text: t.screen.home.addCard.add,
+                              onTap: onAdd, // TODO need to handle empty card
+                            ),
+                          ),
+                          Expanded(
+                            child: DefaultButton(
+                              text: 'через файл',
+                              onTap: () async => onAddFile(),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
