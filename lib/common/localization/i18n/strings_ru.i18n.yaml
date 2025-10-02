@@ -20,6 +20,8 @@ screen:
       uses: раз
       edit: принять
       share: поделиться
+      file: файл
+      image: фото
       brightness:
         all: яркость
         auto: авто

@@ -20,6 +20,8 @@ screen:
       uses: uses
       edit: edit
       share: share
+      file: file
+      image: image
       brightness:
         all: bright
         auto: auto

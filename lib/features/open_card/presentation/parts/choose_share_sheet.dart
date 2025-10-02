@@ -37,7 +37,7 @@ class ChooseShareSheet extends StatefulWidget {
 }
 
 class _ChooseShareSheetState extends State<ChooseShareSheet> {
-  void onTapFile(DataBaseCard card, String fileName) async =>
+  void onTapFile() async =>
       context.read<CardsBloc>().add(CardsShareFileEvent());
   // get current path
 
@@ -80,15 +80,14 @@ class _ChooseShareSheetState extends State<ChooseShareSheet> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     _ShareCase(
-                      title: 'file',
-                      onTap:
-                          () => onTapFile(
-                            widget.card,
-                            '${widget.card.name}.json',
-                          ),
+                      title: t.screen.home.openCard.file,
+                      onTap: onTapFile,
                     ),
                     _VerticalDivider(),
-                    _ShareCase(title: 'image', onTap: onTapImage),
+                    _ShareCase(
+                      title: t.screen.home.openCard.image,
+                      onTap: onTapImage,
+                    ),
                   ],
                 ),
               ],

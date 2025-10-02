@@ -220,6 +220,12 @@ class TranslationsScreenHomeOpenCardEn {
 	/// en: 'share'
 	String get share => 'share';
 
+	/// en: 'file'
+	String get file => 'file';
+
+	/// en: 'image'
+	String get image => 'image';
+
 	late final TranslationsScreenHomeOpenCardBrightnessEn brightness = TranslationsScreenHomeOpenCardBrightnessEn.internal(_root);
 }
 
@@ -261,6 +267,8 @@ extension on Translations {
 			case 'screen.home.openCard.uses': return 'uses';
 			case 'screen.home.openCard.edit': return 'edit';
 			case 'screen.home.openCard.share': return 'share';
+			case 'screen.home.openCard.file': return 'file';
+			case 'screen.home.openCard.image': return 'image';
 			case 'screen.home.openCard.brightness.all': return 'bright';
 			case 'screen.home.openCard.brightness.auto': return 'auto';
 			case 'screen.home.openCard.brightness.handle': return 'handle';

@@ -164,6 +164,8 @@ class _TranslationsScreenHomeOpenCardRu extends TranslationsScreenHomeOpenCardEn
 	@override String get uses => 'раз';
 	@override String get edit => 'принять';
 	@override String get share => 'поделиться';
+	@override String get file => 'файл';
+	@override String get image => 'фото';
 	@override late final _TranslationsScreenHomeOpenCardBrightnessRu brightness = _TranslationsScreenHomeOpenCardBrightnessRu._(_root);
 }
 
@@ -199,6 +201,8 @@ extension on TranslationsRu {
 			case 'screen.home.openCard.uses': return 'раз';
 			case 'screen.home.openCard.edit': return 'принять';
 			case 'screen.home.openCard.share': return 'поделиться';
+			case 'screen.home.openCard.file': return 'файл';
+			case 'screen.home.openCard.image': return 'фото';
 			case 'screen.home.openCard.brightness.all': return 'яркость';
 			case 'screen.home.openCard.brightness.auto': return 'авто';
 			case 'screen.home.openCard.brightness.handle': return 'ручной';
