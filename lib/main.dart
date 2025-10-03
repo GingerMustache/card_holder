@@ -1,8 +1,9 @@
 // need to run dart run build_runner build
 import 'package:card_holder/common/di_container/di_container.dart';
+import 'package:card_holder/common/helpers/converter/text_field_validator/text_field_validator.dart';
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/localization/locale/locale.dart';
-import 'package:card_holder/common/services/brightness_controll/brightness_control_service.dart';
+import 'package:card_holder/common/services/brightness_control/brightness_control_service.dart';
 import 'package:card_holder/features/home/bloc/cards_bloc.dart';
 import 'package:card_holder/features/settings/bloc/settings_bloc.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,10 @@ void main() async {
           RepositoryProvider<BrightnessService>(
             lazy: false,
             create: (_) => diContainer.makeBrightnessService(),
+          ),
+          RepositoryProvider<TextValidatorService>(
+            lazy: false,
+            create: (_) => diContainer.makeTextValidatorService(),
           ),
           BlocProvider(
             create:

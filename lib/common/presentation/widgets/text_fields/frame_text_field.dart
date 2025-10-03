@@ -9,6 +9,7 @@ class FrameTextField extends StatelessWidget {
     required this.hintText,
     required this.labelText,
     required this.onChanged,
+    required this.validator,
     this.numericKeyboard = false,
   });
 
@@ -16,6 +17,7 @@ class FrameTextField extends StatelessWidget {
   final String labelText;
   final void Function(String)? onChanged;
   final bool numericKeyboard;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,7 @@ class FrameTextField extends StatelessWidget {
         Text(labelText, style: context.textStyles.labelSmall),
         5.h,
         TextFormField(
+          validator: validator,
           keyboardType:
               numericKeyboard
                   ? TextInputType.numberWithOptions()
@@ -33,7 +36,6 @@ class FrameTextField extends StatelessWidget {
           cursorColor: AppColors.darkGrey,
           cursorWidth: 1,
           cursorHeight: 15,
-
           // initialValue: widget.value,
           // focusNode: widget.focusNode,
           style: TextStyle(fontSize: 16, color: AppColors.subGrey),
@@ -43,6 +45,11 @@ class FrameTextField extends StatelessWidget {
             border: outlineInputBorder,
             focusedBorder: outlineInputBorder,
             enabledBorder: outlineInputBorder,
+            errorStyle: context.textStyles.labelSmall?.copyWith(
+              color: AppColors.errorRed,
+              fontSize: 9.5,
+              height: 0.65,
+            ),
           ),
           inputFormatters: [RemoveEmojiInputFormatter()],
           onChanged: onChanged,

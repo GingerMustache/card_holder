@@ -4,8 +4,8 @@ import 'dart:async' show Completer;
 
 import 'package:bloc/bloc.dart';
 import 'package:card_holder/common/extensions/app_extensions.dart';
-import 'package:card_holder/common/helpers/image/convert_helper.dart';
-import 'package:card_holder/common/helpers/image/exceptions/image_helper_exceptions.dart';
+import 'package:card_holder/common/helpers/converter/convert_helper.dart';
+import 'package:card_holder/common/helpers/converter/exceptions/image_helper_exceptions.dart';
 import 'package:card_holder/common/mixins/event_transformer_mixin.dart';
 import 'package:card_holder/common/repositories/card_repository.dart';
 import 'package:card_holder/common/repositories/file_pick_repository.dart';

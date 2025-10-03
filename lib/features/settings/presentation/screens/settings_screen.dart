@@ -2,7 +2,7 @@ import 'package:card_holder/common/application/app_settings.dart';
 import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/localization/locale/locale.dart';
-import 'package:card_holder/common/services/brightness_controll/brightness_control_service.dart';
+import 'package:card_holder/common/services/brightness_control/brightness_control_service.dart';
 import 'package:card_holder/features/settings/bloc/settings_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

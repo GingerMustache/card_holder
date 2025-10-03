@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
-import 'package:card_holder/common/services/brightness_controll/brightness_control_service.dart';
+import 'package:card_holder/common/services/brightness_control/brightness_control_service.dart';
 import 'package:card_holder/common/services/local_storage/secure_storage.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';

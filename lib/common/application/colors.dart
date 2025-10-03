@@ -11,6 +11,7 @@ class AppColors {
   static const Color suBlack = Color(0xff2A2A2A);
   static const Color mainGreen = Colors.green;
   static const Color mainRed = Color.fromARGB(255, 255, 102, 0);
+  static const Color errorRed = Color.fromARGB(255, 181, 8, 8);
   static const Color mainBlue = Colors.blue;
   static const Color mainLightGold = Color.fromARGB(255, 250, 234, 143);
   static Color withAlpha = Colors.grey.withAlpha(30);

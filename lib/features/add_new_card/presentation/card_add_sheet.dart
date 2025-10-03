@@ -2,6 +2,7 @@ import 'dart:async' show Completer;
 
 import 'package:card_holder/common/application/app_settings.dart';
 import 'package:card_holder/common/extensions/app_extensions.dart';
+import 'package:card_holder/common/helpers/converter/text_field_validator/text_field_validator.dart';
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/presentation/assets_parts/app_icons.dart';
 import 'package:card_holder/common/presentation/widgets/buttons/default_button.dart';
@@ -47,6 +48,7 @@ class CreateCardScreen extends StatefulWidget {
 
 class _CreateCardScreenState extends State<CreateCardScreen> {
   late final CreateCardBloc createBloc;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -55,24 +57,26 @@ class _CreateCardScreenState extends State<CreateCardScreen> {
   }
 
   Future<void> onAdd() async {
-    final completer = Completer<DataBaseCard>();
-    final createState = createBloc.state;
+    if (_formKey.currentState!.validate()) {
+      final completer = Completer<DataBaseCard>();
+      final createState = createBloc.state;
 
-    final code =
-        createState.detectedCode.isNotEmpty
-            ? createState.detectedCode
-            : createState.code;
+      final code =
+          createState.detectedCode.isNotEmpty
+              ? createState.detectedCode
+              : createState.code;
 
-    context.read<CardsBloc>().add(
-      CardsAddCardEvent(
-        color: createState.color,
-        code: code,
-        name: createState.name,
-        completer: completer,
-      ),
-    );
+      context.read<CardsBloc>().add(
+        CardsAddCardEvent(
+          color: createState.color,
+          code: code,
+          name: createState.name,
+          completer: completer,
+        ),
+      );
 
-    completer.future.then((_) => context.pop());
+      completer.future.then((_) => context.pop());
+    }
   }
 
   Future<void> onAddFile() async {
@@ -122,57 +126,70 @@ class _CreateCardScreenState extends State<CreateCardScreen> {
               padding: mainHorizontalPadding,
               child: Stack(
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      3.h,
-                      Center(
-                        child: Text(
-                          t.screen.home.addCard.barcodeScan,
-                          style: context.textStyles.labelSmall?.copyWith(
-                            fontSize: 10,
-                          ),
-                        ),
-                      ),
-                      Divider(color: AppColors.subGrey.withAlpha(50)),
-                      10.h,
-                      Text(
-                        t.screen.home.addCard.detectedCode,
-                        style: context.textStyles.labelSmall,
-                      ),
-                      5.h,
-                      _EnteredCodeWidget(),
-                      FrameTextField(
-                        numericKeyboard: true,
-                        onChanged:
-                            (v) => createBloc.add(CreateCardChangeCodeEvent(v)),
-                        hintText: t.screen.home.addCard.code,
-                        labelText: t.screen.home.addCard.manualCode,
-                      ),
-                      FrameTextField(
-                        onChanged:
-                            (v) => createBloc.add(CreateCardChangeNameEvent(v)),
-                        hintText: t.screen.home.addCard.name,
-                        labelText: t.screen.home.addCard.cardName,
-                      ),
-                      20.h,
-                      Row(
+                  Form(
+                    key: _formKey,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(
-                            child: DefaultButton(
-                              text: t.screen.home.addCard.add,
-                              onTap: onAdd, // TODO need to handle empty card
+                          3.h,
+                          Center(
+                            child: Text(
+                              t.screen.home.addCard.barcodeScan,
+                              style: context.textStyles.labelSmall?.copyWith(
+                                fontSize: 10,
+                              ),
                             ),
                           ),
-                          Expanded(
-                            child: DefaultButton(
-                              text: 'через файл',
-                              onTap: () async => onAddFile(),
-                            ),
+                          Divider(color: AppColors.subGrey.withAlpha(50)),
+                          10.h,
+                          Text(
+                            t.screen.home.addCard.detectedCode,
+                            style: context.textStyles.labelSmall,
+                          ),
+                          5.h,
+                          _EnteredCodeWidget(),
+                          FrameTextField(
+                            validator:
+                                context.read<TextValidatorService>().emptyCheck,
+                            numericKeyboard: true,
+                            onChanged:
+                                (v) => createBloc.add(
+                                  CreateCardChangeCodeEvent(v),
+                                ),
+                            hintText: t.screen.home.addCard.code,
+                            labelText: t.screen.home.addCard.manualCode,
+                          ),
+                          FrameTextField(
+                            validator:
+                                context.read<TextValidatorService>().emptyCheck,
+                            onChanged:
+                                (v) => createBloc.add(
+                                  CreateCardChangeNameEvent(v),
+                                ),
+                            hintText: t.screen.home.addCard.name,
+                            labelText: t.screen.home.addCard.cardName,
+                          ),
+                          7.h,
+                          Row(
+                            children: [
+                              Expanded(
+                                child: DefaultButton(
+                                  text: t.screen.home.addCard.add,
+                                  onTap: onAdd,
+                                ),
+                              ),
+                              Expanded(
+                                child: DefaultButton(
+                                  text: 'через файл',
+                                  onTap: () async => onAddFile(),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    ],
+                    ),
                   ),
                   BlocBuilder<CreateCardBloc, CreateCardState>(
                     buildWhen:

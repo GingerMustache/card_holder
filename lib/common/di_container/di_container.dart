@@ -1,10 +1,11 @@
-import 'package:card_holder/common/helpers/image/convert_helper.dart';
+import 'package:card_holder/common/helpers/converter/convert_helper.dart';
+import 'package:card_holder/common/helpers/converter/text_field_validator/text_field_validator.dart';
 import 'package:card_holder/common/presentation/widgets/app/my_app.dart';
 import 'package:card_holder/common/repositories/card_repository.dart';
 import 'package:card_holder/common/repositories/file_pick_repository.dart';
 import 'package:card_holder/common/repositories/shared_repository.dart';
 import 'package:card_holder/common/routing/routes.dart';
-import 'package:card_holder/common/services/brightness_controll/brightness_control_service.dart';
+import 'package:card_holder/common/services/brightness_control/brightness_control_service.dart';
 import 'package:card_holder/common/services/file_pick/file_pick_service.dart';
 import 'package:card_holder/common/services/local_crud/local_card_service.dart';
 import 'package:card_holder/common/services/local_storage/secure_storage.dart';
@@ -24,6 +25,7 @@ abstract class DiContainerProvider {
   FilePickRepository makeFilePickRepository();
   LocalStorageService makeLocalStorage();
   ConvertHelper makeImageConverterHelper();
+  TextValidatorService makeTextValidatorService();
 }
 
 class DiContainer implements DiContainerProvider {
@@ -35,6 +37,8 @@ class DiContainer implements DiContainerProvider {
   ShareService makeShareService() => NetShareServiceImpl();
   @override
   FilePickService makeFilePickService() => NetFilePickServiceImpl();
+  @override
+  TextValidatorService makeTextValidatorService() => TextValidatorService();
 
   @override
   LocalStorageService makeLocalStorage() => SecureStorage();

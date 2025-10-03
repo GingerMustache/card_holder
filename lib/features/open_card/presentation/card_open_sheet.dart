@@ -5,13 +5,14 @@ import 'dart:async';
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:card_holder/common/application/app_settings.dart';
 import 'package:card_holder/common/extensions/app_extensions.dart';
+import 'package:card_holder/common/helpers/converter/text_field_validator/text_field_validator.dart';
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/presentation/widgets/buttons/default_button.dart';
 import 'package:card_holder/common/presentation/widgets/color_mark/color_mark_widget.dart';
 import 'package:card_holder/common/presentation/widgets/color_wheel/color_wheel_widget.dart';
 import 'package:card_holder/common/presentation/widgets/skeleton_wrapper/skeleton_wrapper.dart';
 import 'package:card_holder/common/presentation/widgets/text_fields/frame_text_field.dart';
-import 'package:card_holder/common/services/brightness_controll/brightness_control_service.dart';
+import 'package:card_holder/common/services/brightness_control/brightness_control_service.dart';
 import 'package:card_holder/common/services/local_crud/local_card_service.dart';
 import 'package:card_holder/features/home/bloc/cards_bloc.dart';
 import 'package:card_holder/features/open_card/bloc/open_card_bloc.dart';
@@ -56,7 +57,8 @@ class CardOpenSheet extends StatefulWidget {
 
 class _CardOpenSheetState extends State<CardOpenSheet> {
   late final OpenCardBloc openBloc;
-  final GlobalKey _barcodeKey = GlobalKey(); // Key for capturing the widget
+  final _formKey = GlobalKey<FormState>();
+  final GlobalKey _barcodeKey = GlobalKey();
 
   @override
   void initState() {
@@ -117,6 +119,8 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
                         children: [
                           Divider(color: AppColors.subGrey.withAlpha(50)),
                           FrameTextField(
+                            validator:
+                                context.read<TextValidatorService>().emptyCheck,
                             numericKeyboard: true,
                             onChanged:
                                 (v) => openBloc.add(OpenCardChangeCodeEvent(v)),
@@ -124,12 +128,14 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
                             labelText: t.screen.home.addCard.manualCode,
                           ),
                           FrameTextField(
+                            validator:
+                                context.read<TextValidatorService>().emptyCheck,
                             onChanged:
                                 (v) => openBloc.add(OpenCardChangeNameEvent(v)),
                             hintText: widget.curCard.name,
                             labelText: t.screen.home.addCard.cardName,
                           ),
-                          20.h,
+                          7.h,
                           Row(
                             children: [
                               Expanded(

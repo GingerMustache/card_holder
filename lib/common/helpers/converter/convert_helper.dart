@@ -3,7 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
-import 'package:card_holder/common/helpers/image/exceptions/image_helper_exceptions.dart';
+import 'package:card_holder/common/helpers/converter/exceptions/image_helper_exceptions.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
