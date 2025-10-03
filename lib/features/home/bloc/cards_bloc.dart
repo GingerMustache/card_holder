@@ -45,6 +45,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
     on<CardsSearchEvent>(_onCardSearch, transformer: debounceRestartable());
     on<CardsShareImageEvent>(_onCardShareImage);
     on<CardsShareFileEvent>(_onCardShareFile);
+    on<CardsShareAllCardsEvent>(_onShareAllCards);
   }
   _onFetchCards(CardsFetchCardsEvent event, Emitter<CardsState> emit) async {
     emit(state.copyWith(isLoading: true));
@@ -304,5 +305,12 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
         emit(state.copyWith(isLoading: false));
       },
     );
+  }
+
+  _onShareAllCards(
+    CardsShareAllCardsEvent event,
+    Emitter<CardsState> emit,
+  ) async {
+    emit(state.copyWith(isLoading: true));
   }
 }

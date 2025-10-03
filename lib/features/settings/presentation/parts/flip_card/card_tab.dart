@@ -3,7 +3,7 @@ part of '../../screens/settings_screen.dart';
 class _CardTab extends StatelessWidget {
   const _CardTab({
     required this.tabName,
-    required this.isSelected,
+    this.isSelected = false,
     required this.onTap,
   });
   final String tabName;

@@ -36,8 +36,6 @@ class FrameTextField extends StatelessWidget {
           cursorColor: AppColors.darkGrey,
           cursorWidth: 1,
           cursorHeight: 15,
-          // initialValue: widget.value,
-          // focusNode: widget.focusNode,
           style: TextStyle(fontSize: 16, color: AppColors.subGrey),
           decoration: InputDecoration(
             hintText: hintText,

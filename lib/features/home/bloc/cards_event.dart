@@ -84,3 +84,9 @@ class CardsShareFileEvent extends CardsEvent {
   @override
   List<Object?> get props => [];
 }
+
+class CardsShareAllCardsEvent extends CardsEvent {
+  const CardsShareAllCardsEvent();
+  @override
+  List<Object?> get props => [];
+}

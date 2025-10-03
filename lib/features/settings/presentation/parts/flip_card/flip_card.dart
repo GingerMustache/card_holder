@@ -60,7 +60,7 @@ class _UnderCardWidget extends StatelessWidget {
       0 => const _ChooseTheme(),
       1 => const _ChooseLang(),
       2 => const _ChooseBrightness(),
-      3 => const Text('3'),
+      3 => const _Share(),
       4 => const Text('4'),
       5 => const Text('5'),
       6 => const Text('6'),
@@ -68,5 +68,31 @@ class _UnderCardWidget extends StatelessWidget {
       8 => const Text('8'),
       _ => const Text('Unknown Setting'),
     };
+  }
+}
+
+class _Share extends StatelessWidget {
+  const _Share();
+  void _onThemeSelected(BuildContext context, ThemeMode theme) async {}
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<SettingsBloc, SettingsState>(
+      buildWhen:
+          (previous, current) =>
+              previous.theme != current.theme || previous.lang != current.lang,
+      builder: (context, state) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            _CardTab(tabName: 'приложением', onTap: () => ()),
+            _CardTab(
+              tabName: 'картами',
+              onTap: () => _onThemeSelected(context, ThemeMode.light),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
