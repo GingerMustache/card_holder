@@ -52,6 +52,7 @@ class FrameTextField extends StatelessWidget {
             ),
           ),
           inputFormatters: [RemoveEmojiInputFormatter()],
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           onChanged: onChanged,
         ),
       ],
