@@ -51,3 +51,10 @@ class CreateCardChangeMarkTapEvent extends CreateCardEvent {
   @override
   List<Object?> get props => [];
 }
+
+class CreateCardResumeCameraEvent extends CreateCardEvent {
+  const CreateCardResumeCameraEvent();
+
+  @override
+  List<Object?> get props => [];
+}

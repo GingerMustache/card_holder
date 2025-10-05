@@ -28,6 +28,7 @@ class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
     on<CreateCardChangeColorEvent>(_onChangeColor);
     on<CreateCardChangeMarkTapEvent>(_onChangeMarkTap);
     on<CreateCardSearchEvent>(_onSearch, transformer: debounceRestartable());
+    on<CreateCardResumeCameraEvent>(_onResumeCamera);
 
     cameraController = MobileScannerController(detectionTimeoutMs: 1500);
     cameraControllerSubscription = cameraController.barcodes.listen(
@@ -83,13 +84,25 @@ class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
     final barcodes = event.barcodes;
     if (barcodes.barcodes.isNotEmpty &&
         barcodes.barcodes.first.rawValue != null) {
-      await _submit();
       cameraControllerSubscription.pause();
+      final String detectedCode = barcodes.barcodes.first.rawValue!;
+      final formatter = NumberFormat('#,###', 'en');
+      final formattedCode = formatter
+          .format(int.tryParse(detectedCode))
+          .replaceAll(',', ' ');
+
+      emit(state.copyWith(detectedCode: formattedCode, code: detectedCode));
     }
   }
 
-  Future<bool> _submit() async {
-    return true;
+  Future<void> _onResumeCamera(
+    CreateCardResumeCameraEvent event,
+    Emitter<CreateCardState> emit,
+  ) async {
+    cameraControllerSubscription.resume();
+    cameraController.start();
+
+    emit(state.copyWith(code: '', detectedCode: ''));
   }
 
   @override

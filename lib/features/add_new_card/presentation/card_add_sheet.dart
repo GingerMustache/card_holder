@@ -112,10 +112,7 @@ class _CreateCardScreenState extends State<CreateCardScreen> {
               ),
             ),
             _ScanFrame(
-              onPressed: () {
-                createBloc.cameraControllerSubscription.resume();
-                createBloc.cameraController.start();
-              },
+              onPressed: () => createBloc.add(CreateCardResumeCameraEvent()),
             ),
           ],
         ),
@@ -150,8 +147,14 @@ class _CreateCardScreenState extends State<CreateCardScreen> {
                           5.h,
                           _EnteredCodeWidget(),
                           FrameTextField(
-                            validator:
-                                context.read<TextValidatorService>().emptyCheck,
+                            autovalidateMode: null,
+                            validator: (val) {
+                              return createBloc.state.code.isNotEmpty ||
+                                      createBloc.state.detectedCode.isNotEmpty
+                                  ? null
+                                  : 'Field cannot be empty';
+                            },
+
                             numericKeyboard: true,
                             onChanged:
                                 (v) => createBloc.add(
@@ -222,16 +225,28 @@ class _CreateCardScreenState extends State<CreateCardScreen> {
   }
 
   Widget onOverlayBuilder(BuildContext context, BoxConstraints constraints) {
-    if (createBloc.cameraControllerSubscription.isPaused) {
-      WidgetsBinding.instance.addPostFrameCallback((_) async {
-        createBloc.cameraController.stop();
-      });
-      return const Text(
-        'Нажмите чтобы продолжить',
-        style: TextStyle(color: Colors.black),
-      );
-    }
-    return const SizedBox();
+    return BlocConsumer<CreateCardBloc, CreateCardState>(
+      listenWhen: (prev, curr) => prev.detectedCode != curr.detectedCode,
+      listener: (context, state) {
+        if (createBloc.cameraControllerSubscription.isPaused) {
+          WidgetsBinding.instance.addPostFrameCallback((_) async {
+            createBloc.cameraController.stop();
+          });
+        }
+        if (state.detectedCode.isNotEmpty) {
+          createBloc.add(CreateCardChangeCodeEvent(state.detectedCode));
+        }
+      },
+      builder: (context, state) {
+        if (createBloc.cameraControllerSubscription.isPaused) {
+          return const Text(
+            'Нажмите чтобы продолжить',
+            style: TextStyle(color: Colors.black),
+          );
+        }
+        return const SizedBox();
+      },
+    );
   }
 
   static const borderRadius = BorderRadius.only(

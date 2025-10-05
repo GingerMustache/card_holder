@@ -10,6 +10,7 @@ class FrameTextField extends StatelessWidget {
     required this.labelText,
     required this.onChanged,
     required this.validator,
+    this.autovalidateMode = AutovalidateMode.onUserInteraction,
     this.numericKeyboard = false,
   });
 
@@ -18,6 +19,7 @@ class FrameTextField extends StatelessWidget {
   final void Function(String)? onChanged;
   final bool numericKeyboard;
   final String? Function(String?)? validator;
+  final AutovalidateMode? autovalidateMode;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +52,7 @@ class FrameTextField extends StatelessWidget {
             ),
           ),
           inputFormatters: [RemoveEmojiInputFormatter()],
-          autovalidateMode: AutovalidateMode.onUserInteraction,
+          autovalidateMode: autovalidateMode,
           onChanged: onChanged,
         ),
       ],

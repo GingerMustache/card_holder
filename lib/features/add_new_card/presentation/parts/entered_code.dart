@@ -8,7 +8,10 @@ class _EnteredCodeWidget extends StatelessWidget {
     return FrameContainer(
       child: Center(
         child: BlocBuilder<CreateCardBloc, CreateCardState>(
-          buildWhen: (previous, current) => previous.code != current.code,
+          buildWhen:
+              (previous, current) =>
+                  previous.code != current.code ||
+                  previous.detectedCode != current.detectedCode,
           builder: (context, state) {
             final code =
                 state.code.isNotEmpty ? state.code : state.detectedCode;
