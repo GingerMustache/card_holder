@@ -289,6 +289,36 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
     );
   }
 
+  _onShareAllCards(
+    CardsShareAllCardsEvent event,
+    Emitter<CardsState> emit,
+  ) async {
+    emit(state.copyWith(isLoading: true));
+    final Map<String, Object> jsonMap = {
+      for (final card in state.cards)
+        card.name: {'code': card.code, 'name': card.name, 'color': card.color},
+    };
+
+    final result = await _convertHelper.getJsonFilePath(
+      jsonList: jsonMap,
+      fileName: 'all_cards.json',
+    );
+
+    await result.fold(
+      (Exception e) {
+        if (e is JsonFileNotConverted) {
+          emit(state.copyWith(cards: state.cards, isLoading: false));
+          // event.completer?.completeError(e);
+        }
+      },
+      (String filePath) async {
+        _shareCardNet(filePath, 'all_cards');
+
+        // event.completer?.complete(card);
+      },
+    );
+  }
+
   // others func
   Future<void> _shareCardNet(String filePath, String cardName) async {
     final shareResult = await _cardRepo.shareCardNet(
@@ -305,12 +335,5 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
         emit(state.copyWith(isLoading: false));
       },
     );
-  }
-
-  _onShareAllCards(
-    CardsShareAllCardsEvent event,
-    Emitter<CardsState> emit,
-  ) async {
-    emit(state.copyWith(isLoading: true));
   }
 }

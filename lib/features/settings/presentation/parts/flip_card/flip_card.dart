@@ -73,7 +73,9 @@ class _UnderCardWidget extends StatelessWidget {
 
 class _Share extends StatelessWidget {
   const _Share();
-  void _onThemeSelected(BuildContext context, ThemeMode theme) async {}
+  void _onShareAllCards(BuildContext context) async {
+    context.read<CardsBloc>().add(CardsShareAllCardsEvent());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +90,7 @@ class _Share extends StatelessWidget {
             _CardTab(tabName: 'приложением', onTap: () => ()),
             _CardTab(
               tabName: 'картами',
-              onTap: () => _onThemeSelected(context, ThemeMode.light),
+              onTap: () => _onShareAllCards(context),
             ),
           ],
         );

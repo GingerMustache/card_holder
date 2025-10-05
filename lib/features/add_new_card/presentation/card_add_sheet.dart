@@ -170,7 +170,7 @@ class _CreateCardScreenState extends State<CreateCardScreen> {
                             hintText: t.screen.home.addCard.name,
                             labelText: t.screen.home.addCard.cardName,
                           ),
-                          7.h,
+                          9.h,
                           Row(
                             children: [
                               Expanded(

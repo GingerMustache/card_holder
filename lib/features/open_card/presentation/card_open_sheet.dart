@@ -97,7 +97,7 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
   @override
   Widget build(BuildContext context) {
     return SkeletonWrapper(
-      height: 670,
+      height: 655,
       children: [
         Expanded(
           child: Container(
@@ -135,7 +135,7 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
                             hintText: widget.curCard.name,
                             labelText: t.screen.home.addCard.cardName,
                           ),
-                          7.h,
+                          9.h,
                           Row(
                             children: [
                               Expanded(
