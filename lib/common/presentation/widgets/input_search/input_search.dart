@@ -111,7 +111,7 @@ class RemoveEmojiInputFormatter extends TextInputFormatter {
     TextEditingValue oldValue,
     TextEditingValue newValue,
   ) {
-    var text = newValue.text.replaceAll(' ', '');
+    var text = newValue.text;
     var selection = newValue.selection;
     if (oldValue.text == text) {
       selection = oldValue.selection;

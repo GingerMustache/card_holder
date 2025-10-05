@@ -27,7 +27,7 @@ class CardsAddCardEvent extends CardsEvent {
   final String name;
   final String code;
   final int color;
-  final Completer<DataBaseCard> completer;
+  final Completer<DataBaseCard>? completer;
 
   const CardsAddCardEvent({
     required this.code,

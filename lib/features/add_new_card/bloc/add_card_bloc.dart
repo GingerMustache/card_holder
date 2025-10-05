@@ -74,9 +74,7 @@ class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
   Future<void> _onAddName(
     CreateCardChangeNameEvent event,
     Emitter<CreateCardState> emit,
-  ) async => emit(
-    state.copyWith(name: event.name.replaceAll(' ', ''), isMarkTapped: false),
-  );
+  ) async => emit(state.copyWith(name: event.name, isMarkTapped: false));
 
   Future<void> _onSearch(
     CreateCardSearchEvent event,

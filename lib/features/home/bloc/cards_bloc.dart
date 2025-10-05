@@ -101,13 +101,13 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
       (Exception e) {
         if (e is LocalDataBaseException) {
           emit(state.copyWith(cards: state.cards, isLoading: false));
-          event.completer.completeError(e);
+          event.completer?.completeError(e);
         }
       },
 
       (DataBaseCard card) {
         emit(state.copyWith(cards: [...state.cards, card], isLoading: false));
-        event.completer.complete(card);
+        event.completer?.complete(card);
       },
     );
   }
@@ -140,12 +140,15 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
             },
             // right
             (Map<String, dynamic> cardMap) {
-              add(
-                CardsAddCardEvent(
-                  code: cardMap['code'],
-                  name: cardMap['name'],
-                  color: cardMap['color'] ?? 0x00000000,
-                  completer: event.completer,
+              cardMap.forEach(
+                (key, card) => add(
+                  CardsAddCardEvent(
+                    code: card['code'],
+                    name: card['name'],
+                    color: card['color'] ?? 0x00000000,
+                    completer:
+                        cardMap.keys.last == key ? event.completer : null,
+                  ),
                 ),
               );
             },
@@ -264,9 +267,11 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
     emit(state.copyWith(isLoading: true));
 
     final jsonList = {
-      'code': state.currentCard?.code ?? '',
-      'name': state.currentCard?.name ?? '',
-      'color': state.currentCard?.color ?? 0x00000000,
+      state.currentCard?.name ?? 'default': {
+        'code': state.currentCard?.code ?? '',
+        'name': state.currentCard?.name ?? '',
+        'color': state.currentCard?.color ?? 0x00000000,
+      },
     };
 
     final result = await _convertHelper.getJsonFilePath(
