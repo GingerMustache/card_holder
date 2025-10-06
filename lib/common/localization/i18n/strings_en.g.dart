@@ -99,6 +99,8 @@ class TranslationsSystemEn {
 	// Translations
 	late final TranslationsSystemThemeEn theme = TranslationsSystemThemeEn.internal(_root);
 	late final TranslationsSystemLangEn lang = TranslationsSystemLangEn.internal(_root);
+	late final TranslationsSystemBrightEn bright = TranslationsSystemBrightEn.internal(_root);
+	late final TranslationsSystemShareEn share = TranslationsSystemShareEn.internal(_root);
 }
 
 // Path: screen.home
@@ -170,6 +172,42 @@ class TranslationsSystemLangEn {
 	String get en => 'en';
 }
 
+// Path: system.bright
+class TranslationsSystemBrightEn {
+	TranslationsSystemBrightEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'bright'
+	String get all => 'bright';
+
+	/// en: 'auto'
+	String get auto => 'auto';
+
+	/// en: 'handle'
+	String get handle => 'handle';
+}
+
+// Path: system.share
+class TranslationsSystemShareEn {
+	TranslationsSystemShareEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'share'
+	String get all => 'share';
+
+	/// en: 'app link'
+	String get app => 'app link';
+
+	/// en: 'all cards'
+	String get cards => 'all cards';
+}
+
 // Path: screen.home.addCard
 class TranslationsScreenHomeAddCardEn {
 	TranslationsScreenHomeAddCardEn.internal(this._root);
@@ -225,26 +263,6 @@ class TranslationsScreenHomeOpenCardEn {
 
 	/// en: 'image'
 	String get image => 'image';
-
-	late final TranslationsScreenHomeOpenCardBrightnessEn brightness = TranslationsScreenHomeOpenCardBrightnessEn.internal(_root);
-}
-
-// Path: screen.home.openCard.brightness
-class TranslationsScreenHomeOpenCardBrightnessEn {
-	TranslationsScreenHomeOpenCardBrightnessEn.internal(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// en: 'bright'
-	String get all => 'bright';
-
-	/// en: 'auto'
-	String get auto => 'auto';
-
-	/// en: 'handle'
-	String get handle => 'handle';
 }
 
 /// Flat map(s) containing all translations.
@@ -269,9 +287,6 @@ extension on Translations {
 			case 'screen.home.openCard.share': return 'share';
 			case 'screen.home.openCard.file': return 'file';
 			case 'screen.home.openCard.image': return 'image';
-			case 'screen.home.openCard.brightness.all': return 'bright';
-			case 'screen.home.openCard.brightness.auto': return 'auto';
-			case 'screen.home.openCard.brightness.handle': return 'handle';
 			case 'screen.settings.all': return 'first';
 			case 'tabs.card': return 'cards';
 			case 'tabs.setting': return 'setting';
@@ -283,6 +298,12 @@ extension on Translations {
 			case 'system.lang.all': return 'language';
 			case 'system.lang.ru': return 'ru';
 			case 'system.lang.en': return 'en';
+			case 'system.bright.all': return 'bright';
+			case 'system.bright.auto': return 'auto';
+			case 'system.bright.handle': return 'handle';
+			case 'system.share.all': return 'share';
+			case 'system.share.app': return 'app link';
+			case 'system.share.cards': return 'all cards';
 			default: return null;
 		}
 	}

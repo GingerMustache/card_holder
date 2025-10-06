@@ -13,8 +13,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   List<String> get _settingItems => [
     t.system.theme.all,
     t.system.lang.all,
-    t.screen.home.openCard.brightness.all,
-    'Privacy',
+    t.system.bright.all,
+    t.system.share.all,
     'Security',
     'Display',
     'Help & Support',

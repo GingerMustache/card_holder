@@ -20,12 +20,12 @@ class _ChooseBrightness extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             _CardTab(
-              tabName: t.screen.home.openCard.brightness.auto,
+              tabName: t.system.bright.auto,
               isSelected: state.brightnessMode == BrightnessMode.auto,
               onTap: () => _onBrightnessSelected(context, BrightnessMode.auto),
             ),
             _CardTab(
-              tabName: t.screen.home.openCard.brightness.handle,
+              tabName: t.system.bright.handle,
               isSelected: state.brightnessMode == BrightnessMode.handle,
               onTap:
                   () => _onBrightnessSelected(context, BrightnessMode.handle),

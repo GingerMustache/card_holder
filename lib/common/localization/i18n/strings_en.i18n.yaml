@@ -21,11 +21,7 @@ screen:
       edit: edit
       share: share
       file: file
-      image: image
-      brightness:
-        all: bright
-        auto: auto
-        handle: handle
+      image: image      
   settings:
     all: first
 tabs:
@@ -43,4 +39,12 @@ system:
       all: language
       ru: ru
       en: en
+    bright:
+      all: bright
+      auto: auto
+      handle: handle
+    share:
+      all: share
+      app: app link
+      cards: all cards
 

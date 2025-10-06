@@ -87,6 +87,8 @@ class _TranslationsSystemRu extends TranslationsSystemEn {
 	// Translations
 	@override late final _TranslationsSystemThemeRu theme = _TranslationsSystemThemeRu._(_root);
 	@override late final _TranslationsSystemLangRu lang = _TranslationsSystemLangRu._(_root);
+	@override late final _TranslationsSystemBrightRu bright = _TranslationsSystemBrightRu._(_root);
+	@override late final _TranslationsSystemShareRu share = _TranslationsSystemShareRu._(_root);
 }
 
 // Path: screen.home
@@ -137,6 +139,30 @@ class _TranslationsSystemLangRu extends TranslationsSystemLangEn {
 	@override String get en => 'англ';
 }
 
+// Path: system.bright
+class _TranslationsSystemBrightRu extends TranslationsSystemBrightEn {
+	_TranslationsSystemBrightRu._(TranslationsRu root) : this._root = root, super.internal(root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get all => 'яркость';
+	@override String get auto => 'авто';
+	@override String get handle => 'ручной';
+}
+
+// Path: system.share
+class _TranslationsSystemShareRu extends TranslationsSystemShareEn {
+	_TranslationsSystemShareRu._(TranslationsRu root) : this._root = root, super.internal(root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get all => 'поделиться';
+	@override String get app => 'приложением';
+	@override String get cards => 'картами';
+}
+
 // Path: screen.home.addCard
 class _TranslationsScreenHomeAddCardRu extends TranslationsScreenHomeAddCardEn {
 	_TranslationsScreenHomeAddCardRu._(TranslationsRu root) : this._root = root, super.internal(root);
@@ -166,19 +192,6 @@ class _TranslationsScreenHomeOpenCardRu extends TranslationsScreenHomeOpenCardEn
 	@override String get share => 'поделиться';
 	@override String get file => 'файл';
 	@override String get image => 'фото';
-	@override late final _TranslationsScreenHomeOpenCardBrightnessRu brightness = _TranslationsScreenHomeOpenCardBrightnessRu._(_root);
-}
-
-// Path: screen.home.openCard.brightness
-class _TranslationsScreenHomeOpenCardBrightnessRu extends TranslationsScreenHomeOpenCardBrightnessEn {
-	_TranslationsScreenHomeOpenCardBrightnessRu._(TranslationsRu root) : this._root = root, super.internal(root);
-
-	final TranslationsRu _root; // ignore: unused_field
-
-	// Translations
-	@override String get all => 'яркость';
-	@override String get auto => 'авто';
-	@override String get handle => 'ручной';
 }
 
 /// Flat map(s) containing all translations.
@@ -203,9 +216,6 @@ extension on TranslationsRu {
 			case 'screen.home.openCard.share': return 'поделиться';
 			case 'screen.home.openCard.file': return 'файл';
 			case 'screen.home.openCard.image': return 'фото';
-			case 'screen.home.openCard.brightness.all': return 'яркость';
-			case 'screen.home.openCard.brightness.auto': return 'авто';
-			case 'screen.home.openCard.brightness.handle': return 'ручной';
 			case 'screen.settings.all': return 'first';
 			case 'tabs.card': return 'карты';
 			case 'tabs.setting': return 'настройки';
@@ -217,6 +227,12 @@ extension on TranslationsRu {
 			case 'system.lang.all': return 'язык';
 			case 'system.lang.ru': return 'русс';
 			case 'system.lang.en': return 'англ';
+			case 'system.bright.all': return 'яркость';
+			case 'system.bright.auto': return 'авто';
+			case 'system.bright.handle': return 'ручной';
+			case 'system.share.all': return 'поделиться';
+			case 'system.share.app': return 'приложением';
+			case 'system.share.cards': return 'картами';
 			default: return null;
 		}
 	}

@@ -22,10 +22,6 @@ screen:
       share: поделиться
       file: файл
       image: фото
-      brightness:
-        all: яркость
-        auto: авто
-        handle: ручной
   settings:
     all: first
 tabs:
@@ -43,3 +39,11 @@ system:
       all: язык
       ru: русс
       en: англ
+    bright:
+      all: яркость
+      auto: авто
+      handle: ручной
+    share:
+      all: поделиться
+      app: приложением
+      cards: картами

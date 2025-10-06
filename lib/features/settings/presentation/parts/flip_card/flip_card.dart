@@ -87,9 +87,9 @@ class _Share extends StatelessWidget {
         return Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _CardTab(tabName: 'приложением', onTap: () => ()),
+            _CardTab(tabName: t.system.share.app, onTap: () => ()),
             _CardTab(
-              tabName: 'картами',
+              tabName: t.system.share.cards,
               onTap: () => _onShareAllCards(context),
             ),
           ],

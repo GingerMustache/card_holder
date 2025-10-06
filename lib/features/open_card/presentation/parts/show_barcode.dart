@@ -95,7 +95,7 @@ class _BrightnessSwitcher extends StatelessWidget {
 
                   return Text(
                     textAlign: TextAlign.right,
-                    t.screen.home.openCard.brightness.all,
+                    t.system.bright.all,
                     style: context.textStyles.labelSmall?.copyWith(
                       color:
                           isBrightnessOn
