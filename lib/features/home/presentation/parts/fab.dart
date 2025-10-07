@@ -12,7 +12,7 @@ class _Fab extends StatelessWidget {
       decoration: fabDecor,
       child: TextButton(
         child: Text(t.screen.home.add, style: context.textStyles.labelSmall),
-        onPressed: () => CreateCardScreen.show(context),
+        onPressed: () => TemplateCardSheet.show(context),
       ),
     );
   }

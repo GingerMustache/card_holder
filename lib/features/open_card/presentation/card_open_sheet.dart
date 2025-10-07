@@ -57,7 +57,7 @@ class CardOpenSheet extends StatefulWidget {
 
 class _CardOpenSheetState extends State<CardOpenSheet> {
   late final OpenCardBloc openBloc;
-  final _formKey = GlobalKey<FormState>();
+
   final GlobalKey _barcodeKey = GlobalKey();
 
   @override
