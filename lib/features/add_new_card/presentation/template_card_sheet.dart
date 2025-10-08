@@ -2,6 +2,7 @@
 
 import 'package:card_holder/common/application/app_settings.dart';
 import 'package:card_holder/common/extensions/app_extensions.dart';
+import 'package:card_holder/common/presentation/widgets/input_search/input_search.dart';
 import 'package:card_holder/common/presentation/widgets/skeleton_wrapper/skeleton_wrapper.dart';
 import 'package:card_holder/features/add_new_card/bloc/add_card_bloc.dart';
 import 'package:flutter/material.dart';
@@ -48,11 +49,18 @@ class _TemplateCardSheetState extends State<TemplateCardSheet> {
     return SkeletonWrapper(
       height: 640,
       children: [
+        Container(
+          decoration: roundUpCornersDecoration,
+          padding: const EdgeInsets.only(right: 16, left: 16, top: 10),
+
+          child: InputSearch(change: (value) => ()),
+        ),
+
         Expanded(
-          child: Container(
-            color: AppColors.mainGray,
+          child: ColoredBox(
+            color: AppColors.mainWhite,
             child: GridView.builder(
-              padding: mainPadding,
+              padding: const EdgeInsets.only(right: 16, left: 16, bottom: 10),
               physics: const BouncingScrollPhysics(
                 parent: AlwaysScrollableScrollPhysics(),
               ),
@@ -71,11 +79,6 @@ class _TemplateCardSheetState extends State<TemplateCardSheet> {
       ],
     );
   }
-
-  static const borderRadius = BorderRadius.only(
-    topLeft: Radius.circular(8),
-    topRight: Radius.circular(8),
-  );
 }
 
 class _CardItem extends StatelessWidget {
