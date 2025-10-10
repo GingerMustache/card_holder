@@ -25,7 +25,7 @@ class _CardItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: mainBoxDecoration(context),
+      decoration: mainBoxDecoration(),
       child: Stack(
         children: [
           Align(

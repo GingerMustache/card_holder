@@ -48,7 +48,7 @@ class _InputSearchState extends State<InputSearch> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: Container(
-        decoration: mainBoxDecoration(context),
+        decoration: mainBoxDecoration(),
 
         padding: const EdgeInsets.only(left: 8),
         child: TextFormField(
