@@ -248,13 +248,14 @@ class FloppyDiskContainer extends StatelessWidget {
           // Gray top section
           Positioned(
             top: 0,
-            left: size * 0.1,
-            right: size * 0.3,
+            left: size * 0.13,
+            right: size * 0.23,
             child: Container(
               height: size * 0.25,
 
               decoration: BoxDecoration(
                 color: Colors.grey[500],
+                border: Border.all(color: Colors.black, width: 1),
                 borderRadius: BorderRadius.all(Radius.circular(4)),
               ),
             ),
@@ -262,12 +263,25 @@ class FloppyDiskContainer extends StatelessWidget {
           // Slider outline on gray top
           Positioned(
             top: size * 0.02,
-            left: size * 0.15,
+            left: size * 0.2,
             child: Container(
               width: size * 0.1,
               height: size * 0.2,
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.black, width: 2),
+                border: Border.all(color: Colors.black, width: 1),
+              ),
+              child: Container(color: Colors.blue[700]),
+            ),
+          ),
+          // right blue square
+          Positioned(
+            top: size * 0,
+            right: size * 0.135,
+            child: Container(
+              width: size * 0.1,
+              height: size * 0.2,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black, width: 1),
               ),
               child: Container(color: Colors.blue[700]),
             ),
@@ -275,28 +289,44 @@ class FloppyDiskContainer extends StatelessWidget {
           // White label area
           Positioned(
             bottom: size * 0.05,
-            left: size * 0.15,
-            right: size * 0.15,
+            left: size * 0.17,
+            right: size * 0.17,
             child: Container(
-              height: size * 0.2,
+              height: size * 0.22,
               color: Colors.white,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(
-                  5,
-                  (index) => Container(
-                    margin: EdgeInsets.symmetric(vertical: size * 0.01),
-                    height: 2,
-                    color: Colors.black,
+                children: [
+                  ...List.generate(
+                    2,
+                    (index) => Container(
+                      margin: EdgeInsets.symmetric(vertical: size * 0.01),
+                      height: 2,
+                      color: Colors.black,
+                    ),
                   ),
-                ),
+                  Text(
+                    'from file',
+                    style: context.textStyles.titleSmall?.copyWith(
+                      fontSize: 11,
+                    ),
+                  ),
+                  ...List.generate(
+                    2,
+                    (index) => Container(
+                      margin: EdgeInsets.symmetric(vertical: size * 0.01),
+                      height: 2,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
           // Bottom left small square
           Positioned(
             bottom: size * 0.02,
-            left: size * 0.02,
+            left: size * 0.05,
             child: Container(
               width: size * 0.05,
               height: size * 0.05,
@@ -309,7 +339,7 @@ class FloppyDiskContainer extends StatelessWidget {
           // Bottom right small square
           Positioned(
             bottom: size * 0.02,
-            right: size * 0.02,
+            right: size * 0.05,
             child: Container(
               width: size * 0.05,
               height: size * 0.05,
