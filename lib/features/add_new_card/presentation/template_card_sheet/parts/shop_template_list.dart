@@ -69,4 +69,10 @@ final List<ShopTemplate> _shopTemplates = [
     svgUrl: AppIcons.vkusVilShop,
     cardColor: const Color(0xFF90EE90), // Light Green
   ),
+  ShopTemplate(
+    name: 'Спортмастер',
+    logoSize: 25,
+    svgUrl: AppIcons.sportmasterShop,
+    cardColor: const Color(0xFF00008B), // Dark Blue (placeholder)
+  ),
 ];
