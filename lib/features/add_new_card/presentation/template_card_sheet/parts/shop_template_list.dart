@@ -26,7 +26,7 @@ final List<ShopTemplate> _shopTemplates = [
   ShopTemplate(
     name: 'Магнит',
     svgUrl: AppIcons.magnetShop,
-    cardColor: const Color(0xFFE60000), // Red
+    cardColor: AppColors.mainGray, // Red
   ),
   ShopTemplate(
     name: 'Перекрёсток',
