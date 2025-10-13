@@ -113,8 +113,8 @@ class _CardItem extends StatelessWidget {
                   template.svgUrl.isNotEmpty
                       ? SvgPicture.asset(
                         template.svgUrl,
-                        height: 30,
-                        width: 30,
+                        height: template.logoSize,
+                        width: template.logoSize,
                         fit: BoxFit.contain,
                         placeholderBuilder: (context) => Text(template.name),
                       )

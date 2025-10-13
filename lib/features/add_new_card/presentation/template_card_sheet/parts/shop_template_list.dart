@@ -30,13 +30,13 @@ final List<ShopTemplate> _shopTemplates = [
   ),
   ShopTemplate(
     name: 'Перекрёсток',
-    svgUrl:
-        'https://upload.wikimedia.org/wikipedia/ru/d/d9/Perekryostok-logo-2014.svg',
+    svgUrl: AppIcons.perectrestokShop,
     cardColor: const Color(0xFF006400), // Dark Green
   ),
   ShopTemplate(
     name: 'Дикси',
-    svgUrl: 'https://en.wikipedia.org/wiki/Dixy#/media/File:Dixy_logo.svg',
+    logoSize: 60,
+    svgUrl: AppIcons.dixyShop,
     cardColor: const Color(0xFFFFA500), // Orange
   ),
   ShopTemplate(

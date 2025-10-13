@@ -5,9 +5,12 @@ class ShopTemplate {
   final String svgUrl;
   final Color cardColor;
   final bool funnyStyle;
+  final double logoSize;
 
   ShopTemplate({
     this.funnyStyle = false,
+    this.logoSize = 30,
+
     required this.name,
     required this.svgUrl,
     required this.cardColor,
