@@ -25,8 +25,7 @@ final List<ShopTemplate> _shopTemplates = [
   ),
   ShopTemplate(
     name: 'Магнит',
-    svgUrl:
-        'https://en.wikipedia.org/wiki/Magnit#/media/File:%D0%9B%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF_-_%D0%9C%D0%B0%D0%B3%D0%BD%D0%B8%D1%82.svg',
+    svgUrl: AppIcons.magnetShop,
     cardColor: const Color(0xFFE60000), // Red
   ),
   ShopTemplate(

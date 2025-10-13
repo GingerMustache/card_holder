@@ -10,4 +10,5 @@ class AppIcons {
   // shops logo
   static const String sparShop = '${_shopsPath}spar_shop.svg';
   static const String fiveShop = '${_shopsPath}5_shop.svg';
+  static const String magnetShop = '${_shopsPath}magnet_shop.svg';
 }
