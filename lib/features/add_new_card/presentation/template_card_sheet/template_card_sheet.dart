@@ -1,5 +1,6 @@
 import 'package:card_holder/common/application/app_settings.dart';
 import 'package:card_holder/common/extensions/app_extensions.dart';
+import 'package:card_holder/common/presentation/assets_parts/app_icons.dart';
 import 'package:card_holder/common/presentation/widgets/input_search/input_search.dart';
 import 'package:card_holder/common/presentation/widgets/skeleton_wrapper/skeleton_wrapper.dart';
 import 'package:card_holder/features/add_new_card/bloc/add_card_bloc.dart';
@@ -74,7 +75,7 @@ class _TemplateCardSheetState extends State<TemplateCardSheet> {
                 childAspectRatio: 1.5,
               ),
 
-              itemCount: 10,
+              itemCount: _shopTemplates.length,
               itemBuilder: (_, index) => _CardItem(_shopTemplates[index]),
             ),
           ),
@@ -110,10 +111,10 @@ class _CardItem extends StatelessWidget {
             child: Center(
               child:
                   template.svgUrl.isNotEmpty
-                      ? SvgPicture.network(
+                      ? SvgPicture.asset(
                         template.svgUrl,
-                        height: 30, // Adjust size as needed
-                        width: 60,
+                        height: 30,
+                        width: 30,
                         fit: BoxFit.contain,
                         placeholderBuilder: (context) => Text(template.name),
                       )

@@ -15,14 +15,12 @@ final List<ShopTemplate> _shopTemplates = [
 
   ShopTemplate(
     name: 'Пятёрочка',
-    svgUrl:
-        'https://upload.wikimedia.org/wikipedia/ru/4/4a/Pyaterochka_2020.svg',
+    svgUrl: AppIcons.fiveShop,
     cardColor: const Color(0xFF008000), // Green
   ),
   ShopTemplate(
     name: 'spar',
-    svgUrl:
-        'https://en.wikipedia.org/wiki/Spar_(retailer)#/media/File:Spar-logo.svg',
+    svgUrl: AppIcons.sparShop2,
     cardColor: const Color(0xFF008000), // Green
   ),
   ShopTemplate(
@@ -74,7 +72,7 @@ final List<ShopTemplate> _shopTemplates = [
   ShopTemplate(
     name: 'ВкусВилл',
     svgUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/3/3e/Vkusvill_textlogo_2021.svg',
+        'https://upload.wikimedia.org/wikipedia/commons/4/40/Vkusvill_textlogo_2021.svg',
     cardColor: const Color(0xFF90EE90), // Light Green
   ),
 ];
