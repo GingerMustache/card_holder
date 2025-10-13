@@ -20,7 +20,7 @@ final List<ShopTemplate> _shopTemplates = [
   ),
   ShopTemplate(
     name: 'spar',
-    svgUrl: AppIcons.sparShop2,
+    svgUrl: AppIcons.sparShop,
     cardColor: const Color(0xFF008000), // Green
   ),
   ShopTemplate(
