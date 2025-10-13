@@ -46,31 +46,27 @@ final List<ShopTemplate> _shopTemplates = [
   ),
   ShopTemplate(
     name: 'Лента',
-    svgUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/3/3a/New_logo_of_Lenta.svg',
+    svgUrl: AppIcons.lentaShop,
     cardColor: const Color(0xFFFFD700), // Yellow
   ),
   ShopTemplate(
     name: 'Ашан',
-    svgUrl: 'https://en.wikipedia.org/wiki/Auchan#/media/File:Logo_Auchan.svg',
+    svgUrl: AppIcons.ashanShop,
     cardColor: AppColors.darkGrey,
   ),
   ShopTemplate(
     name: 'Metro',
-    svgUrl:
-        'https://en.wikipedia.org/wiki/Metro_AG#/media/File:Metro_Wholesale_&_Food_Specialist_logo.svg',
+    svgUrl: AppIcons.metroShop,
     cardColor: const Color(0xFF003366), // Dark Blue
   ),
   ShopTemplate(
     name: 'О’Кей',
-    svgUrl:
-        '', // No public SVG found; you may need to convert a PNG to SVG or use a placeholder. Alternatively, use a PNG with Image.network.
+    svgUrl: AppIcons.okShop,
     cardColor: const Color(0xFF008000), // Green
   ),
   ShopTemplate(
     name: 'ВкусВилл',
-    svgUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/4/40/Vkusvill_textlogo_2021.svg',
+    svgUrl: AppIcons.vkusVilShop,
     cardColor: const Color(0xFF90EE90), // Light Green
   ),
 ];

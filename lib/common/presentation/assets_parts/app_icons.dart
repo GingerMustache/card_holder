@@ -14,4 +14,9 @@ class AppIcons {
   static const String perectrestokShop = '${_shopsPath}perectrestok_shop.svg';
   static const String dixyShop = '${_shopsPath}dixy_shop.svg';
   static const String kbShop = '${_shopsPath}k_b_shop.svg';
+  static const String lentaShop = '${_shopsPath}lenta_shop.svg';
+  static const String metroShop = '${_shopsPath}metro_shop.svg';
+  static const String okShop = '${_shopsPath}ok_shop.svg';
+  static const String ashanShop = '${_shopsPath}ashan_shop.svg';
+  static const String vkusVilShop = '${_shopsPath}vkus_vil_shop.svg';
 }

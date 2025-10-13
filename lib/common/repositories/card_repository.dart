@@ -1,9 +1,7 @@
 import 'package:card_holder/common/mixins/error_handler_mixin.dart';
-import 'package:card_holder/common/repositories/file_pick_repository.dart';
 import 'package:card_holder/common/repositories/shared_repository.dart';
 import 'package:card_holder/common/services/local_crud/local_card_service.dart';
 import 'package:dartz/dartz.dart';
-import 'package:file_picker/file_picker.dart';
 
 abstract class CardRepository {
   Future<Either<Exception, DataBaseCard>> getCard({required int id});
