@@ -83,6 +83,7 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
         color: openBloc.state.color,
         code: openBloc.state.code,
         name: openBloc.state.name,
+        urlPath: openBloc.state.urlPath,
         completer: completer,
       ),
     );

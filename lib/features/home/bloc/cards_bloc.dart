@@ -96,6 +96,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
       code: event.code,
       name: event.name,
       color: event.color,
+      urlPath: event.urlPath,
     );
     result.fold(
       (Exception e) {
@@ -143,6 +144,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
               cardMap.forEach(
                 (key, card) => add(
                   CardsAddCardEvent(
+                    urlPath: card['urlPath'],
                     code: card['code'],
                     name: card['name'],
                     color: card['color'] ?? 0x00000000,
@@ -174,6 +176,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
       code: code,
       name: name,
       color: event.color,
+      urlPath: event.urlPath,
     );
 
     result.fold(
@@ -191,6 +194,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
           code: code,
           name: name,
           color: event.color,
+          urlPath: event.urlPath,
         );
 
         cards[currentCardIndex] = updatedCard;

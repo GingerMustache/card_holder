@@ -34,8 +34,7 @@ class CreateCardScreen extends StatefulWidget {
       useRootNavigator: true,
       builder: (BuildContext context) {
         return BlocProvider(
-          create:
-              (context) => CreateCardBloc()..add(CreateCardSetInitColorEvent()),
+          create: (context) => CreateCardBloc(),
           child: CreateCardScreen(),
         );
       },
@@ -68,6 +67,7 @@ class _CreateCardScreenState extends State<CreateCardScreen> {
 
       context.read<CardsBloc>().add(
         CardsAddCardEvent(
+          urlPath: createState.urlPath,
           color: createState.color,
           code: code,
           name: createState.name,

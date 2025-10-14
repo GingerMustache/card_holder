@@ -35,18 +35,10 @@ class TemplateCardSheet extends StatefulWidget {
 }
 
 class _TemplateCardSheetState extends State<TemplateCardSheet> {
-  late final CreateCardBloc createBloc;
-
   @override
   void initState() {
     super.initState();
-    createBloc = context.read<CreateCardBloc>();
   }
-
-  void onChangeColor(Color color) =>
-      createBloc.add(CreateCardChangeColorEvent(color.toARGB32()));
-
-  void onTapColorWidget() => createBloc.add(CreateCardChangeMarkTapEvent());
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +93,14 @@ class _CardItem extends StatelessWidget {
             // Adjust or remove mainBoxDecoration if needed
           ),
           child: TextButton(
-            onPressed: () => {},
+            onPressed:
+                () => context.read<CreateCardBloc>().add(
+                  CreateCardSetInitTemplateEvent(
+                    cardColor: template.cardColor.toARGB32(),
+                    cardName: template.name,
+                    svgUrl: template.svgUrl,
+                  ),
+                ),
             style: TextButton.styleFrom(
               padding: EdgeInsets.zero,
               shape: RoundedRectangleBorder(

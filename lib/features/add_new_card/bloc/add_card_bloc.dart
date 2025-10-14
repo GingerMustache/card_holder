@@ -24,7 +24,7 @@ class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
       _onAddName,
       transformer: debounceRestartable(),
     );
-    on<CreateCardSetInitColorEvent>(_onSetInitColor);
+    on<CreateCardSetInitTemplateEvent>(_onSetInitTemplate);
     on<CreateCardChangeColorEvent>(_onChangeColor);
     on<CreateCardChangeMarkTapEvent>(_onChangeMarkTap);
     on<CreateCardSearchEvent>(_onSearch, transformer: debounceRestartable());
@@ -63,8 +63,8 @@ class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
     Emitter<CreateCardState> emit,
   ) async => emit(state.copyWith(isMarkTapped: !state.isMarkTapped));
 
-  Future<void> _onSetInitColor(
-    CreateCardSetInitColorEvent event,
+  Future<void> _onSetInitTemplate(
+    CreateCardSetInitTemplateEvent event,
     Emitter<CreateCardState> emit,
   ) async {
     final int randomColor = (Random().nextDouble() * 0xFFFFFF).toInt();

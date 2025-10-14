@@ -15,6 +15,7 @@ abstract class CardServiceAbstract {
     required String code,
     required String name,
     required int color,
+    required String? urlPath,
   });
   Future<DataBaseCard> getCard({required int id});
   Future<DataBaseCard> openCard({required int id});
@@ -25,6 +26,7 @@ abstract class CardServiceAbstract {
     required String code,
     required String name,
     required int color,
+    required String urlPath,
   });
 }
 
@@ -35,6 +37,7 @@ const _name = "name";
 const _color = "color";
 const _codeColumn = "code";
 const _usagePointColumn = "usage_point";
+const _urlPath = "url_path";
 const _createCardTable = '''
       CREATE TABLE IF NOT EXISTS "card" (
       "color" INTEGER NOT NULL,
@@ -42,6 +45,7 @@ const _createCardTable = '''
       "code"	TEXT,
       "name"	TEXT,
       "usage_point" INTEGER,
+      "url_path"	TEXT,
       PRIMARY KEY("id" AUTOINCREMENT)
       );''';
 
@@ -58,6 +62,7 @@ class LocalCardService implements CardServiceAbstract {
     required String code,
     required String name,
     required int color,
+    required String? urlPath,
   }) async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
@@ -66,7 +71,7 @@ class LocalCardService implements CardServiceAbstract {
 
     final updateColumn = await db.update(
       _cardTable,
-      {_codeColumn: code, _name: name, _color: color},
+      {_codeColumn: code, _name: name, _color: color, _urlPath: urlPath},
       where: 'id = ?',
       whereArgs: [id],
     );
@@ -166,6 +171,7 @@ class LocalCardService implements CardServiceAbstract {
     required String code,
     required String name,
     required int color,
+    required String urlPath,
   }) async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
@@ -175,6 +181,7 @@ class LocalCardService implements CardServiceAbstract {
       _name: name,
       _color: color,
       _usagePointColumn: 0,
+      _urlPath: urlPath,
     }, conflictAlgorithm: ConflictAlgorithm.replace);
 
     return DataBaseCard(
@@ -183,6 +190,7 @@ class LocalCardService implements CardServiceAbstract {
       code: code,
       name: name,
       usagePoint: 0,
+      urlPath: urlPath,
     );
   }
 

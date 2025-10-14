@@ -9,11 +9,13 @@ class OpenCardState extends Equatable {
     this.error,
     this.isMarkTapped = false,
     this.turnBrightnessOn = true,
+    this.urlPath = '',
   });
 
   final String code;
   final String name;
   final int color;
+  final String urlPath;
   final bool isMarkTapped;
   final bool turnBrightnessOn;
   final bool isLoading;
@@ -23,6 +25,7 @@ class OpenCardState extends Equatable {
     String? code,
     String? name,
     int? color,
+    String? urlPath,
     bool? isMarkTapped,
     bool? turnBrightnessOn,
     bool? isLoading,
@@ -32,6 +35,7 @@ class OpenCardState extends Equatable {
       name: name ?? this.name,
       code: code ?? this.code,
       color: color ?? this.color,
+      urlPath: urlPath ?? this.urlPath,
       isMarkTapped: isMarkTapped ?? this.isMarkTapped,
       turnBrightnessOn: turnBrightnessOn ?? this.turnBrightnessOn,
       isLoading: isLoading ?? this.isLoading,
@@ -40,7 +44,12 @@ class OpenCardState extends Equatable {
   }
 
   @override
-  List<Object> get props => [code, name, color, isMarkTapped, turnBrightnessOn];
+  List<Object> get props => [
+    code,
+    name,
+    color,
+    isMarkTapped,
+    turnBrightnessOn,
+    urlPath,
+  ];
 }
-
-final class OpenCardInitial extends OpenCardState {}

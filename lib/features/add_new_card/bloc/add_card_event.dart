@@ -22,8 +22,16 @@ class CreateCardChangeColorEvent extends CreateCardEvent {
   List<Object?> get props => [color];
 }
 
-class CreateCardSetInitColorEvent extends CreateCardEvent {
-  const CreateCardSetInitColorEvent();
+class CreateCardSetInitTemplateEvent extends CreateCardEvent {
+  final int cardColor;
+  final String cardName;
+  final String svgUrl;
+
+  const CreateCardSetInitTemplateEvent({
+    required this.cardColor,
+    required this.cardName,
+    required this.svgUrl,
+  });
 
   @override
   List<Object?> get props => [];

@@ -14,7 +14,7 @@ class OpenCardBloc extends Bloc<OpenCardEvent, OpenCardState>
 
   OpenCardBloc({required BrightnessService brightnessService})
     : _brightnessService = brightnessService,
-      super(OpenCardInitial()) {
+      super(OpenCardState()) {
     on<OpenCardChangeCodeEvent>(_onAddCode, transformer: debounceRestartable());
     on<OpenCardChangeNameEvent>(_onAddName, transformer: debounceRestartable());
     on<OpenCardInitEvent>(_onSetCurrentCard);
@@ -50,6 +50,7 @@ class OpenCardBloc extends Bloc<OpenCardEvent, OpenCardState>
         code: event.curCard.code,
         name: event.curCard.name,
         color: event.curCard.color,
+        urlPath: event.curCard.urlPath,
         turnBrightnessOn: isAutoBrightness,
       ),
     );

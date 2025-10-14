@@ -18,11 +18,13 @@ abstract class CardRepository {
     required String code,
     required String name,
     required int color,
+    required String urlPath,
   });
   Future<Either<Exception, DataBaseCard>> createCard({
     required String code,
     required String name,
     required int color,
+    required String urlPath,
   });
 }
 
@@ -48,8 +50,14 @@ class CardRepositoryImpl with ErrorHandlerMixin implements CardRepository {
     required String code,
     required String name,
     required int color,
+    required String urlPath,
   }) => safeCall(
-    () => localCardService.createCard(code: code, name: name, color: color),
+    () => localCardService.createCard(
+      code: code,
+      name: name,
+      color: color,
+      urlPath: urlPath,
+    ),
   );
 
   @override
@@ -66,12 +74,14 @@ class CardRepositoryImpl with ErrorHandlerMixin implements CardRepository {
     required String code,
     required String name,
     required int color,
+    required String? urlPath,
   }) => safeCall(
     () => localCardService.updateCard(
       id: id,
       code: code,
       name: name,
       color: color,
+      urlPath: urlPath,
     ),
   );
 
