@@ -23,14 +23,14 @@ class CreateCardChangeColorEvent extends CreateCardEvent {
 }
 
 class CreateCardSetInitTemplateEvent extends CreateCardEvent {
-  final int cardColor;
-  final String cardName;
-  final String svgUrl;
+  final int? cardColor;
+  final String? cardName;
+  final String? svgUrl;
 
   const CreateCardSetInitTemplateEvent({
-    required this.cardColor,
-    required this.cardName,
-    required this.svgUrl,
+    this.cardColor,
+    this.cardName,
+    this.svgUrl,
   });
 
   @override

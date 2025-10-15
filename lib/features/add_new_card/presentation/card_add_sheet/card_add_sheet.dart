@@ -26,7 +26,7 @@ part 'parts/scan_frame.dart';
 class CreateCardScreen extends StatefulWidget {
   const CreateCardScreen({super.key});
 
-  static void show(BuildContext context) {
+  static void show(BuildContext context, CreateCardBloc bloc) {
     showModalBottomSheet<void>(
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
@@ -34,7 +34,7 @@ class CreateCardScreen extends StatefulWidget {
       useRootNavigator: true,
       builder: (BuildContext context) {
         return BlocProvider(
-          create: (context) => CreateCardBloc(),
+          create: (context) => bloc,
           child: CreateCardScreen(),
         );
       },

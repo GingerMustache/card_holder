@@ -67,9 +67,19 @@ class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
     CreateCardSetInitTemplateEvent event,
     Emitter<CreateCardState> emit,
   ) async {
-    final int randomColor = (Random().nextDouble() * 0xFFFFFF).toInt();
-
-    emit(state.copyWith(color: randomColor));
+    if (event.cardColor == null) {
+      final int randomColor = (Random().nextDouble() * 0xFFFFFF).toInt();
+      emit(state.copyWith(color: randomColor));
+      return;
+    } else {
+      emit(
+        state.copyWith(
+          color: event.cardColor,
+          name: event.cardName,
+          urlPath: event.svgUrl,
+        ),
+      );
+    }
   }
 
   Future<void> _onAddName(
