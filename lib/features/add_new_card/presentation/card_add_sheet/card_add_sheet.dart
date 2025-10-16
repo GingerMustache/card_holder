@@ -23,8 +23,8 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 part 'parts/entered_code.dart';
 part 'parts/scan_frame.dart';
 
-class CreateCardScreen extends StatefulWidget {
-  const CreateCardScreen({super.key});
+class AddCardSheet extends StatefulWidget {
+  const AddCardSheet({super.key});
 
   static void show(BuildContext context, CreateCardBloc bloc) {
     showModalBottomSheet<void>(
@@ -33,19 +33,16 @@ class CreateCardScreen extends StatefulWidget {
       context: context,
       useRootNavigator: true,
       builder: (BuildContext context) {
-        return BlocProvider(
-          create: (context) => bloc,
-          child: CreateCardScreen(),
-        );
+        return BlocProvider(create: (context) => bloc, child: AddCardSheet());
       },
     );
   }
 
   @override
-  State<CreateCardScreen> createState() => _CreateCardScreenState();
+  State<AddCardSheet> createState() => _AddCardSheetState();
 }
 
-class _CreateCardScreenState extends State<CreateCardScreen> {
+class _AddCardSheetState extends State<AddCardSheet> {
   late final CreateCardBloc createBloc;
   final _formKey = GlobalKey<FormState>();
 
@@ -164,6 +161,10 @@ class _CreateCardScreenState extends State<CreateCardScreen> {
                             labelText: t.screen.home.addCard.manualCode,
                           ),
                           FrameTextField(
+                            initText:
+                                createBloc.state.name.isNotEmpty
+                                    ? createBloc.state.name
+                                    : null,
                             validator:
                                 context.read<TextValidatorService>().emptyCheck,
                             onChanged:
@@ -174,21 +175,9 @@ class _CreateCardScreenState extends State<CreateCardScreen> {
                             labelText: t.screen.home.addCard.cardName,
                           ),
                           9.h,
-                          Row(
-                            children: [
-                              Expanded(
-                                child: DefaultButton(
-                                  text: t.screen.home.addCard.add,
-                                  onTap: onAdd,
-                                ),
-                              ),
-                              Expanded(
-                                child: DefaultButton(
-                                  text: 'через файл',
-                                  onTap: () async => onAddFile(),
-                                ),
-                              ),
-                            ],
+                          DefaultButton(
+                            text: t.screen.home.addCard.add,
+                            onTap: onAdd,
                           ),
                         ],
                       ),

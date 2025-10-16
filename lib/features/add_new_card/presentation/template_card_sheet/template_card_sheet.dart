@@ -96,7 +96,7 @@ class _CardItem extends StatelessWidget {
           child: TextButton(
             onPressed: () {
               final bloc = context.read<CreateCardBloc>();
-              CreateCardScreen.show(context, bloc);
+              AddCardSheet.show(context, bloc);
               bloc.add(
                 CreateCardSetInitTemplateEvent(
                   cardColor: template.cardColor.toARGB32(),

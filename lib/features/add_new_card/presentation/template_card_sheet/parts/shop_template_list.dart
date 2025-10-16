@@ -35,7 +35,7 @@ final List<ShopTemplate> _shopTemplates = [
   ),
   ShopTemplate(
     name: 'Дикси',
-    logoSize: 60,
+    logoSize: 45,
     svgUrl: AppIcons.dixyShop,
     cardColor: const Color(0xFFFFA500), // Orange
   ),
@@ -46,6 +46,7 @@ final List<ShopTemplate> _shopTemplates = [
   ),
   ShopTemplate(
     name: 'Лента',
+    logoSize: 40,
     svgUrl: AppIcons.lentaShop,
     cardColor: const Color(0xFFFFD700), // Yellow
   ),

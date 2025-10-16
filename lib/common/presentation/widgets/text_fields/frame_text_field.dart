@@ -12,10 +12,12 @@ class FrameTextField extends StatelessWidget {
     required this.validator,
     this.autovalidateMode = AutovalidateMode.onUserInteraction,
     this.numericKeyboard = false,
+    this.initText,
   });
 
   final String hintText;
   final String labelText;
+  final String? initText;
   final void Function(String)? onChanged;
   final bool numericKeyboard;
   final String? Function(String?)? validator;
@@ -30,6 +32,7 @@ class FrameTextField extends StatelessWidget {
         Text(labelText, style: context.textStyles.labelSmall),
         5.h,
         TextFormField(
+          initialValue: initText,
           validator: validator,
           keyboardType:
               numericKeyboard
