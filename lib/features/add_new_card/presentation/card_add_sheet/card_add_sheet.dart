@@ -33,7 +33,7 @@ class AddCardSheet extends StatefulWidget {
       context: context,
       useRootNavigator: true,
       builder: (BuildContext context) {
-        return BlocProvider(create: (context) => bloc, child: AddCardSheet());
+        return BlocProvider.value(value: bloc, child: AddCardSheet());
       },
     );
   }

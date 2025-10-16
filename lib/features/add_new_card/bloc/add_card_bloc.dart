@@ -80,6 +80,7 @@ class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
         ),
       );
     }
+    event.completer?.complete();
   }
 
   Future<void> _onAddName(

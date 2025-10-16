@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:card_holder/common/application/app_settings.dart';
 import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:card_holder/common/presentation/assets_parts/app_icons.dart';
@@ -95,15 +97,18 @@ class _CardItem extends StatelessWidget {
           ),
           child: TextButton(
             onPressed: () {
+              final completer = Completer();
+
               final bloc = context.read<CreateCardBloc>();
-              AddCardSheet.show(context, bloc);
               bloc.add(
                 CreateCardSetInitTemplateEvent(
+                  completer: completer,
                   cardColor: template.cardColor.toARGB32(),
                   cardName: template.name,
                   svgUrl: template.svgUrl,
                 ),
               );
+              completer.future.then((_) => AddCardSheet.show(context, bloc));
             },
             style: TextButton.styleFrom(
               padding: EdgeInsets.zero,
