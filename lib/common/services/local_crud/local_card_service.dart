@@ -16,6 +16,7 @@ abstract class CardServiceAbstract {
     required String name,
     required int color,
     required String? urlPath,
+    required double logoSize,
   });
   Future<DataBaseCard> getCard({required int id});
   Future<DataBaseCard> openCard({required int id});
@@ -27,6 +28,7 @@ abstract class CardServiceAbstract {
     required String name,
     required int color,
     required String urlPath,
+    required double logoSize,
   });
 }
 
@@ -38,6 +40,7 @@ const _color = "color";
 const _codeColumn = "code";
 const _usagePointColumn = "usage_point";
 const _urlPath = "url_path";
+const _logoSize = "logo_size";
 const _createCardTable = '''
       CREATE TABLE IF NOT EXISTS "card" (
       "color" INTEGER NOT NULL,
@@ -46,6 +49,7 @@ const _createCardTable = '''
       "name"	TEXT,
       "usage_point" INTEGER,
       "url_path"	TEXT,
+      "logo_size" REAL,
       PRIMARY KEY("id" AUTOINCREMENT)
       );''';
 
@@ -63,6 +67,7 @@ class LocalCardService implements CardServiceAbstract {
     required String name,
     required int color,
     required String? urlPath,
+    required double logoSize,
   }) async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
@@ -71,7 +76,13 @@ class LocalCardService implements CardServiceAbstract {
 
     final updateColumn = await db.update(
       _cardTable,
-      {_codeColumn: code, _name: name, _color: color, _urlPath: urlPath},
+      {
+        _codeColumn: code,
+        _name: name,
+        _color: color,
+        _urlPath: urlPath,
+        _logoSize: logoSize,
+      },
       where: 'id = ?',
       whereArgs: [id],
     );
@@ -172,6 +183,7 @@ class LocalCardService implements CardServiceAbstract {
     required String name,
     required int color,
     required String urlPath,
+    required double logoSize,
   }) async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
@@ -182,6 +194,7 @@ class LocalCardService implements CardServiceAbstract {
       _color: color,
       _usagePointColumn: 0,
       _urlPath: urlPath,
+      _logoSize: logoSize,
     }, conflictAlgorithm: ConflictAlgorithm.replace);
 
     return DataBaseCard(
@@ -191,6 +204,7 @@ class LocalCardService implements CardServiceAbstract {
       name: name,
       usagePoint: 0,
       urlPath: urlPath,
+      logoSize: logoSize,
     );
   }
 
@@ -231,7 +245,7 @@ class LocalCardService implements CardServiceAbstract {
 
       final db = await openDatabase(
         dbPath,
-        version: 2, // bump version when adding db_meta
+        version: 3, // bump version when adding db_meta
         onCreate: (db, version) async {
           await db.execute(_createCardTable);
         },
@@ -242,6 +256,9 @@ class LocalCardService implements CardServiceAbstract {
               version INTEGER
             )
           ''');
+          }
+          if (oldVersion < 3) {
+            await db.execute('''ALTER TABLE "card" ADD COLUMN "logo_size" REAL''');
           }
         },
       );

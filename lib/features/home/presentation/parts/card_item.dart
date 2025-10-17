@@ -46,13 +46,23 @@ class _CardItem extends StatelessWidget {
                 ),
               ),
               child: Center(
-                child: Text(
-                  maxLines: 4,
-                  overflow: TextOverflow.ellipsis,
-                  card?.name ?? '',
-                  textAlign: TextAlign.center,
-                  style: context.textStyles.bodySmall,
-                ),
+                child:
+                    card?.urlPath.isNotEmpty ?? false
+                        ? SvgPicture.asset(
+                          card?.urlPath ?? '',
+                          height: card!.logoSize,
+                          width: card!.logoSize,
+                          fit: BoxFit.contain,
+                          placeholderBuilder:
+                              (context) => Text(card?.name ?? ''),
+                        )
+                        : Text(
+                          maxLines: 4,
+                          overflow: TextOverflow.ellipsis,
+                          card?.name ?? '',
+                          textAlign: TextAlign.center,
+                          style: context.textStyles.bodySmall,
+                        ),
               ),
             ),
           ),

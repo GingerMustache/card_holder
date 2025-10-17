@@ -14,6 +14,7 @@ import 'package:card_holder/features/settings/bloc/settings_bloc.dart';
 import 'package:card_holder/features/settings/presentation/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 
 part 'parts/app_bar.dart';
 part 'parts/card_item.dart';

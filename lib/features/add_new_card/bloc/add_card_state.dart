@@ -6,6 +6,7 @@ final class CreateCardState extends Equatable {
     this.detectedCode = '',
     this.name = '',
     this.urlPath = '',
+    this.logoSize = 30,
     this.color = 0xffffffff,
     this.detectedName = '',
     this.isFetching = false,
@@ -15,6 +16,7 @@ final class CreateCardState extends Equatable {
   final String code;
   final String name;
   final String urlPath;
+  final double logoSize;
   final int color;
   final bool isMarkTapped;
   final String detectedCode;
@@ -25,6 +27,7 @@ final class CreateCardState extends Equatable {
     String? code,
     String? name,
     String? urlPath,
+    double? logoSize,
     int? color,
     bool? isMarkTapped,
     String? detectedCode,
@@ -34,6 +37,7 @@ final class CreateCardState extends Equatable {
     return CreateCardState(
       name: name ?? this.name,
       urlPath: urlPath ?? this.urlPath,
+      logoSize: logoSize ?? this.logoSize,
       code: code ?? this.code,
       color: color ?? this.color,
       isMarkTapped: isMarkTapped ?? this.isMarkTapped,
@@ -45,13 +49,14 @@ final class CreateCardState extends Equatable {
 
   @override
   List<Object> get props => [
-    code,
-    name,
-    color,
-    isMarkTapped,
-    detectedCode,
-    detectedName,
-    isFetching,
-    urlPath,
-  ];
+        code,
+        name,
+        color,
+        isMarkTapped,
+        detectedCode,
+        detectedName,
+        isFetching,
+        urlPath,
+        logoSize,
+      ];
 }

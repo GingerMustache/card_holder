@@ -77,6 +77,7 @@ class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
           color: event.cardColor,
           name: event.cardName,
           urlPath: event.svgUrl,
+          logoSize: event.logoSize,
         ),
       );
     }

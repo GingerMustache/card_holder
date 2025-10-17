@@ -10,6 +10,7 @@ class OpenCardState extends Equatable {
     this.isMarkTapped = false,
     this.turnBrightnessOn = true,
     this.urlPath = '',
+    this.logoSize = 30.0,
   });
 
   final String code;
@@ -20,6 +21,7 @@ class OpenCardState extends Equatable {
   final bool turnBrightnessOn;
   final bool isLoading;
   final Exception? error;
+  final double logoSize;
 
   OpenCardState copyWith({
     String? code,
@@ -30,6 +32,7 @@ class OpenCardState extends Equatable {
     bool? turnBrightnessOn,
     bool? isLoading,
     Exception? error,
+    double? logoSize,
   }) {
     return OpenCardState(
       name: name ?? this.name,
@@ -40,6 +43,7 @@ class OpenCardState extends Equatable {
       turnBrightnessOn: turnBrightnessOn ?? this.turnBrightnessOn,
       isLoading: isLoading ?? this.isLoading,
       error: error ?? this.error,
+      logoSize: logoSize ?? this.logoSize,
     );
   }
 
@@ -51,5 +55,6 @@ class OpenCardState extends Equatable {
     isMarkTapped,
     turnBrightnessOn,
     urlPath,
+    logoSize,
   ];
 }

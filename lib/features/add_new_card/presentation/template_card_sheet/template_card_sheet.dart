@@ -106,6 +106,7 @@ class _CardItem extends StatelessWidget {
                   cardColor: template.cardColor.toARGB32(),
                   cardName: template.name,
                   svgUrl: template.svgUrl,
+                  logoSize: template.logoSize,
                 ),
               );
               completer.future.then((_) => AddCardSheet.show(context, bloc));

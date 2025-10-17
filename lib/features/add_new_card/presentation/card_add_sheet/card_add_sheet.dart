@@ -68,6 +68,7 @@ class _AddCardSheetState extends State<AddCardSheet> {
           color: createState.color,
           code: code,
           name: createState.name,
+          logoSize: createState.logoSize,
           completer: completer,
         ),
       );

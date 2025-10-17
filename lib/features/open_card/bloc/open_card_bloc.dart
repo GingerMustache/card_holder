@@ -51,6 +51,7 @@ class OpenCardBloc extends Bloc<OpenCardEvent, OpenCardState>
         name: event.curCard.name,
         color: event.curCard.color,
         urlPath: event.curCard.urlPath,
+        logoSize: event.curCard.logoSize,
         turnBrightnessOn: isAutoBrightness,
       ),
     );

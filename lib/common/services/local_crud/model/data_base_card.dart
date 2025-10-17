@@ -8,30 +8,33 @@ class DataBaseCard extends Equatable {
   final int color;
   final int usagePoint;
   final String urlPath;
+  final double logoSize;
 
   const DataBaseCard({
     required this.id,
     required this.code,
     required this.name,
     required this.color,
-    this.usagePoint = 0,
     required this.urlPath,
+    this.usagePoint = 0,
+    this.logoSize = 30,
   });
 
   DataBaseCard.fromRow(Map<String, Object?> map)
-    : id = map[_idColumn] as int,
-      usagePoint = map[_usagePointColumn] as int,
-      code = map[_codeColumn] as String,
-      color = map[_color] as int,
-      urlPath = map[_urlPath] as String,
-      name = map[_name] as String;
+      : id = map[_idColumn] as int,
+        usagePoint = map[_usagePointColumn] as int,
+        code = map[_codeColumn] as String,
+        color = map[_color] as int,
+        logoSize = (map[_logoSize] as num?)?.toDouble() ?? 30,
+        urlPath = map[_urlPath] as String,
+        name = map[_name] as String;
 
   @override
   String toString() =>
-      "Note, ID = $id, code = $code, name = $name usagePoint = $usagePoint, color = $color, urlPath = $urlPath";
+      "Note, ID = $id, code = $code, name = $name usagePoint = $usagePoint, color = $color, urlPath = $urlPath, logoSize = $logoSize";
 
   @override
-  List<Object?> get props => [id, code, name, usagePoint, color, urlPath];
+  List<Object?> get props => [id, code, name, usagePoint, color, urlPath, logoSize];
 
   DataBaseCard copyWith({
     int? id,
@@ -40,6 +43,7 @@ class DataBaseCard extends Equatable {
     int? color,
     int? usagePoint,
     String? urlPath,
+    double? logoSize,
   }) {
     return DataBaseCard(
       id: id ?? this.id,
@@ -48,6 +52,7 @@ class DataBaseCard extends Equatable {
       name: name ?? this.name,
       usagePoint: usagePoint ?? this.usagePoint,
       urlPath: urlPath ?? this.urlPath,
+      logoSize: logoSize ?? this.logoSize,
     );
   }
 }

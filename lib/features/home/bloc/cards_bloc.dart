@@ -97,6 +97,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
       name: event.name,
       color: event.color,
       urlPath: event.urlPath,
+      logoSize: event.logoSize,
     );
     result.fold(
       (Exception e) {
@@ -148,6 +149,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
                     code: card['code'],
                     name: card['name'],
                     color: card['color'] ?? 0x00000000,
+                    logoSize: (card['logoSize'] as num?)?.toDouble() ?? 30,
                     completer:
                         cardMap.keys.last == key ? event.completer : null,
                   ),
@@ -177,6 +179,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
       name: name,
       color: event.color,
       urlPath: event.urlPath,
+      logoSize: event.logoSize,
     );
 
     result.fold(
@@ -195,6 +198,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
           name: name,
           color: event.color,
           urlPath: event.urlPath,
+          logoSize: event.logoSize,
         );
 
         cards[currentCardIndex] = updatedCard;

@@ -26,12 +26,14 @@ class CreateCardSetInitTemplateEvent extends CreateCardEvent {
   final int? cardColor;
   final String? cardName;
   final String? svgUrl;
+  final double? logoSize;
   final Completer? completer;
 
   const CreateCardSetInitTemplateEvent({
     this.cardColor,
     this.cardName,
     this.svgUrl,
+    this.logoSize,
     this.completer,
   });
 

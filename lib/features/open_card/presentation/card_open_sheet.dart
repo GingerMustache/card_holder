@@ -80,6 +80,7 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
 
     context.read<CardsBloc>().add(
       CardsUpdateCardEvent(
+        logoSize: openBloc.state.logoSize,
         color: openBloc.state.color,
         code: openBloc.state.code,
         name: openBloc.state.name,
