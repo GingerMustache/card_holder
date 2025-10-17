@@ -222,7 +222,11 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
     if (event.text != null && event.text!.isNotEmpty) {
       final List<DataBaseCard> foundCards =
           cards
-              .where((element) => element.name.contains(event.text ?? ''))
+              .where(
+                (element) => element.name.toUpperCase().contains(
+                  event.text?.toUpperCase() ?? '',
+                ),
+              )
               .toList();
 
       foundCards.isEmpty

@@ -19,7 +19,7 @@ final List<ShopTemplate> _shopTemplates = [
     cardColor: const Color(0xFF008000), // Green
   ),
   ShopTemplate(
-    name: 'spar',
+    name: 'Спар',
     svgUrl: AppIcons.sparShop,
     cardColor: const Color(0xFF008000), // Green
   ),

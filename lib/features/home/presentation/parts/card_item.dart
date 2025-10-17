@@ -28,14 +28,15 @@ class _CardItem extends StatelessWidget {
       decoration: mainBoxDecoration(),
       child: Stack(
         children: [
-          Align(
-            alignment: Alignment(1, -1),
-            child: ColorMark(
-              card?.color ?? 0x00000000,
-              needText: false,
-              heigh: 20,
+          if (card?.urlPath.isEmpty ?? true)
+            Align(
+              alignment: Alignment(1, -1),
+              child: ColorMark(
+                card?.color ?? 0x00000000,
+                needText: false,
+                heigh: 20,
+              ),
             ),
-          ),
           Positioned.fill(
             child: TextButton(
               onPressed: () => onPressed(context),
@@ -54,20 +55,31 @@ class _CardItem extends StatelessWidget {
                           width: card!.logoSize,
                           fit: BoxFit.contain,
                           placeholderBuilder:
-                              (context) => Text(card?.name ?? ''),
+                              (context) => _LogoText(card: card),
                         )
-                        : Text(
-                          maxLines: 4,
-                          overflow: TextOverflow.ellipsis,
-                          card?.name ?? '',
-                          textAlign: TextAlign.center,
-                          style: context.textStyles.bodySmall,
-                        ),
+                        : _LogoText(card: card),
               ),
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+class _LogoText extends StatelessWidget {
+  const _LogoText({required this.card});
+
+  final DataBaseCard? card;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      maxLines: 4,
+      overflow: TextOverflow.ellipsis,
+      card?.name ?? '',
+      textAlign: TextAlign.center,
+      style: context.textStyles.bodySmall,
     );
   }
 }
