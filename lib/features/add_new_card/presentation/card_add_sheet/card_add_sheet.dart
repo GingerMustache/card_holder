@@ -77,13 +77,6 @@ class _AddCardSheetState extends State<AddCardSheet> {
     }
   }
 
-  Future<void> onAddFile() async {
-    final completer = Completer<DataBaseCard>();
-    context.read<CardsBloc>().add(CardsAddFileCardEvent(completer: completer));
-
-    completer.future.then((_) => context.pop());
-  }
-
   void onChangeColor(Color color) =>
       createBloc.add(CreateCardChangeColorEvent(color.toARGB32()));
 

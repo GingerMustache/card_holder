@@ -145,7 +145,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
               cardMap.forEach(
                 (key, card) => add(
                   CardsAddCardEvent(
-                    urlPath: card['urlPath'],
+                    urlPath: card['urlPath'] ?? '',
                     code: card['code'],
                     name: card['name'],
                     color: card['color'] ?? 0x00000000,
@@ -280,6 +280,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
 
     final jsonList = {
       state.currentCard?.name ?? 'default': {
+        'urlPath': state.currentCard?.urlPath ?? '',
         'code': state.currentCard?.code ?? '',
         'name': state.currentCard?.name ?? '',
         'color': state.currentCard?.color ?? 0x00000000,

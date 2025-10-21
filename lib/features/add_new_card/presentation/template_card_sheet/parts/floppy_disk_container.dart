@@ -5,26 +5,41 @@ class FloppyDiskContainer extends StatelessWidget {
 
   const FloppyDiskContainer({super.key, this.size = 200});
 
+  Future<void> onAddFile(BuildContext context) async {
+    final completer = Completer<DataBaseCard>();
+    context.read<CardsBloc>().add(CardsAddFileCardEvent(completer: completer));
+
+    completer.future.then((_) => context.pop());
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: size,
-      height: size,
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: Colors.blue[700],
-          borderRadius: BorderRadius.circular(_FloppyDiskConstants.borderRadiusRatio * size),
-          border: Border.all(color: Colors.black, width: _FloppyDiskConstants.borderWidth),
-        ),
-        child: Stack(
-          children: [
-            _GrayTopSection(size: size),
-            _SliderOutline(size: size),
-            _RightBlueSquare(size: size),
-            _WhiteLabelArea(size: size),
-            _BottomLeftSmallSquare(size: size),
-            _BottomRightSmallSquare(size: size),
-          ],
+    return TextButton(
+      onPressed: () => onAddFile(context),
+      child: SizedBox(
+        width: size,
+        height: size,
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: Colors.blue[700],
+            borderRadius: BorderRadius.circular(
+              _FloppyDiskConstants.borderRadiusRatio * size,
+            ),
+            border: Border.all(
+              color: Colors.black,
+              width: _FloppyDiskConstants.borderWidth,
+            ),
+          ),
+          child: Stack(
+            children: [
+              _GrayTopSection(size: size),
+              _SliderOutline(size: size),
+              _RightBlueSquare(size: size),
+              _WhiteLabelArea(size: size),
+              _BottomLeftSmallSquare(size: size),
+              _BottomRightSmallSquare(size: size),
+            ],
+          ),
         ),
       ),
     );
@@ -70,7 +85,10 @@ class _GrayTopSection extends StatelessWidget {
         height: _FloppyDiskConstants.grayTopSectionHeightRatio * size,
         decoration: BoxDecoration(
           color: Colors.grey[500],
-          border: Border.all(color: Colors.black, width: _FloppyDiskConstants.smallSquareBorderWidth),
+          border: Border.all(
+            color: Colors.black,
+            width: _FloppyDiskConstants.smallSquareBorderWidth,
+          ),
           borderRadius: const BorderRadius.all(Radius.circular(4)),
         ),
       ),
@@ -91,7 +109,10 @@ class _SliderOutline extends StatelessWidget {
         width: _FloppyDiskConstants.sliderOutlineWidthRatio * size,
         height: _FloppyDiskConstants.sliderOutlineHeightRatio * size,
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.black, width: _FloppyDiskConstants.smallSquareBorderWidth),
+          border: Border.all(
+            color: Colors.black,
+            width: _FloppyDiskConstants.smallSquareBorderWidth,
+          ),
         ),
         child: Container(color: Colors.blue[700]),
       ),
@@ -112,7 +133,10 @@ class _RightBlueSquare extends StatelessWidget {
         width: _FloppyDiskConstants.rightBlueSquareWidthRatio * size,
         height: _FloppyDiskConstants.rightBlueSquareHeightRatio * size,
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.black, width: _FloppyDiskConstants.smallSquareBorderWidth),
+          border: Border.all(
+            color: Colors.black,
+            width: _FloppyDiskConstants.smallSquareBorderWidth,
+          ),
         ),
         child: Container(color: Colors.blue[700]),
       ),
@@ -139,7 +163,11 @@ class _WhiteLabelArea extends StatelessWidget {
             ...List.generate(
               2,
               (index) => Container(
-                margin: EdgeInsets.symmetric(vertical: _FloppyDiskConstants.whiteLabelLineVerticalMarginRatio * size),
+                margin: EdgeInsets.symmetric(
+                  vertical:
+                      _FloppyDiskConstants.whiteLabelLineVerticalMarginRatio *
+                      size,
+                ),
                 height: _FloppyDiskConstants.whiteLabelLineHeight,
                 color: Colors.black,
               ),
@@ -153,7 +181,11 @@ class _WhiteLabelArea extends StatelessWidget {
             ...List.generate(
               2,
               (index) => Container(
-                margin: EdgeInsets.symmetric(vertical: _FloppyDiskConstants.whiteLabelLineVerticalMarginRatio * size),
+                margin: EdgeInsets.symmetric(
+                  vertical:
+                      _FloppyDiskConstants.whiteLabelLineVerticalMarginRatio *
+                      size,
+                ),
                 height: _FloppyDiskConstants.whiteLabelLineHeight,
                 color: Colors.black,
               ),
@@ -173,13 +205,21 @@ class _BottomLeftSmallSquare extends StatelessWidget {
   Widget build(BuildContext context) {
     return Positioned(
       bottom: _FloppyDiskConstants.bottomLeftRightSmallSquareBottomRatio * size,
-      left: _FloppyDiskConstants.bottomLeftRightSmallSquareLeftRightRatio * size,
+      left:
+          _FloppyDiskConstants.bottomLeftRightSmallSquareLeftRightRatio * size,
       child: Container(
-        width: _FloppyDiskConstants.bottomLeftRightSmallSquareWidthHeightRatio * size,
-        height: _FloppyDiskConstants.bottomLeftRightSmallSquareWidthHeightRatio * size,
+        width:
+            _FloppyDiskConstants.bottomLeftRightSmallSquareWidthHeightRatio *
+            size,
+        height:
+            _FloppyDiskConstants.bottomLeftRightSmallSquareWidthHeightRatio *
+            size,
         decoration: BoxDecoration(
           color: Colors.white,
-          border: Border.all(color: Colors.black, width: _FloppyDiskConstants.smallSquareBorderWidth),
+          border: Border.all(
+            color: Colors.black,
+            width: _FloppyDiskConstants.smallSquareBorderWidth,
+          ),
         ),
       ),
     );
@@ -194,13 +234,21 @@ class _BottomRightSmallSquare extends StatelessWidget {
   Widget build(BuildContext context) {
     return Positioned(
       bottom: _FloppyDiskConstants.bottomLeftRightSmallSquareBottomRatio * size,
-      right: _FloppyDiskConstants.bottomLeftRightSmallSquareLeftRightRatio * size,
+      right:
+          _FloppyDiskConstants.bottomLeftRightSmallSquareLeftRightRatio * size,
       child: Container(
-        width: _FloppyDiskConstants.bottomLeftRightSmallSquareWidthHeightRatio * size,
-        height: _FloppyDiskConstants.bottomLeftRightSmallSquareWidthHeightRatio * size,
+        width:
+            _FloppyDiskConstants.bottomLeftRightSmallSquareWidthHeightRatio *
+            size,
+        height:
+            _FloppyDiskConstants.bottomLeftRightSmallSquareWidthHeightRatio *
+            size,
         decoration: BoxDecoration(
           color: Colors.white,
-          border: Border.all(color: Colors.black, width: _FloppyDiskConstants.smallSquareBorderWidth),
+          border: Border.all(
+            color: Colors.black,
+            width: _FloppyDiskConstants.smallSquareBorderWidth,
+          ),
         ),
       ),
     );
