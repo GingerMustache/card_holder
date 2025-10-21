@@ -1,7 +1,61 @@
 # Card Holder App Documentation
 
 ## Overview
-Card Holder is a Flutter application for managing and storing card information locally using SQLite database. This documentation covers the core local card service functionality.
+Card Holder is a Flutter application designed for securely managing and storing various card information locally. It provides a user-friendly interface for adding, viewing, and organizing cards, with a focus on local data persistence and efficient access.
+
+## Project Structure
+
+The project follows a standard Flutter application structure with additional organization for features and common utilities.
+
+-   **`.fvm/`**: Flutter Version Management configuration.
+-   **`.git/`**: Git version control system files.
+-   **`.idea/`**: IntelliJ IDEA/Android Studio project files.
+-   **`.vscode/`**: VS Code editor configuration.
+-   **`android/`**: Android-specific project files.
+-   **`assets/`**: Contains application assets like fonts and SVG icons.
+    -   **`assets/fonts/`**: Custom fonts used in the application (Chakra Petch, Densmore, Tektur).
+    -   **`assets/icons/`**: SVG icons for various functionalities (barcode, bookmark, lens, search).
+    -   **`assets/icons/shops/`**: SVG icons for different shop logos.
+-   **`build/`**: Generated build artifacts.
+-   **`ios/`**: iOS-specific project files.
+-   **`lib/`**: The main application source code.
+    -   **`lib/main.dart`**: The application's entry point.
+    -   **`lib/common/`**: Contains shared components, utilities, and application-wide configurations.
+        -   **`lib/common/application/`**: Application-level settings, styles (colors, text styles, box shadows, button styles, paddings), and links.
+        -   **`lib/common/constants/`**: Application constants.
+        -   **`lib/common/data/`**: Common data models or services.
+        -   **`lib/common/di_container/`**: Dependency Injection setup.
+        -   **`lib/common/extensions/`**: Dart extension methods.
+        -   **`lib/common/helpers/`**: Helper functions.
+        -   **`lib/common/localization/`**: Internationalization and localization files.
+        -   **`lib/common/mixins/`**: Reusable mixins.
+        -   **`lib/common/presentation/`**: Common UI widgets or presentation logic.
+        -   **`lib/common/repositories/`**: Abstract repository interfaces.
+        -   **`lib/common/routing/`**: Application routing configuration.
+        -   **`lib/common/services/`**: Common services (e.g., `LocalCardService`).
+        -   **`lib/common/sheets/`**: Bottom sheets or modal components.
+        -   **`lib/common/typography/`**: Typography definitions.
+    -   **`lib/features/`**: Contains feature-specific modules, each encapsulating its own UI, logic, and data.
+        -   **`lib/features/add_new_card/`**: Functionality for adding new cards.
+        -   **`lib/features/home/`**: The main home screen and related components.
+        -   **`lib/features/open_card/`**: Functionality for viewing and interacting with an opened card.
+        -   **`lib/features/settings/`**: Application settings and configurations.
+-   **`test/`**: Unit and widget tests for the application.
+-   **`windows/`**: Windows-specific project files.
+
+## Configuration Files
+
+-   **`.env`**: Environment variables.
+-   **`.fvmrc`**: FVM (Flutter Version Management) configuration file.
+-   **`.gitignore`**: Specifies intentionally untracked files to ignore.
+-   **`.metadata`**: Flutter project metadata.
+-   **`analysis_options.yaml`**: Dart static analysis options and lint rules.
+-   **`devtools_options.yaml`**: Dart DevTools configuration.
+-   **`flutter_launcher_icons.yaml`**: Configuration for generating app launcher icons.
+-   **`pubspec.lock`**: Records the specific versions of dependencies used.
+-   **`pubspec.yaml`**: Project dependencies, metadata, and asset declarations.
+-   **`README.md`**: Project README file.
+-   **`slang.yaml`**: Configuration for the `slang` internationalization tool.
 
 ## Architecture
 
@@ -20,10 +74,10 @@ The `LocalCardService` class provides CRUD operations for managing cards in a lo
 
 #### Core Features
 
-1. **Card Management**: Create, read, update, and delete cards
-2. **Usage Tracking**: Automatic usage point increment when cards are opened
-3. **Sorting**: Cards are retrieved sorted by usage frequency (most used first)
-4. **Database Management**: Automatic database initialization and migration support
+1.  **Card Management**: Create, read, update, and delete cards
+2.  **Usage Tracking**: Automatic usage point increment when cards are opened
+3.  **Sorting**: Cards are retrieved sorted by usage frequency (most used first)
+4.  **Database Management**: Automatic database initialization and migration support
 
 ## LocalCardService API Reference
 
@@ -211,8 +265,8 @@ The service supports database versioning and migration:
 - Version 2: Added db_meta table for metadata tracking
 
 Future migrations can be added in the `onUpgrade` callback of the database initialization.
-## Ru
-running Tests
+
+## Running Tests
 
 To run the comprehensive test suite for the LocalCardService:
 
@@ -231,16 +285,16 @@ flutter test --coverage
 
 The test suite includes 32 comprehensive tests covering:
 
-- **Database Management** (4 tests): Opening, closing, and connection state management
-- **Create Card** (3 tests): Card creation with various inputs and edge cases
-- **Get Card** (3 tests): Retrieving cards by ID and error handling
-- **Get All Cards** (3 tests): Listing cards and sorting functionality
-- **Update Card** (3 tests): Modifying existing cards and validation
-- **Open Card** (4 tests): Usage tracking and increment functionality
-- **Delete Card** (3 tests): Single card deletion and error scenarios
-- **Delete All Cards** (3 tests): Bulk deletion operations
-- **Database State Management** (2 tests): Connection handling and data consistency
-- **Edge Cases** (4 tests): Special characters, long strings, extreme values, and concurrent operations
+-   **Database Management** (4 tests): Opening, closing, and connection state management
+-   **Create Card** (3 tests): Card creation with various inputs and edge cases
+-   **Get Card** (3 tests): Retrieving cards by ID and error handling
+-   **Get All Cards** (3 tests): Listing cards and sorting functionality
+-   **Update Card** (3 tests): Modifying existing cards and validation
+-   **Open Card** (4 tests): Usage tracking and increment functionality
+-   **Delete Card** (3 tests): Single card deletion and error scenarios
+-   **Delete All Cards** (3 tests): Bulk deletion operations
+-   **Database State Management** (2 tests): Connection handling and data consistency
+-   **Edge Cases** (4 tests): Special characters, long strings, extreme values, and concurrent operations
 
 All tests use an in-memory SQLite database with mocked file system access for fast, isolated testing.
 

@@ -1,6 +1,6 @@
 import 'package:card_holder/common/services/file_pick/exceptions/file_pick_service_exceptions.dart';
 import 'package:card_holder/common/services/file_pick/file_pick_service.dart';
-import 'package:file_picker/file_picker.dart';
+
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
