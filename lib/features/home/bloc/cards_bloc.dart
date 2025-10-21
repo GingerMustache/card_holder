@@ -1,7 +1,6 @@
 // ignore_for_file: invalid_use_of_visible_for_testing_member
 
 import 'dart:async' show Completer;
-import 'dart:ffi';
 
 import 'package:bloc/bloc.dart';
 import 'package:card_holder/common/extensions/app_extensions.dart';
@@ -118,7 +117,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
 
   _onDeleteCard(CardsDeleteCardEvent event, Emitter<CardsState> emit) async {
     emit(state.copyWith(isLoading: true));
-    final result = await _cardRepo.deleteCard(id: 0);
+    final result = await _cardRepo.deleteCard(id: event.id);
 
     result.fold(
       (Exception e) {
@@ -129,10 +128,10 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
       },
 
       (_) {
-        final newCardsList = state.cards;
-        newCardsList.removeWhere((item) => item.id == event.id);
+        final newCardsList =
+            state.cards.where((item) => item.id != event.id).toList();
 
-        emit(state.copyWith(cards: newCardsList, isLoading: false));
+        emit(state.copyWith(cards: [...newCardsList], isLoading: false));
         event.completer?.complete();
       },
     );

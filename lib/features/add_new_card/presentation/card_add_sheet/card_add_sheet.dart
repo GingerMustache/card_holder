@@ -17,7 +17,6 @@ import 'package:card_holder/features/home/bloc/cards_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 part 'parts/entered_code.dart';
@@ -73,7 +72,9 @@ class _AddCardSheetState extends State<AddCardSheet> {
         ),
       );
 
-      completer.future.then((_) => context.pop());
+      completer.future.then(
+        (_) => Navigator.popUntil(context, (route) => route.isFirst),
+      );
     }
   }
 

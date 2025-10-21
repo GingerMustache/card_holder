@@ -30,3 +30,13 @@ extension PaddingExtension on Widget {
 extension StringExtension on String? {
   String get notNull => this ?? '';
 }
+
+extension EmailValidator on String {
+  bool get isValidEmail =>
+      RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$").hasMatch(this);
+}
+
+extension OnTapExtension on Widget {
+  Widget onTap(VoidCallback onTap) =>
+      InkWell(splashFactory: null, onTap: onTap, child: this);
+}

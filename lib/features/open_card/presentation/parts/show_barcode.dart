@@ -5,12 +5,14 @@ class _ShowBarcode extends StatelessWidget {
     required this.allBorderRadius,
     required this.boxDecoration,
     required this.pickTime,
+    required this.currentCardId,
     required this.barcodeKey,
   });
 
   final BorderRadius allBorderRadius;
   final BoxDecoration boxDecoration;
   final int pickTime;
+  final int currentCardId;
   final GlobalKey barcodeKey;
 
   @override
@@ -49,7 +51,7 @@ class _ShowBarcode extends StatelessWidget {
             ),
             _BrightnessSwitcher(),
             _PickTimeText(pickTime: pickTime),
-            _DeleteButton(1),
+            _DeleteButton(currentCardId),
           ],
         ),
       ),
@@ -83,26 +85,28 @@ class _DeleteButton extends StatelessWidget {
   const _DeleteButton(this.id);
 
   final int id;
-  onLightTap(BuildContext context) =>
-      context.read<CardsBloc>().add(CardsDeleteCardEvent(id: id));
+
+  onLightTap(BuildContext context) {
+    final completer = Completer();
+    context.read<CardsBloc>().add(
+      CardsDeleteCardEvent(id: id, completer: completer),
+    );
+    completer.future.then((_) => context.pop());
+  }
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => onLightTap(context),
-      splashFactory: null,
-      child: Align(
-        alignment: Alignment.bottomLeft,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            'delete',
-            style: context.textStyles.labelSmall?.copyWith(
-              color: AppColors.mainRed,
-            ),
+    return Align(
+      alignment: Alignment.bottomLeft,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(
+          'delete',
+          style: context.textStyles.labelSmall?.copyWith(
+            color: AppColors.mainRed,
           ),
         ),
-      ),
+      ).onTap(() => onLightTap(context)),
     );
   }
 }
@@ -117,38 +121,31 @@ class _BrightnessSwitcher extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(right: 4),
-      child: InkWell(
-        onTap: () => onLightTap(context),
-        splashFactory: null,
-        child: Align(
-          alignment: Alignment.topRight,
-          child: SizedBox(
-            width: 57,
-            height: 32,
-            child: Center(
-              child: BlocBuilder<OpenCardBloc, OpenCardState>(
-                buildWhen:
-                    (prev, cur) =>
-                        prev.turnBrightnessOn != cur.turnBrightnessOn,
-                builder: (context, state) {
-                  final isBrightnessOn = state.turnBrightnessOn;
+      child: Align(
+        alignment: Alignment.topRight,
+        child: SizedBox(
+          width: 57,
+          height: 32,
+          child: Center(
+            child: BlocBuilder<OpenCardBloc, OpenCardState>(
+              buildWhen:
+                  (prev, cur) => prev.turnBrightnessOn != cur.turnBrightnessOn,
+              builder: (context, state) {
+                final isBrightnessOn = state.turnBrightnessOn;
 
-                  return Text(
-                    textAlign: TextAlign.right,
-                    t.system.bright.all,
-                    style: context.textStyles.labelSmall?.copyWith(
-                      color:
-                          isBrightnessOn
-                              ? AppColors.darkGrey
-                              : AppColors.mainRed,
-                    ),
-                  );
-                },
-              ),
+                return Text(
+                  textAlign: TextAlign.right,
+                  t.system.bright.all,
+                  style: context.textStyles.labelSmall?.copyWith(
+                    color:
+                        isBrightnessOn ? AppColors.darkGrey : AppColors.mainRed,
+                  ),
+                );
+              },
             ),
           ),
         ),
       ),
-    );
+    ).onTap(() => onLightTap(context));
   }
 }
