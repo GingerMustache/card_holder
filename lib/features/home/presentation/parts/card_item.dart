@@ -49,14 +49,7 @@ class _CardItem extends StatelessWidget {
               child: Center(
                 child:
                     card?.urlPath.isNotEmpty ?? false
-                        ? SvgPicture.asset(
-                          card?.urlPath ?? '',
-                          height: card!.logoSize,
-                          width: card!.logoSize,
-                          fit: BoxFit.contain,
-                          placeholderBuilder:
-                              (context) => _LogoText(card: card),
-                        )
+                        ? LogoSvg(card: card)
                         : _LogoText(card: card),
               ),
             ),

@@ -6,6 +6,7 @@ import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/presentation/widgets/color_mark/color_mark.dart';
 import 'package:card_holder/common/presentation/widgets/input_search/input_search.dart';
+import 'package:card_holder/common/presentation/widgets/logo_svg/logo_svg.dart';
 import 'package:card_holder/common/services/local_crud/local_card_service.dart';
 import 'package:card_holder/features/add_new_card/presentation/template_card_sheet/template_card_sheet.dart';
 import 'package:card_holder/features/home/bloc/cards_bloc.dart';

@@ -10,6 +10,7 @@ import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/presentation/widgets/buttons/default_button.dart';
 import 'package:card_holder/common/presentation/widgets/color_mark/color_mark_widget.dart';
 import 'package:card_holder/common/presentation/widgets/color_wheel/color_wheel_widget.dart';
+import 'package:card_holder/common/presentation/widgets/logo_svg/logo_svg.dart';
 import 'package:card_holder/common/presentation/widgets/skeleton_wrapper/skeleton_wrapper.dart';
 import 'package:card_holder/common/presentation/widgets/text_fields/frame_text_field.dart';
 import 'package:card_holder/common/services/brightness_control/brightness_control_service.dart';
@@ -159,17 +160,23 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
                     ),
                   ],
                 ),
-                BlocBuilder<OpenCardBloc, OpenCardState>(
-                  buildWhen:
-                      (previous, current) => previous.color != current.color,
-                  builder: (context, state) {
-                    return ColorMarkWidget(
-                      alignment: Alignment(0.9, 0.13),
-                      initColor: state.color,
-                      onTap: onTapColorWidget,
-                    );
-                  },
-                ),
+                if (widget.curCard.urlPath.isNotEmpty)
+                  Align(
+                    alignment: Alignment(0.9, 0.13),
+                    child: LogoSvg(card: widget.curCard),
+                  ),
+                if (widget.curCard.urlPath.isEmpty)
+                  BlocBuilder<OpenCardBloc, OpenCardState>(
+                    buildWhen:
+                        (previous, current) => previous.color != current.color,
+                    builder: (context, state) {
+                      return ColorMarkWidget(
+                        alignment: Alignment(0.9, 0.13),
+                        initColor: state.color,
+                        onTap: onTapColorWidget,
+                      );
+                    },
+                  ),
                 BlocBuilder<OpenCardBloc, OpenCardState>(
                   buildWhen:
                       (prev, cur) => prev.isMarkTapped != cur.isMarkTapped,

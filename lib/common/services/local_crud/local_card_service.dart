@@ -173,7 +173,7 @@ class LocalCardService implements CardServiceAbstract {
     } else {
       // .removeWhere удаляет в листе 'типа', те значения, которые соответсвуют условию
       // в данном случае, в DataBaseNote есть id'шник, который мы получим в параметры функции
-      // и по нему мы удалим заметку
+      // и по нему мы удалим карту
     }
   }
 
@@ -258,7 +258,9 @@ class LocalCardService implements CardServiceAbstract {
           ''');
           }
           if (oldVersion < 3) {
-            await db.execute('''ALTER TABLE "card" ADD COLUMN "logo_size" REAL''');
+            await db.execute(
+              '''ALTER TABLE "card" ADD COLUMN "logo_size" REAL''',
+            );
           }
         },
       );

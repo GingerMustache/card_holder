@@ -280,6 +280,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
 
     final jsonList = {
       state.currentCard?.name ?? 'default': {
+        'logoSize': state.currentCard?.logoSize ?? '',
         'urlPath': state.currentCard?.urlPath ?? '',
         'code': state.currentCard?.code ?? '',
         'name': state.currentCard?.name ?? '',
