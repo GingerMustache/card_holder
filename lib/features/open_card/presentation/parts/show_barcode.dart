@@ -23,7 +23,7 @@ class _ShowBarcode extends StatelessWidget {
           children: [
             Container(
               color: AppColors.subGrey.withAlpha(50),
-              padding: EdgeInsets.all(35),
+              padding: EdgeInsets.symmetric(vertical: 35, horizontal: 20),
               child: Container(
                 decoration: boxDecoration.copyWith(
                   color: AppColors.mainWhite,
@@ -48,19 +48,59 @@ class _ShowBarcode extends StatelessWidget {
               ),
             ),
             _BrightnessSwitcher(),
-            Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  '$pickTime ${t.screen.home.openCard.uses}',
-                  style: context.textStyles.labelSmall?.copyWith(
-                    color: AppColors.darkGrey,
-                  ),
-                ),
-              ),
-            ),
+            _PickTimeText(pickTime: pickTime),
+            _DeleteButton(1),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _PickTimeText extends StatelessWidget {
+  const _PickTimeText({required this.pickTime});
+
+  final int pickTime;
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.topLeft,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(
+          '$pickTime ${t.screen.home.openCard.uses}',
+          style: context.textStyles.labelSmall?.copyWith(
+            color: AppColors.darkGrey,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _DeleteButton extends StatelessWidget {
+  const _DeleteButton(this.id);
+
+  final int id;
+  onLightTap(BuildContext context) =>
+      context.read<CardsBloc>().add(CardsDeleteCardEvent(id: id));
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () => onLightTap(context),
+      splashFactory: null,
+      child: Align(
+        alignment: Alignment.bottomLeft,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            'delete',
+            style: context.textStyles.labelSmall?.copyWith(
+              color: AppColors.mainRed,
+            ),
+          ),
         ),
       ),
     );

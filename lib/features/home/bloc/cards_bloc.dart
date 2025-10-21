@@ -1,6 +1,7 @@
 // ignore_for_file: invalid_use_of_visible_for_testing_member
 
 import 'dart:async' show Completer;
+import 'dart:ffi';
 
 import 'package:bloc/bloc.dart';
 import 'package:card_holder/common/extensions/app_extensions.dart';
@@ -46,6 +47,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
     on<CardsShareImageEvent>(_onCardShareImage);
     on<CardsShareFileEvent>(_onCardShareFile);
     on<CardsShareAllCardsEvent>(_onShareAllCards);
+    on<CardsDeleteCardEvent>(_onDeleteCard);
   }
   _onFetchCards(CardsFetchCardsEvent event, Emitter<CardsState> emit) async {
     emit(state.copyWith(isLoading: true));
@@ -110,6 +112,28 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
       (DataBaseCard card) {
         emit(state.copyWith(cards: [...state.cards, card], isLoading: false));
         event.completer?.complete(card);
+      },
+    );
+  }
+
+  _onDeleteCard(CardsDeleteCardEvent event, Emitter<CardsState> emit) async {
+    emit(state.copyWith(isLoading: true));
+    final result = await _cardRepo.deleteCard(id: 0);
+
+    result.fold(
+      (Exception e) {
+        if (e is LocalDataBaseException) {
+          emit(state.copyWith(cards: state.cards, isLoading: false));
+          event.completer?.completeError(e);
+        }
+      },
+
+      (_) {
+        final newCardsList = state.cards;
+        newCardsList.removeWhere((item) => item.id == event.id);
+
+        emit(state.copyWith(cards: newCardsList, isLoading: false));
+        event.completer?.complete();
       },
     );
   }

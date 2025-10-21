@@ -43,6 +43,15 @@ class CardsAddCardEvent extends CardsEvent {
   List<Object?> get props => [code, name, color, urlPath, logoSize];
 }
 
+class CardsDeleteCardEvent extends CardsEvent {
+  final int id;
+  final Completer? completer;
+
+  const CardsDeleteCardEvent({required this.id, this.completer});
+  @override
+  List<Object?> get props => [id];
+}
+
 class CardsAddFileCardEvent extends CardsEvent {
   final Completer<DataBaseCard> completer;
 
