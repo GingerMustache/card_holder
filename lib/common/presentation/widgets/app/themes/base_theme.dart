@@ -117,15 +117,15 @@ class AppTheme {
 
   static final ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
-    scaffoldBackgroundColor: AppColors.mainBlack,
+    scaffoldBackgroundColor: const Color.fromARGB(255, 67, 67, 67),
     useMaterial3: true,
     fontFamily: 'Tektur',
     indicatorColor: AppColors.mainBlue,
-    iconTheme: const IconThemeData(color: AppColors.mainWhite),
+    iconTheme: const IconThemeData(color: AppColors.darkGrey),
     appBarTheme: const AppBarTheme(
-      titleTextStyle: TextStyle(color: Colors.white, fontSize: 18.0),
+      titleTextStyle: TextStyle(color: AppColors.darkGrey, fontSize: 18.0),
       color: _darkPrimaryColor,
-      iconTheme: IconThemeData(color: Colors.white),
+      iconTheme: IconThemeData(color: AppColors.darkGrey),
     ),
     colorScheme: const ColorScheme.dark(
       primary: AppColors.suBlack,
@@ -165,7 +165,7 @@ class AppTheme {
       titleSmall: _getTextStyleFromTheme(
         fontSize: 16.0,
         fontWeight: FontWeight.w400,
-        color: AppColors.mainWhite,
+        color: AppColors.mainGray,
       ),
       bodyMedium: _getTextStyleFromTheme(
         fontSize: 18.0,
