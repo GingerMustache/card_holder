@@ -16,12 +16,18 @@ screen:
       name: имя_
       color: цвет_
       add: добавить
+      fieldCannotBeEmpty: Поле не может быть пустым
+      tapToContinue: Нажмите чтобы продолжить
     openCard:
       uses: раз
       edit: принять
       share: поделиться
       file: файл
       image: фото
+      deleteQuestion: удалить?
+      yes: да
+      delete: удалить
+      no: нет
   settings:
     all: first
 tabs:
@@ -47,3 +53,18 @@ system:
       all: поделиться
       app: приложением
       cards: картами
+shops:
+  fromScratch: с нуля
+  fromFile: из файла
+  pyaterochka: Пятёрочка
+  spar: Спар
+  magnit: Магнит
+  perekrestok: Перекрёсток
+  dixy: Дикси
+  krasnoeBeloe: Красное & Белое
+  lenta: Лента
+  ashan: Ашан
+  metro: Metro
+  okey: О’Кей
+  vkusvill: ВкусВилл
+  sportmaster: Спортмастер

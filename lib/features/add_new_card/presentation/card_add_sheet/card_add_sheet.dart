@@ -144,7 +144,7 @@ class _AddCardSheetState extends State<AddCardSheet> {
                               return createBloc.state.code.isNotEmpty ||
                                       createBloc.state.detectedCode.isNotEmpty
                                   ? null
-                                  : 'Field cannot be empty';
+                                  : t.screen.home.addCard.fieldCannotBeEmpty;
                             },
 
                             numericKeyboard: true,
@@ -223,9 +223,9 @@ class _AddCardSheetState extends State<AddCardSheet> {
       },
       builder: (context, state) {
         if (createBloc.cameraControllerSubscription.isPaused) {
-          return const Text(
-            'Нажмите чтобы продолжить',
-            style: TextStyle(color: Colors.black),
+          return Text(
+            t.screen.home.addCard.tapToContinue,
+            style: const TextStyle(color: Colors.black),
           );
         }
         return const SizedBox();

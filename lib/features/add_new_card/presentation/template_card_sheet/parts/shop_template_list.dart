@@ -2,12 +2,12 @@ part of '../template_card_sheet.dart';
 
 final List<ShopTemplate> _shopTemplates = [
   ShopTemplate(
-    name: 'from scratch',
+    name: t.shops.fromScratch,
     svgUrl: '',
     cardColor: AppColors.mainGray, // Green
   ),
   ShopTemplate(
-    name: 'from file',
+    name: t.shops.fromFile,
     funnyStyle: true,
     svgUrl: '',
     cardColor: AppColors.mainGray, // Green

@@ -16,12 +16,18 @@ screen:
       name: name_
       color: color_
       add: add
+      fieldCannotBeEmpty: Field cannot be empty
+      tapToContinue: Tap to continue
     openCard:
       uses: uses
       edit: edit
       share: share
       file: file
-      image: image      
+      image: image
+      deleteQuestion: delete?
+      yes: yes
+      delete: delete
+      no: no
   settings:
     all: first
 tabs:
@@ -48,3 +54,18 @@ system:
       app: app link
       cards: all cards
 
+shops:
+  fromScratch: from scratch
+  fromFile: from file
+  pyaterochka: Pyaterochka
+  spar: Spar
+  magnit: Magnit
+  perekrestok: Perekrestok
+  dixy: Dixy
+  krasnoeBeloe: Krasnoe & Beloe
+  lenta: Lenta
+  ashan: Auchan
+  metro: Metro
+  okey: O'Key
+  vkusvill: VkusVill
+  sportmaster: Sportmaster
