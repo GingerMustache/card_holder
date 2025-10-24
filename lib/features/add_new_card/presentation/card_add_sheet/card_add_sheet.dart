@@ -157,7 +157,8 @@ class _AddCardSheetState extends State<AddCardSheet> {
                           ),
                           FrameTextField(
                             initText:
-                                createBloc.state.name.isNotEmpty
+                                createBloc.state.name.isNotEmpty &&
+                                        createBloc.state.urlPath.isNotEmpty
                                     ? createBloc.state.name
                                     : null,
                             validator:
