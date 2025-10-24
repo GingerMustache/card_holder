@@ -26,7 +26,8 @@ import 'package:go_router/go_router.dart';
 part 'parts/choose_share_sheet.dart';
 part 'parts/show_barcode/show_barcode.dart';
 part 'parts/show_barcode/parts/brightness_switcher.dart';
-part 'parts/show_barcode/parts/delete_button.dart';
+part 'parts/show_barcode/parts/delete_button/delete_button.dart';
+part 'parts/show_barcode/parts/delete_button/delete_sheet.dart';
 part 'parts/show_barcode/parts/pick_time_text.dart';
 
 class CardOpenSheet extends StatefulWidget {

@@ -1,38 +1,7 @@
-part of '../../../card_open_sheet.dart';
+part of '../../../../card_open_sheet.dart';
 
-class _DeleteButton extends StatelessWidget {
-  const _DeleteButton(this.id);
-
-  final int id;
-
-  onLightTap(BuildContext context) {
-    DeleteSheet.show(context, id);
-    // final completer = Completer();
-    // context.read<CardsBloc>().add(
-    //   CardsDeleteCardEvent(id: id, completer: completer),
-    // );
-    // completer.future.then((_) => context.pop());
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.bottomLeft,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text(
-          'delete',
-          style: context.textStyles.labelSmall?.copyWith(
-            color: AppColors.mainRed,
-          ),
-        ),
-      ).onTap(() => onLightTap(context)),
-    );
-  }
-}
-
-class DeleteSheet extends StatefulWidget {
-  const DeleteSheet(this.id, {super.key});
+class _DeleteSheet extends StatefulWidget {
+  const _DeleteSheet(this.id);
 
   final int id;
 
@@ -43,18 +12,25 @@ class DeleteSheet extends StatefulWidget {
       isDismissible: true,
       context: context,
       builder: (BuildContext context) {
-        return DeleteSheet(id);
+        return _DeleteSheet(id);
       },
     );
   }
 
   @override
-  State<DeleteSheet> createState() => _DeleteSheetState();
+  State<_DeleteSheet> createState() => _DeleteSheetState();
 }
 
-class _DeleteSheetState extends State<DeleteSheet> {
-  void onTapFile() async =>
-      context.read<CardsBloc>().add(CardsShareFileEvent());
+class _DeleteSheetState extends State<_DeleteSheet> {
+  void onDelete() async {
+    final completer = Completer();
+    context.read<CardsBloc>().add(
+      CardsDeleteCardEvent(id: widget.id, completer: completer),
+    );
+    completer.future.then(
+      (_) => Navigator.popUntil(context, (route) => route.isFirst),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +64,7 @@ class _DeleteSheetState extends State<DeleteSheet> {
                         child: Text('yes'),
                       ),
                     ],
-                  ),
+                  ).onTap(onDelete),
                 ),
 
                 _EmptyPopSpace(),
