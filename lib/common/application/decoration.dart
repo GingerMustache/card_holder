@@ -30,3 +30,8 @@ const BoxDecoration roundUpCornersDecoration = BoxDecoration(
     topRight: Radius.circular(8.0),
   ),
 );
+
+const BoxDecoration roundCornersDecoration = BoxDecoration(
+  color: AppColors.mainWhite,
+  borderRadius: BorderRadius.all(Radius.elliptical(8, 8)),
+);

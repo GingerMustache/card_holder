@@ -59,41 +59,59 @@ class _DeleteSheetState extends State<DeleteSheet> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 130,
+      height: context.width,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-            child: GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTap: () => Navigator.pop(context),
-              child: const SizedBox.expand(),
-            ),
-          ),
-
           Container(
-            decoration: roundUpCornersDecoration,
-            width: context.halfWidth,
+            color: Colors.transparent,
+            width: context.halfWidth / 1.5,
+
             padding: const EdgeInsets.only(top: 10),
-            height: 150,
             child: Column(
               children: [
-                Text(
-                  t.screen.home.openCard.share,
-                ).animate().fadeIn(duration: 550.ms),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Divider(color: AppColors.subGrey.withAlpha(50)),
+                Container(
+                  decoration: roundCornersDecoration,
+                  height: 110,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('delete?').animate().fadeIn(duration: 550.ms),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Divider(color: AppColors.subGrey.withAlpha(50)),
+                      ),
+
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Text('yes'),
+                      ),
+                    ],
+                  ),
                 ),
 
-                _ShareCase(
-                  title: t.screen.home.openCard.file,
-                  onTap: onTapFile,
-                ),
+                _EmptyPopSpace(),
               ],
             ),
           ),
+          _EmptyPopSpace(),
         ],
+      ),
+    );
+  }
+}
+
+class _EmptyPopSpace extends StatelessWidget {
+  const _EmptyPopSpace();
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () => Navigator.pop(context),
+        child: const SizedBox.expand(),
       ),
     );
   }
