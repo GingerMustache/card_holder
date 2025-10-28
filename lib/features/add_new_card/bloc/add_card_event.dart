@@ -14,6 +14,14 @@ class CreateCardChangeCodeEvent extends CreateCardEvent {
   List<Object?> get props => [code];
 }
 
+class CreateCardInitEvent extends CreateCardEvent {
+  final List<ShopTemplate> templates;
+  const CreateCardInitEvent(this.templates);
+
+  @override
+  List<Object?> get props => [templates];
+}
+
 class CreateCardChangeColorEvent extends CreateCardEvent {
   const CreateCardChangeColorEvent(this.color);
   final int color;
@@ -69,4 +77,13 @@ class CreateCardResumeCameraEvent extends CreateCardEvent {
 
   @override
   List<Object?> get props => [];
+}
+
+class CreateCardSearchTemplateEvent extends CreateCardEvent {
+  const CreateCardSearchTemplateEvent(this.text);
+
+  final String? text;
+
+  @override
+  List<Object?> get props => [text];
 }

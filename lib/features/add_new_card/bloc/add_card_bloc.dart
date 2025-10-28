@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:card_holder/common/mixins/event_transformer_mixin.dart';
+import 'package:card_holder/features/add_new_card/presentation/template_card_sheet/template_card_sheet.dart';
 import 'package:equatable/equatable.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
@@ -24,16 +25,28 @@ class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
       _onAddName,
       transformer: debounceRestartable(),
     );
+    on<CreateCardInitEvent>(_onInit);
     on<CreateCardSetInitTemplateEvent>(_onSetInitTemplate);
     on<CreateCardChangeColorEvent>(_onChangeColor);
     on<CreateCardChangeMarkTapEvent>(_onChangeMarkTap);
     on<CreateCardSearchEvent>(_onSearch, transformer: debounceRestartable());
     on<CreateCardResumeCameraEvent>(_onResumeCamera);
+    on<CreateCardSearchTemplateEvent>(
+      _onTemplateCardSearch,
+      transformer: debounceRestartable(),
+    );
 
     cameraController = MobileScannerController(detectionTimeoutMs: 1500);
     cameraControllerSubscription = cameraController.barcodes.listen(
       (event) => {},
     );
+  }
+
+  Future<void> _onInit(
+    CreateCardInitEvent event,
+    Emitter<CreateCardState> emit,
+  ) async {
+    emit(state.copyWith(templates: event.templates));
   }
 
   Future<void> _onAddCode(
@@ -115,6 +128,32 @@ class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
     cameraController.start();
 
     emit(state.copyWith(code: '', detectedCode: ''));
+  }
+
+  _onTemplateCardSearch(
+    CreateCardSearchTemplateEvent event,
+    Emitter<CreateCardState> emit,
+  ) async {
+    List<ShopTemplate> templates = state.templates;
+
+    if (event.text != null && event.text!.isNotEmpty) {
+      final List<ShopTemplate> foundCards =
+          templates
+              .where(
+                (element) => element.name.toUpperCase().contains(
+                  event.text?.toUpperCase() ?? '',
+                ),
+              )
+              .toList();
+
+      foundCards.isEmpty
+          ? emit(
+            state.copyWith(templates: state.templates, searchTemplates: []),
+          )
+          : emit(state.copyWith(searchTemplates: foundCards));
+    } else {
+      emit(state.copyWith(templates: state.templates, searchTemplates: []));
+    }
   }
 
   @override

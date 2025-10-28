@@ -3,6 +3,8 @@ part of 'add_card_bloc.dart';
 final class CreateCardState extends Equatable {
   const CreateCardState({
     this.code = '',
+    this.templates = const [],
+    this.searchTemplates = const [],
     this.detectedCode = '',
     this.name = '',
     this.urlPath = '',
@@ -22,6 +24,8 @@ final class CreateCardState extends Equatable {
   final String detectedCode;
   final String detectedName;
   final bool isFetching;
+  final List<ShopTemplate> templates;
+  final List<ShopTemplate> searchTemplates;
 
   CreateCardState copyWith({
     String? code,
@@ -33,6 +37,8 @@ final class CreateCardState extends Equatable {
     String? detectedCode,
     String? detectedName,
     bool? isFetching,
+    List<ShopTemplate>? templates,
+    List<ShopTemplate>? searchTemplates,
   }) {
     return CreateCardState(
       name: name ?? this.name,
@@ -44,19 +50,23 @@ final class CreateCardState extends Equatable {
       detectedName: detectedName ?? this.detectedName,
       detectedCode: detectedCode ?? this.detectedCode,
       isFetching: isFetching ?? this.isFetching,
+      templates: templates ?? this.templates,
+      searchTemplates: searchTemplates ?? this.searchTemplates,
     );
   }
 
   @override
   List<Object> get props => [
-        code,
-        name,
-        color,
-        isMarkTapped,
-        detectedCode,
-        detectedName,
-        isFetching,
-        urlPath,
-        logoSize,
-      ];
+    code,
+    name,
+    color,
+    isMarkTapped,
+    detectedCode,
+    detectedName,
+    isFetching,
+    urlPath,
+    logoSize,
+    templates,
+    searchTemplates,
+  ];
 }

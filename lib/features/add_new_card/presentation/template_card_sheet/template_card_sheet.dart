@@ -30,7 +30,9 @@ class TemplateCardSheet extends StatefulWidget {
       useRootNavigator: true,
       builder: (BuildContext context) {
         return BlocProvider(
-          create: (context) => CreateCardBloc(),
+          create:
+              (context) =>
+                  CreateCardBloc()..add(CreateCardInitEvent(_shopTemplates)),
           child: TemplateCardSheet(),
         );
       },
@@ -47,6 +49,10 @@ class _TemplateCardSheetState extends State<TemplateCardSheet> {
     super.initState();
   }
 
+  onChange(String? value) {
+    context.read<CreateCardBloc>().add(CreateCardSearchTemplateEvent(value));
+  }
+
   @override
   Widget build(BuildContext context) {
     return SkeletonWrapper(
@@ -56,26 +62,37 @@ class _TemplateCardSheetState extends State<TemplateCardSheet> {
           decoration: roundUpCornersDecoration,
           padding: const EdgeInsets.only(right: 16, left: 16, top: 16),
 
-          child: InputSearch(change: (value) => ()),
+          child: InputSearch(change: onChange),
         ),
 
         Expanded(
           child: ColoredBox(
             color: AppColors.mainWhite,
-            child: GridView.builder(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-              physics: const BouncingScrollPhysics(
-                parent: AlwaysScrollableScrollPhysics(),
-              ),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 13,
-                crossAxisSpacing: 13,
-                childAspectRatio: 1.5,
-              ),
+            child: BlocBuilder<CreateCardBloc, CreateCardState>(
+              builder: (context, state) {
+                final templates =
+                    state.searchTemplates.isNotEmpty
+                        ? state.searchTemplates
+                        : state.templates;
+                return GridView.builder(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 16,
+                  ),
+                  physics: const BouncingScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics(),
+                  ),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 13,
+                    crossAxisSpacing: 13,
+                    childAspectRatio: 1.5,
+                  ),
 
-              itemCount: _shopTemplates.length,
-              itemBuilder: (_, index) => _CardItem(_shopTemplates[index]),
+                  itemCount: templates.length,
+                  itemBuilder: (_, index) => _CardItem(templates[index]),
+                );
+              },
             ),
           ),
         ),
