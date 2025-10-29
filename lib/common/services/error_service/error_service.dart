@@ -4,17 +4,17 @@ import 'package:flutter/foundation.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 /// Service for handling and reporting errors in the Flutter application
-class ErrorService {
-  static ErrorService? _instance;
+class MainErrorService {
+  static MainErrorService? _instance;
   late final Talker _talker;
 
-  ErrorService._();
+  MainErrorService._();
 
   get talker => _talker;
 
   /// Singleton instance of ErrorService
-  static ErrorService get instance {
-    _instance ??= ErrorService._();
+  static MainErrorService get instance {
+    _instance ??= MainErrorService._();
     return _instance!;
   }
 

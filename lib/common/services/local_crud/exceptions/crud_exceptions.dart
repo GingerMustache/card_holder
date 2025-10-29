@@ -1,21 +1,64 @@
-abstract class LocalDataBaseException implements Exception {}
+abstract class LocalDataBaseException implements Exception {
+  final String message;
+  final Object? originalError;
 
-class DatabaseIsAlreadyOpen implements LocalDataBaseException {}
+  const LocalDataBaseException(this.message, {this.originalError});
 
-class UnableToGetDocumentsDirectory implements LocalDataBaseException {}
+  @override
+  String toString() => 'LocalDataBaseException: $message';
+}
 
-class DatabaseIsNotOpen implements LocalDataBaseException {}
+class SomethingWentWrongWithDataBase extends LocalDataBaseException {
+  const SomethingWentWrongWithDataBase([String? errorMessage])
+    : super(errorMessage ?? '');
+}
 
-class CouldNotDeleteUser implements LocalDataBaseException {}
+class DatabaseIsAlreadyOpen extends LocalDataBaseException {
+  const DatabaseIsAlreadyOpen([String? errorMessage])
+    : super(errorMessage ?? '');
+}
 
-class UserAlreadyExists implements LocalDataBaseException {}
+class UnableToGetDocumentsDirectory extends LocalDataBaseException {
+  const UnableToGetDocumentsDirectory([String? errorMessage])
+    : super(errorMessage ?? '');
+}
 
-class CouldNotFindUser implements LocalDataBaseException {}
+class DatabaseIsNotOpen extends LocalDataBaseException {
+  const DatabaseIsNotOpen([String? errorMessage]) : super(errorMessage ?? '');
+}
 
-class CouldNotDeleteCard implements LocalDataBaseException {}
+class CouldNotDeleteUser extends LocalDataBaseException {
+  const CouldNotDeleteUser([String? errorMessage]) : super(errorMessage ?? '');
+}
 
-class CouldNotFindCard implements LocalDataBaseException {}
+class UserAlreadyExists extends LocalDataBaseException {
+  const UserAlreadyExists([String? errorMessage]) : super(errorMessage ?? '');
+}
 
-class CouldNotUpdateCard implements LocalDataBaseException {}
+class CouldNotFindUser extends LocalDataBaseException {
+  const CouldNotFindUser([String? errorMessage]) : super(errorMessage ?? '');
+}
 
-class CouldNotOpenCard implements LocalDataBaseException {}
+class CouldNotDeleteCard extends LocalDataBaseException {
+  const CouldNotDeleteCard([String? errorMessage]) : super(errorMessage ?? '');
+}
+
+class CouldNotFindCard extends LocalDataBaseException {
+  const CouldNotFindCard([String? errorMessage]) : super(errorMessage ?? '');
+}
+
+class CouldNotFetchCards extends LocalDataBaseException {
+  const CouldNotFetchCards([String? errorMessage]) : super(errorMessage ?? '');
+}
+
+class CouldNotUpdateCard extends LocalDataBaseException {
+  const CouldNotUpdateCard([String? errorMessage]) : super(errorMessage ?? '');
+}
+
+class CouldNotCreateCard extends LocalDataBaseException {
+  const CouldNotCreateCard([String? errorMessage]) : super(errorMessage ?? '');
+}
+
+class CouldNotOpenCard extends LocalDataBaseException {
+  const CouldNotOpenCard([String? errorMessage]) : super(errorMessage ?? '');
+}

@@ -27,7 +27,7 @@ abstract class DiContainerProvider {
   LocalStorageService makeLocalStorage();
   ConvertHelper makeImageConverterHelper();
   TextValidatorService makeTextValidatorService();
-  ErrorService makeErrorService();
+  MainErrorService makeErrorService();
 }
 
 class DiContainer implements DiContainerProvider {
@@ -42,7 +42,7 @@ class DiContainer implements DiContainerProvider {
   @override
   TextValidatorService makeTextValidatorService() => TextValidatorService();
   @override
-  ErrorService makeErrorService() => ErrorService.instance;
+  MainErrorService makeErrorService() => MainErrorService.instance;
 
   @override
   LocalStorageService makeLocalStorage() => SecureStorage();

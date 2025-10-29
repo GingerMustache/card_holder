@@ -11,9 +11,9 @@ import 'package:flutter_bloc/flutter_bloc.dart'
     show BlocProvider, MultiBlocProvider, RepositoryProvider;
 
 void main() async {
-  ErrorService.instance.initialize();
+  MainErrorService.instance.initialize();
 
-  ErrorService.instance.runGuarded(() async {
+  MainErrorService.instance.runGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
 
     final DiContainerProvider diContainer = DiContainer();

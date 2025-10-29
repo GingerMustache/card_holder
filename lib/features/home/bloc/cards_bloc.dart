@@ -17,6 +17,7 @@ import 'package:card_holder/common/services/share/exceptions/shared_service_exce
 import 'package:equatable/equatable.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:multi_mode_animated_snack/multi_mode_animated_snack.dart';
 
 part 'cards_event.dart';
 part 'cards_state.dart';
@@ -104,6 +105,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
       (Exception e) {
         if (e is LocalDataBaseException) {
           emit(state.copyWith(cards: state.cards, isLoading: false));
+          AnimatedSnackBar.show(message: e.message);
           event.completer?.completeError(e);
         }
       },

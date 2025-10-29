@@ -73,19 +73,24 @@ class LocalCardService implements CardServiceAbstract {
     final db = _getDatabaseOrThrow();
 
     final currentCard = await getCard(id: id);
+    int updateColumn;
 
-    final updateColumn = await db.update(
-      _cardTable,
-      {
-        _codeColumn: code,
-        _name: name,
-        _color: color,
-        _urlPath: urlPath,
-        _logoSize: logoSize,
-      },
-      where: 'id = ?',
-      whereArgs: [id],
-    );
+    try {
+      updateColumn = await db.update(
+        _cardTable,
+        {
+          _codeColumn: code,
+          _name: name,
+          _color: color,
+          _urlPath: urlPath,
+          _logoSize: logoSize,
+        },
+        where: 'id = ?',
+        whereArgs: [id],
+      );
+    } catch (e) {
+      throw CouldNotUpdateCard(e.toString());
+    }
 
     if (updateColumn == 0) {
       throw CouldNotUpdateCard();
@@ -101,12 +106,17 @@ class LocalCardService implements CardServiceAbstract {
 
     final currentCard = await getCard(id: id);
 
-    final updatedCard = await db.update(
-      _cardTable,
-      {_usagePointColumn: currentCard.usagePoint + 1},
-      where: 'id = ?',
-      whereArgs: [id],
-    );
+    int updatedCard;
+    try {
+      updatedCard = await db.update(
+        _cardTable,
+        {_usagePointColumn: currentCard.usagePoint + 1},
+        where: 'id = ?',
+        whereArgs: [id],
+      );
+    } catch (e) {
+      throw CouldNotOpenCard(e.toString());
+    }
 
     if (updatedCard == 0) {
       throw CouldNotOpenCard();
@@ -119,12 +129,16 @@ class LocalCardService implements CardServiceAbstract {
   Future<List<DataBaseCard>> getCards() async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
-    final cards = await db.query(
-      _cardTable,
-      orderBy: '$_usagePointColumn DESC',
-    );
+    try {
+      final cards = await db.query(
+        _cardTable,
+        orderBy: '$_usagePointColumn DESC',
+      );
 
-    return cards.map((cardRow) => DataBaseCard.fromRow(cardRow)).toList();
+      return cards.map((cardRow) => DataBaseCard.fromRow(cardRow)).toList();
+    } catch (e) {
+      throw CouldNotFetchCards(e.toString());
+    }
   }
 
   @override
@@ -132,12 +146,18 @@ class LocalCardService implements CardServiceAbstract {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
 
-    final cards = await db.query(
-      _cardTable, // где в базе искать
-      limit: 1, // сколько
-      where: "id = ?", // где в колонке noteTable искать
-      whereArgs: [id], // аргумент поиска
-    );
+    List<Map<String, Object?>> cards;
+
+    try {
+      cards = await db.query(
+        _cardTable, // где в базе искать
+        limit: 1, // сколько
+        where: "id = ?", // где в колонке noteTable искать
+        whereArgs: [id], // аргумент поиска
+      );
+    } catch (e) {
+      throw CouldNotFindCard(e.toString());
+    }
 
     if (cards.isEmpty) {
       throw CouldNotFindCard();
@@ -155,7 +175,6 @@ class LocalCardService implements CardServiceAbstract {
 
     final numberOfDeletions = await db.delete(_cardTable);
     return numberOfDeletions;
-    // what happened in case of empty notes list?
   }
 
   @override
@@ -163,11 +182,17 @@ class LocalCardService implements CardServiceAbstract {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
 
-    final deletedCount = await db.delete(
-      _cardTable,
-      where: "id = ?",
-      whereArgs: [id],
-    );
+    int deletedCount;
+    try {
+      deletedCount = await db.delete(
+        _cardTable,
+        where: "id = ?",
+        whereArgs: [id],
+      );
+    } catch (e) {
+      throw CouldNotDeleteCard(e.toString());
+    }
+
     if (deletedCount == 0) {
       throw CouldNotDeleteCard();
     } else {
@@ -188,24 +213,28 @@ class LocalCardService implements CardServiceAbstract {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
 
-    final cardId = await db.insert(_cardTable, {
-      _codeColumn: code.replaceAll(' ', ''),
-      _name: name,
-      _color: color,
-      _usagePointColumn: 0,
-      _urlPath: urlPath,
-      _logoSize: logoSize,
-    }, conflictAlgorithm: ConflictAlgorithm.replace);
+    try {
+      final cardId = await db.insert(_cardTable, {
+        _codeColumn: code.replaceAll(' ', ''),
+        _name: name,
+        _color: color,
+        _usagePointColumn: 0,
+        _urlPath: urlPath,
+        _logoSize: logoSize,
+      }, conflictAlgorithm: ConflictAlgorithm.replace);
 
-    return DataBaseCard(
-      id: cardId,
-      color: color,
-      code: code,
-      name: name,
-      usagePoint: 0,
-      urlPath: urlPath,
-      logoSize: logoSize,
-    );
+      return DataBaseCard(
+        id: cardId,
+        color: color,
+        code: code,
+        name: name,
+        usagePoint: 0,
+        urlPath: urlPath,
+        logoSize: logoSize,
+      );
+    } catch (e) {
+      throw CouldNotCreateCard(e.toString());
+    }
   }
 
   Database _getDatabaseOrThrow() {
@@ -236,9 +265,8 @@ class LocalCardService implements CardServiceAbstract {
   }
 
   Future<void> open() async {
-    if (_db != null) {
-      throw DatabaseIsAlreadyOpen();
-    }
+    if (_db != null) throw DatabaseIsAlreadyOpen();
+
     try {
       final docsPath = await getApplicationDocumentsDirectory();
       final dbPath = join(docsPath.path, _dbName);

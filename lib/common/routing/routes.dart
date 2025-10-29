@@ -28,7 +28,7 @@ class MainNavigation implements MyAppNavigation {
   RouterConfig<RouteMatchList> router() => GoRouter(
     initialLocation: mainRoutesPath(MainRoutes.home),
     navigatorKey: navigatorKey,
-    observers: [TalkerRouteObserver(ErrorService.instance.talker)],
+    observers: [TalkerRouteObserver(MainErrorService.instance.talker)],
     routes: [
       GoRoute(
         name: mainRoutesName(MainRoutes.home),
