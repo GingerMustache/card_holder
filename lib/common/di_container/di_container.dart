@@ -6,6 +6,7 @@ import 'package:card_holder/common/repositories/file_pick_repository.dart';
 import 'package:card_holder/common/repositories/shared_repository.dart';
 import 'package:card_holder/common/routing/routes.dart';
 import 'package:card_holder/common/services/brightness_control/brightness_control_service.dart';
+import 'package:card_holder/common/services/error_service/error_service.dart';
 import 'package:card_holder/common/services/file_pick/file_pick_service.dart';
 import 'package:card_holder/common/services/local_crud/local_card_service.dart';
 import 'package:card_holder/common/services/local_storage/secure_storage.dart';
@@ -26,6 +27,7 @@ abstract class DiContainerProvider {
   LocalStorageService makeLocalStorage();
   ConvertHelper makeImageConverterHelper();
   TextValidatorService makeTextValidatorService();
+  ErrorService makeErrorService();
 }
 
 class DiContainer implements DiContainerProvider {
@@ -39,6 +41,8 @@ class DiContainer implements DiContainerProvider {
   FilePickService makeFilePickService() => NetFilePickServiceImpl();
   @override
   TextValidatorService makeTextValidatorService() => TextValidatorService();
+  @override
+  ErrorService makeErrorService() => ErrorService.instance;
 
   @override
   LocalStorageService makeLocalStorage() => SecureStorage();
