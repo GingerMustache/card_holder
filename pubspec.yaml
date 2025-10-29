@@ -65,6 +65,7 @@ dependencies:
   share_plus: ^11.1.0
   flutter_animate: ^4.5.2
   file_picker: ^10.3.3
+  multi_mode_animated_snack: ^0.2.1
   
 
 dev_dependencies:

@@ -21,8 +21,6 @@ class _AppBar extends StatelessWidget {
     return SliverAppBar(
       scrolledUnderElevation: 0,
       backgroundColor: Colors.transparent,
-      automaticallyImplyLeading: false,
-      floating: true,
       toolbarHeight: 0,
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(150),

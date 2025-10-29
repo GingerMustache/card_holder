@@ -693,6 +693,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.1"
+  multi_mode_animated_snack:
+    dependency: "direct main"
+    description:
+      name: multi_mode_animated_snack
+      sha256: "8b1657c4c7ba436db2d74da2f4dfd72efabb5e58fcbeab35ce004b502e28c5eb"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.1"
   nested:
     dependency: transitive
     description:

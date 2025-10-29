@@ -1,4 +1,3 @@
-// need to run dart run build_runner build
 import 'package:card_holder/common/di_container/di_container.dart';
 import 'package:card_holder/common/helpers/converter/text_field_validator/text_field_validator.dart';
 import 'package:card_holder/common/localization/i18n/strings.g.dart';

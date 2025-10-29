@@ -10,6 +10,8 @@ class ErrorService {
 
   ErrorService._();
 
+  get talker => _talker;
+
   /// Singleton instance of ErrorService
   static ErrorService get instance {
     _instance ??= ErrorService._();

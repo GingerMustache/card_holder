@@ -13,6 +13,7 @@ import 'package:flutter_i18n/flutter_i18n.dart'
     show FlutterI18n, FlutterI18nDelegate;
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
+import 'package:multi_mode_animated_snack/multi_mode_animated_snack.dart';
 
 abstract class MyAppNavigation {
   RouterConfig<RouteMatchList> router();
@@ -61,7 +62,23 @@ class MyApp extends StatelessWidget {
           themeMode: state.theme,
           routerConfig: navigation.router(),
           locale: TranslationProvider.of(context).flutterLocale,
-          builder: FlutterI18n.rootAppBuilder(),
+          builder: (context, child) {
+            FlutterI18n.rootAppBuilder();
+            return Overlay(
+              initialEntries: [
+                OverlayEntry(
+                  builder: (context) {
+                    AnimatedSnackBar.initialize(
+                      context,
+                      appearanceMode: AppearanceMode.top,
+                    );
+                    return child!;
+                  },
+                ),
+              ],
+            );
+          },
+
           localizationsDelegates: [
             flutterI18nDelegate,
             GlobalMaterialLocalizations.delegate,
