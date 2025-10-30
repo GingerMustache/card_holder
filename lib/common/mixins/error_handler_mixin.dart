@@ -9,9 +9,9 @@ mixin ErrorHandlerMixin {
       // throw Exception('exception');
       return Right(await action());
     } on LocalDataBaseException catch (e) {
-      // Resolve the error message and return an exception with proper message
       final resolvedError =
           LocalDataBaseErrorMessageResolver.withResolvedMessage(e);
+
       return Left(resolvedError);
     } on SharedServiceExceptions catch (e) {
       return Left(e);

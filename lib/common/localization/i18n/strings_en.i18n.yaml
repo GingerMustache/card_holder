@@ -57,3 +57,19 @@ system:
 shops:
   fromScratch: from scratch
   fromFile: from file
+
+errors:
+  localData:
+    databaseIsAlreadyOpen: Database is already open
+    unableToGetDocumentsDirectory: Unable to get documents directory
+    databaseIsNotOpen: Database is not open
+    couldNotDeleteUser: Could not delete user
+    userAlreadyExists: User already exists
+    couldNotFindUser: Could not find user
+    couldNotDeleteCard: Could not delete card
+    couldNotFindCard: Could not find card
+    couldNotUpdateCard: Could not update card
+    couldNotCreateCard: Could not create card
+    couldNotOpenCard: Could not open card
+    couldNotFetchCards: Could not fetch cards
+    unknownDatabaseError: Unknown database error

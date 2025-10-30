@@ -48,6 +48,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final TranslationsOtherEn other = TranslationsOtherEn.internal(_root);
 	late final TranslationsSystemEn system = TranslationsSystemEn.internal(_root);
 	late final TranslationsShopsEn shops = TranslationsShopsEn.internal(_root);
+	late final TranslationsErrorsEn errors = TranslationsErrorsEn.internal(_root);
 }
 
 // Path: screen
@@ -117,42 +118,16 @@ class TranslationsShopsEn {
 
 	/// en: 'from file'
 	String get fromFile => 'from file';
+}
 
-	/// en: 'Pyaterochka'
-	String get pyaterochka => 'Pyaterochka';
+// Path: errors
+class TranslationsErrorsEn {
+	TranslationsErrorsEn.internal(this._root);
 
-	/// en: 'Spar'
-	String get spar => 'Spar';
+	final Translations _root; // ignore: unused_field
 
-	/// en: 'Magnit'
-	String get magnit => 'Magnit';
-
-	/// en: 'Perekrestok'
-	String get perekrestok => 'Perekrestok';
-
-	/// en: 'Dixy'
-	String get dixy => 'Dixy';
-
-	/// en: 'Krasnoe & Beloe'
-	String get krasnoeBeloe => 'Krasnoe & Beloe';
-
-	/// en: 'Lenta'
-	String get lenta => 'Lenta';
-
-	/// en: 'Auchan'
-	String get ashan => 'Auchan';
-
-	/// en: 'Metro'
-	String get metro => 'Metro';
-
-	/// en: 'O'Key'
-	String get okey => 'O\'Key';
-
-	/// en: 'VkusVill'
-	String get vkusvill => 'VkusVill';
-
-	/// en: 'Sportmaster'
-	String get sportmaster => 'Sportmaster';
+	// Translations
+	late final TranslationsErrorsLocalDataEn localData = TranslationsErrorsLocalDataEn.internal(_root);
 }
 
 // Path: screen.home
@@ -258,6 +233,54 @@ class TranslationsSystemShareEn {
 
 	/// en: 'all cards'
 	String get cards => 'all cards';
+}
+
+// Path: errors.localData
+class TranslationsErrorsLocalDataEn {
+	TranslationsErrorsLocalDataEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Database is already open'
+	String get databaseIsAlreadyOpen => 'Database is already open';
+
+	/// en: 'Unable to get documents directory'
+	String get unableToGetDocumentsDirectory => 'Unable to get documents directory';
+
+	/// en: 'Database is not open'
+	String get databaseIsNotOpen => 'Database is not open';
+
+	/// en: 'Could not delete user'
+	String get couldNotDeleteUser => 'Could not delete user';
+
+	/// en: 'User already exists'
+	String get userAlreadyExists => 'User already exists';
+
+	/// en: 'Could not find user'
+	String get couldNotFindUser => 'Could not find user';
+
+	/// en: 'Could not delete card'
+	String get couldNotDeleteCard => 'Could not delete card';
+
+	/// en: 'Could not find card'
+	String get couldNotFindCard => 'Could not find card';
+
+	/// en: 'Could not update card'
+	String get couldNotUpdateCard => 'Could not update card';
+
+	/// en: 'Could not create card'
+	String get couldNotCreateCard => 'Could not create card';
+
+	/// en: 'Could not open card'
+	String get couldNotOpenCard => 'Could not open card';
+
+	/// en: 'Could not fetch cards'
+	String get couldNotFetchCards => 'Could not fetch cards';
+
+	/// en: 'Unknown database error'
+	String get unknownDatabaseError => 'Unknown database error';
 }
 
 // Path: screen.home.addCard
@@ -382,18 +405,19 @@ extension on Translations {
 			case 'system.share.cards': return 'all cards';
 			case 'shops.fromScratch': return 'from scratch';
 			case 'shops.fromFile': return 'from file';
-			case 'shops.pyaterochka': return 'Pyaterochka';
-			case 'shops.spar': return 'Spar';
-			case 'shops.magnit': return 'Magnit';
-			case 'shops.perekrestok': return 'Perekrestok';
-			case 'shops.dixy': return 'Dixy';
-			case 'shops.krasnoeBeloe': return 'Krasnoe & Beloe';
-			case 'shops.lenta': return 'Lenta';
-			case 'shops.ashan': return 'Auchan';
-			case 'shops.metro': return 'Metro';
-			case 'shops.okey': return 'O\'Key';
-			case 'shops.vkusvill': return 'VkusVill';
-			case 'shops.sportmaster': return 'Sportmaster';
+			case 'errors.localData.databaseIsAlreadyOpen': return 'Database is already open';
+			case 'errors.localData.unableToGetDocumentsDirectory': return 'Unable to get documents directory';
+			case 'errors.localData.databaseIsNotOpen': return 'Database is not open';
+			case 'errors.localData.couldNotDeleteUser': return 'Could not delete user';
+			case 'errors.localData.userAlreadyExists': return 'User already exists';
+			case 'errors.localData.couldNotFindUser': return 'Could not find user';
+			case 'errors.localData.couldNotDeleteCard': return 'Could not delete card';
+			case 'errors.localData.couldNotFindCard': return 'Could not find card';
+			case 'errors.localData.couldNotUpdateCard': return 'Could not update card';
+			case 'errors.localData.couldNotCreateCard': return 'Could not create card';
+			case 'errors.localData.couldNotOpenCard': return 'Could not open card';
+			case 'errors.localData.couldNotFetchCards': return 'Could not fetch cards';
+			case 'errors.localData.unknownDatabaseError': return 'Unknown database error';
 			default: return null;
 		}
 	}

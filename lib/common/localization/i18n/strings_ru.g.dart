@@ -44,6 +44,7 @@ class TranslationsRu extends Translations {
 	@override late final _TranslationsOtherRu other = _TranslationsOtherRu._(_root);
 	@override late final _TranslationsSystemRu system = _TranslationsSystemRu._(_root);
 	@override late final _TranslationsShopsRu shops = _TranslationsShopsRu._(_root);
+	@override late final _TranslationsErrorsRu errors = _TranslationsErrorsRu._(_root);
 }
 
 // Path: screen
@@ -101,18 +102,16 @@ class _TranslationsShopsRu extends TranslationsShopsEn {
 	// Translations
 	@override String get fromScratch => 'с нуля';
 	@override String get fromFile => 'из файла';
-	@override String get pyaterochka => 'Пятёрочка';
-	@override String get spar => 'Спар';
-	@override String get magnit => 'Магнит';
-	@override String get perekrestok => 'Перекрёсток';
-	@override String get dixy => 'Дикси';
-	@override String get krasnoeBeloe => 'Красное & Белое';
-	@override String get lenta => 'Лента';
-	@override String get ashan => 'Ашан';
-	@override String get metro => 'Metro';
-	@override String get okey => 'О’Кей';
-	@override String get vkusvill => 'ВкусВилл';
-	@override String get sportmaster => 'Спортмастер';
+}
+
+// Path: errors
+class _TranslationsErrorsRu extends TranslationsErrorsEn {
+	_TranslationsErrorsRu._(TranslationsRu root) : this._root = root, super.internal(root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsErrorsLocalDataRu localData = _TranslationsErrorsLocalDataRu._(_root);
 }
 
 // Path: screen.home
@@ -185,6 +184,28 @@ class _TranslationsSystemShareRu extends TranslationsSystemShareEn {
 	@override String get all => 'поделиться';
 	@override String get app => 'приложением';
 	@override String get cards => 'картами';
+}
+
+// Path: errors.localData
+class _TranslationsErrorsLocalDataRu extends TranslationsErrorsLocalDataEn {
+	_TranslationsErrorsLocalDataRu._(TranslationsRu root) : this._root = root, super.internal(root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get databaseIsAlreadyOpen => 'База данных уже открыта';
+	@override String get unableToGetDocumentsDirectory => 'Не удается получить папку документов';
+	@override String get databaseIsNotOpen => 'База данных не открыта';
+	@override String get couldNotDeleteUser => 'Не удалось удалить пользователя';
+	@override String get userAlreadyExists => 'Пользователь уже существует';
+	@override String get couldNotFindUser => 'Не удалось найти пользователя';
+	@override String get couldNotDeleteCard => 'Не удалось удалить карту';
+	@override String get couldNotFindCard => 'Не удалось найти карту';
+	@override String get couldNotUpdateCard => 'Не удалось обновить карту';
+	@override String get couldNotCreateCard => 'Не удалось создать карту';
+	@override String get couldNotOpenCard => 'Не удалось открыть карту';
+	@override String get couldNotFetchCards => 'Не удалось загрузить карты';
+	@override String get unknownDatabaseError => 'Неизвестная ошибка базы данных';
 }
 
 // Path: screen.home.addCard
@@ -271,18 +292,19 @@ extension on TranslationsRu {
 			case 'system.share.cards': return 'картами';
 			case 'shops.fromScratch': return 'с нуля';
 			case 'shops.fromFile': return 'из файла';
-			case 'shops.pyaterochka': return 'Пятёрочка';
-			case 'shops.spar': return 'Спар';
-			case 'shops.magnit': return 'Магнит';
-			case 'shops.perekrestok': return 'Перекрёсток';
-			case 'shops.dixy': return 'Дикси';
-			case 'shops.krasnoeBeloe': return 'Красное & Белое';
-			case 'shops.lenta': return 'Лента';
-			case 'shops.ashan': return 'Ашан';
-			case 'shops.metro': return 'Metro';
-			case 'shops.okey': return 'О’Кей';
-			case 'shops.vkusvill': return 'ВкусВилл';
-			case 'shops.sportmaster': return 'Спортмастер';
+			case 'errors.localData.databaseIsAlreadyOpen': return 'База данных уже открыта';
+			case 'errors.localData.unableToGetDocumentsDirectory': return 'Не удается получить папку документов';
+			case 'errors.localData.databaseIsNotOpen': return 'База данных не открыта';
+			case 'errors.localData.couldNotDeleteUser': return 'Не удалось удалить пользователя';
+			case 'errors.localData.userAlreadyExists': return 'Пользователь уже существует';
+			case 'errors.localData.couldNotFindUser': return 'Не удалось найти пользователя';
+			case 'errors.localData.couldNotDeleteCard': return 'Не удалось удалить карту';
+			case 'errors.localData.couldNotFindCard': return 'Не удалось найти карту';
+			case 'errors.localData.couldNotUpdateCard': return 'Не удалось обновить карту';
+			case 'errors.localData.couldNotCreateCard': return 'Не удалось создать карту';
+			case 'errors.localData.couldNotOpenCard': return 'Не удалось открыть карту';
+			case 'errors.localData.couldNotFetchCards': return 'Не удалось загрузить карты';
+			case 'errors.localData.unknownDatabaseError': return 'Неизвестная ошибка базы данных';
 			default: return null;
 		}
 	}

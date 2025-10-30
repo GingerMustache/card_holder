@@ -56,4 +56,20 @@ system:
 shops:
   fromScratch: с нуля
   fromFile: из файла
+
+errors:
+  localData:
+    databaseIsAlreadyOpen: База данных уже открыта
+    unableToGetDocumentsDirectory: Не удается получить папку документов
+    databaseIsNotOpen: База данных не открыта
+    couldNotDeleteUser: Не удалось удалить пользователя
+    userAlreadyExists: Пользователь уже существует
+    couldNotFindUser: Не удалось найти пользователя
+    couldNotDeleteCard: Не удалось удалить карту
+    couldNotFindCard: Не удалось найти карту
+    couldNotUpdateCard: Не удалось обновить карту
+    couldNotCreateCard: Не удалось создать карту
+    couldNotOpenCard: Не удалось открыть карту
+    couldNotFetchCards: Не удалось загрузить карты
+    unknownDatabaseError: Неизвестная ошибка базы данных
   

@@ -1,36 +1,31 @@
+import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/services/local_crud/exceptions/crud_exceptions.dart';
 
-/// Class responsible for resolving default error messages for LocalDataBaseException instances
 class LocalDataBaseErrorMessageResolver {
-  /// Map of exception types to their default error messages
-  static const Map<Type, String> _defaultMessages = {
-    DatabaseIsAlreadyOpen: 'Database is already open',
-    UnableToGetDocumentsDirectory: 'Unable to get documents directory',
-    DatabaseIsNotOpen: 'Database is not open',
-    CouldNotDeleteUser: 'Could not delete user',
-    UserAlreadyExists: 'User already exists',
-    CouldNotFindUser: 'Could not find user',
-    CouldNotDeleteCard: 'Could not delete card',
-    CouldNotFindCard: 'Could not find card',
-    CouldNotUpdateCard: 'Could not update card',
-    CouldNotCreateCard: 'Could not create card',
-    CouldNotOpenCard: 'Could not open card',
-    CouldNotFetchCards: 'Could not fetch cards',
+  static final Map<Type, String Function()> _defaultMessages = {
+    DatabaseIsAlreadyOpen: () => t.errors.localData.databaseIsAlreadyOpen,
+    UnableToGetDocumentsDirectory:
+        () => t.errors.localData.unableToGetDocumentsDirectory,
+    DatabaseIsNotOpen: () => t.errors.localData.databaseIsNotOpen,
+    CouldNotDeleteUser: () => t.errors.localData.couldNotDeleteUser,
+    UserAlreadyExists: () => t.errors.localData.userAlreadyExists,
+    CouldNotFindUser: () => t.errors.localData.couldNotFindUser,
+    CouldNotDeleteCard: () => t.errors.localData.couldNotDeleteCard,
+    CouldNotFindCard: () => t.errors.localData.couldNotFindCard,
+    CouldNotUpdateCard: () => t.errors.localData.couldNotUpdateCard,
+    CouldNotCreateCard: () => t.errors.localData.couldNotCreateCard,
+    CouldNotOpenCard: () => t.errors.localData.couldNotOpenCard,
+    CouldNotFetchCards: () => t.errors.localData.couldNotFetchCards,
   };
 
-  /// Resolves the appropriate error message for a LocalDataBaseException
-  /// If the exception has an empty message, returns the default message for its type
-  /// Otherwise, returns the original message
   static String resolveMessage(LocalDataBaseException exception) {
     if (exception.message.isEmpty) {
-      return _defaultMessages[exception.runtimeType] ??
-          'Unknown database error';
+      final messageGetter = _defaultMessages[exception.runtimeType];
+      return messageGetter?.call() ?? t.errors.localData.unknownDatabaseError;
     }
     return exception.message;
   }
 
-  /// Creates a new exception instance with the resolved message
-  /// This ensures that exceptions always have meaningful messages
   static LocalDataBaseException withResolvedMessage(
     LocalDataBaseException exception,
   ) {
