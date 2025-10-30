@@ -6,7 +6,6 @@ import 'package:dartz/dartz.dart';
 mixin ErrorHandlerMixin {
   Future<Either<Exception, T>> safeCall<T>(Future<T> Function() action) async {
     try {
-      // throw Exception('exception');
       return Right(await action());
     } on LocalDataBaseException catch (e) {
       final resolvedError =

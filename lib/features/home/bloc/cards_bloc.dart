@@ -58,6 +58,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
       (Exception e) {
         if (e is LocalDataBaseException) {
           emit(state.copyWith(cards: state.cards, isLoading: false, error: e));
+          _showSnackBar(e.message, useDelay: true);
         }
       },
 
@@ -77,6 +78,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
       (Exception e) {
         if (e is LocalDataBaseException) {
           emit(state.copyWith(cards: state.cards, isLoading: false, error: e));
+          _showSnackBar(e.message);
           event.completer.completeError(e);
         }
       },
@@ -105,7 +107,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
       (Exception e) {
         if (e is LocalDataBaseException) {
           emit(state.copyWith(cards: state.cards, isLoading: false));
-          AnimatedSnackBar.show(message: e.message);
+          _showSnackBar(e.message);
           event.completer?.completeError(e);
         }
       },
@@ -125,6 +127,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
       (Exception e) {
         if (e is LocalDataBaseException) {
           emit(state.copyWith(cards: state.cards, isLoading: false));
+          _showSnackBar(e.message);
           event.completer?.completeError(e);
         }
       },
@@ -148,6 +151,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
       (Exception e) {
         if (e is FilePickException) {
           emit(state.copyWith(cards: state.cards, isLoading: false));
+          // _showSnackBar(e.message, );
           event.completer.completeError(e);
         }
       },
@@ -211,6 +215,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
       (Exception e) {
         if (e is LocalDataBaseException) {
           emit(state.copyWith(cards: state.cards, isLoading: false));
+          _showSnackBar(e.message);
           event.completer?.completeError(e);
         }
       },
@@ -380,4 +385,15 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
       },
     );
   }
+
+  Future<void> _showSnackBar(String message, {bool useDelay = false}) async =>
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (useDelay) {
+          Future.delayed(const Duration(milliseconds: 300), () {
+            AnimatedSnackBar.show(message: message);
+          });
+        } else {
+          AnimatedSnackBar.show(message: message);
+        }
+      });
 }
