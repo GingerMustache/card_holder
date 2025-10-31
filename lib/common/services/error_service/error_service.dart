@@ -7,7 +7,7 @@ import 'package:talker_flutter/talker_flutter.dart';
 
 class _SentryConfig {
   static FutureOr<void> options(SentryFlutterOptions options) {
-    options.dsn = '';
+    options.dsn = dotenv.env['SENTRY_DSN'];
     options.tracesSampleRate = 0.2; // Performance monitoring
     options.profilesSampleRate = 0.2; // Optional profiling
     options.debug = false;
