@@ -29,10 +29,8 @@ class TemplateCardSheet extends StatefulWidget {
       context: context,
       useRootNavigator: true,
       builder: (BuildContext context) {
-        return BlocProvider(
-          create:
-              (context) =>
-                  CreateCardBloc()..add(CreateCardInitEvent(_shopTemplates)),
+        return BlocProvider.value(
+          value: CreateCardBloc()..add(CreateCardInitEvent(_shopTemplates)),
           child: TemplateCardSheet(),
         );
       },

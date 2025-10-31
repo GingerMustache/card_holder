@@ -60,7 +60,7 @@ class MainErrorService {
     await SentryFlutter.init(
       _SentryConfig.options,
       appRunner: () async {
-        body;
+        body();
         (error, stackTrace) => _reportError(error, stackTrace);
       },
     );

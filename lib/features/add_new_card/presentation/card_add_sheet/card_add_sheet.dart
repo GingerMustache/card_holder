@@ -109,128 +109,113 @@ class _AddCardSheetState extends State<AddCardSheet> {
             ),
           ],
         ),
-        Builder(
-          builder: (context) {
-            final newCard = createBloc.state;
+        Expanded(
+          child: ColoredBox(
+            color: AppColors.mainWhite,
+            child: Padding(
+              padding: mainHorizontalPadding,
+              child: Stack(
+                children: [
+                  Form(
+                    key: _formKey,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          3.h,
+                          Center(
+                            child: Text(
+                              t.screen.home.addCard.barcodeScan,
+                              style: context.textStyles.labelSmall?.copyWith(
+                                fontSize: 10,
+                              ),
+                            ),
+                          ),
+                          Divider(color: AppColors.subGrey.withAlpha(50)),
+                          10.h,
+                          Text(
+                            t.screen.home.addCard.detectedCode,
+                            style: context.textStyles.labelSmall,
+                          ),
+                          5.h,
+                          _EnteredCodeWidget(),
+                          FrameTextField(
+                            autovalidateMode: null,
+                            validator: (val) {
+                              return createBloc.state.code.isNotEmpty ||
+                                      createBloc.state.detectedCode.isNotEmpty
+                                  ? null
+                                  : t.screen.home.addCard.fieldCannotBeEmpty;
+                            },
 
-            return Expanded(
-              child: ColoredBox(
-                color: AppColors.mainWhite,
-                child: Padding(
-                  padding: mainHorizontalPadding,
-                  child: Stack(
-                    children: [
-                      Form(
-                        key: _formKey,
-                        child: SingleChildScrollView(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              3.h,
-                              Center(
-                                child: Text(
-                                  t.screen.home.addCard.barcodeScan,
-                                  style: context.textStyles.labelSmall
-                                      ?.copyWith(fontSize: 10),
+                            numericKeyboard: true,
+                            onChanged:
+                                (v) => createBloc.add(
+                                  CreateCardChangeCodeEvent(v),
                                 ),
-                              ),
-                              Divider(color: AppColors.subGrey.withAlpha(50)),
-                              10.h,
-                              Text(
-                                t.screen.home.addCard.detectedCode,
-                                style: context.textStyles.labelSmall,
-                              ),
-                              5.h,
-                              _EnteredCodeWidget(),
-                              FrameTextField(
-                                autovalidateMode: null,
-                                validator: (val) {
-                                  return newCard.code.isNotEmpty ||
-                                          createBloc
-                                              .state
-                                              .detectedCode
-                                              .isNotEmpty
-                                      ? null
-                                      : t
-                                          .screen
-                                          .home
-                                          .addCard
-                                          .fieldCannotBeEmpty;
-                                },
-
-                                numericKeyboard: true,
-                                onChanged:
-                                    (v) => createBloc.add(
-                                      CreateCardChangeCodeEvent(v),
-                                    ),
-                                hintText: t.screen.home.addCard.code,
-                                labelText: t.screen.home.addCard.manualCode,
-                              ),
-                              FrameTextField(
-                                initText:
-                                    newCard.name.isNotEmpty &&
-                                            newCard.urlPath.isNotEmpty
-                                        ? newCard.name
-                                        : null,
-                                validator:
-                                    context
-                                        .read<TextValidatorService>()
-                                        .emptyCheck,
-                                onChanged:
-                                    (v) => createBloc.add(
-                                      CreateCardChangeNameEvent(v),
-                                    ),
-                                hintText: t.screen.home.addCard.name,
-                                labelText: t.screen.home.addCard.cardName,
-                              ),
-                              9.h,
-                              DefaultButton(
-                                text: t.screen.home.addCard.add,
-                                onTap: onAdd,
-                              ),
-                            ],
+                            hintText: t.screen.home.addCard.code,
+                            labelText: t.screen.home.addCard.manualCode,
                           ),
-                        ),
-                      ),
-                      if (newCard.urlPath.isNotEmpty)
-                        Align(
-                          alignment: const Alignment(1, -0.9),
-                          child: LogoSvg(
-                            logoSize: newCard.logoSize,
-                            urlPath: newCard.urlPath,
-                            cardName: newCard.name,
+                          FrameTextField(
+                            initText:
+                                createBloc.state.name.isNotEmpty &&
+                                        createBloc.state.urlPath.isNotEmpty
+                                    ? createBloc.state.name
+                                    : null,
+                            validator:
+                                context.read<TextValidatorService>().emptyCheck,
+                            onChanged:
+                                (v) => createBloc.add(
+                                  CreateCardChangeNameEvent(v),
+                                ),
+                            hintText: t.screen.home.addCard.name,
+                            labelText: t.screen.home.addCard.cardName,
                           ),
-                        ),
-                      if (newCard.urlPath.isEmpty)
-                        BlocBuilder<CreateCardBloc, CreateCardState>(
-                          buildWhen:
-                              (previous, current) =>
-                                  previous.color != current.color,
-                          builder: (context, state) {
-                            return ColorMarkWidget(
-                              initColor: state.color,
-                              onTap: onTapColorWidget,
-                            );
-                          },
-                        ),
-                      BlocBuilder<CreateCardBloc, CreateCardState>(
-                        buildWhen:
-                            (prev, cur) =>
-                                prev.isMarkTapped != cur.isMarkTapped,
-                        builder: (context, state) {
-                          return ColorWheelWidget(
-                            initialColor: state.color,
-                            isShow: state.isMarkTapped,
-                            onChanged: onChangeColor,
-                          );
-                        },
+                          9.h,
+                          DefaultButton(
+                            text: t.screen.home.addCard.add,
+                            onTap: onAdd,
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
+                  if (createBloc.state.urlPath.isNotEmpty)
+                    Align(
+                      alignment: const Alignment(1, -0.9),
+                      child: LogoSvg(
+                        logoSize: createBloc.state.logoSize,
+                        urlPath: createBloc.state.urlPath,
+                        cardName: createBloc.state.name,
+                      ),
+                    ),
+                  if (createBloc.state.urlPath.isEmpty)
+                    BlocBuilder<CreateCardBloc, CreateCardState>(
+                      buildWhen:
+                          (previous, current) =>
+                              previous.color != current.color,
+                      builder: (context, state) {
+                        return ColorMarkWidget(
+                          initColor: state.color,
+                          onTap: onTapColorWidget,
+                        );
+                      },
+                    ),
+                  BlocBuilder<CreateCardBloc, CreateCardState>(
+                    buildWhen:
+                        (prev, cur) => prev.isMarkTapped != cur.isMarkTapped,
+                    builder: (context, state) {
+                      return ColorWheelWidget(
+                        initialColor: state.color,
+                        isShow: state.isMarkTapped,
+                        onChanged: onChangeColor,
+                      );
+                    },
+                  ),
+                ],
               ),
-            );
-          },
+            ),
+          ),
         ),
       ],
     );
