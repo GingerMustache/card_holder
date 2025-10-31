@@ -32,7 +32,12 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+
+# Environment files
 .env
+.env.local
+.env.production
+.env.development
 
 # Symbolication related
 app.*.symbols
