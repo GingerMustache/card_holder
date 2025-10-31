@@ -66,6 +66,7 @@ dependencies:
   flutter_animate: ^4.5.2
   file_picker: ^10.3.3
   multi_mode_animated_snack: ^0.2.1
+  sentry_flutter: ^9.7.0
   
 
 dev_dependencies:

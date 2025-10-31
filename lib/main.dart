@@ -14,8 +14,6 @@ void main() async {
   MainErrorService.instance.initialize();
 
   MainErrorService.instance.runGuarded(() async {
-    WidgetsFlutterBinding.ensureInitialized();
-
     final DiContainerProvider diContainer = DiContainer();
     final flutterI18nDelegate = await LocaleClass.initLocaleDelegate();
     final app = diContainer.makeApp(flutterI18nDelegate);
