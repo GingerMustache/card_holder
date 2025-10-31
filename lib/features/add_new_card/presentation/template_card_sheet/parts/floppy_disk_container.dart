@@ -1,9 +1,7 @@
 part of '../template_card_sheet.dart';
 
 class FloppyDiskContainer extends StatelessWidget {
-  final double size;
-
-  const FloppyDiskContainer({super.key, this.size = 200});
+  const FloppyDiskContainer({super.key});
 
   Future<void> onAddFile(BuildContext context) async {
     final completer = Completer<DataBaseCard>();
@@ -14,40 +12,44 @@ class FloppyDiskContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: () => onAddFile(context),
-      child: SizedBox(
-        width: size,
-        height: size,
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            color: Colors.blue[700],
-            borderRadius: BorderRadius.circular(
-              _FloppyDiskConstants.borderRadiusRatio * size,
-            ),
-            border: Border.all(
-              color: Colors.black,
-              width: _FloppyDiskConstants.borderWidth,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final size = constraints.maxWidth;
+        return TextButton(
+          style: TextButton.styleFrom(
+            padding: EdgeInsets.zero,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
             ),
           ),
-          child: Stack(
-            children: [
-              _GrayTopSection(size: size),
-              _SliderOutline(size: size),
-              _RightBlueSquare(size: size),
-              _WhiteLabelArea(size: size),
-              _BottomLeftSmallSquare(size: size),
-              _BottomRightSmallSquare(size: size),
-            ],
+          onPressed: () => onAddFile(context),
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              color: Colors.blue[700],
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                color: Colors.black,
+                width: _FloppyDiskConstants.borderWidth,
+              ),
+            ),
+            child: Stack(
+              children: [
+                _GrayTopSection(size: size),
+                _SliderOutline(size: size),
+                _RightBlueSquare(size: size),
+                _WhiteLabelArea(size: size),
+                _BottomLeftSmallSquare(size: size),
+                _BottomRightSmallSquare(size: size),
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
 
 class _FloppyDiskConstants {
-  static const double borderRadiusRatio = 0.05;
   static const double borderWidth = 2;
   static const double grayTopSectionHeightRatio = 0.25;
   static const double grayTopSectionLeftRatio = 0.13;
@@ -64,7 +66,7 @@ class _FloppyDiskConstants {
   static const double whiteLabelAreaHeightRatio = 0.22;
   static const double whiteLabelLineVerticalMarginRatio = 0.01;
   static const double whiteLabelLineHeight = 2;
-  static const double whiteLabelFontSize = 11;
+  static const double whiteLabelFontSizeRatio = 0.055;
   static const double bottomLeftRightSmallSquareBottomRatio = 0.02;
   static const double bottomLeftRightSmallSquareLeftRightRatio = 0.05;
   static const double bottomLeftRightSmallSquareWidthHeightRatio = 0.05;
@@ -175,7 +177,7 @@ class _WhiteLabelArea extends StatelessWidget {
             Text(
               t.shops.fromFile,
               style: context.textStyles.titleSmall?.copyWith(
-                fontSize: _FloppyDiskConstants.whiteLabelFontSize,
+                fontSize: _FloppyDiskConstants.whiteLabelFontSizeRatio * size,
               ),
             ),
             ...List.generate(

@@ -114,7 +114,6 @@ class _CardItem extends StatelessWidget {
           decoration: BoxDecoration(
             color: template.cardColor,
             borderRadius: BorderRadius.circular(8),
-            // Adjust or remove mainBoxDecoration if needed
           ),
           child: TextButton(
             onPressed: () {
