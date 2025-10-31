@@ -9,6 +9,7 @@ import 'package:card_holder/common/presentation/widgets/buttons/default_button.d
 import 'package:card_holder/common/presentation/widgets/color_mark/color_mark_widget.dart';
 import 'package:card_holder/common/presentation/widgets/color_wheel/color_wheel_widget.dart';
 import 'package:card_holder/common/presentation/widgets/containers/frame_container.dart';
+import 'package:card_holder/common/presentation/widgets/logo_svg/logo_svg.dart';
 import 'package:card_holder/common/presentation/widgets/skeleton_wrapper/skeleton_wrapper.dart';
 import 'package:card_holder/common/presentation/widgets/text_fields/frame_text_field.dart';
 import 'package:card_holder/common/services/local_crud/local_card_service.dart';
@@ -108,102 +109,128 @@ class _AddCardSheetState extends State<AddCardSheet> {
             ),
           ],
         ),
-        Expanded(
-          child: ColoredBox(
-            color: AppColors.mainWhite,
-            child: Padding(
-              padding: mainHorizontalPadding,
-              child: Stack(
-                children: [
-                  Form(
-                    key: _formKey,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          3.h,
-                          Center(
-                            child: Text(
-                              t.screen.home.addCard.barcodeScan,
-                              style: context.textStyles.labelSmall?.copyWith(
-                                fontSize: 10,
-                              ),
-                            ),
-                          ),
-                          Divider(color: AppColors.subGrey.withAlpha(50)),
-                          10.h,
-                          Text(
-                            t.screen.home.addCard.detectedCode,
-                            style: context.textStyles.labelSmall,
-                          ),
-                          5.h,
-                          _EnteredCodeWidget(),
-                          FrameTextField(
-                            autovalidateMode: null,
-                            validator: (val) {
-                              return createBloc.state.code.isNotEmpty ||
-                                      createBloc.state.detectedCode.isNotEmpty
-                                  ? null
-                                  : t.screen.home.addCard.fieldCannotBeEmpty;
-                            },
+        Builder(
+          builder: (context) {
+            final newCard = createBloc.state;
 
-                            numericKeyboard: true,
-                            onChanged:
-                                (v) => createBloc.add(
-                                  CreateCardChangeCodeEvent(v),
+            return Expanded(
+              child: ColoredBox(
+                color: AppColors.mainWhite,
+                child: Padding(
+                  padding: mainHorizontalPadding,
+                  child: Stack(
+                    children: [
+                      Form(
+                        key: _formKey,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              3.h,
+                              Center(
+                                child: Text(
+                                  t.screen.home.addCard.barcodeScan,
+                                  style: context.textStyles.labelSmall
+                                      ?.copyWith(fontSize: 10),
                                 ),
-                            hintText: t.screen.home.addCard.code,
-                            labelText: t.screen.home.addCard.manualCode,
+                              ),
+                              Divider(color: AppColors.subGrey.withAlpha(50)),
+                              10.h,
+                              Text(
+                                t.screen.home.addCard.detectedCode,
+                                style: context.textStyles.labelSmall,
+                              ),
+                              5.h,
+                              _EnteredCodeWidget(),
+                              FrameTextField(
+                                autovalidateMode: null,
+                                validator: (val) {
+                                  return newCard.code.isNotEmpty ||
+                                          createBloc
+                                              .state
+                                              .detectedCode
+                                              .isNotEmpty
+                                      ? null
+                                      : t
+                                          .screen
+                                          .home
+                                          .addCard
+                                          .fieldCannotBeEmpty;
+                                },
+
+                                numericKeyboard: true,
+                                onChanged:
+                                    (v) => createBloc.add(
+                                      CreateCardChangeCodeEvent(v),
+                                    ),
+                                hintText: t.screen.home.addCard.code,
+                                labelText: t.screen.home.addCard.manualCode,
+                              ),
+                              FrameTextField(
+                                initText:
+                                    newCard.name.isNotEmpty &&
+                                            newCard.urlPath.isNotEmpty
+                                        ? newCard.name
+                                        : null,
+                                validator:
+                                    context
+                                        .read<TextValidatorService>()
+                                        .emptyCheck,
+                                onChanged:
+                                    (v) => createBloc.add(
+                                      CreateCardChangeNameEvent(v),
+                                    ),
+                                hintText: t.screen.home.addCard.name,
+                                labelText: t.screen.home.addCard.cardName,
+                              ),
+                              9.h,
+                              DefaultButton(
+                                text: t.screen.home.addCard.add,
+                                onTap: onAdd,
+                              ),
+                            ],
                           ),
-                          FrameTextField(
-                            initText:
-                                createBloc.state.name.isNotEmpty &&
-                                        createBloc.state.urlPath.isNotEmpty
-                                    ? createBloc.state.name
-                                    : null,
-                            validator:
-                                context.read<TextValidatorService>().emptyCheck,
-                            onChanged:
-                                (v) => createBloc.add(
-                                  CreateCardChangeNameEvent(v),
-                                ),
-                            hintText: t.screen.home.addCard.name,
-                            labelText: t.screen.home.addCard.cardName,
-                          ),
-                          9.h,
-                          DefaultButton(
-                            text: t.screen.home.addCard.add,
-                            onTap: onAdd,
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
+                      if (newCard.urlPath.isNotEmpty)
+                        Align(
+                          alignment: const Alignment(1, -0.9),
+                          child: LogoSvg(
+                            logoSize: newCard.logoSize,
+                            urlPath: newCard.urlPath,
+                            cardName: newCard.name,
+                          ),
+                        ),
+                      if (newCard.urlPath.isEmpty)
+                        BlocBuilder<CreateCardBloc, CreateCardState>(
+                          buildWhen:
+                              (previous, current) =>
+                                  previous.color != current.color,
+                          builder: (context, state) {
+                            return ColorMarkWidget(
+                              initColor: state.color,
+                              onTap: onTapColorWidget,
+                            );
+                          },
+                        ),
+                      BlocBuilder<CreateCardBloc, CreateCardState>(
+                        buildWhen:
+                            (prev, cur) =>
+                                prev.isMarkTapped != cur.isMarkTapped,
+                        builder: (context, state) {
+                          return ColorWheelWidget(
+                            initialColor: state.color,
+                            isShow: state.isMarkTapped,
+                            onChanged: onChangeColor,
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                  BlocBuilder<CreateCardBloc, CreateCardState>(
-                    buildWhen:
-                        (previous, current) => previous.color != current.color,
-                    builder: (context, state) {
-                      return ColorMarkWidget(
-                        initColor: state.color,
-                        onTap: onTapColorWidget,
-                      );
-                    },
-                  ),
-                  BlocBuilder<CreateCardBloc, CreateCardState>(
-                    buildWhen:
-                        (prev, cur) => prev.isMarkTapped != cur.isMarkTapped,
-                    builder: (context, state) {
-                      return ColorWheelWidget(
-                        initialColor: state.color,
-                        isShow: state.isMarkTapped,
-                        onChanged: onChangeColor,
-                      );
-                    },
-                  ),
-                ],
+                ),
               ),
-            ),
-          ),
+            );
+          },
         ),
       ],
     );

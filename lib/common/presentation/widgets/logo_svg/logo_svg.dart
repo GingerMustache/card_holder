@@ -4,33 +4,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class LogoSvg extends StatelessWidget {
-  const LogoSvg({super.key, required this.card});
+  const LogoSvg({super.key, this.urlPath, this.cardName, this.logoSize = 30});
 
-  final DataBaseCard? card;
+  final String? urlPath;
+  final String? cardName;
+  final double? logoSize;
 
   @override
   Widget build(BuildContext context) {
     return SvgPicture.asset(
-      card?.urlPath ?? '',
-      height: card!.logoSize,
-      width: card!.logoSize,
+      urlPath ?? '',
+      height: logoSize,
+      width: logoSize,
       fit: BoxFit.contain,
-      placeholderBuilder: (context) => _LogoText(card: card),
+      placeholderBuilder: (context) => _LogoText(cardName),
     );
   }
 }
 
 class _LogoText extends StatelessWidget {
-  const _LogoText({required this.card});
+  const _LogoText(this.cardName);
 
-  final DataBaseCard? card;
+  final String? cardName;
 
   @override
   Widget build(BuildContext context) {
     return Text(
       maxLines: 4,
       overflow: TextOverflow.ellipsis,
-      card?.name ?? '',
+      cardName ?? '',
       textAlign: TextAlign.center,
       style: context.textStyles.bodySmall,
     );
