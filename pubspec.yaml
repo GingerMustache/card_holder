@@ -51,7 +51,6 @@ dependencies:
   flutter_i18n: ^0.36.3
   flutter_flip_card: ^0.0.6
   equatable: ^2.0.7
-  meta: ^1.16.0
   path: ^1.9.1
   path_provider: ^2.1.5
   sqflite: ^2.4.2
