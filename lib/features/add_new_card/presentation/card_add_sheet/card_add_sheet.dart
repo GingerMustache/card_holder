@@ -87,7 +87,6 @@ class _AddCardSheetState extends State<AddCardSheet> {
   @override
   Widget build(BuildContext context) {
     return SkeletonWrapper(
-      height: 640,
       children: [
         Stack(
           children: [

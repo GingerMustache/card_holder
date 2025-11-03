@@ -54,7 +54,6 @@ class _TemplateCardSheetState extends State<TemplateCardSheet> {
   @override
   Widget build(BuildContext context) {
     return SkeletonWrapper(
-      height: 640,
       children: [
         Container(
           decoration: roundUpCornersDecoration,

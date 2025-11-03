@@ -104,7 +104,6 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
   @override
   Widget build(BuildContext context) {
     return SkeletonWrapper(
-      height: 655,
       children: [
         Expanded(
           child: Container(
