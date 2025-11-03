@@ -121,7 +121,7 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
                       boxDecoration: roundUpCornersDecoration,
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: mainHorizontalPadding,
                       child: Column(
                         children: [
                           Divider(color: AppColors.subGrey.withAlpha(50)),
