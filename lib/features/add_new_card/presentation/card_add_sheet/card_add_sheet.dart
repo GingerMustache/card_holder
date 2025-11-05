@@ -91,7 +91,7 @@ class _AddCardSheetState extends State<AddCardSheet> {
         Stack(
           children: [
             AspectRatio(
-              aspectRatio: 1.7,
+              aspectRatio: 1.52,
               child: ClipRRect(
                 borderRadius: borderRadius,
                 child: MobileScanner(
