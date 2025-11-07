@@ -6,6 +6,7 @@ class _Fab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      key: const Key('home_add_button'),
       width: 58,
       height: 55,
 

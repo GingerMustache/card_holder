@@ -139,6 +139,7 @@ class _AddCardSheetState extends State<AddCardSheet> {
                           5.h,
                           _EnteredCodeWidget(),
                           FrameTextField(
+                            testKey: const Key('card_code_field'),
                             autovalidateMode: null,
                             validator: (val) {
                               return createBloc.state.code.isNotEmpty ||
@@ -156,6 +157,7 @@ class _AddCardSheetState extends State<AddCardSheet> {
                             labelText: t.screen.home.addCard.manualCode,
                           ),
                           FrameTextField(
+                            testKey: const Key('card_name_field'),
                             initText:
                                 createBloc.state.name.isNotEmpty &&
                                         createBloc.state.urlPath.isNotEmpty
@@ -172,6 +174,7 @@ class _AddCardSheetState extends State<AddCardSheet> {
                           ),
                           9.h,
                           DefaultButton(
+                            key: const Key('create_card_button'),
                             text: t.screen.home.addCard.add,
                             onTap: onAdd,
                           ),

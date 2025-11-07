@@ -108,6 +108,7 @@ class _CardItem extends StatelessWidget {
     return template.funnyStyle
         ? FloppyDiskContainer()
         : Container(
+          key: Key('template_${template.name}'),
           decoration: BoxDecoration(
             color: template.cardColor,
             borderRadius: BorderRadius.circular(8),

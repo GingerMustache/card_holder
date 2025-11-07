@@ -13,6 +13,7 @@ class FrameTextField extends StatelessWidget {
     this.autovalidateMode = AutovalidateMode.onUserInteraction,
     this.numericKeyboard = false,
     this.initText,
+    this.testKey,
   });
 
   final String hintText;
@@ -22,6 +23,7 @@ class FrameTextField extends StatelessWidget {
   final bool numericKeyboard;
   final String? Function(String?)? validator;
   final AutovalidateMode? autovalidateMode;
+  final Key? testKey;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,7 @@ class FrameTextField extends StatelessWidget {
         Text(labelText, style: context.textStyles.labelSmall),
         5.h,
         TextFormField(
+          key: testKey,
           initialValue: initText,
           validator: validator,
           keyboardType:
