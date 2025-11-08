@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 extension SpaceX on num {
   SizedBox get h => SizedBox(height: toDouble());
@@ -39,4 +40,17 @@ extension EmailValidator on String {
 extension OnTapExtension on Widget {
   Widget onTap(VoidCallback onTap) =>
       InkWell(splashFactory: null, onTap: onTap, child: this);
+}
+
+extension NumberFormatterExtension on String {
+  String get formatWithSpaces {
+    final onlyNumbers = replaceAll(RegExp(r'[^\d]'), '');
+    if (onlyNumbers.isEmpty) return '';
+
+    final formatter = NumberFormat('#,###', 'en');
+    final formattedCode = formatter
+        .format(int.tryParse(onlyNumbers) ?? 0)
+        .replaceAll(',', ' ');
+    return formattedCode;
+  }
 }

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:bloc/bloc.dart';
+import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:card_holder/common/mixins/event_transformer_mixin.dart';
 import 'package:card_holder/features/add_new_card/presentation/template_card_sheet/template_card_sheet.dart';
 import 'package:equatable/equatable.dart';
@@ -57,12 +58,9 @@ class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
     if (onlyNumbers.isEmpty) {
       emit(state.copyWith(code: ''));
     } else {
-      final formatter = NumberFormat('#,###', 'en');
-      final formattedCode = formatter
-          .format(int.tryParse(onlyNumbers))
-          .replaceAll(',', ' ');
-
-      emit(state.copyWith(code: formattedCode, isMarkTapped: false));
+      emit(
+        state.copyWith(code: onlyNumbers.formatWithSpaces, isMarkTapped: false),
+      );
     }
   }
 
@@ -110,13 +108,11 @@ class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
     if (barcodes.barcodes.isNotEmpty &&
         barcodes.barcodes.first.rawValue != null) {
       cameraControllerSubscription.pause();
-      final String detectedCode = barcodes.barcodes.first.rawValue!;
-      final formatter = NumberFormat('#,###', 'en');
-      final formattedCode = formatter
-          .format(int.tryParse(detectedCode))
-          .replaceAll(',', ' ');
 
-      emit(state.copyWith(detectedCode: formattedCode, code: detectedCode));
+      final String detectedCode =
+          barcodes.barcodes.first.rawValue!.formatWithSpaces;
+
+      emit(state.copyWith(detectedCode: detectedCode, code: detectedCode));
     }
   }
 

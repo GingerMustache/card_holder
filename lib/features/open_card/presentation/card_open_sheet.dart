@@ -22,6 +22,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 
 part 'parts/choose_share_sheet.dart';
 part 'parts/show_barcode/parts/brightness_switcher.dart';
@@ -140,7 +141,7 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
                             numericKeyboard: true,
                             onChanged:
                                 (v) => openBloc.add(OpenCardChangeCodeEvent(v)),
-                            hintText: widget.curCard.code,
+                            hintText: widget.curCard.code.formatWithSpaces,
                             labelText: t.screen.home.addCard.manualCode,
                           ),
                           FrameTextField(

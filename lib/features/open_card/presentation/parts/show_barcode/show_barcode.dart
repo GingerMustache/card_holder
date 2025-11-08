@@ -34,15 +34,22 @@ class _ShowBarcode extends StatelessWidget {
                 child: Center(
                   child: BlocBuilder<CardsBloc, CardsState>(
                     builder: (context, state) {
-                      return RepaintBoundary(
-                        key: barcodeKey,
-                        child: BarcodeWidget(
-                          barcode: Barcode.code128(),
-                          padding: EdgeInsets.symmetric(horizontal: 12),
-                          width: double.infinity,
-                          height: 200,
-                          data: state.currentCard?.code ?? '',
-                        ),
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          RepaintBoundary(
+                            key: barcodeKey,
+                            child: BarcodeWidget(
+                              drawText: false,
+                              barcode: Barcode.code128(),
+                              padding: EdgeInsets.symmetric(horizontal: 12),
+                              width: double.infinity,
+                              height: 200,
+                              data: state.currentCard?.code ?? '',
+                            ),
+                          ),
+                          Text(state.currentCard?.code.formatWithSpaces ?? ''),
+                        ],
                       );
                     },
                   ),
