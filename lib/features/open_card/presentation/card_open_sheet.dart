@@ -82,14 +82,23 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
 
   void onEdit(BuildContext context) {
     final completer = Completer<DataBaseCard>();
+    final cardsBloc = context.read<CardsBloc>();
 
-    context.read<CardsBloc>().add(
+    final currentCard = cardsBloc.state.currentCard;
+    final changedCard = openBloc.state;
+
+    if (currentCard?.name == changedCard.name ||
+        currentCard?.code == changedCard.code) {
+      context.pop();
+      return;
+    }
+    cardsBloc.add(
       CardsUpdateCardEvent(
-        logoSize: openBloc.state.logoSize,
-        color: openBloc.state.color,
-        code: openBloc.state.code,
-        name: openBloc.state.name,
-        urlPath: openBloc.state.urlPath,
+        logoSize: changedCard.logoSize,
+        color: changedCard.color,
+        code: changedCard.code,
+        name: changedCard.name,
+        urlPath: changedCard.urlPath,
         completer: completer,
       ),
     );

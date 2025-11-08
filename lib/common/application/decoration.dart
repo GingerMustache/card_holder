@@ -15,7 +15,7 @@ final BoxDecoration fabDecor = BoxDecoration(
   borderRadius: BorderRadius.all(Radius.elliptical(8, 8)),
   boxShadow: [
     BoxShadow(
-      color: AppColors.darkGrey.withValues(alpha: 0.12),
+      color: AppColors.darkGrey.withValues(alpha: 0.3),
       spreadRadius: 1,
       blurRadius: 2,
       offset: const Offset(0, 1),
