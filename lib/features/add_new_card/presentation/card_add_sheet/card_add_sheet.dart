@@ -238,9 +238,18 @@ class _AddCardSheetState extends State<AddCardSheet> {
       },
       builder: (context, state) {
         if (createBloc.cameraControllerSubscription.isPaused) {
-          return Text(
-            t.screen.home.addCard.tapToContinue,
-            style: const TextStyle(color: Colors.black),
+          return Container(
+            decoration: roundUpCornersDecoration.copyWith(
+              color: AppColors.subGrey.withValues(alpha: 0.8),
+            ),
+
+            child: Center(
+              child: Text(
+                textAlign: TextAlign.center,
+                t.screen.home.addCard.tapToContinue,
+                style: const TextStyle(color: Colors.black, fontSize: 30),
+              ),
+            ),
           );
         }
         return const SizedBox();
