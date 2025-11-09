@@ -21,7 +21,6 @@ class _CardItem extends StatelessWidget {
     );
   }
 
-  // item container
   @override
   Widget build(BuildContext context) {
     return Container(

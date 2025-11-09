@@ -6,7 +6,6 @@ import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:card_holder/common/mixins/event_transformer_mixin.dart';
 import 'package:card_holder/features/add_new_card/presentation/template_card_sheet/template_card_sheet.dart';
 import 'package:equatable/equatable.dart';
-import 'package:intl/intl.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 part 'add_card_event.dart';

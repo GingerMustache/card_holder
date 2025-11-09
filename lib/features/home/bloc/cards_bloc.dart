@@ -171,19 +171,23 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
             },
             // right
             (Map<String, dynamic> cardMap) {
-              cardMap.forEach(
-                (key, card) => add(
-                  CardsAddCardEvent(
-                    urlPath: card['urlPath'] ?? '',
-                    code: card['code'],
-                    name: card['name'],
-                    color: card['color'] ?? 0x00000000,
-                    logoSize: (card['logoSize'] as num?)?.toDouble() ?? 30,
-                    completer:
-                        cardMap.keys.last == key ? event.completer : null,
+              try {
+                cardMap.forEach(
+                  (key, card) => add(
+                    CardsAddCardEvent(
+                      urlPath: card['urlPath'] ?? '',
+                      code: card['code'],
+                      name: card['name'],
+                      color: card['color'] ?? 0x00000000,
+                      logoSize: (card['logoSize'] as num?)?.toDouble() ?? 30,
+                      completer:
+                          cardMap.keys.last == key ? event.completer : null,
+                    ),
                   ),
-                ),
-              );
+                );
+              } catch (e) {
+                _showSnackBar(e.toString());
+              }
             },
           );
         }

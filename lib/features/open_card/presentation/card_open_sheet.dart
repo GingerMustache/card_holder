@@ -88,7 +88,7 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
     final currentCard = cardsBloc.state.currentCard;
     final changedCard = openBloc.state;
 
-    if (currentCard?.name == changedCard.name ||
+    if (currentCard?.name == changedCard.name &&
         currentCard?.code == changedCard.code) {
       context.pop();
       return;
