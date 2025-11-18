@@ -57,14 +57,6 @@ class CreateCardChangeNameEvent extends CreateCardEvent {
   List<Object?> get props => [name];
 }
 
-class CreateCardClearFieldEvent extends CreateCardEvent {
-  const CreateCardClearFieldEvent(this.name);
-  final bool name;
-
-  @override
-  List<Object?> get props => [name];
-}
-
 class CreateCardSearchEvent extends CreateCardEvent {
   const CreateCardSearchEvent(this.barcodes);
   final BarcodeCapture barcodes;

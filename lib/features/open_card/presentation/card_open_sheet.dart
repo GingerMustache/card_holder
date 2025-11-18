@@ -114,7 +114,7 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
   @override
   Widget build(BuildContext context) {
     return SkeletonWrapper(
-      ratio: 1.6,
+      ratio: 1.63,
       children: [
         Expanded(
           child: Container(
@@ -176,8 +176,9 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
                   ],
                 ),
                 if (widget.curCard.urlPath.isNotEmpty)
-                  Align(
-                    alignment: const Alignment(0.9, 0.13),
+                  Positioned(
+                    top: context.height / 2.35,
+                    left: context.width / 1.6,
                     child: LogoSvg(
                       logoSize: widget.curCard.logoSize,
                       urlPath: widget.curCard.urlPath,
