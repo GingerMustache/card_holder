@@ -63,7 +63,7 @@ class _InputSearchState extends State<InputSearch> {
             suffix: ValueListenableBuilder(
               valueListenable: controller,
               builder: (context, value, _) {
-                if (value.text.isEmpty) return const SizedBox();
+                if (value.text.isEmpty) return const SizedBox.shrink();
                 return InkWell(
                   splashFactory: null,
                   onTap: widget.clear ?? onTap,

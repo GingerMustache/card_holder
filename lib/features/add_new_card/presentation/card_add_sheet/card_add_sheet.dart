@@ -140,14 +140,20 @@ class _AddCardSheetState extends State<AddCardSheet> {
                           _EnteredCodeWidget(),
                           FrameTextField(
                             testKey: const Key('card_code_field'),
-                            autovalidateMode: null,
+                            clear:
+                                () => context.read<CreateCardBloc>().add(
+                                  CreateCardChangeCodeEvent(''),
+                                ),
                             validator: (val) {
                               return createBloc.state.code.isNotEmpty ||
-                                      createBloc.state.detectedCode.isNotEmpty
+                                      createBloc
+                                          .state
+                                          .detectedCode
+                                          .isNotEmpty ||
+                                      (val?.isNotEmpty ?? false)
                                   ? null
                                   : t.screen.home.addCard.fieldCannotBeEmpty;
                             },
-
                             numericKeyboard: true,
                             onChanged:
                                 (v) => createBloc.add(
@@ -158,18 +164,24 @@ class _AddCardSheetState extends State<AddCardSheet> {
                           ),
                           FrameTextField(
                             testKey: const Key('card_name_field'),
-                            initText:
-                                createBloc.state.name.isNotEmpty &&
-                                        createBloc.state.urlPath.isNotEmpty
-                                    ? createBloc.state.name
-                                    : null,
-                            validator:
-                                context.read<TextValidatorService>().emptyCheck,
+                            clear:
+                                () => context.read<CreateCardBloc>().add(
+                                  CreateCardChangeCodeEvent(''),
+                                ),
+                            validator: (val) {
+                              return createBloc.state.name.isNotEmpty
+                                  ? null
+                                  : t.screen.home.addCard.fieldCannotBeEmpty;
+                            },
                             onChanged:
                                 (v) => createBloc.add(
                                   CreateCardChangeNameEvent(v),
                                 ),
-                            hintText: t.screen.home.addCard.name,
+                            hintText:
+                                createBloc.state.name.isNotEmpty &&
+                                        createBloc.state.urlPath.isNotEmpty
+                                    ? createBloc.state.name
+                                    : t.screen.home.addCard.name,
                             labelText: t.screen.home.addCard.cardName,
                           ),
                           9.h,
