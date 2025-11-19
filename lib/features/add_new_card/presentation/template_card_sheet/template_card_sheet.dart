@@ -110,7 +110,7 @@ class _CardItem extends StatelessWidget {
         : Container(
           key: Key('template_${template.name}'),
           decoration: BoxDecoration(
-            color: template.cardColor,
+            color: template.cardColor ?? AppColors.mainGray,
             borderRadius: BorderRadius.circular(8),
           ),
           child: TextButton(
@@ -121,7 +121,8 @@ class _CardItem extends StatelessWidget {
               bloc.add(
                 CreateCardSetInitTemplateEvent(
                   completer: completer,
-                  cardColor: template.cardColor.toARGB32(),
+                  cardColor:
+                      (template.cardColor ?? AppColors.mainRed).toARGB32(),
                   cardName: template.name,
                   svgUrl: template.svgUrl,
                   logoSize: template.logoSize,

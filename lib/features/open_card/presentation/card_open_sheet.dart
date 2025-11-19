@@ -8,6 +8,7 @@ import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:card_holder/common/helpers/converter/text_field_validator/text_field_validator.dart';
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/presentation/widgets/buttons/default_button.dart';
+import 'package:card_holder/common/presentation/widgets/color_mark/color_mark.dart';
 import 'package:card_holder/common/presentation/widgets/color_mark/color_mark_widget.dart';
 import 'package:card_holder/common/presentation/widgets/color_wheel/color_wheel_widget.dart';
 import 'package:card_holder/common/presentation/widgets/logo_svg/logo_svg.dart';
@@ -89,7 +90,8 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
     final changedCard = openBloc.state;
 
     if (currentCard?.name == changedCard.name &&
-        currentCard?.code == changedCard.code) {
+        currentCard?.code == changedCard.code &&
+        changedCard.color == currentCard?.color) {
       context.pop();
       return;
     }
@@ -190,10 +192,13 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
                     buildWhen:
                         (previous, current) => previous.color != current.color,
                     builder: (context, state) {
-                      return ColorMarkWidget(
-                        alignment: const Alignment(0.9, 0.13),
-                        initColor: state.color,
-                        onTap: onTapColorWidget,
+                      return Positioned(
+                        top: context.height / 2.35,
+                        left: context.width / 1.3,
+                        child: InkWell(
+                          onTap: onTapColorWidget,
+                          child: ColorMark(state.color),
+                        ),
                       );
                     },
                   ),

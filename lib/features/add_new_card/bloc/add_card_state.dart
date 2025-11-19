@@ -9,7 +9,7 @@ final class CreateCardState extends Equatable {
     this.name = '',
     this.urlPath = '',
     this.logoSize = 30,
-    this.color = 0xffffffff,
+    this.color = 4294927872,
     this.detectedName = '',
     this.isFetching = false,
     this.isMarkTapped = false,

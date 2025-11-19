@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:bloc/bloc.dart';
+
 import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:card_holder/common/mixins/event_transformer_mixin.dart';
 import 'package:card_holder/features/add_new_card/presentation/template_card_sheet/template_card_sheet.dart';
@@ -66,7 +67,7 @@ class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
   Future<void> _onChangeColor(
     CreateCardChangeColorEvent event,
     Emitter<CreateCardState> emit,
-  ) async => emit(state.copyWith(color: event.color, isMarkTapped: false));
+  ) async => emit(state.copyWith(color: event.color));
 
   Future<void> _onChangeMarkTap(
     CreateCardChangeMarkTapEvent event,

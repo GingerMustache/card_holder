@@ -2,7 +2,6 @@ import 'dart:async' show Completer;
 
 import 'package:card_holder/common/application/app_settings.dart';
 import 'package:card_holder/common/extensions/app_extensions.dart';
-import 'package:card_holder/common/helpers/converter/text_field_validator/text_field_validator.dart';
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/presentation/assets_parts/app_icons.dart';
 import 'package:card_holder/common/presentation/widgets/buttons/default_button.dart';
