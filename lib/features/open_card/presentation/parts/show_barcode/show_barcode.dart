@@ -41,7 +41,7 @@ class _ShowBarcode extends StatelessWidget {
                             key: barcodeKey,
                             child: BarcodeWidget(
                               drawText: false,
-                              barcode: Barcode.code128(),
+                              barcode: Barcode.ean13(),
                               padding: EdgeInsets.symmetric(horizontal: 12),
                               width: double.infinity,
                               height: 200,
