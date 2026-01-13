@@ -9,7 +9,6 @@ import 'package:card_holder/common/helpers/converter/text_field_validator/text_f
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/presentation/widgets/buttons/default_button.dart';
 import 'package:card_holder/common/presentation/widgets/color_mark/color_mark.dart';
-import 'package:card_holder/common/presentation/widgets/color_mark/color_mark_widget.dart';
 import 'package:card_holder/common/presentation/widgets/color_wheel/color_wheel_widget.dart';
 import 'package:card_holder/common/presentation/widgets/logo_svg/logo_svg.dart';
 import 'package:card_holder/common/presentation/widgets/skeleton_wrapper/skeleton_wrapper.dart';
@@ -23,7 +22,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 
 part 'parts/choose_share_sheet.dart';
 part 'parts/show_barcode/parts/brightness_switcher.dart';
@@ -179,7 +177,7 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
                 ),
                 if (widget.curCard.urlPath.isNotEmpty)
                   Positioned(
-                    top: context.height / 2.35,
+                    top: context.height / 2.55,
                     left: context.width / 1.6,
                     child: LogoSvg(
                       logoSize: widget.curCard.logoSize,
