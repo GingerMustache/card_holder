@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class LogoSvg extends StatelessWidget {
-  const LogoSvg({super.key, this.urlPath, this.cardName, this.logoSize = 30});
+  const LogoSvg({super.key, this.urlPath, this.cardName, this.logoSize = 28});
 
   final String? urlPath;
   final String? cardName;

@@ -129,7 +129,35 @@ class _AddCardSheetState extends State<AddCardSheet> {
                               ),
                             ),
                           ),
-                          Divider(color: AppColors.subGrey.withAlpha(50)),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Divider(
+                                  color: AppColors.subGrey.withAlpha(50),
+                                ),
+                              ),
+                              createBloc.state.urlPath.isNotEmpty
+                                  ? LogoSvg(
+                                    logoSize: createBloc.state.logoSize,
+                                    urlPath: createBloc.state.urlPath,
+                                    cardName: createBloc.state.name,
+                                  )
+                                  : BlocBuilder<
+                                    CreateCardBloc,
+                                    CreateCardState
+                                  >(
+                                    buildWhen:
+                                        (previous, current) =>
+                                            previous.color != current.color,
+                                    builder: (context, state) {
+                                      return ColorMarkWidget(
+                                        initColor: state.color,
+                                        onTap: onTapColorWidget,
+                                      );
+                                    },
+                                  ),
+                            ],
+                          ),
                           10.h,
                           Text(
                             t.screen.home.addCard.detectedCode,
@@ -193,27 +221,7 @@ class _AddCardSheetState extends State<AddCardSheet> {
                       ),
                     ),
                   ),
-                  if (createBloc.state.urlPath.isNotEmpty)
-                    Align(
-                      alignment: const Alignment(1, -0.9),
-                      child: LogoSvg(
-                        logoSize: createBloc.state.logoSize,
-                        urlPath: createBloc.state.urlPath,
-                        cardName: createBloc.state.name,
-                      ),
-                    ),
-                  if (createBloc.state.urlPath.isEmpty)
-                    BlocBuilder<CreateCardBloc, CreateCardState>(
-                      buildWhen:
-                          (previous, current) =>
-                              previous.color != current.color,
-                      builder: (context, state) {
-                        return ColorMarkWidget(
-                          initColor: state.color,
-                          onTap: onTapColorWidget,
-                        );
-                      },
-                    ),
+
                   BlocBuilder<CreateCardBloc, CreateCardState>(
                     buildWhen:
                         (prev, cur) => prev.isMarkTapped != cur.isMarkTapped,

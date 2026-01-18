@@ -28,6 +28,7 @@ screen:
       yes: да
       delete: удалить
       no: нет
+      codeNotRecognized: Код не по формату карт лояльности, проверь введенный или отсканированный код еще раз 
   settings:
     all: first
 tabs:

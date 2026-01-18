@@ -135,7 +135,32 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
                       padding: mainHorizontalPadding,
                       child: Column(
                         children: [
-                          Divider(color: AppColors.subGrey.withAlpha(50)),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Divider(
+                                  color: AppColors.subGrey.withAlpha(50),
+                                ),
+                              ),
+                              widget.curCard.urlPath.isNotEmpty
+                                  ? LogoSvg(
+                                    logoSize: widget.curCard.logoSize,
+                                    urlPath: widget.curCard.urlPath,
+                                    cardName: widget.curCard.name,
+                                  )
+                                  : BlocBuilder<OpenCardBloc, OpenCardState>(
+                                    buildWhen:
+                                        (previous, current) =>
+                                            previous.color != current.color,
+                                    builder: (context, state) {
+                                      return InkWell(
+                                        onTap: onTapColorWidget,
+                                        child: ColorMark(state.color),
+                                      );
+                                    },
+                                  ),
+                            ],
+                          ),
                           FrameTextField(
                             validator:
                                 context.read<TextValidatorService>().emptyCheck,
@@ -175,31 +200,7 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
                     ),
                   ],
                 ),
-                if (widget.curCard.urlPath.isNotEmpty)
-                  Positioned(
-                    top: context.height / 2.55,
-                    left: context.width / 1.6,
-                    child: LogoSvg(
-                      logoSize: widget.curCard.logoSize,
-                      urlPath: widget.curCard.urlPath,
-                      cardName: widget.curCard.name,
-                    ),
-                  ),
-                if (widget.curCard.urlPath.isEmpty)
-                  BlocBuilder<OpenCardBloc, OpenCardState>(
-                    buildWhen:
-                        (previous, current) => previous.color != current.color,
-                    builder: (context, state) {
-                      return Positioned(
-                        top: context.height / 2.35,
-                        left: context.width / 1.3,
-                        child: InkWell(
-                          onTap: onTapColorWidget,
-                          child: ColorMark(state.color),
-                        ),
-                      );
-                    },
-                  ),
+
                 BlocBuilder<OpenCardBloc, OpenCardState>(
                   buildWhen:
                       (prev, cur) => prev.isMarkTapped != cur.isMarkTapped,

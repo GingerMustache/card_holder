@@ -356,6 +356,9 @@ class TranslationsScreenHomeOpenCardEn {
 
 	/// en: 'no'
 	String get no => 'no';
+
+	/// en: 'Code is not recognized as a valid loyalty card. Verify the entered or scanned code.'
+	String get codeNotRecognized => 'Code is not recognized as a valid loyalty card. Verify the entered or scanned code.';
 }
 
 /// Flat map(s) containing all translations.
@@ -386,6 +389,7 @@ extension on Translations {
 			case 'screen.home.openCard.yes': return 'yes';
 			case 'screen.home.openCard.delete': return 'delete';
 			case 'screen.home.openCard.no': return 'no';
+			case 'screen.home.openCard.codeNotRecognized': return 'Code is not recognized as a valid loyalty card. Verify the entered or scanned code.';
 			case 'screen.settings.all': return 'first';
 			case 'tabs.card': return 'cards';
 			case 'tabs.setting': return 'setting';

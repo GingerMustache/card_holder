@@ -28,6 +28,7 @@ screen:
       yes: yes
       delete: delete
       no: no
+      codeNotRecognized: Code is not recognized as a valid loyalty card. Verify the entered or scanned code.
   settings:
     all: first
 tabs:

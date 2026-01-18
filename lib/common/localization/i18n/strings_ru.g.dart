@@ -243,6 +243,7 @@ class _TranslationsScreenHomeOpenCardRu extends TranslationsScreenHomeOpenCardEn
 	@override String get yes => 'да';
 	@override String get delete => 'удалить';
 	@override String get no => 'нет';
+	@override String get codeNotRecognized => 'Код не по формату карт лояльности, проверь введенный или отсканированный код еще раз';
 }
 
 /// Flat map(s) containing all translations.
@@ -273,6 +274,7 @@ extension on TranslationsRu {
 			case 'screen.home.openCard.yes': return 'да';
 			case 'screen.home.openCard.delete': return 'удалить';
 			case 'screen.home.openCard.no': return 'нет';
+			case 'screen.home.openCard.codeNotRecognized': return 'Код не по формату карт лояльности, проверь введенный или отсканированный код еще раз';
 			case 'screen.settings.all': return 'first';
 			case 'tabs.card': return 'карты';
 			case 'tabs.setting': return 'настройки';

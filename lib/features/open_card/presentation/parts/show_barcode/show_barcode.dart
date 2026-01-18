@@ -46,6 +46,10 @@ class _ShowBarcode extends StatelessWidget {
                               width: double.infinity,
                               height: 200,
                               data: state.currentCard?.code ?? '',
+                              errorBuilder:
+                                  (context, error) => _ErrorBarCodeCase(
+                                    state.currentCard?.code,
+                                  ),
                             ),
                           ),
                           Text(state.currentCard?.code.formatWithSpaces ?? ''),
@@ -62,6 +66,35 @@ class _ShowBarcode extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _ErrorBarCodeCase extends StatelessWidget {
+  const _ErrorBarCodeCase(this.code);
+
+  final String? code;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        BarcodeWidget(
+          drawText: false,
+          barcode: Barcode.code128(),
+          padding: EdgeInsets.symmetric(horizontal: 12),
+          width: double.infinity,
+          height: 165,
+          data: code ?? '',
+        ),
+        Text(
+          t.screen.home.openCard.codeNotRecognized,
+          textAlign: TextAlign.center,
+          style: context.textStyles.labelSmall?.copyWith(
+            color: AppColors.mainRed,
+          ),
+        ),
+      ],
     );
   }
 }
