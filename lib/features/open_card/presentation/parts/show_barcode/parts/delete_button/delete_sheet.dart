@@ -40,7 +40,7 @@ class _DeleteSheetState extends State<_DeleteSheet> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            color: Colors.transparent,
+            color: AppColors.transparent,
             width: context.halfWidth / 1.5,
 
             padding: const EdgeInsets.only(top: 10),

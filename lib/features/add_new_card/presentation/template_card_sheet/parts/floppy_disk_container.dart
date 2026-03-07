@@ -25,10 +25,10 @@ class FloppyDiskContainer extends StatelessWidget {
           onPressed: () => onAddFile(context),
           child: DecoratedBox(
             decoration: BoxDecoration(
-              color: Colors.blue[700],
+              color: AppColors.blue700,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
-                color: Colors.black,
+                color: AppColors.mainBlack,
                 width: _FloppyDiskConstants.borderWidth,
               ),
             ),
@@ -86,9 +86,9 @@ class _GrayTopSection extends StatelessWidget {
       child: Container(
         height: _FloppyDiskConstants.grayTopSectionHeightRatio * size,
         decoration: BoxDecoration(
-          color: Colors.grey[500],
+          color: AppColors.grey500,
           border: Border.all(
-            color: Colors.black,
+            color: AppColors.mainBlack,
             width: _FloppyDiskConstants.smallSquareBorderWidth,
           ),
           borderRadius: const BorderRadius.all(Radius.circular(4)),
@@ -112,11 +112,11 @@ class _SliderOutline extends StatelessWidget {
         height: _FloppyDiskConstants.sliderOutlineHeightRatio * size,
         decoration: BoxDecoration(
           border: Border.all(
-            color: Colors.black,
+            color: AppColors.mainBlack,
             width: _FloppyDiskConstants.smallSquareBorderWidth,
           ),
         ),
-        child: Container(color: Colors.blue[700]),
+        child: Container(color: AppColors.blue700),
       ),
     );
   }
@@ -136,11 +136,11 @@ class _RightBlueSquare extends StatelessWidget {
         height: _FloppyDiskConstants.rightBlueSquareHeightRatio * size,
         decoration: BoxDecoration(
           border: Border.all(
-            color: Colors.black,
+            color: AppColors.mainBlack,
             width: _FloppyDiskConstants.smallSquareBorderWidth,
           ),
         ),
-        child: Container(color: Colors.blue[700]),
+        child: Container(color: AppColors.blue700),
       ),
     );
   }
@@ -158,7 +158,7 @@ class _WhiteLabelArea extends StatelessWidget {
       right: _FloppyDiskConstants.whiteLabelAreaLeftRightRatio * size,
       child: Container(
         height: _FloppyDiskConstants.whiteLabelAreaHeightRatio * size,
-        color: Colors.white,
+        color: AppColors.mainWhite,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -171,7 +171,7 @@ class _WhiteLabelArea extends StatelessWidget {
                       size,
                 ),
                 height: _FloppyDiskConstants.whiteLabelLineHeight,
-                color: Colors.black,
+                color: AppColors.mainBlack,
               ),
             ),
             Text(
@@ -189,7 +189,7 @@ class _WhiteLabelArea extends StatelessWidget {
                       size,
                 ),
                 height: _FloppyDiskConstants.whiteLabelLineHeight,
-                color: Colors.black,
+                color: AppColors.mainBlack,
               ),
             ),
           ],
@@ -217,9 +217,9 @@ class _BottomLeftSmallSquare extends StatelessWidget {
             _FloppyDiskConstants.bottomLeftRightSmallSquareWidthHeightRatio *
             size,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.mainWhite,
           border: Border.all(
-            color: Colors.black,
+            color: AppColors.mainBlack,
             width: _FloppyDiskConstants.smallSquareBorderWidth,
           ),
         ),
@@ -246,9 +246,9 @@ class _BottomRightSmallSquare extends StatelessWidget {
             _FloppyDiskConstants.bottomLeftRightSmallSquareWidthHeightRatio *
             size,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.mainWhite,
           border: Border.all(
-            color: Colors.black,
+            color: AppColors.mainBlack,
             width: _FloppyDiskConstants.smallSquareBorderWidth,
           ),
         ),

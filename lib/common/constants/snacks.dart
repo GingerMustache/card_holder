@@ -7,19 +7,19 @@ class Snack {
 
   void success() {
     snackbarKey.currentState?.showSnackBar(
-      snackBar(text, Colors.green, Icons.check_circle_outlined),
+      snackBar(text, AppColors.mainGreen, Icons.check_circle_outlined),
     );
   }
 
   void error() {
     snackbarKey.currentState?.showSnackBar(
-      snackBar(text, Colors.red, Icons.error_outline_outlined),
+      snackBar(text, AppColors.mainRed, Icons.error_outline_outlined),
     );
   }
 
   void warning() {
     snackbarKey.currentState?.showSnackBar(
-      snackBar(text, Colors.blueGrey, Icons.warning_outlined),
+      snackBar(text, AppColors.blueGrey, Icons.warning_outlined),
     );
   }
 
@@ -31,7 +31,7 @@ class Snack {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Icon(icon, color: Colors.white),
+          Icon(icon, color: AppColors.mainWhite),
           10.h,
           Flexible(child: Text(text)),
         ],

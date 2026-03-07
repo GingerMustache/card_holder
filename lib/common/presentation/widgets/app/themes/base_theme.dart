@@ -10,14 +10,14 @@ Color getColor(Set<WidgetState> states) {
   if (states.any(interactiveStates.contains)) {
     return const Color(0xFFff8166);
   }
-  return Colors.red;
+  return AppColors.mainRed;
 }
 
 class AppTheme {
   AppTheme._();
 
   static const Color _lightSecondaryColor = Color(0xFFc7513b);
-  static const Color _lightOnPrimaryColor = Colors.black;
+  static const Color _lightOnPrimaryColor = AppColors.mainBlack;
 
   static const Color _darkPrimaryColor = Color.fromARGB(255, 75, 14, 0);
   static const Color _darkSecondaryColor = Color.fromARGB(255, 107, 16, 0);
@@ -30,17 +30,17 @@ class AppTheme {
     indicatorColor: AppColors.mainBlack,
     iconTheme: const IconThemeData(color: AppColors.mainBlack),
     appBarTheme: const AppBarTheme(
-      titleTextStyle: TextStyle(color: Colors.white, fontSize: 18.0),
+      titleTextStyle: TextStyle(color: AppColors.mainWhite, fontSize: 18.0),
       color: AppColors.mainWhite,
     ),
     colorScheme: const ColorScheme.light(
       primary: AppColors.mainGray,
       secondary: _lightSecondaryColor,
       onPrimary: _lightOnPrimaryColor,
-      onSecondary: Colors.white,
+      onSecondary: AppColors.mainWhite,
       // onSurface: AppColors.mainBlack, // main text color
       surfaceContainerHighest: AppColors.mainBlack,
-      surface: Colors.white,
+      surface: AppColors.mainWhite,
       // onSurface: Colors.black,
       secondaryContainer: Color.fromARGB(255, 255, 206, 191),
     ),
@@ -130,8 +130,8 @@ class AppTheme {
     colorScheme: const ColorScheme.dark(
       primary: AppColors.suBlack,
       secondary: _darkSecondaryColor,
-      onPrimary: Colors.green,
-      onSecondary: Colors.red,
+      onPrimary: AppColors.mainGreen,
+      onSecondary: AppColors.mainRed,
       // onSurface: AppColors.darkGrey,
       surfaceContainerHighest: Color.fromARGB(255, 252, 210, 210),
       surface: Color.fromARGB(255, 88, 47, 47),
