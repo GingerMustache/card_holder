@@ -8,6 +8,7 @@ abstract final class LocalStorageService {
   Future<Map<String, String>> readAll();
   Future<void> deleteAll();
   Future<String> read(String key, {String insteadValue = ''});
+  Future<String?> readWithNull(String key);
   Future<void> delete({required String key});
   Future<void> write({required String key, required String value});
   Future<bool> containsKey({required String key});
@@ -56,6 +57,20 @@ final class SecureStorage implements LocalStorageService {
     if (!errorFlag) {
       try {
         value = (await _storage.read(key: key)) ?? insteadValue;
+        throw Exception('bad SecureStore test');
+      } catch (e, stackTrace) {
+        errorAction(e, stackTrace);
+      }
+    }
+    return value;
+  }
+
+  @override
+  Future<String?> readWithNull(String key) async {
+    String? value;
+    if (!errorFlag) {
+      try {
+        value = await _storage.read(key: key);
         throw Exception('bad SecureStore test');
       } catch (e, stackTrace) {
         errorAction(e, stackTrace);

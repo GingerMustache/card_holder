@@ -4,7 +4,7 @@ part of 'settings_bloc.dart';
 @immutable
 class SettingsState extends Equatable {
   const SettingsState({
-    this.lang = 'en',
+    this.lang = 'ru',
     this.theme = ThemeMode.light,
     this.brightnessMode = BrightnessMode.auto,
 
