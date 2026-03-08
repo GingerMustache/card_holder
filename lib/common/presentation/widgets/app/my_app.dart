@@ -1,4 +1,5 @@
 import 'package:card_holder/common/application/app_settings.dart';
+import 'package:card_holder/common/configs/setting_config.dart';
 import 'package:card_holder/common/constants/constants.dart';
 // need to run
 // dart run build_runner build
@@ -22,11 +23,13 @@ abstract class MyAppNavigation {
 class MyApp extends StatelessWidget {
   final MyAppNavigation navigation;
   final FlutterI18nDelegate flutterI18nDelegate;
+  final SettingConfig settingConfig;
 
   const MyApp({
     super.key,
     required this.navigation,
     required this.flutterI18nDelegate,
+    required this.settingConfig,
   });
 
   void systemColor(ThemeMode theme) {
@@ -59,7 +62,7 @@ class MyApp extends StatelessWidget {
           scaffoldMessengerKey: snackbarKey,
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
-          themeMode: state.theme,
+          themeMode: !state.startApp ? settingConfig.currentTheme : state.theme,
           routerConfig: navigation.router(),
           locale: TranslationProvider.of(context).flutterLocale,
           builder: (context, child) {

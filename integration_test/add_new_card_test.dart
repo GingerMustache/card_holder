@@ -1,3 +1,4 @@
+import 'package:card_holder/common/configs/setting_config.dart';
 import 'package:card_holder/common/di_container/di_container.dart';
 import 'package:card_holder/common/helpers/converter/text_field_validator/text_field_validator.dart';
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
@@ -194,7 +195,9 @@ void main() {
 Future<void> _initializeApp(WidgetTester tester) async {
   final DiContainerProvider diContainer = DiContainer();
   final flutterI18nDelegate = await LocaleClass.initLocaleDelegate();
-  final app = diContainer.makeApp(flutterI18nDelegate);
+  final SettingConfig settingConfig = await diContainer.makeSettingConfig();
+
+  final app = diContainer.makeApp(flutterI18nDelegate, settingConfig);
 
   await tester.pumpWidget(
     TranslationProvider(
@@ -210,9 +213,10 @@ Future<void> _initializeApp(WidgetTester tester) async {
           ),
           BlocProvider(
             create:
-                (context) =>
-                    SettingsBloc(localStorage: diContainer.makeLocalStorage())
-                      ..add(SettingInitEvent()),
+                (context) => SettingsBloc(
+                  localStorage: diContainer.makeLocalStorage(),
+                  settingConfig: settingConfig,
+                )..add(SettingInitEvent()),
             lazy: false,
           ),
           BlocProvider(

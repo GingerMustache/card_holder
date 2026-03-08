@@ -8,6 +8,7 @@ class SettingsState extends Equatable {
     this.theme = ThemeMode.light,
     this.brightnessMode = BrightnessMode.auto,
 
+    this.startApp = false,
     this.settingItems = const [],
     this.searchItems = const [],
   });
@@ -17,10 +18,12 @@ class SettingsState extends Equatable {
   final BrightnessMode brightnessMode;
   final List<String> settingItems;
   final List<String> searchItems;
+  final bool startApp;
 
   @override
   List<Object?> get props => [
     lang,
+    startApp,
     theme,
     settingItems,
     searchItems,
@@ -30,6 +33,7 @@ class SettingsState extends Equatable {
   SettingsState copyWith({
     String? lang,
     ThemeMode? theme,
+    bool? startApp,
     BrightnessMode? brightnessMode,
     List<String>? settingItems,
     List<String>? searchItems,
@@ -37,6 +41,7 @@ class SettingsState extends Equatable {
     return SettingsState(
       brightnessMode: brightnessMode ?? this.brightnessMode,
       lang: lang ?? this.lang,
+      startApp: startApp ?? this.startApp,
       theme: theme ?? this.theme,
       settingItems: settingItems ?? this.settingItems,
       searchItems: searchItems ?? this.searchItems,

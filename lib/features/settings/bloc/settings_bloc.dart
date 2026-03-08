@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:card_holder/common/configs/setting_config.dart';
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/services/brightness_control/brightness_control_service.dart';
 import 'package:card_holder/common/services/local_storage/secure_storage.dart';
@@ -10,6 +11,8 @@ part 'settings_state.dart';
 
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   final LocalStorageService _localStorage;
+  final SettingConfig _settingConfig;
+
   List<String> get _settingItems => [
     t.system.theme.all,
     t.system.lang.all,
@@ -22,10 +25,13 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     // 'Logout',
   ];
 
-  SettingsBloc({required LocalStorageService localStorage})
-    : _localStorage = localStorage,
+  SettingsBloc({
+    required LocalStorageService localStorage,
+    required SettingConfig settingConfig,
+  }) : _localStorage = localStorage,
+       _settingConfig = settingConfig,
 
-      super(SettingsState()) {
+       super(SettingsState()) {
     on<SettingChangeLangEvent>(_onChangeLang);
     on<SettingChangeThemeEvent>(_onChangeTheme);
     on<SettingInitEvent>(_onInit);
@@ -34,26 +40,12 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   }
 
   _onInit(SettingInitEvent event, Emitter<SettingsState> emit) async {
-    final currentLang = await _localStorage.read(
-      SecureKeys.lang.name,
-      insteadValue: 'ru',
-    );
-
-    final currentTheme =
-        await _localStorage.read(SecureKeys.theme.name) == 'dark'
-            ? ThemeMode.dark
-            : ThemeMode.light;
-
-    final currentBrightnessMode =
-        await _localStorage.read(SecureKeys.brightness.name) == 'handle'
-            ? BrightnessMode.handle
-            : BrightnessMode.auto;
-
     emit(
       state.copyWith(
-        lang: currentLang,
-        theme: currentTheme,
-        brightnessMode: currentBrightnessMode,
+        startApp: true,
+        lang: _settingConfig.currentLang,
+        theme: _settingConfig.currentTheme,
+        brightnessMode: _settingConfig.currentBrightness,
         settingItems: _settingItems,
       ),
     );

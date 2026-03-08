@@ -1,3 +1,4 @@
+import 'package:card_holder/common/configs/setting_config.dart';
 import 'package:card_holder/common/helpers/converter/convert_helper.dart';
 import 'package:card_holder/common/helpers/converter/text_field_validator/text_field_validator.dart';
 import 'package:card_holder/common/presentation/widgets/app/my_app.dart';
@@ -16,7 +17,10 @@ import 'package:flutter_i18n/flutter_i18n_delegate.dart'
     show FlutterI18nDelegate;
 
 abstract class DiContainerProvider {
-  Widget makeApp(FlutterI18nDelegate flutterI18nDelegate);
+  Widget makeApp(
+    FlutterI18nDelegate flutterI18nDelegate,
+    SettingConfig settingConfig,
+  );
   CardServiceAbstract makeCardService();
   BrightnessService makeBrightnessService();
   ShareService makeShareService();
@@ -28,6 +32,7 @@ abstract class DiContainerProvider {
   ConvertHelper makeImageConverterHelper();
   TextValidatorService makeTextValidatorService();
   MainErrorService makeErrorService();
+  Future<SettingConfig> makeSettingConfig();
 }
 
 class DiContainer implements DiContainerProvider {
@@ -66,13 +71,21 @@ class DiContainer implements DiContainerProvider {
       MainNavigation(screenFactory: _makeScreenFactory());
 
   @override
-  Widget makeApp(FlutterI18nDelegate flutterI18nDelegate) => MyApp(
+  Widget makeApp(
+    FlutterI18nDelegate flutterI18nDelegate,
+    SettingConfig settingConfig,
+  ) => MyApp(
     navigation: _makeRouter(),
     flutterI18nDelegate: flutterI18nDelegate,
+    settingConfig: settingConfig,
   );
 
   DiContainer();
 
   @override
   ConvertHelper makeImageConverterHelper() => ConvertHelper();
+
+  @override
+  Future<SettingConfig> makeSettingConfig() async =>
+      SettingConfigImpl.fromLocalStorage(makeLocalStorage());
 }
