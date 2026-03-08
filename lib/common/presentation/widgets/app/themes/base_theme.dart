@@ -1,191 +1,28 @@
 import 'package:card_holder/common/application/app_settings.dart';
 import 'package:flutter/material.dart';
 
-Color getColor(Set<WidgetState> states) {
-  const Set<WidgetState> interactiveStates = <WidgetState>{
-    WidgetState.pressed,
-    WidgetState.hovered,
-    WidgetState.focused,
-  };
-  if (states.any(interactiveStates.contains)) {
-    return const Color(0xFFff8166);
-  }
-  return AppColors.mainRed;
-}
+part 'dark_theme.dart';
+part 'light_theme.dart';
 
 class AppTheme {
   AppTheme._();
 
-  static const Color _lightSecondaryColor = Color(0xFFc7513b);
-  static const Color _lightOnPrimaryColor = AppColors.mainBlack;
+  static final ThemeData lightTheme = lightThemeData;
+  static final ThemeData darkTheme = darkThemeData;
+}
 
-  static const Color _darkPrimaryColor = Color.fromARGB(255, 75, 14, 0);
-  static const Color _darkSecondaryColor = Color.fromARGB(255, 107, 16, 0);
-
-  static final ThemeData lightTheme = ThemeData(
-    brightness: Brightness.light,
-    scaffoldBackgroundColor: AppColors.mainWhite,
-    useMaterial3: true,
-    fontFamily: 'Tektur',
-    indicatorColor: AppColors.mainBlack,
-    iconTheme: const IconThemeData(color: AppColors.mainBlack),
-    appBarTheme: const AppBarTheme(
-      titleTextStyle: TextStyle(color: AppColors.mainWhite, fontSize: 18.0),
-      color: AppColors.mainWhite,
-    ),
-    colorScheme: const ColorScheme.light(
-      primary: AppColors.mainGray,
-      secondary: _lightSecondaryColor,
-      onPrimary: _lightOnPrimaryColor,
-      onSecondary: AppColors.mainWhite,
-      // onSurface: AppColors.mainBlack, // main text color
-      surfaceContainerHighest: AppColors.mainBlack,
-      surface: AppColors.mainWhite,
-      // onSurface: Colors.black,
-      secondaryContainer: Color.fromARGB(255, 255, 206, 191),
-    ),
-    textTheme: TextTheme(
-      displayMedium: _getTextStyleFromTheme(
-        fontSize: 20.0,
-        letterSpacing: 2.5,
-        color: AppColors.darkGrey,
-        fontWeight: FontWeight.bold,
-      ),
-      headlineLarge: _getTextStyleFromTheme(
-        fontSize: 32.0,
-
-        fontWeight: FontWeight.w500,
-      ),
-      headlineMedium: _getTextStyleFromTheme(
-        fontSize: 22.0,
-        color: AppColors.mainBlack,
-        fontWeight: FontWeight.w500,
-      ),
-      headlineSmall: _getTextStyleFromTheme(
-        fontSize: 18.0,
-        color: AppColors.mainBlack,
-        fontWeight: FontWeight.w500,
-      ),
-      titleLarge: _getTextStyleFromTheme(
-        fontSize: 20.0,
-        fontWeight: FontWeight.w400,
-      ),
-      titleMedium: _getTextStyleFromTheme(
-        fontSize: 18.0,
-        fontWeight: FontWeight.w400,
-      ),
-      titleSmall: _getTextStyleFromTheme(
-        fontSize: 16.0,
-        fontWeight: FontWeight.w400,
-      ),
-      bodyMedium: _getTextStyleFromTheme(
-        fontSize: 18.0,
-        fontWeight: FontWeight.w400,
-        color: AppColors.darkGrey,
-      ),
-      bodySmall: _getTextStyleFromTheme(
-        fontSize: 16.0,
-        fontWeight: FontWeight.w400,
-        color: AppColors.subGrey,
-      ),
-      displaySmall: _getTextStyleFromTheme(
-        fontSize: 16.0,
-        color: AppColors.darkGrey,
-        fontWeight: FontWeight.w600,
-      ),
-      labelSmall: _getTextStyleFromTheme(
-        fontSize: 12.0,
-        fontWeight: FontWeight.w400,
-      ),
-    ),
-  );
-  static TextStyle _getTextStyleFromTheme({
-    double? fontSize,
-    FontWeight? fontWeight,
-    double? height,
-    Color? color,
-    double? letterSpacing,
-  }) {
-    return TextStyle(
-      fontSize: fontSize,
-      fontWeight: fontWeight,
-      letterSpacing: letterSpacing,
-      height: height,
-      color: color ?? AppColors.mainBlack,
-    );
-  }
-
-  static final ThemeData darkTheme = ThemeData(
-    brightness: Brightness.dark,
-    scaffoldBackgroundColor: const Color.fromARGB(255, 67, 67, 67),
-    useMaterial3: true,
-    fontFamily: 'Tektur',
-    indicatorColor: AppColors.mainBlue,
-    iconTheme: const IconThemeData(color: AppColors.darkGrey),
-    appBarTheme: const AppBarTheme(
-      titleTextStyle: TextStyle(color: AppColors.darkGrey, fontSize: 18.0),
-      color: _darkPrimaryColor,
-      iconTheme: IconThemeData(color: AppColors.darkGrey),
-    ),
-    colorScheme: const ColorScheme.dark(
-      primary: AppColors.suBlack,
-      secondary: _darkSecondaryColor,
-      onPrimary: AppColors.mainGreen,
-      onSecondary: AppColors.mainRed,
-      // onSurface: AppColors.darkGrey,
-      surfaceContainerHighest: Color.fromARGB(255, 252, 210, 210),
-      surface: Color.fromARGB(255, 88, 47, 47),
-      // onSurface: Colors.white,
-      secondaryContainer: Color.fromARGB(255, 36, 20, 20),
-    ),
-
-    textTheme: TextTheme(
-      displayMedium: _getTextStyleFromTheme(
-        fontSize: 20.0,
-        letterSpacing: 2,
-        fontWeight: FontWeight.bold,
-      ),
-      headlineMedium: _getTextStyleFromTheme(
-        fontSize: 22.0,
-        fontWeight: FontWeight.w500,
-      ),
-      headlineSmall: _getTextStyleFromTheme(
-        fontSize: 18.0,
-
-        fontWeight: FontWeight.w500,
-      ),
-      titleLarge: _getTextStyleFromTheme(
-        fontSize: 20.0,
-        fontWeight: FontWeight.w400,
-      ),
-      titleMedium: _getTextStyleFromTheme(
-        fontSize: 18.0,
-        fontWeight: FontWeight.w400,
-      ),
-      titleSmall: _getTextStyleFromTheme(
-        fontSize: 16.0,
-        fontWeight: FontWeight.w400,
-        color: AppColors.mainGray,
-      ),
-      bodyMedium: _getTextStyleFromTheme(
-        fontSize: 18.0,
-        fontWeight: FontWeight.w400,
-        color: AppColors.darkGrey,
-      ),
-      bodySmall: _getTextStyleFromTheme(
-        fontSize: 16.0,
-        fontWeight: FontWeight.w400,
-        color: AppColors.darkGrey,
-      ),
-      displaySmall: _getTextStyleFromTheme(
-        fontSize: 16.0,
-        color: AppColors.darkGrey,
-        fontWeight: FontWeight.w600,
-      ),
-      labelSmall: _getTextStyleFromTheme(
-        fontSize: 12.0,
-        fontWeight: FontWeight.w400,
-      ),
-    ),
+TextStyle _getTextStyleFromTheme({
+  double? fontSize,
+  FontWeight? fontWeight,
+  double? height,
+  Color? color,
+  double? letterSpacing,
+}) {
+  return TextStyle(
+    fontSize: fontSize,
+    fontWeight: fontWeight,
+    letterSpacing: letterSpacing,
+    height: height,
+    color: color ?? AppColors.mainBlack,
   );
 }

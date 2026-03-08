@@ -8,10 +8,11 @@ class AppColors {
   static const Color darkGrey = Color(0xff6B7280);
   static const Color mainBlack = Color(0xFF000000);
   static const Color subBlack = Color(0xff1A1A1A);
-  static const Color suBlack = Color(0xff2A2A2A);
+  static const Color subBlack2 = Color(0xff2A2A2A);
   static const Color mainGreen = Color(0xFF4CAF50);
   static const Color mainRed = Color.fromARGB(255, 255, 102, 0);
   static const Color errorRed = Color.fromARGB(255, 181, 8, 8);
+  static const Color lightSecondaryColor = Color(0xFFc7513b);
   static const Color mainBlue = Color(0xFF2196F3);
   static const Color mainLightGold = Color.fromARGB(255, 250, 234, 143);
   static const Color transparent = Color(0x00000000);
