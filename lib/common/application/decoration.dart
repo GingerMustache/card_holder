@@ -1,17 +1,19 @@
 part of "app_settings.dart";
 
-BoxDecoration mainBoxDecoration() => BoxDecoration(
-  color: AppColors.mainGray,
+BoxDecoration mainBoxDecoration(BuildContext context) => BoxDecoration(
+  color: context.color.primary,
   borderRadius: BorderRadius.all(Radius.elliptical(8, 8)),
   boxShadow: mainBoxShadow,
 );
 
-final BoxDecoration dividerDecor = BoxDecoration(
-  border: Border(bottom: BorderSide(color: AppColors.subGrey.withAlpha(50))),
+BoxDecoration dividerDecor(BuildContext context) => BoxDecoration(
+  border: Border(
+    bottom: BorderSide(color: context.color.onSurface.withAlpha(50)),
+  ),
 );
 
-final BoxDecoration fabDecor = BoxDecoration(
-  color: AppColors.mainWhite,
+BoxDecoration fabDecor(BuildContext context) => BoxDecoration(
+  color: context.color.surface,
   borderRadius: BorderRadius.all(Radius.elliptical(8, 8)),
   boxShadow: [
     BoxShadow(
@@ -31,7 +33,7 @@ BoxDecoration roundUpCornersDecoration(BuildContext context) => BoxDecoration(
   ),
 );
 
-const BoxDecoration roundCornersDecoration = BoxDecoration(
-  color: AppColors.mainWhite,
+BoxDecoration roundCornersDecoration(BuildContext context) => BoxDecoration(
+  color: context.color.surface,
   borderRadius: BorderRadius.all(Radius.elliptical(8, 8)),
 );

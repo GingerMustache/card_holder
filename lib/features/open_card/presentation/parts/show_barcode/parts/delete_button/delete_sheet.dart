@@ -47,7 +47,7 @@ class _DeleteSheetState extends State<_DeleteSheet> {
             child: Column(
               children: [
                 Container(
-                  decoration: roundCornersDecoration,
+                  decoration: roundCornersDecoration(context),
                   height: 110,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -58,7 +58,9 @@ class _DeleteSheetState extends State<_DeleteSheet> {
                       ).animate().fadeIn(duration: 550.ms),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Divider(color: AppColors.subGrey.withAlpha(50)),
+                        child: Divider(
+                          color: context.color.onSurface.withAlpha(50),
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),

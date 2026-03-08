@@ -72,7 +72,7 @@ class _ChooseShareSheetState extends State<ChooseShareSheet> {
                 ).animate().fadeIn(duration: 550.ms),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Divider(color: AppColors.subGrey.withAlpha(50)),
+                  child: Divider(color: context.color.onSurface.withAlpha(50)),
                 ),
 
                 Row(
@@ -108,7 +108,7 @@ class _VerticalDivider extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 10),
       width: 2,
       height: 90,
-      color: AppColors.subGrey.withAlpha(50),
+      color: context.color.onSurface.withAlpha(50),
     );
   }
 }

@@ -5,6 +5,7 @@ class AppColors {
   static const Color steam = Color(0xFFDDDDDD);
   static const Color mainGray = Color(0xfff2f4f6);
   static const Color subGrey = Color(0xFF9CA3AF);
+  static final Color subGreyAlfa = Color(0xFF9CA3AF).withAlpha(50);
   static const Color darkGrey = Color(0xff6B7280);
   static const Color mainBlack = Color(0xFF000000);
   static const Color subBlack = Color(0xff1A1A1A);

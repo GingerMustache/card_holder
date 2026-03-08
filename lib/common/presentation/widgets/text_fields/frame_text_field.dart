@@ -31,10 +31,11 @@ class FrameTextField extends StatefulWidget {
   @override
   State<FrameTextField> createState() => _FrameTextFieldState();
 
-  static const outlineInputBorder = OutlineInputBorder(
-    borderRadius: BorderRadius.all(Radius.elliptical(8, 8)),
-    borderSide: BorderSide(color: AppColors.steam),
-  );
+  static OutlineInputBorder outlineInputBorder(BuildContext context) =>
+      OutlineInputBorder(
+        borderRadius: const BorderRadius.all(Radius.elliptical(8, 8)),
+        borderSide: BorderSide(color: context.color.outline),
+      );
 }
 
 class _FrameTextFieldState extends State<FrameTextField> {
@@ -71,10 +72,10 @@ class _FrameTextFieldState extends State<FrameTextField> {
               widget.numericKeyboard
                   ? TextInputType.numberWithOptions()
                   : TextInputType.multiline,
-          cursorColor: AppColors.darkGrey,
+          cursorColor: context.color.onSurface,
           cursorWidth: 1,
           cursorHeight: 15,
-          style: TextStyle(fontSize: 16, color: AppColors.subGrey),
+          style: context.textStyles.bodySmall,
           decoration: InputDecoration(
             suffix: ValueListenableBuilder(
               valueListenable: _controller,
@@ -89,7 +90,7 @@ class _FrameTextFieldState extends State<FrameTextField> {
                   child: Text(
                     t.other.clear,
                     style: context.textStyles.labelSmall?.copyWith(
-                      color: AppColors.darkGrey,
+                      color: context.color.onSurface,
                     ),
                   ),
                 );
@@ -97,12 +98,12 @@ class _FrameTextFieldState extends State<FrameTextField> {
             ),
 
             hintText: widget.hintText,
-            hintStyle: TextStyle(color: AppColors.subGrey),
-            border: FrameTextField.outlineInputBorder,
-            focusedBorder: FrameTextField.outlineInputBorder,
-            enabledBorder: FrameTextField.outlineInputBorder,
+            hintStyle: context.textStyles.bodySmall,
+            border: FrameTextField.outlineInputBorder(context),
+            focusedBorder: FrameTextField.outlineInputBorder(context),
+            enabledBorder: FrameTextField.outlineInputBorder(context),
             errorStyle: context.textStyles.labelSmall?.copyWith(
-              color: AppColors.errorRed,
+              color: context.color.error,
               fontSize: 9.5,
               height: 0.65,
             ),

@@ -139,7 +139,7 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
                             children: [
                               Expanded(
                                 child: Divider(
-                                  color: AppColors.subGrey.withAlpha(50),
+                                  color: context.color.onSurface.withAlpha(50),
                                 ),
                               ),
                               widget.curCard.urlPath.isNotEmpty

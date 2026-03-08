@@ -24,7 +24,7 @@ class _CardItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: mainBoxDecoration(),
+      decoration: mainBoxDecoration(context),
       child: Stack(
         children: [
           if (card?.urlPath.isEmpty ?? true)

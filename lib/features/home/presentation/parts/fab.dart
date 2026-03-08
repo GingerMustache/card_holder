@@ -10,7 +10,7 @@ class _Fab extends StatelessWidget {
       width: 58,
       height: 55,
 
-      decoration: fabDecor,
+      decoration: fabDecor(context),
       child: TextButton(
         child: Text(t.screen.home.add, style: context.textStyles.labelSmall),
         onPressed: () => TemplateCardSheet.show(context),

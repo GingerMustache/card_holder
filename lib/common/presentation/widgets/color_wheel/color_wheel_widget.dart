@@ -20,7 +20,7 @@ class ColorWheelWidget extends StatelessWidget {
     return Align(
       alignment: alignment,
       child: Container(
-        decoration: fabDecor,
+        decoration: fabDecor(context),
         child:
             isShow
                 ? CircleColorPicker(

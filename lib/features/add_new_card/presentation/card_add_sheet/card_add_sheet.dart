@@ -133,7 +133,7 @@ class _AddCardSheetState extends State<AddCardSheet> {
                             children: [
                               Expanded(
                                 child: Divider(
-                                  color: AppColors.subGrey.withAlpha(50),
+                                  color: context.color.onSurface.withAlpha(50),
                                 ),
                               ),
                               createBloc.state.urlPath.isNotEmpty

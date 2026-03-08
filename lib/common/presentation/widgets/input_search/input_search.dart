@@ -48,17 +48,17 @@ class _InputSearchState extends State<InputSearch> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: Container(
-        decoration: mainBoxDecoration(),
+        decoration: mainBoxDecoration(context),
 
         padding: const EdgeInsets.only(left: 8),
         child: TextFormField(
           controller: controller,
-          cursorColor: AppColors.darkGrey,
+          cursorColor: context.color.onSurface,
           cursorWidth: 1,
           cursorHeight: 15,
 
           focusNode: widget.focusNode,
-          style: TextStyle(fontSize: widget.fontSize, color: AppColors.subGrey),
+          style: context.textStyles.bodySmall,
           decoration: InputDecoration(
             suffix: ValueListenableBuilder(
               valueListenable: controller,
@@ -70,7 +70,7 @@ class _InputSearchState extends State<InputSearch> {
                   child: Text(
                     t.other.clear,
                     style: context.textStyles.labelSmall?.copyWith(
-                      color: AppColors.darkGrey,
+                      color: context.color.onSurface,
                     ),
                   ),
                 );
@@ -78,7 +78,7 @@ class _InputSearchState extends State<InputSearch> {
             ),
 
             hintText: t.other.search,
-            hintStyle: TextStyle(color: AppColors.subGrey),
+            hintStyle: context.textStyles.bodySmall,
             border: InputBorder.none,
             focusedBorder: InputBorder.none,
             enabledBorder: InputBorder.none,

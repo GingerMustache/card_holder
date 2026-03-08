@@ -20,6 +20,9 @@ final lightThemeData = ThemeData(
     surface: AppColors.mainWhite,
     secondaryContainer: Color.fromARGB(255, 255, 206, 191),
     surfaceTint: AppColors.steam,
+    outline: AppColors.steam,
+    onSurface: AppColors.subGrey,
+    error: AppColors.errorRed,
   ),
   textTheme: TextTheme(
     displayMedium: _getTextStyleFromTheme(

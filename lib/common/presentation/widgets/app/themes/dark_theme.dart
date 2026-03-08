@@ -12,16 +12,18 @@ final darkThemeData = ThemeData(
     iconTheme: IconThemeData(color: AppColors.darkGrey),
   ),
   colorScheme: const ColorScheme.dark(
-    primary: AppColors.subBlack2,
-    secondary: AppColors.black26,
-    onPrimary: AppColors.mainGreen,
-    onSecondary: AppColors.mainRed,
-    // onSurface: AppColors.darkGrey,
-    surfaceContainerHighest: Color.fromARGB(255, 252, 210, 210),
-    surface: Color.fromARGB(255, 88, 47, 47),
-    // onSurface: Colors.white,
-    secondaryContainer: Color.fromARGB(255, 36, 20, 20),
+    primary: AppColors.mainGray,
+    secondary: AppColors.lightSecondaryColor,
+    onPrimary: AppColors.mainBlack,
+    onSecondary: AppColors.mainWhite,
+    // onSurface: AppColors.mainBlack, // main text color
+    surfaceContainerHighest: AppColors.mainBlack,
+    surface: AppColors.mainWhite,
+    secondaryContainer: Color.fromARGB(255, 255, 206, 191),
     surfaceTint: AppColors.steam,
+    outline: AppColors.steam,
+    onSurface: AppColors.subGrey,
+    error: AppColors.errorRed,
   ),
 
   textTheme: TextTheme(
@@ -72,5 +74,5 @@ final darkThemeData = ThemeData(
       fontWeight: FontWeight.w400,
     ),
   ),
-  tabBarTheme: TabBarThemeData(indicatorColor: AppColors.mainBlue),
+  tabBarTheme: TabBarThemeData(indicatorColor: AppColors.mainBlack),
 );

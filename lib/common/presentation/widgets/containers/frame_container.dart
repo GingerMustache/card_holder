@@ -1,4 +1,5 @@
 import 'package:card_holder/common/application/app_settings.dart';
+import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:flutter/material.dart';
 
 class FrameContainer extends StatelessWidget {
@@ -11,7 +12,7 @@ class FrameContainer extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
       decoration: BoxDecoration(
-        border: Border.all(color: AppColors.steam),
+        border: Border.all(color: context.color.outline),
 
         borderRadius: BorderRadius.all(Radius.elliptical(8, 8)),
       ),

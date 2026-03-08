@@ -44,7 +44,7 @@ class _AppBar extends StatelessWidget {
                         onChange(value, context, _tabController.index),
               ),
               Container(
-                decoration: dividerDecor,
+                decoration: dividerDecor(context),
                 height: 30,
 
                 child: TabBar(

@@ -24,11 +24,11 @@ class _ShowBarcode extends StatelessWidget {
         child: Stack(
           children: [
             Container(
-              color: AppColors.subGrey.withAlpha(50),
+              color: context.color.onSurface.withAlpha(50),
               padding: EdgeInsets.symmetric(vertical: 35, horizontal: 20),
               child: Container(
                 decoration: boxDecoration.copyWith(
-                  color: AppColors.mainWhite,
+                  color: context.color.surface,
                   borderRadius: allBorderRadius,
                 ),
                 child: Center(
