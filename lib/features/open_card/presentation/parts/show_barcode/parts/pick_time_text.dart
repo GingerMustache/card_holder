@@ -14,7 +14,7 @@ class _PickTimeText extends StatelessWidget {
         child: Text(
           '$pickTime ${t.screen.home.openCard.uses}',
           style: context.textStyles.labelSmall?.copyWith(
-            color: AppColors.darkGrey,
+            color: context.color.surfaceTint,
           ),
         ),
       ),

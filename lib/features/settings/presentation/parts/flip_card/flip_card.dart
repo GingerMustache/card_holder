@@ -35,11 +35,11 @@ class _CardTemplate extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.mainWhite,
+        color: context.color.onSecondary,
         borderRadius: BorderRadius.all(Radius.elliptical(8, 8)),
         boxShadow: [
           BoxShadow(
-            color: AppColors.darkGrey.withValues(alpha: 0.2),
+            color: context.color.surfaceTint.withValues(alpha: 0.2),
             spreadRadius: 1,
             blurRadius: 5,
             offset: const Offset(0, 3),

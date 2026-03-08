@@ -1,4 +1,4 @@
-import 'package:card_holder/common/application/app_settings.dart';
+import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:flutter/material.dart';
 
 class DefaultButton extends StatelessWidget {
@@ -11,12 +11,12 @@ class DefaultButton extends StatelessWidget {
     return Center(
       child: InkWell(
         onTap: onTap,
-        splashColor: AppColors.mainWhite,
+        splashColor: context.color.onSecondary,
         splashFactory: null,
         child: Container(
           width: 150,
           padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
-          color: AppColors.mainWhite,
+          color: context.color.onSecondary,
 
           child: Center(child: Text(text)),
         ),

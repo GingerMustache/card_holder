@@ -56,15 +56,14 @@ class _TemplateCardSheetState extends State<TemplateCardSheet> {
     return SkeletonWrapper(
       children: [
         Container(
-          decoration: roundUpCornersDecoration(context),
+          decoration: _boxDecoration(context),
           padding: const EdgeInsets.only(right: 16, left: 16, top: 16),
-
           child: InputSearch(change: onChange),
         ),
 
         Expanded(
           child: ColoredBox(
-            color: AppColors.mainWhite,
+            color: context.color.surface,
             child: BlocBuilder<CreateCardBloc, CreateCardState>(
               builder: (context, state) {
                 final templates =
@@ -96,6 +95,15 @@ class _TemplateCardSheetState extends State<TemplateCardSheet> {
       ],
     );
   }
+
+  _boxDecoration(BuildContext context) => BoxDecoration(
+    color: context.color.surface,
+    border: Border(bottom: BorderSide(color: AppColors.mainWhite)),
+    borderRadius: const BorderRadius.only(
+      topLeft: Radius.circular(8.0),
+      topRight: Radius.circular(8.0),
+    ),
+  );
 }
 
 class _CardItem extends StatelessWidget {

@@ -28,7 +28,7 @@ class _ShowBarcode extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 35, horizontal: 20),
               child: Container(
                 decoration: boxDecoration.copyWith(
-                  color: context.color.surface,
+                  color: context.color.onSecondary,
                   borderRadius: allBorderRadius,
                 ),
                 child: Center(

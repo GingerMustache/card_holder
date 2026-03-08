@@ -109,7 +109,7 @@ class _AddCardSheetState extends State<AddCardSheet> {
         ),
         Expanded(
           child: ColoredBox(
-            color: AppColors.mainWhite,
+            color: context.color.onSecondary,
             child: Padding(
               padding: mainHorizontalPadding,
               child: Stack(
@@ -260,7 +260,7 @@ class _AddCardSheetState extends State<AddCardSheet> {
           return Container(
             decoration: roundUpCornersDecoration(
               context,
-            ).copyWith(color: AppColors.subGrey.withValues(alpha: 0.8)),
+            ).copyWith(color: context.color.onSurface.withValues(alpha: 0.8)),
 
             child: Center(
               child: Text(

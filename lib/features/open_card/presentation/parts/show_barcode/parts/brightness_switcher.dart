@@ -27,7 +27,9 @@ class _BrightnessSwitcher extends StatelessWidget {
                   t.system.bright.all,
                   style: context.textStyles.labelSmall?.copyWith(
                     color:
-                        isBrightnessOn ? AppColors.darkGrey : AppColors.mainRed,
+                        isBrightnessOn
+                            ? context.color.surfaceTint
+                            : AppColors.mainRed,
                   ),
                 );
               },

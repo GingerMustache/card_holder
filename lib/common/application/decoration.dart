@@ -13,7 +13,7 @@ BoxDecoration dividerDecor(BuildContext context) => BoxDecoration(
 );
 
 BoxDecoration fabDecor(BuildContext context) => BoxDecoration(
-  color: context.color.surface,
+  color: context.color.onSecondary,
   borderRadius: BorderRadius.all(Radius.elliptical(8, 8)),
   boxShadow: [
     BoxShadow(
@@ -26,7 +26,7 @@ BoxDecoration fabDecor(BuildContext context) => BoxDecoration(
 );
 
 BoxDecoration roundUpCornersDecoration(BuildContext context) => BoxDecoration(
-  color: Theme.of(context).colorScheme.surface,
+  color: context.color.onSecondary,
   borderRadius: const BorderRadius.only(
     topLeft: Radius.circular(8.0),
     topRight: Radius.circular(8.0),
@@ -34,6 +34,6 @@ BoxDecoration roundUpCornersDecoration(BuildContext context) => BoxDecoration(
 );
 
 BoxDecoration roundCornersDecoration(BuildContext context) => BoxDecoration(
-  color: context.color.surface,
+  color: context.color.onSecondary,
   borderRadius: BorderRadius.all(Radius.elliptical(8, 8)),
 );

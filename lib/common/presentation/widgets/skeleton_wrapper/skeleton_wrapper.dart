@@ -30,7 +30,7 @@ class SkeletonWrapper extends StatelessWidget {
   }
 
   static boxDecoration(BuildContext context) => BoxDecoration(
-    color: Theme.of(context).colorScheme.surfaceTint.withAlpha(220),
+    color: context.color.outline.withAlpha(220),
     borderRadius: BorderRadius.circular(2.5),
   );
 }
