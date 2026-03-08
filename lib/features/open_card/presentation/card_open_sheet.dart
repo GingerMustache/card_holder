@@ -118,7 +118,7 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
       children: [
         Expanded(
           child: Container(
-            decoration: roundUpCornersDecoration,
+            decoration: roundUpCornersDecoration(context),
             width: double.infinity,
             child: Stack(
               children: [
@@ -129,7 +129,7 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
                       barcodeKey: _barcodeKey,
                       pickTime: widget.curCard.usagePoint,
                       allBorderRadius: CardOpenSheet.allBorderRadius,
-                      boxDecoration: roundUpCornersDecoration,
+                      boxDecoration: roundUpCornersDecoration(context),
                     ),
                     Padding(
                       padding: mainHorizontalPadding,

@@ -1,4 +1,3 @@
-import 'package:card_holder/common/application/app_settings.dart';
 import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +15,11 @@ class SkeletonWrapper extends StatelessWidget {
         child: Column(
           children: [
             Center(
-              child: Container(width: 35, height: 5, decoration: boxDecoration),
+              child: Container(
+                width: 35,
+                height: 5,
+                decoration: boxDecoration(context),
+              ),
             ),
             5.h,
             ...children,
@@ -26,8 +29,8 @@ class SkeletonWrapper extends StatelessWidget {
     );
   }
 
-  static final boxDecoration = BoxDecoration(
-    color: AppColors.steam.withAlpha(220),
+  static boxDecoration(BuildContext context) => BoxDecoration(
+    color: Theme.of(context).colorScheme.surfaceTint.withAlpha(220),
     borderRadius: BorderRadius.circular(2.5),
   );
 }

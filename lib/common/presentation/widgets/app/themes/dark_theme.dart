@@ -21,6 +21,7 @@ final darkThemeData = ThemeData(
     surface: Color.fromARGB(255, 88, 47, 47),
     // onSurface: Colors.white,
     secondaryContainer: Color.fromARGB(255, 36, 20, 20),
+    surfaceTint: AppColors.steam,
   ),
 
   textTheme: TextTheme(

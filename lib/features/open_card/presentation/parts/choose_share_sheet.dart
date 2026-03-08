@@ -61,7 +61,7 @@ class _ChooseShareSheetState extends State<ChooseShareSheet> {
           ),
 
           Container(
-            decoration: roundUpCornersDecoration,
+            decoration: roundUpCornersDecoration(context),
             width: context.halfWidth,
             padding: const EdgeInsets.only(top: 10),
             height: 150,

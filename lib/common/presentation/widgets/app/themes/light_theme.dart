@@ -18,8 +18,8 @@ final lightThemeData = ThemeData(
     // onSurface: AppColors.mainBlack, // main text color
     surfaceContainerHighest: AppColors.mainBlack,
     surface: AppColors.mainWhite,
-    // onSurface: Colors.black,
     secondaryContainer: Color.fromARGB(255, 255, 206, 191),
+    surfaceTint: AppColors.steam,
   ),
   textTheme: TextTheme(
     displayMedium: _getTextStyleFromTheme(

@@ -258,9 +258,9 @@ class _AddCardSheetState extends State<AddCardSheet> {
       builder: (context, state) {
         if (createBloc.cameraControllerSubscription.isPaused) {
           return Container(
-            decoration: roundUpCornersDecoration.copyWith(
-              color: AppColors.subGrey.withValues(alpha: 0.8),
-            ),
+            decoration: roundUpCornersDecoration(
+              context,
+            ).copyWith(color: AppColors.subGrey.withValues(alpha: 0.8)),
 
             child: Center(
               child: Text(

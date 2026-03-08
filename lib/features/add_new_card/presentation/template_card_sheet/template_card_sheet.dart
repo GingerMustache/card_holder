@@ -56,7 +56,7 @@ class _TemplateCardSheetState extends State<TemplateCardSheet> {
     return SkeletonWrapper(
       children: [
         Container(
-          decoration: roundUpCornersDecoration,
+          decoration: roundUpCornersDecoration(context),
           padding: const EdgeInsets.only(right: 16, left: 16, top: 16),
 
           child: InputSearch(change: onChange),
