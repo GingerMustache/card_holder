@@ -27,7 +27,8 @@ void main() async {
           providers: [
             RepositoryProvider<BrightnessService>(
               lazy: false,
-              create: (_) => diContainer.makeBrightnessService(),
+              create:
+                  (_) => diContainer.makeBrightnessService()..getBrightness(),
             ),
             RepositoryProvider<TextValidatorService>(
               lazy: false,

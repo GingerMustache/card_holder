@@ -38,7 +38,7 @@ class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
 
     cameraController = MobileScannerController(
       detectionTimeoutMs: 1500,
-      formats: [BarcodeFormat.all],
+      formats: [BarcodeFormat.ean13, BarcodeFormat.qrCode],
     );
     cameraControllerSubscription = cameraController.barcodes.listen(
       (event) => {},
@@ -112,9 +112,10 @@ class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
       cameraControllerSubscription.pause();
 
       final rawValue = barcodes.barcodes.first.rawValue!;
-      final detectedCode = rawValue.replaceAll(RegExp(r'[^\d]'), '').isEmpty
-          ? rawValue
-          : rawValue.formatWithSpaces;
+      final detectedCode =
+          rawValue.replaceAll(RegExp(r'[^\d]'), '').isEmpty
+              ? rawValue
+              : rawValue.formatWithSpaces;
 
       emit(state.copyWith(detectedCode: detectedCode, code: detectedCode));
     }
