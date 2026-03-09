@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:bloc/bloc.dart';
-
 import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:card_holder/common/mixins/event_transformer_mixin.dart';
 import 'package:card_holder/features/add_new_card/presentation/template_card_sheet/template_card_sheet.dart';
@@ -37,7 +36,10 @@ class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
       transformer: debounceRestartable(),
     );
 
-    cameraController = MobileScannerController(detectionTimeoutMs: 1500);
+    cameraController = MobileScannerController(
+      detectionTimeoutMs: 1500,
+      formats: [BarcodeFormat.all],
+    );
     cameraControllerSubscription = cameraController.barcodes.listen(
       (event) => {},
     );
@@ -109,8 +111,10 @@ class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
         barcodes.barcodes.first.rawValue != null) {
       cameraControllerSubscription.pause();
 
-      final String detectedCode =
-          barcodes.barcodes.first.rawValue!.formatWithSpaces;
+      final rawValue = barcodes.barcodes.first.rawValue!;
+      final detectedCode = rawValue.replaceAll(RegExp(r'[^\d]'), '').isEmpty
+          ? rawValue
+          : rawValue.formatWithSpaces;
 
       emit(state.copyWith(detectedCode: detectedCode, code: detectedCode));
     }
