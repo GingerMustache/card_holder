@@ -112,12 +112,20 @@ class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
     if (barcodes.barcodes.isNotEmpty &&
         barcodes.barcodes.first.rawValue != null) {
       cameraControllerSubscription.pause();
+      final scannedPart = barcodes.barcodes.first;
 
-      final rawValue = barcodes.barcodes.first.rawValue!;
-      final detectedCode =
-          rawValue.containsAlphabetic ? rawValue : rawValue.formatWithSpaces;
+      final rawValue = scannedPart.rawValue!;
+      final isQr = scannedPart.format == BarcodeFormat.qrCode;
+      final detectedCode = isQr ? rawValue : rawValue.formatWithSpaces;
+      final cardType = isQr ? CardCodeType.qr : CardCodeType.barcode;
 
-      emit(state.copyWith(detectedCode: detectedCode, code: detectedCode));
+      emit(
+        state.copyWith(
+          detectedCode: detectedCode,
+          code: detectedCode,
+          cardCodeType: cardType,
+        ),
+      );
     }
   }
 
@@ -156,6 +164,8 @@ class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
       emit(state.copyWith(templates: state.templates, searchTemplates: []));
     }
   }
+
+  // getters
 
   @override
   Future<void> close() {

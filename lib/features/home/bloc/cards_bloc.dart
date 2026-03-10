@@ -405,4 +405,8 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
           AnimatedSnackBar.show(message: message);
         }
       });
+
+  //getters
+  bool get isCurrentCardQr =>
+      state.currentCard?.cardCodeType == CardCodeType.qr;
 }
