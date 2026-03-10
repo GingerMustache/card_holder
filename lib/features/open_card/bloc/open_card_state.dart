@@ -11,6 +11,7 @@ class OpenCardState extends Equatable {
     this.turnBrightnessOn = true,
     this.urlPath = '',
     this.logoSize = 30.0,
+    this.cardCodeType = CardCodeType.barcode,
   });
 
   final String code;
@@ -22,6 +23,7 @@ class OpenCardState extends Equatable {
   final bool isLoading;
   final Exception? error;
   final double logoSize;
+  final CardCodeType cardCodeType;
 
   OpenCardState copyWith({
     String? code,
@@ -33,6 +35,7 @@ class OpenCardState extends Equatable {
     bool? isLoading,
     Exception? error,
     double? logoSize,
+    CardCodeType? cardCodeType,
   }) {
     return OpenCardState(
       name: name ?? this.name,
@@ -44,6 +47,7 @@ class OpenCardState extends Equatable {
       isLoading: isLoading ?? this.isLoading,
       error: error ?? this.error,
       logoSize: logoSize ?? this.logoSize,
+      cardCodeType: cardCodeType ?? this.cardCodeType,
     );
   }
 
@@ -56,5 +60,6 @@ class OpenCardState extends Equatable {
     turnBrightnessOn,
     urlPath,
     logoSize,
+    cardCodeType,
   ];
 }

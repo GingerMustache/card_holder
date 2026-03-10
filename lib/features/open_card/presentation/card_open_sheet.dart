@@ -95,6 +95,7 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
     }
     cardsBloc.add(
       CardsUpdateCardEvent(
+        cardCodeType: changedCard.cardCodeType,
         logoSize: changedCard.logoSize,
         color: changedCard.color,
         code: changedCard.code,

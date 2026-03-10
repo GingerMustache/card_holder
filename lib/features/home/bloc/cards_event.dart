@@ -27,11 +27,13 @@ class CardsAddCardEvent extends CardsEvent {
   final String name;
   final String code;
   final int color;
+  final CardCodeType cardCodeType;
   final String urlPath;
   final double logoSize;
   final Completer<DataBaseCard>? completer;
 
   const CardsAddCardEvent({
+    required this.cardCodeType,
     required this.code,
     required this.name,
     required this.color,
@@ -40,7 +42,14 @@ class CardsAddCardEvent extends CardsEvent {
     required this.completer,
   });
   @override
-  List<Object?> get props => [code, name, color, urlPath, logoSize];
+  List<Object?> get props => [
+    code,
+    name,
+    color,
+    urlPath,
+    logoSize,
+    cardCodeType,
+  ];
 }
 
 class CardsDeleteCardEvent extends CardsEvent {
@@ -65,19 +74,28 @@ class CardsUpdateCardEvent extends CardsEvent {
   final String? code;
   final int color;
   final String urlPath;
+  final CardCodeType cardCodeType;
   final double logoSize;
   final Completer<DataBaseCard>? completer;
 
   const CardsUpdateCardEvent({
     required this.name,
     required this.code,
+    required this.cardCodeType,
     required this.color,
     required this.urlPath,
     required this.logoSize,
     this.completer,
   });
   @override
-  List<Object?> get props => [name, code, color, urlPath, logoSize];
+  List<Object?> get props => [
+    name,
+    code,
+    color,
+    urlPath,
+    logoSize,
+    cardCodeType,
+  ];
 }
 
 class CardsSearchEvent extends CardsEvent {

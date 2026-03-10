@@ -34,6 +34,8 @@ class _ShowBarcode extends StatelessWidget {
                 child: Center(
                   child: BlocBuilder<CardsBloc, CardsState>(
                     builder: (context, state) {
+                      final isQr =
+                          state.currentCard?.code.containsAlphabetic ?? false;
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -41,10 +43,11 @@ class _ShowBarcode extends StatelessWidget {
                             key: barcodeKey,
                             child: BarcodeWidget(
                               drawText: false,
-                              barcode: Barcode.ean13(),
+                              barcode:
+                                  isQr ? Barcode.qrCode() : Barcode.ean13(),
                               padding: EdgeInsets.symmetric(horizontal: 12),
                               width: double.infinity,
-                              height: 200,
+                              height: isQr ? 250 : 200,
                               data: state.currentCard?.code ?? '',
                               errorBuilder:
                                   (context, error) => _ErrorBarCodeCase(
@@ -52,7 +55,10 @@ class _ShowBarcode extends StatelessWidget {
                                   ),
                             ),
                           ),
-                          Text(state.currentCard?.code.formatWithSpaces ?? ''),
+                          if (!isQr)
+                            Text(
+                              state.currentCard?.code.formatWithSpaces ?? '',
+                            ),
                         ],
                       );
                     },

@@ -17,6 +17,7 @@ abstract class CardServiceAbstract {
     required int color,
     required String? urlPath,
     required double logoSize,
+    required CardCodeType cardCodeType,
   });
   Future<DataBaseCard> getCard({required int id});
   Future<DataBaseCard> openCard({required int id});
@@ -29,6 +30,7 @@ abstract class CardServiceAbstract {
     required int color,
     required String urlPath,
     required double logoSize,
+    required CardCodeType cardCodeType,
   });
 }
 
@@ -37,16 +39,19 @@ const _cardTable = "card";
 const _idColumn = "id";
 const _name = "name";
 const _color = "color";
+const _cardCodeTypeColumn = "card_code_type";
 const _codeColumn = "code";
 const _usagePointColumn = "usage_point";
 const _urlPath = "url_path";
 const _logoSize = "logo_size";
+
 const _createCardTable = '''
       CREATE TABLE IF NOT EXISTS "card" (
       "color" INTEGER NOT NULL,
       "id"	INTEGER NOT NULL,
       "code"	TEXT,
       "name"	TEXT,
+      "card_code_type" TEXT,
       "usage_point" INTEGER,
       "url_path"	TEXT,
       "logo_size" REAL,
@@ -65,6 +70,7 @@ class LocalCardService implements CardServiceAbstract {
     required int id,
     required String code,
     required String name,
+    required CardCodeType cardCodeType,
     required int color,
     required String? urlPath,
     required double logoSize,
@@ -81,6 +87,7 @@ class LocalCardService implements CardServiceAbstract {
         {
           _codeColumn: code,
           _name: name,
+          _cardCodeTypeColumn: cardCodeType.name,
           _color: color,
           _urlPath: urlPath,
           _logoSize: logoSize,
@@ -209,6 +216,7 @@ class LocalCardService implements CardServiceAbstract {
     required int color,
     required String urlPath,
     required double logoSize,
+    required CardCodeType cardCodeType,
   }) async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
@@ -218,6 +226,7 @@ class LocalCardService implements CardServiceAbstract {
         _codeColumn: code.replaceAll(' ', ''),
         _name: name,
         _color: color,
+        _cardCodeTypeColumn: cardCodeType.name,
         _usagePointColumn: 0,
         _urlPath: urlPath,
         _logoSize: logoSize,
@@ -228,8 +237,10 @@ class LocalCardService implements CardServiceAbstract {
         color: color,
         code: code,
         name: name,
+        cardCodeType: cardCodeType,
         usagePoint: 0,
         urlPath: urlPath,
+
         logoSize: logoSize,
       );
     } catch (e) {
@@ -273,12 +284,12 @@ class LocalCardService implements CardServiceAbstract {
 
       final db = await openDatabase(
         dbPath,
-        version: 3, // bump version when adding db_meta
+        version: 4, // bump version when adding db_meta
         onCreate: (db, version) async {
           await db.execute(_createCardTable);
         },
         onUpgrade: (db, oldVersion, newVersion) async {
-          if (oldVersion < 2) {
+          if (oldVersion < 3) {
             await db.execute('''
             CREATE TABLE IF NOT EXISTS db_meta (
               version INTEGER
@@ -288,6 +299,14 @@ class LocalCardService implements CardServiceAbstract {
           if (oldVersion < 3) {
             await db.execute(
               '''ALTER TABLE "card" ADD COLUMN "logo_size" REAL''',
+            );
+          }
+          if (oldVersion < 4) {
+            await db.execute(
+              '''ALTER TABLE "card" ADD COLUMN "card_code_type" TEXT''',
+            );
+            await db.execute(
+              '''UPDATE "card" SET "card_code_type" = 'barcode' WHERE "card_code_type" IS NULL''',
             );
           }
         },

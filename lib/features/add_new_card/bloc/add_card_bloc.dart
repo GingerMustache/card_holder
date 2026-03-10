@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:bloc/bloc.dart';
 import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:card_holder/common/mixins/event_transformer_mixin.dart';
+import 'package:card_holder/common/services/local_crud/local_card_service.dart';
 import 'package:card_holder/features/add_new_card/presentation/template_card_sheet/template_card_sheet.dart';
 import 'package:equatable/equatable.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
@@ -56,13 +57,14 @@ class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
     CreateCardChangeCodeEvent event,
     Emitter<CreateCardState> emit,
   ) async {
-    final onlyNumbers = event.code.replaceAll(RegExp(r'[^0-9]'), '');
-    if (onlyNumbers.isEmpty) {
+    final detectedCode =
+        event.code.containsAlphabetic
+            ? event.code
+            : event.code.onlyNumbers.formatWithSpaces;
+    if (detectedCode.isEmpty) {
       emit(state.copyWith(code: ''));
     } else {
-      emit(
-        state.copyWith(code: onlyNumbers.formatWithSpaces, isMarkTapped: false),
-      );
+      emit(state.copyWith(code: detectedCode, isMarkTapped: false));
     }
   }
 
@@ -113,9 +115,7 @@ class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
 
       final rawValue = barcodes.barcodes.first.rawValue!;
       final detectedCode =
-          rawValue.replaceAll(RegExp(r'[^\d]'), '').isEmpty
-              ? rawValue
-              : rawValue.formatWithSpaces;
+          rawValue.containsAlphabetic ? rawValue : rawValue.formatWithSpaces;
 
       emit(state.copyWith(detectedCode: detectedCode, code: detectedCode));
     }

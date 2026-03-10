@@ -13,6 +13,7 @@ final class CreateCardState extends Equatable {
     this.detectedName = '',
     this.isFetching = false,
     this.isMarkTapped = false,
+    this.cardCodeType = CardCodeType.barcode,
   });
 
   final String code;
@@ -26,6 +27,7 @@ final class CreateCardState extends Equatable {
   final bool isFetching;
   final List<ShopTemplate> templates;
   final List<ShopTemplate> searchTemplates;
+  final CardCodeType cardCodeType;
 
   CreateCardState copyWith({
     String? code,
@@ -39,6 +41,7 @@ final class CreateCardState extends Equatable {
     bool? isFetching,
     List<ShopTemplate>? templates,
     List<ShopTemplate>? searchTemplates,
+    CardCodeType? cardCodeType,
   }) {
     return CreateCardState(
       name: name ?? this.name,
@@ -49,6 +52,7 @@ final class CreateCardState extends Equatable {
       isMarkTapped: isMarkTapped ?? this.isMarkTapped,
       detectedName: detectedName ?? this.detectedName,
       detectedCode: detectedCode ?? this.detectedCode,
+      cardCodeType: cardCodeType ?? this.cardCodeType,
       isFetching: isFetching ?? this.isFetching,
       templates: templates ?? this.templates,
       searchTemplates: searchTemplates ?? this.searchTemplates,
@@ -68,5 +72,6 @@ final class CreateCardState extends Equatable {
     logoSize,
     templates,
     searchTemplates,
+    cardCodeType,
   ];
 }

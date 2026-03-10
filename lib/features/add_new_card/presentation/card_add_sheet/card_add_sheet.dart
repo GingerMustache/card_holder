@@ -63,6 +63,7 @@ class _AddCardSheetState extends State<AddCardSheet> {
 
       context.read<CardsBloc>().add(
         CardsAddCardEvent(
+          cardCodeType: createState.cardCodeType,
           urlPath: createState.urlPath,
           color: createState.color,
           code: code,

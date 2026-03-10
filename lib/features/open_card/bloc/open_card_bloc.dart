@@ -47,6 +47,7 @@ class OpenCardBloc extends Bloc<OpenCardEvent, OpenCardState>
     }
     emit(
       state.copyWith(
+        cardCodeType: event.curCard.cardCodeType,
         code: event.curCard.code,
         name: event.curCard.name,
         color: event.curCard.color,

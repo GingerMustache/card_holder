@@ -98,6 +98,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
     emit(state.copyWith(isLoading: true));
     final result = await _cardRepo.createCard(
       code: event.code,
+      cardCodeType: event.cardCodeType,
       name: event.name,
       color: event.color,
       urlPath: event.urlPath,
@@ -175,6 +176,9 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
                 cardMap.forEach(
                   (key, card) => add(
                     CardsAddCardEvent(
+                      cardCodeType: CardCodeType.fromString(
+                        card['cardCodeType'] ?? 'barcode',
+                      ),
                       urlPath: card['urlPath'] ?? '',
                       code: card['code'],
                       name: card['name'],
@@ -208,6 +212,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
 
     final result = await _cardRepo.updateCard(
       id: state.currentCard!.id,
+      cardCodeType: event.cardCodeType,
       code: code,
       name: name,
       color: event.color,

@@ -35,6 +35,8 @@ extension StringExtension on String? {
 extension EmailValidator on String {
   bool get isValidEmail =>
       RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$").hasMatch(this);
+  bool get containsAlphabetic => RegExp(r'[a-zA-Z]').hasMatch(this);
+  String get onlyNumbers => replaceAll(RegExp(r'[^\d]'), '');
 }
 
 extension OnTapExtension on Widget {
