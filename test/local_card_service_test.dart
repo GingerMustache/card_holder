@@ -9,6 +9,8 @@ import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
+const _defaultCardCodeType = CardCodeType.barcode;
+
 void main() {
   // Initialize FFI for testing
   setUpAll(() {
@@ -107,6 +109,7 @@ void main() {
           color: color,
           urlPath: urlPath,
           logoSize: logoSize,
+          cardCodeType: _defaultCardCodeType,
         );
 
         expect(card.code, equals(code));
@@ -125,6 +128,7 @@ void main() {
           color: 0xFF000000,
           urlPath: AppIcons.fiveShop,
           logoSize: 30.0,
+          cardCodeType: _defaultCardCodeType,
         );
 
         final card2 = await cardService.createCard(
@@ -133,6 +137,7 @@ void main() {
           color: 0xFFFFFFFF,
           urlPath: AppIcons.magnetShop,
           logoSize: 30.0,
+          cardCodeType: _defaultCardCodeType,
         );
 
         expect(card1.id, isNot(equals(card2.id)));
@@ -145,6 +150,7 @@ void main() {
           color: 0,
           urlPath: '',
           logoSize: 30.0,
+          cardCodeType: _defaultCardCodeType,
         );
 
         expect(card.code, equals(''));
@@ -166,6 +172,7 @@ void main() {
           color: color,
           urlPath: urlPath,
           logoSize: logoSize,
+          cardCodeType: _defaultCardCodeType,
         );
 
         expect(card.code, equals(code));
@@ -186,6 +193,7 @@ void main() {
           color: 0xFF2196F3,
           urlPath: AppIcons.lentaShop,
           logoSize: 30.0,
+          cardCodeType: _defaultCardCodeType,
         );
 
         final retrievedCard = await cardService.getCard(id: createdCard.id);
@@ -227,6 +235,7 @@ void main() {
           color: 1,
           urlPath: AppIcons.fiveShop,
           logoSize: 30.0,
+          cardCodeType: _defaultCardCodeType,
         );
         await cardService.createCard(
           code: '2222',
@@ -234,6 +243,7 @@ void main() {
           color: 2,
           urlPath: AppIcons.ashanShop,
           logoSize: 30.0,
+          cardCodeType: _defaultCardCodeType,
         );
         await cardService.createCard(
           code: '3333',
@@ -241,6 +251,7 @@ void main() {
           color: 3,
           urlPath: AppIcons.dixyShop,
           logoSize: 30.0,
+          cardCodeType: _defaultCardCodeType,
         );
 
         final cards = await cardService.getCards();
@@ -254,6 +265,7 @@ void main() {
           color: 1,
           urlPath: AppIcons.fiveShop,
           logoSize: 30.0,
+          cardCodeType: _defaultCardCodeType,
         );
         final card2 = await cardService.createCard(
           code: '2222',
@@ -261,6 +273,7 @@ void main() {
           color: 2,
           urlPath: AppIcons.ashanShop,
           logoSize: 30.0,
+          cardCodeType: _defaultCardCodeType,
         );
         final card3 = await cardService.createCard(
           code: '3333',
@@ -268,6 +281,7 @@ void main() {
           color: 3,
           urlPath: AppIcons.dixyShop,
           logoSize: 30.0,
+          cardCodeType: _defaultCardCodeType,
         );
 
         // Open cards to increase usage points
@@ -292,6 +306,7 @@ void main() {
           color: 0xFF000000,
           urlPath: AppIcons.ashanShop,
           logoSize: 30.0,
+          cardCodeType: _defaultCardCodeType,
         );
 
         const newCode = '0987654321';
@@ -307,6 +322,7 @@ void main() {
           color: newColor,
           urlPath: newUrlPath,
           logoSize: newLogoSize,
+          cardCodeType: _defaultCardCodeType,
         );
 
         // The method returns the card before update
@@ -338,6 +354,7 @@ void main() {
             color: 0,
             urlPath: AppIcons.okShop,
             logoSize: 30.0,
+            cardCodeType: _defaultCardCodeType,
           ),
           throwsA(
             isA<CouldNotFindCard>(),
@@ -352,6 +369,7 @@ void main() {
           color: 0xFF000000,
           urlPath: AppIcons.sportmasterShop,
           logoSize: 30.0,
+          cardCodeType: _defaultCardCodeType,
         );
 
         await cardService.updateCard(
@@ -361,6 +379,7 @@ void main() {
           color: 0,
           urlPath: '',
           logoSize: 0.0,
+          cardCodeType: _defaultCardCodeType,
         );
 
         final updatedCard = await cardService.getCard(id: originalCard.id);
@@ -380,6 +399,7 @@ void main() {
           color: 0xFF2196F3,
           urlPath: AppIcons.vkusVilShop,
           logoSize: 30.0,
+          cardCodeType: _defaultCardCodeType,
         );
 
         expect(card.usagePoint, equals(0));
@@ -397,6 +417,7 @@ void main() {
           color: 0xFF2196F3,
           urlPath: AppIcons.perectrestokShop,
           logoSize: 30.0,
+          cardCodeType: _defaultCardCodeType,
         );
 
         await cardService.openCard(id: card.id);
@@ -414,6 +435,7 @@ void main() {
           color: 0xFF2196F3,
           urlPath: AppIcons.kbShop,
           logoSize: 30.0,
+          cardCodeType: _defaultCardCodeType,
         );
 
         final returnedCard = await cardService.openCard(id: card.id);
@@ -442,6 +464,7 @@ void main() {
           color: 0xFF2196F3,
           urlPath: AppIcons.sparShop,
           logoSize: 30.0,
+          cardCodeType: _defaultCardCodeType,
         );
 
         await cardService.deleteCard(id: card.id);
@@ -466,6 +489,7 @@ void main() {
           color: 1,
           urlPath: AppIcons.fiveShop,
           logoSize: 30.0,
+          cardCodeType: _defaultCardCodeType,
         );
         final card2 = await cardService.createCard(
           code: '2222',
@@ -473,6 +497,7 @@ void main() {
           color: 2,
           urlPath: AppIcons.magnetShop,
           logoSize: 30.0,
+          cardCodeType: _defaultCardCodeType,
         );
 
         await cardService.deleteCard(id: card1.id);
@@ -502,6 +527,7 @@ void main() {
           color: 1,
           urlPath: AppIcons.dixyShop,
           logoSize: 30.0,
+          cardCodeType: _defaultCardCodeType,
         );
         await cardService.createCard(
           code: '2222',
@@ -509,6 +535,7 @@ void main() {
           color: 2,
           urlPath: AppIcons.ashanShop,
           logoSize: 30.0,
+          cardCodeType: _defaultCardCodeType,
         );
         await cardService.createCard(
           code: '3333',
@@ -516,6 +543,7 @@ void main() {
           color: 3,
           urlPath: AppIcons.lentaShop,
           logoSize: 30.0,
+          cardCodeType: _defaultCardCodeType,
         );
 
         final deletedCount = await cardService.deleteAllCards();
@@ -532,6 +560,7 @@ void main() {
           color: 1,
           urlPath: AppIcons.fiveShop,
           logoSize: 30.0,
+          cardCodeType: _defaultCardCodeType,
         );
 
         final firstDelete = await cardService.deleteAllCards();
@@ -553,6 +582,7 @@ void main() {
           color: 0xFF2196F3,
           urlPath: AppIcons.sparShop,
           logoSize: 30.0,
+          cardCodeType: _defaultCardCodeType,
         );
 
         expect(card.id, isPositive);
@@ -565,6 +595,7 @@ void main() {
           color: 0xFF2196F3,
           urlPath: AppIcons.fiveShop,
           logoSize: 30.0,
+          cardCodeType: _defaultCardCodeType,
         );
 
         await cardService.openCard(id: card.id);
@@ -575,6 +606,7 @@ void main() {
           color: 0xFFFF0000,
           urlPath: AppIcons.magnetShop,
           logoSize: 40.0,
+          cardCodeType: _defaultCardCodeType,
         );
 
         final finalCard = await cardService.getCard(id: card.id);
@@ -597,6 +629,7 @@ void main() {
           color: 0xFF2196F3,
           urlPath: longString,
           logoSize: 30.0,
+          cardCodeType: _defaultCardCodeType,
         );
 
         expect(card.code, equals(longString));
@@ -615,6 +648,7 @@ void main() {
           color: 0xFF2196F3,
           urlPath: specialUrl,
           logoSize: 30.0,
+          cardCodeType: _defaultCardCodeType,
         );
 
         expect(card.code, equals(specialCode));
@@ -629,6 +663,7 @@ void main() {
           color: 0xFFFFFFFF,
           urlPath: AppIcons.sparShop,
           logoSize: 30.0,
+          cardCodeType: _defaultCardCodeType,
         );
 
         final minColorCard = await cardService.createCard(
@@ -637,6 +672,7 @@ void main() {
           color: 0x00000000,
           urlPath: AppIcons.dixyShop,
           logoSize: 30.0,
+          cardCodeType: _defaultCardCodeType,
         );
 
         expect(maxColorCard.color, equals(0xFFFFFFFF));
@@ -655,6 +691,7 @@ void main() {
               color: i,
               urlPath: 'url$i',
               logoSize: 30.0,
+              cardCodeType: _defaultCardCodeType,
             ),
           );
         }
