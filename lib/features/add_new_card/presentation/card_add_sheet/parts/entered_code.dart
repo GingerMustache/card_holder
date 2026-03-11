@@ -17,7 +17,11 @@ class _EnteredCodeWidget extends StatelessWidget {
                 state.code.isNotEmpty ? state.code : state.detectedCode;
             final isQr = code.containsAlphabetic;
             final showDetectedString =
-                isQr ? "QR" : {if (code.isNotEmpty) code else '0000 0000 0000'};
+                isQr
+                    ? "QR"
+                    : code.isNotEmpty
+                    ? code
+                    : '0000 0000 0000';
 
             return Text(
               showDetectedString.toString(),
