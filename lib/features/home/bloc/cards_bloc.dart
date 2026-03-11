@@ -324,6 +324,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
         'code': state.currentCard?.code ?? '',
         'name': state.currentCard?.name ?? '',
         'color': state.currentCard?.color ?? 0x00000000,
+        'cardCodeType': state.currentCard?.cardCodeType ?? CardCodeType.barcode,
       },
     };
 
@@ -354,7 +355,14 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
     emit(state.copyWith(isLoading: true));
     final Map<String, Object> jsonMap = {
       for (final card in state.cards)
-        card.name: {'code': card.code, 'name': card.name, 'color': card.color},
+        card.name: {
+          'code': card.code,
+          'name': card.name,
+          'color': card.color,
+          'logoSize': card.logoSize,
+          'urlPath': card.urlPath,
+          'cardCodeType': card.cardCodeType.name,
+        },
     };
 
     final result = await _convertHelper.getJsonFilePath(

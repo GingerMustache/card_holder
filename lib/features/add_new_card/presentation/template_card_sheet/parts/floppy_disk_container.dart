@@ -176,7 +176,7 @@ class _WhiteLabelArea extends StatelessWidget {
             ),
             Text(
               t.shops.fromFile,
-              style: context.textStyles.titleSmall?.copyWith(
+              style: context.textStyles.bodySmall?.copyWith(
                 fontSize: _FloppyDiskConstants.whiteLabelFontSizeRatio * size,
               ),
             ),
