@@ -17,6 +17,7 @@ import 'package:go_router/go_router.dart';
 
 part '../../data/shop_template_class.dart';
 part 'parts/floppy_disk_container.dart';
+part 'parts/loading_container.dart';
 part 'parts/shop_template_list.dart';
 
 class TemplateCardSheet extends StatefulWidget {
@@ -113,56 +114,57 @@ class _CardItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return template.funnyStyle
-        ? FloppyDiskContainer()
-        : Container(
-          key: Key('template_${template.name}'),
-          decoration: BoxDecoration(
-            color: template.cardColor ?? AppColors.mainGray,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: TextButton(
-            onPressed: () {
-              final completer = Completer();
+    return switch (template.style) {
+      TemplateStyle.disked => FloppyDiskContainer(),
+      TemplateStyle.loading => LoadingContainer(),
+      TemplateStyle.none => Container(
+        key: Key('template_${template.name}'),
+        decoration: BoxDecoration(
+          color: template.cardColor ?? AppColors.mainGray,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: TextButton(
+          onPressed: () {
+            final completer = Completer();
 
-              final bloc = context.read<CreateCardBloc>();
-              bloc.add(
-                CreateCardSetInitTemplateEvent(
-                  completer: completer,
-                  cardColor:
-                      (template.cardColor ?? AppColors.mainRed).toARGB32(),
-                  cardName: template.name,
-                  svgUrl: template.svgUrl,
-                  logoSize: template.logoSize,
-                ),
-              );
-              completer.future.then((_) => AddCardSheet.show(context, bloc));
-            },
-            style: TextButton.styleFrom(
-              padding: EdgeInsets.zero,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
+            final bloc = context.read<CreateCardBloc>();
+            bloc.add(
+              CreateCardSetInitTemplateEvent(
+                completer: completer,
+                cardColor: (template.cardColor ?? AppColors.mainRed).toARGB32(),
+                cardName: template.name,
+                svgUrl: template.svgUrl,
+                logoSize: template.logoSize,
               ),
-            ),
-            child: Center(
-              child:
-                  template.svgUrl.isNotEmpty
-                      ? SvgPicture.asset(
-                        template.svgUrl,
-                        height: template.logoSize,
-                        width: template.logoSize,
-                        fit: BoxFit.contain,
-                        placeholderBuilder: (context) => Text(template.name),
-                      )
-                      : Text(
-                        template.name,
-                        maxLines: 4,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.center,
-                        style: context.textStyles.bodySmall,
-                      ),
+            );
+            completer.future.then((_) => AddCardSheet.show(context, bloc));
+          },
+          style: TextButton.styleFrom(
+            padding: EdgeInsets.zero,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
             ),
           ),
-        );
+          child: Center(
+            child:
+                template.svgUrl.isNotEmpty
+                    ? SvgPicture.asset(
+                      template.svgUrl,
+                      height: template.logoSize,
+                      width: template.logoSize,
+                      fit: BoxFit.contain,
+                      placeholderBuilder: (context) => Text(template.name),
+                    )
+                    : Text(
+                      template.name,
+                      maxLines: 4,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                      style: context.textStyles.bodySmall,
+                    ),
+          ),
+        ),
+      ),
+    };
   }
 }

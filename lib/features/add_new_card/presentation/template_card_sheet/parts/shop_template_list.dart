@@ -4,11 +4,16 @@ final List<ShopTemplate> _shopTemplates = [
   ShopTemplate(name: t.shops.fromScratch, svgUrl: '', cardColor: null),
   ShopTemplate(
     name: t.shops.fromFile,
-    funnyStyle: true,
+    style: TemplateStyle.disked,
     svgUrl: '',
     cardColor: AppColors.mainGray,
   ),
-
+  ShopTemplate(
+    name: 'Загрузка',
+    style: TemplateStyle.loading,
+    svgUrl: '',
+    cardColor: AppColors.mainGray,
+  ),
   ShopTemplate(
     name: 'Пятёрочка',
     svgUrl: AppIcons.fiveShop,
