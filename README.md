@@ -26,11 +26,14 @@ A Flutter app for storing and managing loyalty and membership cards digitally.
 
 The app follows **Clean Architecture** principles with clear separation of concerns:
 
-- **Presentation Layer**: BLoC for state management, UI widgets
-- **Repository Layer**: Abstracts data sources, handles error mapping
-- **Service Layer**: Local storage (SQLite), file operations, sharing
-- **Dependency Injection**: Manual DI container for loose coupling
-- **Error Handling**: Either monad pattern (dartz) for functional error handling
+- **Presentation**: Feature-based UI + state management with **BLoC** (`flutter_bloc`)
+- **Domain**: Entities + repository contracts (`lib/domain`)
+- **Data**: Models + local/remote data sources (`lib/data`)
+- **Local persistence**: SQLite via **sqflite** (e.g. `LocalCardService`)
+- **Networking**: HTTP via **Dio** with a shared request mixin + centralized exceptions
+- **Navigation**: **go_router** routing configuration in `common/routing`
+- **Dependency Injection**: Manual DI container (`common/di_container`)
+- **Error handling**: Functional `Either<Exception, T>` via **dartz** (`safeCall` pattern)
 
 
 ## Project Structure
