@@ -1,4 +1,4 @@
-import 'package:card_holder/common/services/local_crud/exceptions/crud_exceptions.dart';
+import 'package:card_holder/common/exceptions/crud_exceptions.dart';
 import 'package:card_holder/common/services/local_crud/local_data_base_error_message_resolver/local_data_base_error_message_resolver.dart';
 import 'package:card_holder/common/services/share/exceptions/shared_service_exceptions.dart';
 import 'package:dartz/dartz.dart';

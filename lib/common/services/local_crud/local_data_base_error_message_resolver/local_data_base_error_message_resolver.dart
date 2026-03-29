@@ -1,5 +1,5 @@
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
-import 'package:card_holder/common/services/local_crud/exceptions/crud_exceptions.dart';
+import 'package:card_holder/common/exceptions/crud_exceptions.dart';
 
 class LocalDataBaseErrorMessageResolver {
   static final Map<Type, String Function()> _defaultMessages = {
