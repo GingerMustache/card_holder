@@ -37,10 +37,21 @@ The app follows **Clean Architecture** principles with clear separation of conce
 
 ```
 lib/
-├── common/          # Shared utilities, widgets, and services
-├── features/        # Feature modules
-│   ├── home/        # Card list and navigation
-│   ├── add_new_card/# Add cards manually or from templates
-│   ├── open_card/   # View and edit card details
-│   └── settings/    # App settings and preferences
+├── main.dart              # App entry point
+├── common/                # Shared cross-cutting code (DI, routing, UI, services, etc.)
+├── data/                  # Data layer (models + data sources)
+│   ├── models/            # DTOs / API & persistence models
+│   └── data_sources/      # Local/remote implementations
+│       ├── local/
+│       └── remote/
+├── domain/                # Domain layer (entities + repository contracts)
+│   ├── entities/
+│   └── repositories/      # Repository interfaces (local/remote)
+│       ├── local/
+│       └── remote/
+└── features/              # Feature modules (UI + state for each feature)
+    ├── home/              # Card list and navigation
+    ├── add_new_card/      # Add cards manually or from templates
+    ├── open_card/         # View and edit card details
+    └── settings/          # App settings and preferences
 ```
