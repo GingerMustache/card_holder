@@ -27,10 +27,6 @@ class FloppyDiskContainer extends StatelessWidget {
             decoration: BoxDecoration(
               color: AppColors.blue700,
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: AppColors.mainBlack,
-                width: _FloppyDiskConstants.borderWidth,
-              ),
             ),
             child: Stack(
               children: [
@@ -176,9 +172,7 @@ class _WhiteLabelArea extends StatelessWidget {
             ),
             Text(
               t.shops.fromFile,
-              style: context.textStyles.bodySmall?.copyWith(
-                fontSize: _FloppyDiskConstants.whiteLabelFontSizeRatio * size,
-              ),
+              style: context.textStyles.bodySmall?.copyWith(fontSize: 9),
             ),
             ...List.generate(
               2,

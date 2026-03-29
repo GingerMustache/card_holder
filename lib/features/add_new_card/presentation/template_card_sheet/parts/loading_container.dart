@@ -5,48 +5,31 @@ class LoadingContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final size =
-            constraints.maxWidth < constraints.maxHeight
-                ? constraints.maxWidth
-                : constraints.maxHeight;
-
-        return DecoratedBox(
-          decoration: BoxDecoration(
-            color: AppColors.mainWhite,
-            borderRadius: BorderRadius.circular(4),
-            border: Border.all(
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: AppColors.mainWhite,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 6, vertical: 12),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _PixelWord(
+              text: 'LOADING...',
+              pixelSize: 3,
+              pixelGap: 0.6,
+              charGap: 2.4,
               color: AppColors.mainBlack,
-              width: _LoadingConstants.outerBorderWidth,
             ),
-          ),
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: _LoadingConstants.horizontalPaddingRatio * size,
-              vertical: _LoadingConstants.verticalPaddingRatio * size,
+            12.h,
+            _LoadingProgressBar(
+              filledSteps: _LoadingConstants.staticFilledSteps,
+              totalSteps: _LoadingConstants.staticTotalSteps,
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _PixelWord(
-                  text: 'LOADING...',
-                  pixelSize: _LoadingConstants.pixelSizeRatio * size,
-                  pixelGap: _LoadingConstants.pixelGapRatio * size,
-                  charGap: _LoadingConstants.charGapRatio * size,
-                  color: AppColors.mainBlack,
-                ),
-                SizedBox(height: _LoadingConstants.wordToBarGapRatio * size),
-                _LoadingProgressBar(
-                  filledSteps: _LoadingConstants.staticFilledSteps,
-                  totalSteps: _LoadingConstants.staticTotalSteps,
-                  size: size,
-                ),
-              ],
-            ),
-          ),
-        );
-      },
+          ],
+        ),
+      ),
     );
   }
 }
@@ -55,50 +38,45 @@ class _LoadingProgressBar extends StatelessWidget {
   const _LoadingProgressBar({
     required this.filledSteps,
     required this.totalSteps,
-    required this.size,
   });
 
   final int filledSteps;
   final int totalSteps;
-  final double size;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: _LoadingConstants.barHeightRatio * size,
       width: double.infinity,
+      padding: EdgeInsets.symmetric(vertical: 4, horizontal: 2),
       decoration: BoxDecoration(
-        border: Border.all(
-          color: AppColors.mainBlack,
-          width: _LoadingConstants.progressBorderWidth,
-        ),
+        border: Border.all(color: AppColors.mainBlack, width: 3),
       ),
-      child: Padding(
-        padding: EdgeInsets.all(_LoadingConstants.barInnerPaddingRatio * size),
-
-        child: Row(
-          children: List.generate(totalSteps, (index) {
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        textBaseline: TextBaseline.alphabetic,
+        children: [
+          ...List.generate(totalSteps, (index) {
             final isFilled = index < filledSteps;
+
             return Expanded(
               child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: _LoadingConstants.segmentGapRatio * size,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 0.4),
                 child: Container(
                   height: 15,
                   decoration: BoxDecoration(
                     color: isFilled ? AppColors.mainBlack : AppColors.mainWhite,
-
-                    border: Border.all(
-                      color: AppColors.mainBlack,
-                      width: _LoadingConstants.segmentBorderWidth,
-                    ),
+                    border: Border.all(color: AppColors.mainBlack, width: 1),
                   ),
                 ),
               ),
             );
           }),
-        ),
+          2.w,
+          Text(
+            'из интернетов',
+            style: context.textStyles.bodySmall?.copyWith(fontSize: 9),
+          ),
+        ],
       ),
     );
   }
@@ -209,19 +187,8 @@ class _PixelGlyph extends StatelessWidget {
 }
 
 class _LoadingConstants {
-  static const double outerBorderWidth = 3;
-  static const double horizontalPaddingRatio = 0.06;
-  static const double verticalPaddingRatio = 0.14;
-  static const double pixelSizeRatio = 0.03;
-  static const double pixelGapRatio = 0.006;
-  static const double charGapRatio = 0.024;
   static const double pixelRadius = 1;
-  static const double wordToBarGapRatio = 0.12;
-  static const double barHeightRatio = 0.28;
   static const double progressBorderWidth = 3;
-  static const double barInnerPaddingRatio = 0.022;
-  static const double segmentGapRatio = 0.004;
-  static const double segmentBorderWidth = 1;
-  static const int staticFilledSteps = 6;
+  static const int staticFilledSteps = 7;
   static const int staticTotalSteps = 12;
 }
