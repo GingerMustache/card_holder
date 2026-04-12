@@ -114,121 +114,111 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: SkeletonWrapper(
-        ratio: 1.63,
-        children: [
-          Expanded(
-            child: Container(
-              decoration: roundUpCornersDecoration(context),
-              width: double.infinity,
-              child: Stack(
-                children: [
-                  Column(
-                    children: [
-                      _ShowBarcode(
-                        currentCardId: widget.curCard.id,
-                        barcodeKey: _barcodeKey,
-                        pickTime: widget.curCard.usagePoint,
-                        allBorderRadius: CardOpenSheet.allBorderRadius,
-                        boxDecoration: roundUpCornersDecoration(context),
+    return SkeletonWrapper(
+      ratio: 1.63,
+      children: [
+        Expanded(
+          child: Container(
+            decoration: roundUpCornersDecoration(context),
+            width: double.infinity,
+            child: Stack(
+              children: [
+                Column(
+                  children: [
+                    _ShowBarcode(
+                      currentCardId: widget.curCard.id,
+                      barcodeKey: _barcodeKey,
+                      pickTime: widget.curCard.usagePoint,
+                      allBorderRadius: CardOpenSheet.allBorderRadius,
+                      boxDecoration: roundUpCornersDecoration(context),
+                    ),
+                    Padding(
+                      padding: mainHorizontalPadding,
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Divider(
+                                  color: context.color.onSurface.withAlpha(50),
+                                ),
+                              ),
+                              widget.curCard.urlPath.isNotEmpty
+                                  ? LogoSvg(
+                                    logoSize: widget.curCard.logoSize,
+                                    urlPath: widget.curCard.urlPath,
+                                    cardName: widget.curCard.name,
+                                  )
+                                  : BlocBuilder<OpenCardBloc, OpenCardState>(
+                                    buildWhen:
+                                        (previous, current) =>
+                                            previous.color != current.color,
+                                    builder: (context, state) {
+                                      return InkWell(
+                                        onTap: onTapColorWidget,
+                                        child: ColorMark(state.color),
+                                      );
+                                    },
+                                  ),
+                            ],
+                          ),
+                          FrameTextField(
+                            validator:
+                                context.read<TextValidatorService>().emptyCheck,
+                            numericKeyboard: true,
+                            onChanged:
+                                (v) => openBloc.add(OpenCardChangeCodeEvent(v)),
+                            hintText: widget.curCard.code.formatWithSpaces,
+                            labelText: t.screen.home.addCard.manualCode,
+                          ),
+                          FrameTextField(
+                            validator:
+                                context.read<TextValidatorService>().emptyCheck,
+                            onChanged:
+                                (v) => openBloc.add(OpenCardChangeNameEvent(v)),
+                            hintText: widget.curCard.name,
+                            labelText: t.screen.home.addCard.cardName,
+                          ),
+                          9.h,
+                          Row(
+                            children: [
+                              Expanded(
+                                child: DefaultButton(
+                                  text: t.screen.home.openCard.edit,
+                                  onTap: () => onEdit(context),
+                                ),
+                              ),
+                              Expanded(
+                                child: DefaultButton(
+                                  text: t.screen.home.openCard.share,
+                                  onTap: captureAndShareBarcode,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                      Padding(
-                        padding: mainHorizontalPadding,
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Divider(
-                                    color: context.color.onSurface.withAlpha(
-                                      50,
-                                    ),
-                                  ),
-                                ),
-                                widget.curCard.urlPath.isNotEmpty
-                                    ? LogoSvg(
-                                      logoSize: widget.curCard.logoSize,
-                                      urlPath: widget.curCard.urlPath,
-                                      cardName: widget.curCard.name,
-                                    )
-                                    : BlocBuilder<OpenCardBloc, OpenCardState>(
-                                      buildWhen:
-                                          (previous, current) =>
-                                              previous.color != current.color,
-                                      builder: (context, state) {
-                                        return InkWell(
-                                          onTap: onTapColorWidget,
-                                          child: ColorMark(state.color),
-                                        );
-                                      },
-                                    ),
-                              ],
-                            ),
-                            FrameTextField(
-                              validator:
-                                  context
-                                      .read<TextValidatorService>()
-                                      .emptyCheck,
-                              numericKeyboard: true,
-                              onChanged:
-                                  (v) =>
-                                      openBloc.add(OpenCardChangeCodeEvent(v)),
-                              hintText: widget.curCard.code.formatWithSpaces,
-                              labelText: t.screen.home.addCard.manualCode,
-                            ),
-                            FrameTextField(
-                              validator:
-                                  context
-                                      .read<TextValidatorService>()
-                                      .emptyCheck,
-                              onChanged:
-                                  (v) =>
-                                      openBloc.add(OpenCardChangeNameEvent(v)),
-                              hintText: widget.curCard.name,
-                              labelText: t.screen.home.addCard.cardName,
-                            ),
-                            9.h,
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: DefaultButton(
-                                    text: t.screen.home.openCard.edit,
-                                    onTap: () => onEdit(context),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: DefaultButton(
-                                    text: t.screen.home.openCard.share,
-                                    onTap: captureAndShareBarcode,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
+                ),
 
-                  BlocBuilder<OpenCardBloc, OpenCardState>(
-                    buildWhen:
-                        (prev, cur) => prev.isMarkTapped != cur.isMarkTapped,
-                    builder: (context, state) {
-                      return ColorWheelWidget(
-                        alignment: const Alignment(0.7, 0.7),
-                        initialColor: state.color,
-                        isShow: state.isMarkTapped,
-                        onChanged: onChangeColor,
-                      );
-                    },
-                  ),
-                ],
-              ),
+                BlocBuilder<OpenCardBloc, OpenCardState>(
+                  buildWhen:
+                      (prev, cur) => prev.isMarkTapped != cur.isMarkTapped,
+                  builder: (context, state) {
+                    return ColorWheelWidget(
+                      alignment: const Alignment(0.7, 0.7),
+                      initialColor: state.color,
+                      isShow: state.isMarkTapped,
+                      onChanged: onChangeColor,
+                    );
+                  },
+                ),
+              ],
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

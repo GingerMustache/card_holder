@@ -47,54 +47,58 @@ class _ChooseShareSheetState extends State<ChooseShareSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 230,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Expanded(
-            child: GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTap: () => Navigator.pop(context),
-              child: const SizedBox.expand(),
-            ),
-          ),
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        _EmptyPopSpace(),
 
-          Container(
-            decoration: roundUpCornersDecoration(context),
-            width: context.halfWidth,
-            padding: const EdgeInsets.only(top: 10),
-            height: 150,
-            child: Column(
-              children: [
-                Text(
-                  t.screen.home.openCard.share,
-                ).animate().fadeIn(duration: 550.ms),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Divider(color: context.color.onSurface.withAlpha(50)),
-                ),
-
-                Row(
+        Container(
+          width: context.halfWidth,
+          padding: const EdgeInsets.only(top: 10),
+          height: 300,
+          child: Column(
+            children: [
+              Container(
+                decoration: roundCornersDecoration(context),
+                height: 143,
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    _ShareCase(
-                      title: t.screen.home.openCard.file,
-                      onTap: onTapFile,
+                    Text(
+                      t.screen.home.openCard.share,
+                    ).animate().fadeIn(duration: 550.ms),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Divider(
+                        color: context.color.onSurface.withAlpha(50),
+                      ),
                     ),
-                    _VerticalDivider(),
-                    _ShareCase(
-                      title: t.screen.home.openCard.image,
-                      onTap: onTapImage,
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _ShareCase(
+                          title: t.screen.home.openCard.file,
+                          onTap: onTapFile,
+                        ),
+                        _VerticalDivider(),
+                        _ShareCase(
+                          title: t.screen.home.openCard.image,
+                          onTap: onTapImage,
+                        ),
+                      ],
                     ),
+                    // _EmptyPopSpace(),
                   ],
                 ),
-              ],
-            ),
+              ),
+              _EmptyPopSpace(),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
