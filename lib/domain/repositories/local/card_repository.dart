@@ -2,6 +2,7 @@ import 'package:card_holder/common/mixins/error_handler_mixin.dart';
 import 'package:card_holder/domain/repositories/local/shared_repository.dart';
 import 'package:card_holder/common/services/local_crud/local_card_service.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 
 abstract class CardRepository {
   Future<Either<Exception, DataBaseCard>> getCard({required int id});
@@ -12,6 +13,7 @@ abstract class CardRepository {
   Future<Either<Exception, void>> shareCardNet({
     required List<String> paths,
     required String text,
+    required BuildContext context,
   });
   Future<Either<Exception, DataBaseCard>> updateCard({
     required int id,
@@ -106,5 +108,7 @@ class CardRepositoryImpl with ErrorHandlerMixin implements CardRepository {
   Future<Either<Exception, void>> shareCardNet({
     required List<String> paths,
     required String text,
-  }) async => netShareRepository.shareFiles(paths: paths, text: text);
+    required BuildContext context,
+  }) async =>
+      netShareRepository.shareFiles(paths: paths, text: text, context: context);
 }

@@ -307,7 +307,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
       },
 
       (String filePath) async {
-        _shareCardNet(filePath, state.currentCard?.name ?? '');
+        _shareCardNet(filePath, state.currentCard?.name ?? '', event.ctx);
 
         // event.completer?.complete(card);
       },
@@ -341,7 +341,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
         }
       },
       (String filePath) async {
-        _shareCardNet(filePath, state.currentCard?.name ?? '');
+        _shareCardNet(filePath, state.currentCard?.name ?? '', event.ctx);
 
         // event.completer?.complete(card);
       },
@@ -378,7 +378,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
         }
       },
       (String filePath) async {
-        _shareCardNet(filePath, 'all_cards');
+        _shareCardNet(filePath, 'all_cards', event.ctx);
 
         // event.completer?.complete(card);
       },
@@ -386,10 +386,15 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
   }
 
   // others func
-  Future<void> _shareCardNet(String filePath, String cardName) async {
+  Future<void> _shareCardNet(
+    String filePath,
+    String cardName,
+    BuildContext context,
+  ) async {
     final shareResult = await _cardRepo.shareCardNet(
       paths: [filePath],
       text: cardName,
+      context: context,
     );
     shareResult.fold(
       (Exception e) {

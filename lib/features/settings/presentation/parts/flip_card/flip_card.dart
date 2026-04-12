@@ -74,7 +74,7 @@ class _UnderCardWidget extends StatelessWidget {
 class _Share extends StatelessWidget {
   const _Share();
   void _onShareAllCards(BuildContext context) async {
-    context.read<CardsBloc>().add(CardsShareAllCardsEvent());
+    context.read<CardsBloc>().add(CardsShareAllCardsEvent(context));
   }
 
   @override

@@ -38,11 +38,10 @@ class ChooseShareSheet extends StatefulWidget {
 
 class _ChooseShareSheetState extends State<ChooseShareSheet> {
   void onTapFile() async =>
-      context.read<CardsBloc>().add(CardsShareFileEvent());
-  // get current path
+      context.read<CardsBloc>().add(CardsShareFileEvent(context));
 
   void onTapImage() => context.read<CardsBloc>().add(
-    CardsShareImageEvent(barcodeKey: widget.barcodeKey),
+    CardsShareImageEvent(barcodeKey: widget.barcodeKey, context),
   );
 
   @override
@@ -90,7 +89,6 @@ class _ChooseShareSheetState extends State<ChooseShareSheet> {
                         ),
                       ],
                     ),
-                    // _EmptyPopSpace(),
                   ],
                 ),
               ),

@@ -36,31 +36,36 @@ class _ShowBarcode extends StatelessWidget {
                     builder: (context, state) {
                       final isQr = context.read<CardsBloc>().isCurrentCardQr;
 
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          RepaintBoundary(
-                            key: barcodeKey,
-                            child: BarcodeWidget(
-                              drawText: false,
-                              barcode:
-                                  isQr ? Barcode.qrCode() : Barcode.ean13(),
+                      return RepaintBoundary(
+                        key: barcodeKey,
+                        child: ColoredBox(
+                          color: AppColors.mainWhite,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              BarcodeWidget(
+                                drawText: false,
+                                barcode:
+                                    isQr ? Barcode.qrCode() : Barcode.ean13(),
 
-                              padding: EdgeInsets.symmetric(horizontal: 12),
-                              width: double.infinity,
-                              height: isQr ? 250 : 200,
-                              data: state.currentCard?.code ?? '',
-                              errorBuilder:
-                                  (context, error) => _ErrorBarCodeCase(
-                                    state.currentCard?.code,
-                                  ),
-                            ),
+                                padding: EdgeInsets.symmetric(horizontal: 12),
+                                width: double.infinity,
+                                height: isQr ? 250 : 200,
+                                data: state.currentCard?.code ?? '',
+                                errorBuilder:
+                                    (context, error) => _ErrorBarCodeCase(
+                                      state.currentCard?.code,
+                                    ),
+                              ),
+
+                              if (!isQr)
+                                Text(
+                                  state.currentCard?.code.formatWithSpaces ??
+                                      '',
+                                ),
+                            ],
                           ),
-                          if (!isQr)
-                            Text(
-                              state.currentCard?.code.formatWithSpaces ?? '',
-                            ),
-                        ],
+                        ),
                       );
                     },
                   ),

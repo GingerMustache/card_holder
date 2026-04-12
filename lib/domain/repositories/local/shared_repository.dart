@@ -11,9 +11,9 @@ abstract class ShareRepository {
 
   Future<Either<Exception, void>> shareFiles({
     required List<String> paths,
+    required BuildContext context,
     String? text,
     String? subject,
-    BuildContext? context,
   });
 }
 
@@ -31,9 +31,9 @@ class ShareRepositoryImpl with ErrorHandlerMixin implements ShareRepository {
   @override
   Future<Either<Exception, void>> shareFiles({
     required List<String> paths,
+    required BuildContext context,
     String? text,
     String? subject,
-    BuildContext? context,
   }) => safeCall(
     () => shareService.shareFiles(
       paths: paths,

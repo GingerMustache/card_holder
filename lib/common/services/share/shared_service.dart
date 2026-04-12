@@ -7,9 +7,9 @@ abstract final class ShareService {
 
   Future<void> shareFiles({
     required List<String> paths,
+    required BuildContext context,
     String? text,
     String? subject,
-    BuildContext? context,
   });
 }
 
@@ -34,14 +34,14 @@ final class NetShareServiceImpl implements ShareService {
   @override
   Future<void> shareFiles({
     required List<String> paths,
+    required BuildContext context,
     String? text,
     String? subject,
-    BuildContext? context,
   }) async {
     if (errorFlag) return;
 
     try {
-      final box = context?.findRenderObject() as RenderBox?;
+      final box = context.findRenderObject() as RenderBox?;
       final files = paths.map((p) => XFile(p)).toList();
 
       await SharePlus.instance.share(

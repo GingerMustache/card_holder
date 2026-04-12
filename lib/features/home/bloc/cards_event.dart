@@ -108,20 +108,24 @@ class CardsSearchEvent extends CardsEvent {
 
 class CardsShareImageEvent extends CardsEvent {
   final GlobalKey barcodeKey;
+  final BuildContext ctx;
 
-  const CardsShareImageEvent({required this.barcodeKey});
+  const CardsShareImageEvent(this.ctx, {required this.barcodeKey});
   @override
   List<Object?> get props => [barcodeKey];
 }
 
 class CardsShareFileEvent extends CardsEvent {
-  const CardsShareFileEvent();
+  final BuildContext ctx;
+  const CardsShareFileEvent(this.ctx);
   @override
   List<Object?> get props => [];
 }
 
 class CardsShareAllCardsEvent extends CardsEvent {
-  const CardsShareAllCardsEvent();
+  final BuildContext ctx;
+
+  const CardsShareAllCardsEvent(this.ctx);
   @override
   List<Object?> get props => [];
 }
