@@ -3,17 +3,17 @@
 import 'dart:async' show Completer;
 
 import 'package:bloc/bloc.dart';
+import 'package:card_holder/common/exceptions/crud_exceptions.dart';
+import 'package:card_holder/common/exceptions/image_helper_exceptions.dart';
 import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:card_holder/common/helpers/converter/convert_helper.dart';
-import 'package:card_holder/common/exceptions/image_helper_exceptions.dart';
 import 'package:card_holder/common/mixins/event_transformer_mixin.dart';
+import 'package:card_holder/common/services/file_pick/exceptions/file_pick_service_exceptions.dart';
+import 'package:card_holder/common/services/local_crud/local_card_service.dart';
+import 'package:card_holder/common/services/share/exceptions/shared_service_exceptions.dart';
 import 'package:card_holder/domain/repositories/local/card_repository.dart';
 import 'package:card_holder/domain/repositories/local/file_pick_repository.dart';
 import 'package:card_holder/domain/repositories/local/shared_repository.dart';
-import 'package:card_holder/common/services/file_pick/exceptions/file_pick_service_exceptions.dart';
-import 'package:card_holder/common/exceptions/crud_exceptions.dart';
-import 'package:card_holder/common/services/local_crud/local_card_service.dart';
-import 'package:card_holder/common/services/share/exceptions/shared_service_exceptions.dart';
 import 'package:equatable/equatable.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
@@ -324,7 +324,8 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
         'code': state.currentCard?.code ?? '',
         'name': state.currentCard?.name ?? '',
         'color': state.currentCard?.color ?? 0x00000000,
-        'cardCodeType': state.currentCard?.cardCodeType ?? CardCodeType.barcode,
+        'cardCodeType':
+            state.currentCard?.cardCodeType.name ?? CardCodeType.barcode.name,
       },
     };
 

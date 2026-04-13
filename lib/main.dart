@@ -1,3 +1,4 @@
+import 'package:app_links/app_links.dart';
 import 'package:card_holder/common/configs/setting_config.dart';
 import 'package:card_holder/common/di_container/di_container.dart';
 import 'package:card_holder/common/helpers/converter/text_field_validator/text_field_validator.dart';
@@ -20,6 +21,13 @@ void main() async {
     final flutterI18nDelegate = await LocaleClass.initLocaleDelegate();
 
     final app = diContainer.makeApp(flutterI18nDelegate, settingConfig);
+
+    final appLinks = AppLinks(); // AppLinks is singleton
+
+    // Subscribe to all events (initial link and further)
+    final sub = appLinks.uriLinkStream.listen((uri) {
+      print(uri);
+    });
 
     runApp(
       TranslationProvider(
