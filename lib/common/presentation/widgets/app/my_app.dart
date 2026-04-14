@@ -50,8 +50,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // if (kDebugMode) debugPrintRebuildDirtyWidgets = true;
-
     return BlocBuilder<SettingsBloc, SettingsState>(
       buildWhen: (previous, current) => previous.theme != current.theme,
       builder: (context, state) {
@@ -67,6 +65,7 @@ class MyApp extends StatelessWidget {
           locale: TranslationProvider.of(context).flutterLocale,
           builder: (context, child) {
             FlutterI18n.rootAppBuilder();
+
             return Overlay(
               initialEntries: [
                 OverlayEntry(

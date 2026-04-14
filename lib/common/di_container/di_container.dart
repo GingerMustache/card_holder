@@ -2,16 +2,17 @@ import 'package:card_holder/common/configs/setting_config.dart';
 import 'package:card_holder/common/helpers/converter/convert_helper.dart';
 import 'package:card_holder/common/helpers/converter/text_field_validator/text_field_validator.dart';
 import 'package:card_holder/common/presentation/widgets/app/my_app.dart';
-import 'package:card_holder/domain/repositories/local/card_repository.dart';
-import 'package:card_holder/domain/repositories/local/file_pick_repository.dart';
-import 'package:card_holder/domain/repositories/local/shared_repository.dart';
 import 'package:card_holder/common/routing/routes.dart';
+import 'package:card_holder/common/services/app_link/app_link_service.dart';
 import 'package:card_holder/common/services/brightness_control/brightness_control_service.dart';
 import 'package:card_holder/common/services/error_service/error_service.dart';
 import 'package:card_holder/common/services/file_pick/file_pick_service.dart';
 import 'package:card_holder/common/services/local_crud/local_card_service.dart';
 import 'package:card_holder/common/services/local_storage/secure_storage.dart';
 import 'package:card_holder/common/services/share/shared_service.dart';
+import 'package:card_holder/domain/repositories/local/card_repository.dart';
+import 'package:card_holder/domain/repositories/local/file_pick_repository.dart';
+import 'package:card_holder/domain/repositories/local/shared_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n_delegate.dart'
     show FlutterI18nDelegate;
@@ -33,6 +34,7 @@ abstract class DiContainerProvider {
   TextValidatorService makeTextValidatorService();
   MainErrorService makeErrorService();
   Future<SettingConfig> makeSettingConfig();
+  AppLinkService makeAppLinkService();
 }
 
 class DiContainer implements DiContainerProvider {
@@ -46,6 +48,8 @@ class DiContainer implements DiContainerProvider {
   FilePickService makeFilePickService() => NetFilePickServiceImpl();
   @override
   TextValidatorService makeTextValidatorService() => TextValidatorService();
+  @override
+  AppLinkService makeAppLinkService() => AppLinkService();
   @override
   MainErrorService makeErrorService() => MainErrorService.instance;
 
