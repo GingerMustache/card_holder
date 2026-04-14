@@ -7,13 +7,15 @@ part 'app_state.dart';
 class AppCubit extends Cubit<AppState> {
   final AppLinkService _appLinkService;
 
-  AppCubit(this._appLinkService) : super(AppState()) {
+  AppCubit({required AppLinkService appLinkService})
+    : _appLinkService = appLinkService,
+      super(AppState()) {
     _initLinks();
   }
 
   void _initLinks() {
     _appLinkService.appLinks.uriLinkStream.listen((uri) {
-      // emit()
+      emit(state.copyWith(uriLink: uri));
     });
   }
 }

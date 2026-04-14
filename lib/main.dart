@@ -5,6 +5,7 @@ import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/localization/locale/locale.dart';
 import 'package:card_holder/common/services/brightness_control/brightness_control_service.dart';
 import 'package:card_holder/common/services/error_service/error_service.dart';
+import 'package:card_holder/features/app/cubit/app_cubit.dart';
 import 'package:card_holder/features/home/bloc/cards_bloc.dart';
 import 'package:card_holder/features/settings/bloc/settings_bloc.dart';
 import 'package:flutter/material.dart';
@@ -51,6 +52,13 @@ void main() async {
                     filePickRepository: diContainer.makeFilePickRepository(),
                     cardRepo: diContainer.makeCardRepository(),
                   )..add(CardsFetchCardsEvent()),
+            ),
+            BlocProvider(
+              lazy: false,
+              create:
+                  (context) => AppCubit(
+                    appLinkService: diContainer.makeAppLinkService(),
+                  ),
             ),
           ],
           child: app,

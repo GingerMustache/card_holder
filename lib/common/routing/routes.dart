@@ -7,16 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
-enum MainRoutes { home, init }
+enum MainRoutes { home }
 
 String mainRoutesName(MainRoutes name) => switch (name) {
-  MainRoutes.init => 'InitScreen',
   MainRoutes.home => 'HomeScreen',
 };
 
 String mainRoutesPath(MainRoutes name) => switch (name) {
-  MainRoutes.init => '/',
-  MainRoutes.home => '/home',
+  MainRoutes.home => '/',
 };
 
 class MainNavigation implements MyAppNavigation {
@@ -26,6 +24,14 @@ class MainNavigation implements MyAppNavigation {
 
   @override
   RouterConfig<RouteMatchList> router() => GoRouter(
+    redirect: (context, state) {
+      final location = state.uri.toString();
+
+      if (location.startsWith('content://') || location.startsWith('file://')) {
+        return '/';
+      }
+      return null;
+    },
     initialLocation: mainRoutesPath(MainRoutes.home),
     navigatorKey: navigatorKey,
     observers: [TalkerRouteObserver(MainErrorService.instance.talker)],
