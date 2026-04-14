@@ -47,7 +47,7 @@ void main() async {
               lazy: false,
               create:
                   (context) => CardsBloc(
-                    imageConvertHelper: diContainer.makeImageConverterHelper(),
+                    imageConvertHelper: diContainer.makeConverterHelper(),
                     shareRepository: diContainer.makeShareRepository(),
                     filePickRepository: diContainer.makeFilePickRepository(),
                     cardRepo: diContainer.makeCardRepository(),
@@ -57,6 +57,7 @@ void main() async {
               lazy: false,
               create:
                   (context) => AppCubit(
+                    convertHelper: diContainer.makeConverterHelper(),
                     appLinkService: diContainer.makeAppLinkService(),
                   ),
             ),

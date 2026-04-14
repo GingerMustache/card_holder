@@ -223,7 +223,7 @@ Future<void> _initializeApp(WidgetTester tester) async {
             lazy: false,
             create:
                 (context) => CardsBloc(
-                  imageConvertHelper: diContainer.makeImageConverterHelper(),
+                  imageConvertHelper: diContainer.makeConverterHelper(),
                   shareRepository: diContainer.makeShareRepository(),
                   filePickRepository: diContainer.makeFilePickRepository(),
                   cardRepo: diContainer.makeCardRepository(),

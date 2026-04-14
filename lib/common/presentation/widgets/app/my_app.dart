@@ -1,11 +1,13 @@
+import 'dart:async';
+
 import 'package:card_holder/common/application/app_settings.dart';
 import 'package:card_holder/common/configs/setting_config.dart';
 import 'package:card_holder/common/constants/constants.dart';
-// need to run
-// dart run build_runner build
-// dart run slang
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/presentation/widgets/app/themes/base_theme.dart';
+import 'package:card_holder/common/services/local_crud/local_card_service.dart';
+import 'package:card_holder/features/app/cubit/app_cubit.dart';
+import 'package:card_holder/features/home/bloc/cards_bloc.dart';
 import 'package:card_holder/features/settings/bloc/settings_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -50,46 +52,56 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SettingsBloc, SettingsState>(
-      buildWhen: (previous, current) => previous.theme != current.theme,
-      builder: (context, state) {
-        systemColor(state.theme);
+    return BlocListener<AppCubit, AppState>(
+      listenWhen: (prev, cur) => prev.jsonData != cur.jsonData,
+      listener: (context, state) {
+        final completer = Completer<DataBaseCard>();
+        final bloc = context.read<CardsBloc>();
 
-        return MaterialApp.router(
-          debugShowCheckedModeBanner: false,
-          scaffoldMessengerKey: snackbarKey,
-          theme: AppTheme.lightTheme,
-          darkTheme: AppTheme.darkTheme,
-          themeMode: !state.startApp ? settingConfig.currentTheme : state.theme,
-          routerConfig: navigation.router(),
-          locale: TranslationProvider.of(context).flutterLocale,
-          builder: (context, child) {
-            FlutterI18n.rootAppBuilder();
-
-            return Overlay(
-              initialEntries: [
-                OverlayEntry(
-                  builder: (context) {
-                    AnimatedSnackBar.initialize(
-                      context,
-                      appearanceMode: AppearanceMode.top,
-                    );
-                    return child!;
-                  },
-                ),
-              ],
-            );
-          },
-
-          localizationsDelegates: [
-            flutterI18nDelegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: const [Locale('ru'), Locale('en')],
-        );
+        bloc.addCardFromData(state.jsonData, completer);
       },
+      child: BlocBuilder<SettingsBloc, SettingsState>(
+        buildWhen: (prev, cur) => prev.theme != cur.theme,
+        builder: (context, state) {
+          systemColor(state.theme);
+
+          return MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            scaffoldMessengerKey: snackbarKey,
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+            themeMode:
+                !state.startApp ? settingConfig.currentTheme : state.theme,
+            routerConfig: navigation.router(),
+            locale: TranslationProvider.of(context).flutterLocale,
+            builder: (context, child) {
+              FlutterI18n.rootAppBuilder();
+
+              return Overlay(
+                initialEntries: [
+                  OverlayEntry(
+                    builder: (context) {
+                      AnimatedSnackBar.initialize(
+                        context,
+                        appearanceMode: AppearanceMode.top,
+                      );
+                      return child!;
+                    },
+                  ),
+                ],
+              );
+            },
+
+            localizationsDelegates: [
+              flutterI18nDelegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [Locale('ru'), Locale('en')],
+          );
+        },
+      ),
     );
   }
 }

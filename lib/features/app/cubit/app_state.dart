@@ -2,17 +2,13 @@
 part of 'app_cubit.dart';
 
 class AppState extends Equatable {
-  const AppState({this.uriLink, this.linkLoading = false});
-  final bool linkLoading;
-  final Uri? uriLink;
+  const AppState({this.jsonData = const {}});
+  final Map<String, dynamic> jsonData;
 
-  AppState copyWith({bool? linkLoading, Uri? uriLink}) {
-    return AppState(
-      linkLoading: linkLoading ?? this.linkLoading,
-      uriLink: uriLink ?? this.uriLink,
-    );
+  AppState copyWith({Map<String, dynamic>? jsonData}) {
+    return AppState(jsonData: jsonData ?? this.jsonData);
   }
 
   @override
-  List<Object?> get props => [linkLoading, uriLink];
+  List<Object?> get props => [jsonData];
 }

@@ -172,26 +172,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
             },
             // right
             (Map<String, dynamic> cardMap) {
-              try {
-                cardMap.forEach(
-                  (key, card) => add(
-                    CardsAddCardEvent(
-                      cardCodeType: CardCodeType.fromString(
-                        card['cardCodeType'] ?? 'barcode',
-                      ),
-                      urlPath: card['urlPath'] ?? '',
-                      code: card['code'],
-                      name: card['name'],
-                      color: card['color'] ?? 0x00000000,
-                      logoSize: (card['logoSize'] as num?)?.toDouble() ?? 30,
-                      completer:
-                          cardMap.keys.last == key ? event.completer : null,
-                    ),
-                  ),
-                );
-              } catch (e) {
-                _showSnackBar(e.toString());
-              }
+              addCardFromData(cardMap, event.completer);
             },
           );
         }
@@ -420,7 +401,33 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
         }
       });
 
-  //getters
+  // functions
+  void addCardFromData(
+    Map<String, dynamic> cardMap,
+    Completer<DataBaseCard> completer,
+  ) {
+    try {
+      cardMap.forEach(
+        (key, card) => add(
+          CardsAddCardEvent(
+            cardCodeType: CardCodeType.fromString(
+              card['cardCodeType'] ?? 'barcode',
+            ),
+            urlPath: card['urlPath'] ?? '',
+            code: card['code'],
+            name: card['name'],
+            color: card['color'] ?? 0x00000000,
+            logoSize: (card['logoSize'] as num?)?.toDouble() ?? 30,
+            completer: cardMap.keys.last == key ? completer : null,
+          ),
+        ),
+      );
+    } catch (e) {
+      _showSnackBar(e.toString());
+    }
+  }
+
+  // getters
   bool get isCurrentCardQr =>
       state.currentCard?.cardCodeType == CardCodeType.qr;
 }

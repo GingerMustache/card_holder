@@ -30,7 +30,7 @@ abstract class DiContainerProvider {
   ShareRepository makeShareRepository();
   FilePickRepository makeFilePickRepository();
   LocalStorageService makeLocalStorage();
-  ConvertHelper makeImageConverterHelper();
+  ConvertHelper makeConverterHelper();
   TextValidatorService makeTextValidatorService();
   MainErrorService makeErrorService();
   Future<SettingConfig> makeSettingConfig();
@@ -87,7 +87,7 @@ class DiContainer implements DiContainerProvider {
   DiContainer();
 
   @override
-  ConvertHelper makeImageConverterHelper() => ConvertHelper();
+  ConvertHelper makeConverterHelper() => ConvertHelper();
 
   @override
   Future<SettingConfig> makeSettingConfig() async =>

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:card_holder/common/constants/constants.dart';
 import 'package:card_holder/common/di_container/di_container.dart';
 import 'package:card_holder/common/presentation/widgets/app/my_app.dart';
@@ -24,14 +26,7 @@ class MainNavigation implements MyAppNavigation {
 
   @override
   RouterConfig<RouteMatchList> router() => GoRouter(
-    redirect: (context, state) {
-      final location = state.uri.toString();
-
-      if (location.startsWith('content://') || location.startsWith('file://')) {
-        return '/';
-      }
-      return null;
-    },
+    redirect: _jsonOpeningRedirect,
     initialLocation: mainRoutesPath(MainRoutes.home),
     navigatorKey: navigatorKey,
     observers: [TalkerRouteObserver(MainErrorService.instance.talker)],
@@ -45,6 +40,18 @@ class MainNavigation implements MyAppNavigation {
       ),
     ],
   );
+
+  FutureOr<String?> _jsonOpeningRedirect(
+    BuildContext context,
+    GoRouterState state,
+  ) {
+    final location = state.uri.toString();
+
+    if (location.startsWith('content://') || location.startsWith('file://')) {
+      return '/';
+    }
+    return null;
+  }
 }
 
 class ScreenFactory {
