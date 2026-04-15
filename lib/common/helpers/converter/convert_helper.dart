@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:card_holder/common/exceptions/image_helper_exceptions.dart';
+import 'package:content_resolver/content_resolver.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
@@ -48,12 +49,35 @@ class ConvertHelper {
   Future<Either<Exception, Map<String, dynamic>>> jsonFromFile({
     required String filePath,
   }) async {
+    if (filePath.startsWith('content')) {
+      return jsonContentFromFile(filePath: filePath);
+    }
+
     try {
       File file = File(filePath);
       final contents = await file.readAsString();
       final Map<String, dynamic> jsonList = jsonDecode(contents);
 
       return Right(jsonList);
+    } catch (e) {
+      return Left(JsonFromFileFailed());
+    }
+  }
+
+  Future<Either<Exception, Map<String, dynamic>>> jsonContentFromFile({
+    required String filePath,
+  }) async {
+    try {
+      // 1. Use ContentResolver to read the URI directly
+      final content = await ContentResolver.resolveContent(filePath);
+
+      // 2. Access the bytes
+      final bytes = content.data;
+      final String contents = utf8.decode(bytes);
+
+      final Map<String, dynamic> jsonMap = jsonDecode(contents);
+
+      return Right(jsonMap);
     } catch (e) {
       return Left(JsonFromFileFailed());
     }

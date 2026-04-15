@@ -21,7 +21,10 @@ class AppCubit extends Cubit<AppState> {
 
   void _initLinks() async {
     _appLinkService.appLinks.uriLinkStream.listen((uri) async {
-      final jsonResult = await _convertHelper.jsonFromFile(filePath: uri.path);
+      final jsonResult = await _convertHelper.jsonFromFile(
+        filePath: uri.toString(),
+      );
+
       jsonResult.fold(
         (Exception e) {
           if (e is JsonFromFileFailed) {}

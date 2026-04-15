@@ -66,6 +66,7 @@ dependencies:
   multi_mode_animated_snack: ^0.2.1
   sentry_flutter: ^9.7.0
   app_links: ^6.4.1
+  content_resolver: ^0.3.6
   
 
 dev_dependencies:
