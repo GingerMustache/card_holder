@@ -56,7 +56,9 @@ class _ChooseShareSheetState extends State<ChooseShareSheet> {
           padding: const EdgeInsets.only(top: 10),
           height: 300,
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
+              _EmptyPopSpace(),
               Container(
                 decoration: roundCornersDecoration(context),
                 height: 143,
