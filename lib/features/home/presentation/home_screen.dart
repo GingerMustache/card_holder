@@ -84,6 +84,7 @@ class _GridCards extends StatelessWidget {
     }
     return GridView.builder(
       padding: mainPadding,
+      shrinkWrap: true,
       physics: const BouncingScrollPhysics(
         parent: AlwaysScrollableScrollPhysics(),
       ),

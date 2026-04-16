@@ -61,7 +61,7 @@ class _UnderCardWidget extends StatelessWidget {
       1 => const _ChooseLang(),
       2 => const _ChooseBrightness(),
       3 => const _Share(),
-      4 => const Text('4'),
+      4 => const FromDeveloper(),
       5 => const Text('5'),
       6 => const Text('6'),
       7 => const Text('7'),
@@ -71,30 +71,32 @@ class _UnderCardWidget extends StatelessWidget {
   }
 }
 
-class _Share extends StatelessWidget {
-  const _Share();
-  void _onShareAllCards(BuildContext context) async {
-    context.read<CardsBloc>().add(CardsShareAllCardsEvent(context));
+class FromDeveloper extends StatefulWidget {
+  const FromDeveloper({super.key});
+
+  @override
+  State<FromDeveloper> createState() => _FromDeveloperState();
+}
+
+class _FromDeveloperState extends State<FromDeveloper> {
+  String text = '';
+
+  @override
+  void initState() {
+    super.initState();
+    getText();
+  }
+
+  Future<void> getText() async {
+    final data = await rootBundle.loadString('assets/html/from_developer.html');
+    text = data;
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SettingsBloc, SettingsState>(
-      buildWhen:
-          (previous, current) =>
-              previous.theme != current.theme || previous.lang != current.lang,
-      builder: (context, state) {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _CardTab(tabName: t.system.share.app, onTap: () => ()),
-            _CardTab(
-              tabName: t.system.share.cards,
-              onTap: () => _onShareAllCards(context),
-            ),
-          ],
-        );
-      },
-    );
+    return text.isEmpty
+        ? CircularProgressIndicator()
+        : _CardTemplate(child: Html(data: text));
   }
 }

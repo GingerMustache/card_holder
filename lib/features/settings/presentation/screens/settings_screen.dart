@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:card_holder/common/application/app_settings.dart';
 import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/localization/locale/locale.dart';
+import 'package:card_holder/common/routing/routes.dart';
 import 'package:card_holder/common/services/brightness_control/brightness_control_service.dart';
 import 'package:card_holder/features/home/bloc/cards_bloc.dart';
 import 'package:card_holder/features/settings/bloc/settings_bloc.dart';
@@ -11,13 +14,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_flip_card/controllers/flip_card_controllers.dart';
 import 'package:flutter_flip_card/flipcard/flip_card.dart';
 import 'package:flutter_flip_card/modal/flip_side.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:go_router/go_router.dart';
 
 part '../parts/flip_card/card_tab.dart';
 part '../parts/flip_card/flip_card.dart';
 part '../parts/flip_card/parts/choose_brightness.dart';
 part '../parts/flip_card/parts/choose_lang.dart';
 part '../parts/flip_card/parts/choose_theme.dart';
+part '../parts/flip_card/parts/share_setting.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});

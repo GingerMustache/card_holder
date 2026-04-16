@@ -67,6 +67,7 @@ dependencies:
   sentry_flutter: ^9.7.0
   app_links: ^6.4.1
   content_resolver: ^0.3.6
+  flutter_html: ^3.0.0
   
 
 dev_dependencies:
@@ -103,6 +104,7 @@ flutter:
     - assets/icons/
     - assets/icons/shops/
     - assets/images/splash/image.png
+    - assets/html/
     - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see

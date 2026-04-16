@@ -9,14 +9,16 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
-enum MainRoutes { home }
+enum MainRoutes { home, fromDeveloper }
 
 String mainRoutesName(MainRoutes name) => switch (name) {
   MainRoutes.home => 'HomeScreen',
+  MainRoutes.fromDeveloper => 'FromDeveloper',
 };
 
 String mainRoutesPath(MainRoutes name) => switch (name) {
   MainRoutes.home => '/',
+  MainRoutes.fromDeveloper => '/from_dev',
 };
 
 class MainNavigation implements MyAppNavigation {
