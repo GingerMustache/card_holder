@@ -49,10 +49,16 @@ class ConvertHelper {
   Future<Either<Exception, Map<String, dynamic>>> jsonFromFile({
     required String filePath,
   }) async {
-    if (filePath.startsWith('content')) {
-      return jsonContentFromFile(filePath: filePath);
+    if (filePath.startsWith('content') || filePath.startsWith('file')) {
+      return _linkContentFromFile(filePath: filePath);
+    } else {
+      return _fromFile(filePath: filePath);
     }
+  }
 
+  Future<Either<Exception, Map<String, dynamic>>> _fromFile({
+    required String filePath,
+  }) async {
     try {
       File file = File(filePath);
       final contents = await file.readAsString();
@@ -64,7 +70,7 @@ class ConvertHelper {
     }
   }
 
-  Future<Either<Exception, Map<String, dynamic>>> jsonContentFromFile({
+  Future<Either<Exception, Map<String, dynamic>>> _linkContentFromFile({
     required String filePath,
   }) async {
     try {

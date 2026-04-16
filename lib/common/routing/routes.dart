@@ -59,7 +59,5 @@ class ScreenFactory {
 
   ScreenFactory({required this.diContainer});
 
-  Widget makeHomeScree() {
-    return HomeScreen();
-  }
+  Widget makeHomeScree() => HomeScreen();
 }
