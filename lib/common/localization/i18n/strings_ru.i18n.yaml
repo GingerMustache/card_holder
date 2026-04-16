@@ -18,6 +18,7 @@ screen:
       add: добавить
       fieldCannotBeEmpty: Поле не может быть пустым
       tapToContinue: Нажмите чтобы продолжить
+      errorByLink: Добавить не удалось, походу не карта
     openCard:
       uses: раз
       edit: принять
@@ -38,6 +39,8 @@ other:
   search: поисковая строка_
   clear: чист
 system:
+    success: Успешно
+    fail: Не успешно
     theme:
       all: тема
       light: свет

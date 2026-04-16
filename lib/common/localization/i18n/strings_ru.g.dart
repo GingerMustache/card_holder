@@ -87,6 +87,8 @@ class _TranslationsSystemRu extends TranslationsSystemEn {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
+	@override String get success => 'Успешно';
+	@override String get fail => 'Не успешно';
 	@override late final _TranslationsSystemThemeRu theme = _TranslationsSystemThemeRu._(_root);
 	@override late final _TranslationsSystemLangRu lang = _TranslationsSystemLangRu._(_root);
 	@override late final _TranslationsSystemBrightRu bright = _TranslationsSystemBrightRu._(_root);
@@ -225,6 +227,7 @@ class _TranslationsScreenHomeAddCardRu extends TranslationsScreenHomeAddCardEn {
 	@override String get add => 'добавить';
 	@override String get fieldCannotBeEmpty => 'Поле не может быть пустым';
 	@override String get tapToContinue => 'Нажмите чтобы продолжить';
+	@override String get errorByLink => 'Добавить не удалось, походу не карта';
 }
 
 // Path: screen.home.openCard
@@ -265,6 +268,7 @@ extension on TranslationsRu {
 			case 'screen.home.addCard.add': return 'добавить';
 			case 'screen.home.addCard.fieldCannotBeEmpty': return 'Поле не может быть пустым';
 			case 'screen.home.addCard.tapToContinue': return 'Нажмите чтобы продолжить';
+			case 'screen.home.addCard.errorByLink': return 'Добавить не удалось, походу не карта';
 			case 'screen.home.openCard.uses': return 'раз';
 			case 'screen.home.openCard.edit': return 'принять';
 			case 'screen.home.openCard.share': return 'поделиться';
@@ -280,6 +284,8 @@ extension on TranslationsRu {
 			case 'tabs.setting': return 'настройки';
 			case 'other.search': return 'поисковая строка_';
 			case 'other.clear': return 'чист';
+			case 'system.success': return 'Успешно';
+			case 'system.fail': return 'Не успешно';
 			case 'system.theme.all': return 'тема';
 			case 'system.theme.light': return 'свет';
 			case 'system.theme.dark': return 'тьма';

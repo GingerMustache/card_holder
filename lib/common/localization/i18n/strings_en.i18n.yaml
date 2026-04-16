@@ -18,6 +18,7 @@ screen:
       add: add
       fieldCannotBeEmpty: Field cannot be empty
       tapToContinue: Tap to continue
+      errorByLink: Failed to add — looks like it’s not a card
     openCard:
       uses: uses
       edit: edit
@@ -38,6 +39,8 @@ other:
   search: search line_
   clear: del
 system:
+    success: Success
+    fail: Failed
     theme:
       all: theme
       light: light

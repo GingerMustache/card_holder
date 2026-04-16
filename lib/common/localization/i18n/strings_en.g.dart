@@ -99,6 +99,13 @@ class TranslationsSystemEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Success'
+	String get success => 'Success';
+
+	/// en: 'Failed'
+	String get fail => 'Failed';
+
 	late final TranslationsSystemThemeEn theme = TranslationsSystemThemeEn.internal(_root);
 	late final TranslationsSystemLangEn lang = TranslationsSystemLangEn.internal(_root);
 	late final TranslationsSystemBrightEn bright = TranslationsSystemBrightEn.internal(_root);
@@ -320,6 +327,9 @@ class TranslationsScreenHomeAddCardEn {
 
 	/// en: 'Tap to continue'
 	String get tapToContinue => 'Tap to continue';
+
+	/// en: 'Failed to add — looks like it’s not a card'
+	String get errorByLink => 'Failed to add — looks like it’s not a card';
 }
 
 // Path: screen.home.openCard
@@ -380,6 +390,7 @@ extension on Translations {
 			case 'screen.home.addCard.add': return 'add';
 			case 'screen.home.addCard.fieldCannotBeEmpty': return 'Field cannot be empty';
 			case 'screen.home.addCard.tapToContinue': return 'Tap to continue';
+			case 'screen.home.addCard.errorByLink': return 'Failed to add — looks like it’s not a card';
 			case 'screen.home.openCard.uses': return 'uses';
 			case 'screen.home.openCard.edit': return 'edit';
 			case 'screen.home.openCard.share': return 'share';
@@ -395,6 +406,8 @@ extension on Translations {
 			case 'tabs.setting': return 'setting';
 			case 'other.search': return 'search line_';
 			case 'other.clear': return 'del';
+			case 'system.success': return 'Success';
+			case 'system.fail': return 'Failed';
 			case 'system.theme.all': return 'theme';
 			case 'system.theme.light': return 'light';
 			case 'system.theme.dark': return 'dark';

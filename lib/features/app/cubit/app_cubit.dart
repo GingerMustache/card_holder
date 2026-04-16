@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:card_holder/common/exceptions/image_helper_exceptions.dart';
 import 'package:card_holder/common/helpers/converter/convert_helper.dart';
+import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/services/app_link/app_link_service.dart';
 import 'package:equatable/equatable.dart';
 
@@ -27,11 +28,18 @@ class AppCubit extends Cubit<AppState> {
 
       jsonResult.fold(
         (Exception e) {
-          if (e is JsonFromFileFailed) {}
+          if (e is JsonFromFileFailed) {
+            emit(
+              state.copyWith(
+                message: t.screen.home.addCard.errorByLink,
+                jsonData: {},
+              ),
+            );
+          }
         },
         // right
         (Map<String, dynamic> cardMap) {
-          emit(state.copyWith(jsonData: cardMap));
+          emit(state.copyWith(message: t.system.success, jsonData: cardMap));
         },
       );
     });

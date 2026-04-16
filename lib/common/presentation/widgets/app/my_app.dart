@@ -53,8 +53,12 @@ class MyApp extends StatelessWidget {
       listenWhen: (prev, cur) => prev.jsonData != cur.jsonData,
       listener: (context, state) {
         final bloc = context.read<CardsBloc>();
-
-        bloc.addCardFromData(state.jsonData);
+        if (state.message.isNotEmpty && state.jsonData.isEmpty) {
+          AnimatedSnackBar.show(message: state.message);
+        } else {
+          AnimatedSnackBar.show(message: state.message);
+          bloc.addCardFromData(state.jsonData);
+        }
       },
       child: BlocBuilder<SettingsBloc, SettingsState>(
         buildWhen: (prev, cur) => prev.theme != cur.theme,
