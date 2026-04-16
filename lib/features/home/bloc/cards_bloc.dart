@@ -172,7 +172,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
             },
             // right
             (Map<String, dynamic> cardMap) {
-              addCardFromData(cardMap, event.completer);
+              addCardFromData(cardMap, completer: event.completer);
             },
           );
         }
@@ -403,9 +403,9 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
 
   // functions
   void addCardFromData(
-    Map<String, dynamic> cardMap,
-    Completer<DataBaseCard> completer,
-  ) {
+    Map<String, dynamic> cardMap, {
+    Completer<DataBaseCard>? completer,
+  }) {
     try {
       cardMap.forEach(
         (key, card) => add(

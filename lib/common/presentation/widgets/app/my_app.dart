@@ -1,11 +1,8 @@
-import 'dart:async';
-
 import 'package:card_holder/common/application/app_settings.dart';
 import 'package:card_holder/common/configs/setting_config.dart';
 import 'package:card_holder/common/constants/constants.dart';
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/presentation/widgets/app/themes/base_theme.dart';
-import 'package:card_holder/common/services/local_crud/local_card_service.dart';
 import 'package:card_holder/features/app/cubit/app_cubit.dart';
 import 'package:card_holder/features/home/bloc/cards_bloc.dart';
 import 'package:card_holder/features/settings/bloc/settings_bloc.dart';
@@ -55,10 +52,9 @@ class MyApp extends StatelessWidget {
     return BlocListener<AppCubit, AppState>(
       listenWhen: (prev, cur) => prev.jsonData != cur.jsonData,
       listener: (context, state) {
-        final completer = Completer<DataBaseCard>();
         final bloc = context.read<CardsBloc>();
 
-        bloc.addCardFromData(state.jsonData, completer);
+        bloc.addCardFromData(state.jsonData);
       },
       child: BlocBuilder<SettingsBloc, SettingsState>(
         buildWhen: (prev, cur) => prev.theme != cur.theme,
