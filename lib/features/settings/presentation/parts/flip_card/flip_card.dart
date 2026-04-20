@@ -61,42 +61,12 @@ class _UnderCardWidget extends StatelessWidget {
       1 => const _ChooseLang(),
       2 => const _ChooseBrightness(),
       3 => const _Share(),
-      4 => const FromDeveloper(),
+      4 => FromDeveloperSheet.show(context),
       5 => const Text('5'),
       6 => const Text('6'),
       7 => const Text('7'),
       8 => const Text('8'),
       _ => const Text('Unknown Setting'),
     };
-  }
-}
-
-class FromDeveloper extends StatefulWidget {
-  const FromDeveloper({super.key});
-
-  @override
-  State<FromDeveloper> createState() => _FromDeveloperState();
-}
-
-class _FromDeveloperState extends State<FromDeveloper> {
-  String text = '';
-
-  @override
-  void initState() {
-    super.initState();
-    getText();
-  }
-
-  Future<void> getText() async {
-    final data = await rootBundle.loadString('assets/html/from_developer.html');
-    text = data;
-    setState(() {});
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return text.isEmpty
-        ? CircularProgressIndicator()
-        : _CardTemplate(child: Html(data: text));
   }
 }
