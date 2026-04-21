@@ -10,17 +10,19 @@ class FromDeveloperSheet extends StatefulWidget {
   const FromDeveloperSheet({super.key});
 
   static Widget show(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      showModalBottomSheet<void>(
-        backgroundColor: Colors.transparent,
-        isScrollControlled: true,
-        context: context,
-        useRootNavigator: true,
-        builder: (_) => FromDeveloperSheet(),
-      );
-    });
+    if (ModalRoute.of(context)?.isCurrent != true) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        showModalBottomSheet(
+          backgroundColor: Colors.transparent,
+          isScrollControlled: true,
+          context: context,
+          useRootNavigator: true,
+          builder: (_) => FromDeveloperSheet(),
+        );
+      });
+    }
 
-    return Text("from developer");
+    return Center(child: Text(t.fromDeveloper.title));
   }
 
   @override
