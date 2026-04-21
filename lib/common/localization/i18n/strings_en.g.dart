@@ -48,6 +48,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final TranslationsOtherEn other = TranslationsOtherEn.internal(_root);
 	late final TranslationsSystemEn system = TranslationsSystemEn.internal(_root);
 	late final TranslationsShopsEn shops = TranslationsShopsEn.internal(_root);
+	late final TranslationsFromDeveloperEn fromDeveloper = TranslationsFromDeveloperEn.internal(_root);
 	late final TranslationsErrorsEn errors = TranslationsErrorsEn.internal(_root);
 }
 
@@ -125,6 +126,99 @@ class TranslationsShopsEn {
 
 	/// en: 'from file'
 	String get fromFile => 'from file';
+}
+
+// Path: fromDeveloper
+class TranslationsFromDeveloperEn {
+	TranslationsFromDeveloperEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Hey there!'
+	String get greeting => 'Hey there!';
+
+	/// en: 'My name is Artur, and I'm glad you're using the CardHolder app.'
+	String get intro => 'My name is Artur, and I\'m glad you\'re using the CardHolder app.';
+
+	/// en: 'This app will always remain free and open source.'
+	String get freeOpenSource => 'This app will always remain free and open source.';
+
+	/// en: 'You can view the source code here'
+	String get sourceCode => 'You can view the source code here';
+
+	/// en: 'I'd appreciate it if you leave a comment on the platform where you downloaded it. I'm also always open to suggestions for improving or worsening the app.'
+	String get feedback => 'I\'d appreciate it if you leave a comment on the platform where you downloaded it. I\'m also always open to suggestions for improving or worsening the app.';
+
+	/// en: 'I tried to make the app intuitive, but sometimes questions may arise.'
+	String get questions => 'I tried to make the app intuitive, but sometimes questions may arise.';
+
+	/// en: 'Instructions'
+	String get instruction => 'Instructions';
+
+	/// en: 'Adding a card'
+	String get addCardTitle => 'Adding a card';
+
+	/// en: 'On the main page, you'll see a "Plus" button – you can use it to add a card.'
+	String get addCardDescription1 => 'On the main page, you\'ll see a "Plus" button – you can use it to add a card.';
+
+	/// en: 'After clicking, a menu will open with options'
+	String get addCardDescription2 => 'After clicking, a menu will open with options';
+
+	/// en: 'create a card from scratch;'
+	String get addCardOption1 => 'create a card from scratch;';
+
+	/// en: 'use a ready-made template;'
+	String get addCardOption2 => 'use a ready-made template;';
+
+	/// en: 'add a card from a file.'
+	String get addCardOption3 => 'add a card from a file.';
+
+	/// en: 'Creating from scratch or using a template is a simple process, and you won't have any trouble adding a card this way.'
+	String get addCardDescription3 => 'Creating from scratch or using a template is a simple process, and you won\'t have any trouble adding a card this way.';
+
+	/// en: 'You can add a card from a file by simply opening the file shared with you through this application.'
+	String get addCardDescription4 => 'You can add a card from a file by simply opening the file shared with you through this application.';
+
+	/// en: 'Sharing cards'
+	String get shareCardsTitle => 'Sharing cards';
+
+	/// en: 'If you have friends (you do, right?), you can exchange cards with them.'
+	String get shareCardsDescription1 => 'If you have friends (you do, right?), you can exchange cards with them.';
+
+	/// en: 'On the added card screen, there's a "Share" button. Click it, choose to send the file, and send it anywhere – to a messenger, email, or another app that's still available.'
+	String get shareCardsDescription2 => 'On the added card screen, there\'s a "Share" button. Click it, choose to send the file, and send it anywhere – to a messenger, email, or another app that\'s still available.';
+
+	/// en: 'Your friend will be able to download it and add the card using the "add card from file" function mentioned above.'
+	String get shareCardsDescription3 => 'Your friend will be able to download it and add the card using the "add card from file" function mentioned above.';
+
+	/// en: 'You can also share the card as a photo. Yes, you might notice that... "Who's stopping me from taking a screenshot?" I agree, but who's stopping me from making such a function?'
+	String get shareCardsDescription4 => 'You can also share the card as a photo. Yes, you might notice that... "Who\'s stopping me from taking a screenshot?" I agree, but who\'s stopping me from making such a function?';
+
+	/// en: 'Settings section'
+	String get settingsSectionTitle => 'Settings section';
+
+	/// en: 'In the "Settings" section, there's a "Share" card.'
+	String get settingsSectionDescription1 => 'In the "Settings" section, there\'s a "Share" card.';
+
+	/// en: 'There you can'
+	String get settingsSectionDescription2 => 'There you can';
+
+	/// en: 'share a link to the app;'
+	String get settingsSectionOption1 => 'share a link to the app;';
+
+	/// en: 'share all your cards at once.'
+	String get settingsSectionOption2 => 'share all your cards at once.';
+
+	/// en: 'The "share all cards" function can also be used as a convenient way to transfer cards to a new device.'
+	String get settingsSectionDescription3 => 'The "share all cards" function can also be used as a convenient way to transfer cards to a new device.';
+
+	/// en: 'https://github.com/GingerMustache/card_holder'
+	String get sourceCodeLink => 'https://github.com/GingerMustache/card_holder';
+
+	/// en: 'From developer'
+	String get title => 'From developer';
 }
 
 // Path: errors
@@ -422,6 +516,34 @@ extension on Translations {
 			case 'system.share.cards': return 'all cards';
 			case 'shops.fromScratch': return 'from scratch';
 			case 'shops.fromFile': return 'from file';
+			case 'fromDeveloper.greeting': return 'Hey there!';
+			case 'fromDeveloper.intro': return 'My name is Artur, and I\'m glad you\'re using the CardHolder app.';
+			case 'fromDeveloper.freeOpenSource': return 'This app will always remain free and open source.';
+			case 'fromDeveloper.sourceCode': return 'You can view the source code here';
+			case 'fromDeveloper.feedback': return 'I\'d appreciate it if you leave a comment on the platform where you downloaded it. I\'m also always open to suggestions for improving or worsening the app.';
+			case 'fromDeveloper.questions': return 'I tried to make the app intuitive, but sometimes questions may arise.';
+			case 'fromDeveloper.instruction': return 'Instructions';
+			case 'fromDeveloper.addCardTitle': return 'Adding a card';
+			case 'fromDeveloper.addCardDescription1': return 'On the main page, you\'ll see a "Plus" button – you can use it to add a card.';
+			case 'fromDeveloper.addCardDescription2': return 'After clicking, a menu will open with options';
+			case 'fromDeveloper.addCardOption1': return 'create a card from scratch;';
+			case 'fromDeveloper.addCardOption2': return 'use a ready-made template;';
+			case 'fromDeveloper.addCardOption3': return 'add a card from a file.';
+			case 'fromDeveloper.addCardDescription3': return 'Creating from scratch or using a template is a simple process, and you won\'t have any trouble adding a card this way.';
+			case 'fromDeveloper.addCardDescription4': return 'You can add a card from a file by simply opening the file shared with you through this application.';
+			case 'fromDeveloper.shareCardsTitle': return 'Sharing cards';
+			case 'fromDeveloper.shareCardsDescription1': return 'If you have friends (you do, right?), you can exchange cards with them.';
+			case 'fromDeveloper.shareCardsDescription2': return 'On the added card screen, there\'s a "Share" button. Click it, choose to send the file, and send it anywhere – to a messenger, email, or another app that\'s still available.';
+			case 'fromDeveloper.shareCardsDescription3': return 'Your friend will be able to download it and add the card using the "add card from file" function mentioned above.';
+			case 'fromDeveloper.shareCardsDescription4': return 'You can also share the card as a photo. Yes, you might notice that... "Who\'s stopping me from taking a screenshot?" I agree, but who\'s stopping me from making such a function?';
+			case 'fromDeveloper.settingsSectionTitle': return 'Settings section';
+			case 'fromDeveloper.settingsSectionDescription1': return 'In the "Settings" section, there\'s a "Share" card.';
+			case 'fromDeveloper.settingsSectionDescription2': return 'There you can';
+			case 'fromDeveloper.settingsSectionOption1': return 'share a link to the app;';
+			case 'fromDeveloper.settingsSectionOption2': return 'share all your cards at once.';
+			case 'fromDeveloper.settingsSectionDescription3': return 'The "share all cards" function can also be used as a convenient way to transfer cards to a new device.';
+			case 'fromDeveloper.sourceCodeLink': return 'https://github.com/GingerMustache/card_holder';
+			case 'fromDeveloper.title': return 'From developer';
 			case 'errors.localData.databaseIsAlreadyOpen': return 'Database is already open';
 			case 'errors.localData.unableToGetDocumentsDirectory': return 'Unable to get documents directory';
 			case 'errors.localData.databaseIsNotOpen': return 'Database is not open';
