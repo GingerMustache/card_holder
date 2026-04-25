@@ -18,7 +18,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     t.system.lang.all,
     t.system.bright.all,
     t.system.share.all,
-    'from developer',
+    t.fromDeveloper.title,
     // 'Display',
     // 'Help & Support',
     // 'About',

@@ -1,27 +1,43 @@
 part of '../../screens/settings_screen.dart';
 
-class _FlipCard extends StatelessWidget {
+class _FlipCard extends StatefulWidget {
   const _FlipCard(this.index, {required this.title});
   final String title;
   final int index;
 
   @override
+  State<_FlipCard> createState() => _FlipCardState();
+}
+
+class _FlipCardState extends State<_FlipCard> {
+  late final FlipCardController controller;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = FlipCardController();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FlipCard(
-      controller: FlipCardController(),
+      controller: controller,
       rotateSide: RotateSide.left,
-      animationDuration: Duration(milliseconds: 500),
+      animationDuration: Duration(milliseconds: 400),
       onTapFlipping: true,
       frontWidget: _CardTemplate(
         child: Center(
           child: Text(
-            title,
+            widget.title,
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             textAlign: TextAlign.center,
           ),
         ),
       ),
-      backWidget: _CardTemplate(child: _UnderCardWidget(index: index)),
+      backWidget: _CardTemplate(
+        child: _UnderCardWidget(index: widget.index, controller: controller),
+      ),
     );
   }
 }
@@ -52,8 +68,10 @@ class _CardTemplate extends StatelessWidget {
 }
 
 class _UnderCardWidget extends StatelessWidget {
-  const _UnderCardWidget({required this.index});
+  const _UnderCardWidget({required this.index, required this.controller});
   final int index;
+  final FlipCardController controller;
+
   @override
   Widget build(BuildContext context) {
     return switch (index) {
@@ -61,7 +79,7 @@ class _UnderCardWidget extends StatelessWidget {
       1 => const _ChooseLang(),
       2 => const _ChooseBrightness(),
       3 => const _Share(),
-      4 => FromDeveloperSheet.show(context),
+      4 => FromDeveloperSheet.show(context, controller),
       5 => const Text('5'),
       6 => const Text('6'),
       7 => const Text('7'),

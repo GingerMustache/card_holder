@@ -4,25 +4,29 @@ import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/presentation/widgets/skeleton_wrapper/skeleton_wrapper.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_flip_card/controllers/flip_card_controllers.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class FromDeveloperSheet extends StatefulWidget {
   const FromDeveloperSheet({super.key});
 
-  static Widget show(BuildContext context) {
-    if (ModalRoute.of(context)?.isCurrent != true) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        showModalBottomSheet(
-          backgroundColor: Colors.transparent,
-          isScrollControlled: true,
-          context: context,
-          useRootNavigator: true,
-          builder: (_) => FromDeveloperSheet(),
-        );
-      });
-    }
+  static Widget show(BuildContext context, FlipCardController controller) {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => showModalBottomSheet(
+        backgroundColor: Colors.transparent,
+        isScrollControlled: true,
+        context: context,
+        useRootNavigator: true,
+        builder: (_) => FromDeveloperSheet(),
+      ).then((_) => controller.flipcard()),
+    );
 
-    return Center(child: Text(t.fromDeveloper.title));
+    return Center(
+      child: Text(
+        t.fromDeveloper.title,
+        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+      ),
+    );
   }
 
   @override
@@ -43,16 +47,14 @@ class _FromDeveloperSheetState extends State<FromDeveloperSheet> {
       children: [
         Expanded(
           child: Container(
-            decoration: BoxDecoration(
-              color: AppColors.mainBlack,
-              borderRadius: borderRadius,
-            ),
+            decoration: roundUpCornersDecoration(context),
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
                   RichText(
                     text: TextSpan(
+                      style: context.textStyles.labelSmall,
                       children: [
                         TextSpan(text: "${t.fromDeveloper.greeting}\n\n"),
                         TextSpan(text: "${t.fromDeveloper.intro}\n\n"),
@@ -79,6 +81,7 @@ class _FromDeveloperSheetState extends State<FromDeveloperSheet> {
 
                   RichText(
                     text: TextSpan(
+                      style: context.textStyles.labelSmall,
                       children: [
                         TextSpan(text: "${t.fromDeveloper.instruction}\n\n"),
                         TextSpan(text: "${t.fromDeveloper.addCardTitle}\n\n"),
