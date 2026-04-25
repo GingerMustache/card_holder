@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:card_holder/common/application/app_settings.dart';
 import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
@@ -34,11 +36,33 @@ class FromDeveloperSheet extends StatefulWidget {
 }
 
 class _FromDeveloperSheetState extends State<FromDeveloperSheet> {
+  late final ScrollController controller;
+  late final StreamController<bool> streamController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = ScrollController();
+    streamController = StreamController<bool>();
+
+    controller.addListener(() {
+      if (controller.offset == 0) streamController.add(true);
+    });
+  }
+
   Future<void> _openLink(String url) async {
     final uri = Uri.parse(url);
     if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
       throw Exception('Could not launch $url');
     }
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    streamController.close();
+    super.dispose();
   }
 
   @override
@@ -48,99 +72,138 @@ class _FromDeveloperSheetState extends State<FromDeveloperSheet> {
         Expanded(
           child: Container(
             decoration: roundUpCornersDecoration(context),
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                children: [
-                  RichText(
-                    text: TextSpan(
-                      style: context.textStyles.labelSmall,
-                      children: [
-                        TextSpan(text: "${t.fromDeveloper.greeting}\n\n"),
-                        TextSpan(text: "${t.fromDeveloper.intro}\n\n"),
-                        TextSpan(text: "${t.fromDeveloper.freeOpenSource}\n\n"),
-                        TextSpan(text: "${t.fromDeveloper.sourceCode}\n"),
-                        TextSpan(
-                          text: "${t.fromDeveloper.sourceCodeLink}\n\n",
-                          style: TextStyle(color: AppColors.blue700),
-                          recognizer:
-                              TapGestureRecognizer()
-                                ..onTap =
-                                    () => _openLink(
-                                      t.fromDeveloper.sourceCodeLink,
-                                    ),
+            child: Stack(
+              children: [
+                SingleChildScrollView(
+                  controller: controller,
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    children: [
+                      RichText(
+                        text: TextSpan(
+                          style: context.textStyles.labelSmall,
+                          children: [
+                            TextSpan(text: "${t.fromDeveloper.greeting}\n\n"),
+                            TextSpan(text: "${t.fromDeveloper.intro}\n\n"),
+                            TextSpan(
+                              text: "${t.fromDeveloper.freeOpenSource}\n\n",
+                            ),
+                            TextSpan(text: "${t.fromDeveloper.sourceCode}\n"),
+                            TextSpan(
+                              text: "${t.fromDeveloper.sourceCodeLink}\n\n",
+                              style: TextStyle(color: AppColors.blue700),
+                              recognizer:
+                                  TapGestureRecognizer()
+                                    ..onTap =
+                                        () => _openLink(
+                                          t.fromDeveloper.sourceCodeLink,
+                                        ),
+                            ),
+                            TextSpan(text: "${t.fromDeveloper.feedback}\n\n"),
+                            TextSpan(text: "${t.fromDeveloper.questions}\n"),
+                          ],
                         ),
-                        TextSpan(text: "${t.fromDeveloper.feedback}\n\n"),
-                        TextSpan(text: "${t.fromDeveloper.questions}\n"),
-                      ],
-                    ),
-                  ),
+                      ),
 
-                  const Divider(color: AppColors.mainWhite),
-                  20.h,
+                      const Divider(color: AppColors.mainWhite),
+                      20.h,
 
-                  RichText(
-                    text: TextSpan(
-                      style: context.textStyles.labelSmall,
-                      children: [
-                        TextSpan(text: "${t.fromDeveloper.instruction}\n\n"),
-                        TextSpan(text: "${t.fromDeveloper.addCardTitle}\n\n"),
-                        TextSpan(
-                          text: "${t.fromDeveloper.addCardDescription1}\n\n",
+                      RichText(
+                        text: TextSpan(
+                          style: context.textStyles.labelSmall,
+                          children: [
+                            TextSpan(
+                              text: "${t.fromDeveloper.instruction}\n\n",
+                            ),
+                            TextSpan(
+                              text: "${t.fromDeveloper.addCardTitle}\n\n",
+                            ),
+                            TextSpan(
+                              text:
+                                  "${t.fromDeveloper.addCardDescription1}\n\n",
+                            ),
+                            TextSpan(
+                              text:
+                                  "${t.fromDeveloper.addCardDescription2}\n\n",
+                            ),
+                            TextSpan(
+                              text: "${t.fromDeveloper.addCardOption1}\n",
+                            ),
+                            TextSpan(
+                              text: "${t.fromDeveloper.addCardOption2}\n",
+                            ),
+                            TextSpan(
+                              text: "${t.fromDeveloper.addCardOption3}\n\n",
+                            ),
+                            TextSpan(
+                              text:
+                                  "${t.fromDeveloper.addCardDescription3}\n\n",
+                            ),
+                            TextSpan(
+                              text:
+                                  "${t.fromDeveloper.addCardDescription4}\n\n",
+                            ),
+                            TextSpan(
+                              text: "${t.fromDeveloper.shareCardsTitle}\n\n",
+                            ),
+                            TextSpan(
+                              text:
+                                  "${t.fromDeveloper.shareCardsDescription1}\n\n",
+                            ),
+                            TextSpan(
+                              text:
+                                  "${t.fromDeveloper.shareCardsDescription2}\n\n",
+                            ),
+                            TextSpan(
+                              text:
+                                  "${t.fromDeveloper.shareCardsDescription3}\n\n",
+                            ),
+                            TextSpan(
+                              text:
+                                  "${t.fromDeveloper.shareCardsDescription4}\n\n",
+                            ),
+                            TextSpan(
+                              text:
+                                  "${t.fromDeveloper.settingsSectionTitle}\n\n",
+                            ),
+                            TextSpan(
+                              text:
+                                  "${t.fromDeveloper.settingsSectionDescription1}\n\n",
+                            ),
+                            TextSpan(
+                              text:
+                                  "${t.fromDeveloper.settingsSectionDescription2}\n\n",
+                            ),
+                            TextSpan(
+                              text:
+                                  "${t.fromDeveloper.settingsSectionOption1}\n",
+                            ),
+                            TextSpan(
+                              text:
+                                  "${t.fromDeveloper.settingsSectionOption2}\n\n",
+                            ),
+                            TextSpan(
+                              text: t.fromDeveloper.settingsSectionDescription3,
+                            ),
+                          ],
                         ),
-                        TextSpan(
-                          text: "${t.fromDeveloper.addCardDescription2}\n\n",
-                        ),
-                        TextSpan(text: "${t.fromDeveloper.addCardOption1}\n"),
-                        TextSpan(text: "${t.fromDeveloper.addCardOption2}\n"),
-                        TextSpan(text: "${t.fromDeveloper.addCardOption3}\n\n"),
-                        TextSpan(
-                          text: "${t.fromDeveloper.addCardDescription3}\n\n",
-                        ),
-                        TextSpan(
-                          text: "${t.fromDeveloper.addCardDescription4}\n\n",
-                        ),
-                        TextSpan(
-                          text: "${t.fromDeveloper.shareCardsTitle}\n\n",
-                        ),
-                        TextSpan(
-                          text: "${t.fromDeveloper.shareCardsDescription1}\n\n",
-                        ),
-                        TextSpan(
-                          text: "${t.fromDeveloper.shareCardsDescription2}\n\n",
-                        ),
-                        TextSpan(
-                          text: "${t.fromDeveloper.shareCardsDescription3}\n\n",
-                        ),
-                        TextSpan(
-                          text: "${t.fromDeveloper.shareCardsDescription4}\n\n",
-                        ),
-                        TextSpan(
-                          text: "${t.fromDeveloper.settingsSectionTitle}\n\n",
-                        ),
-                        TextSpan(
-                          text:
-                              "${t.fromDeveloper.settingsSectionDescription1}\n\n",
-                        ),
-                        TextSpan(
-                          text:
-                              "${t.fromDeveloper.settingsSectionDescription2}\n\n",
-                        ),
-                        TextSpan(
-                          text: "${t.fromDeveloper.settingsSectionOption1}\n",
-                        ),
-                        TextSpan(
-                          text: "${t.fromDeveloper.settingsSectionOption2}\n\n",
-                        ),
-                        TextSpan(
-                          text:
-                              "${t.fromDeveloper.settingsSectionDescription3}",
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+                StreamBuilder(
+                  stream: streamController.stream,
+                  builder: (context, asyncSnapshot) {
+                    return Offstage(
+                      offstage: asyncSnapshot.data == false,
+                      child: AspectRatio(
+                        aspectRatio: 3,
+                        child: Container(color: Colors.transparent),
+                      ),
+                    );
+                  },
+                ),
+              ],
             ),
           ),
         ),
