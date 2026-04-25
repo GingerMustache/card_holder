@@ -217,8 +217,8 @@ class TranslationsFromDeveloperEn {
 	/// en: 'https://github.com/GingerMustache/card_holder'
 	String get sourceCodeLink => 'https://github.com/GingerMustache/card_holder';
 
-	/// en: 'From developer'
-	String get title => 'From developer';
+	/// en: 'from developer'
+	String get title => 'from developer';
 }
 
 // Path: errors
@@ -543,7 +543,7 @@ extension on Translations {
 			case 'fromDeveloper.settingsSectionOption2': return 'share all your cards at once.';
 			case 'fromDeveloper.settingsSectionDescription3': return 'The "share all cards" function can also be used as a convenient way to transfer cards to a new device.';
 			case 'fromDeveloper.sourceCodeLink': return 'https://github.com/GingerMustache/card_holder';
-			case 'fromDeveloper.title': return 'From developer';
+			case 'fromDeveloper.title': return 'from developer';
 			case 'errors.localData.databaseIsAlreadyOpen': return 'Database is already open';
 			case 'errors.localData.unableToGetDocumentsDirectory': return 'Unable to get documents directory';
 			case 'errors.localData.databaseIsNotOpen': return 'Database is not open';

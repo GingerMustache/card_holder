@@ -141,7 +141,7 @@ class _TranslationsFromDeveloperRu extends TranslationsFromDeveloperEn {
 	@override String get settingsSectionOption2 => 'поделиться сразу всеми своими картами.';
 	@override String get settingsSectionDescription3 => 'Функцию «поделиться всеми картами» также можно использовать как удобный способ перенести карты на новое устройство.';
 	@override String get sourceCodeLink => 'https://github.com/GingerMustache/card_holder';
-	@override String get title => 'От разработчика';
+	@override String get title => 'от разработчика';
 }
 
 // Path: errors
@@ -365,7 +365,7 @@ extension on TranslationsRu {
 			case 'fromDeveloper.settingsSectionOption2': return 'поделиться сразу всеми своими картами.';
 			case 'fromDeveloper.settingsSectionDescription3': return 'Функцию «поделиться всеми картами» также можно использовать как удобный способ перенести карты на новое устройство.';
 			case 'fromDeveloper.sourceCodeLink': return 'https://github.com/GingerMustache/card_holder';
-			case 'fromDeveloper.title': return 'От разработчика';
+			case 'fromDeveloper.title': return 'от разработчика';
 			case 'errors.localData.databaseIsAlreadyOpen': return 'База данных уже открыта';
 			case 'errors.localData.unableToGetDocumentsDirectory': return 'Не удается получить папку документов';
 			case 'errors.localData.databaseIsNotOpen': return 'База данных не открыта';

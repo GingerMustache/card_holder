@@ -89,7 +89,7 @@ fromDeveloper:
   settingsSectionOption2: share all your cards at once.
   settingsSectionDescription3: The "share all cards" function can also be used as a convenient way to transfer cards to a new device.
   sourceCodeLink: https://github.com/GingerMustache/card_holder
-  title: From developer
+  title: from developer
 
 errors:
   localData:
