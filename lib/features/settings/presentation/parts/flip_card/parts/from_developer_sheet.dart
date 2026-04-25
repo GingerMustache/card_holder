@@ -124,7 +124,7 @@ class _FromDeveloperSheetState extends State<FromDeveloperSheet> {
                             ),
                             TextSpan(
                               text:
-                                  "${t.fromDeveloper.addCardDescription2}\n\n",
+                                  "${t.fromDeveloper.addCardDescription2}:\n\n",
                             ),
                             TextSpan(
                               text: "${t.fromDeveloper.addCardOption1}\n",
@@ -172,7 +172,7 @@ class _FromDeveloperSheetState extends State<FromDeveloperSheet> {
                             ),
                             TextSpan(
                               text:
-                                  "${t.fromDeveloper.settingsSectionDescription2}\n\n",
+                                  "${t.fromDeveloper.settingsSectionDescription2}:\n\n",
                             ),
                             TextSpan(
                               text:
@@ -210,9 +210,4 @@ class _FromDeveloperSheetState extends State<FromDeveloperSheet> {
       ],
     );
   }
-
-  static const borderRadius = BorderRadius.only(
-    topLeft: Radius.circular(8),
-    topRight: Radius.circular(8),
-  );
 }

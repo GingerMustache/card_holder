@@ -157,8 +157,8 @@ class TranslationsFromDeveloperEn {
 	/// en: 'Instructions'
 	String get instruction => 'Instructions';
 
-	/// en: 'Adding a card'
-	String get addCardTitle => 'Adding a card';
+	/// en: '• Adding a card'
+	String get addCardTitle => '• Adding a card';
 
 	/// en: 'On the main page, you'll see a "Plus" button – you can use it to add a card.'
 	String get addCardDescription1 => 'On the main page, you\'ll see a "Plus" button – you can use it to add a card.';
@@ -178,11 +178,11 @@ class TranslationsFromDeveloperEn {
 	/// en: 'Creating from scratch or using a template is a simple process, and you won't have any trouble adding a card this way.'
 	String get addCardDescription3 => 'Creating from scratch or using a template is a simple process, and you won\'t have any trouble adding a card this way.';
 
-	/// en: 'You can add a card from a file by simply opening the file shared with you through this application.'
-	String get addCardDescription4 => 'You can add a card from a file by simply opening the file shared with you through this application.';
+	/// en: 'You can add a card from a file by simply opening a file shared with you in this app or using it.'
+	String get addCardDescription4 => 'You can add a card from a file by simply opening a file shared with you in this app or using it.';
 
-	/// en: 'Sharing cards'
-	String get shareCardsTitle => 'Sharing cards';
+	/// en: '• Sharing cards'
+	String get shareCardsTitle => '• Sharing cards';
 
 	/// en: 'If you have friends (you do, right?), you can exchange cards with them.'
 	String get shareCardsDescription1 => 'If you have friends (you do, right?), you can exchange cards with them.';
@@ -196,8 +196,8 @@ class TranslationsFromDeveloperEn {
 	/// en: 'You can also share the card as a photo. Yes, you might notice that... "Who's stopping me from taking a screenshot?" I agree, but who's stopping me from making such a function?'
 	String get shareCardsDescription4 => 'You can also share the card as a photo. Yes, you might notice that... "Who\'s stopping me from taking a screenshot?" I agree, but who\'s stopping me from making such a function?';
 
-	/// en: 'Settings section'
-	String get settingsSectionTitle => 'Settings section';
+	/// en: '• Settings section'
+	String get settingsSectionTitle => '• Settings section';
 
 	/// en: 'In the "Settings" section, there's a "Share" card.'
 	String get settingsSectionDescription1 => 'In the "Settings" section, there\'s a "Share" card.';
@@ -523,20 +523,20 @@ extension on Translations {
 			case 'fromDeveloper.feedback': return 'I\'d appreciate it if you leave a comment on the platform where you downloaded it. I\'m also always open to suggestions for improving or worsening the app.';
 			case 'fromDeveloper.questions': return 'I tried to make the app intuitive, but sometimes questions may arise.';
 			case 'fromDeveloper.instruction': return 'Instructions';
-			case 'fromDeveloper.addCardTitle': return 'Adding a card';
+			case 'fromDeveloper.addCardTitle': return '• Adding a card';
 			case 'fromDeveloper.addCardDescription1': return 'On the main page, you\'ll see a "Plus" button – you can use it to add a card.';
 			case 'fromDeveloper.addCardDescription2': return 'After clicking, a menu will open with options';
 			case 'fromDeveloper.addCardOption1': return 'create a card from scratch;';
 			case 'fromDeveloper.addCardOption2': return 'use a ready-made template;';
 			case 'fromDeveloper.addCardOption3': return 'add a card from a file.';
 			case 'fromDeveloper.addCardDescription3': return 'Creating from scratch or using a template is a simple process, and you won\'t have any trouble adding a card this way.';
-			case 'fromDeveloper.addCardDescription4': return 'You can add a card from a file by simply opening the file shared with you through this application.';
-			case 'fromDeveloper.shareCardsTitle': return 'Sharing cards';
+			case 'fromDeveloper.addCardDescription4': return 'You can add a card from a file by simply opening a file shared with you in this app or using it.';
+			case 'fromDeveloper.shareCardsTitle': return '• Sharing cards';
 			case 'fromDeveloper.shareCardsDescription1': return 'If you have friends (you do, right?), you can exchange cards with them.';
 			case 'fromDeveloper.shareCardsDescription2': return 'On the added card screen, there\'s a "Share" button. Click it, choose to send the file, and send it anywhere – to a messenger, email, or another app that\'s still available.';
 			case 'fromDeveloper.shareCardsDescription3': return 'Your friend will be able to download it and add the card using the "add card from file" function mentioned above.';
 			case 'fromDeveloper.shareCardsDescription4': return 'You can also share the card as a photo. Yes, you might notice that... "Who\'s stopping me from taking a screenshot?" I agree, but who\'s stopping me from making such a function?';
-			case 'fromDeveloper.settingsSectionTitle': return 'Settings section';
+			case 'fromDeveloper.settingsSectionTitle': return '• Settings section';
 			case 'fromDeveloper.settingsSectionDescription1': return 'In the "Settings" section, there\'s a "Share" card.';
 			case 'fromDeveloper.settingsSectionDescription2': return 'There you can';
 			case 'fromDeveloper.settingsSectionOption1': return 'share a link to the app;';
