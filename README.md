@@ -1,6 +1,8 @@
 # Card Holder
 A Flutter app for storing and managing loyalty and membership cards digitally.
 
+[![Download Latest Release](https://img.shields.io/github/v/release/GingerMustache/card_holder)](https://github.com/GingerMustache/card_holder/releases/latest)
+
 <img width="180" alt="IMAGE 2026-04-25 18:52:45" src="https://github.com/user-attachments/assets/c11f2a8e-628e-4ca5-bd82-c6c793edd33d" />
 <img width="180" alt="IMAGE 2026-04-25 18:53:37" src="https://github.com/user-attachments/assets/d9a71a0a-c4a3-4837-ab86-e26a7a07a607" />
 <img width="180" alt="IMAGE 2026-04-25 18:54:09" src="https://github.com/user-attachments/assets/c52ba6cc-1ade-470c-af49-482b0aa40f50" />
