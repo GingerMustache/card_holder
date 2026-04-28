@@ -91,7 +91,7 @@ class _AddCardSheetState extends State<AddCardSheet> {
         Stack(
           children: [
             AspectRatio(
-              aspectRatio: 1.52,
+              aspectRatio: 1.50,
               child: ClipRRect(
                 borderRadius: borderRadius,
                 child: MobileScanner(
@@ -121,7 +121,7 @@ class _AddCardSheetState extends State<AddCardSheet> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          3.h,
+                          2.h,
                           Center(
                             child: Text(
                               t.screen.home.addCard.barcodeScan,
@@ -159,12 +159,12 @@ class _AddCardSheetState extends State<AddCardSheet> {
                                   ),
                             ],
                           ),
-                          10.h,
+                          8.h,
                           Text(
                             t.screen.home.addCard.detectedCode,
                             style: context.textStyles.labelSmall,
                           ),
-                          5.h,
+                          4.h,
                           _EnteredCodeWidget(),
                           FrameTextField(
                             testKey: const Key('card_code_field'),

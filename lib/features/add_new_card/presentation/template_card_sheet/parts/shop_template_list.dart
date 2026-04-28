@@ -21,11 +21,13 @@ final List<ShopTemplate> _shopTemplates = [
   ),
   ShopTemplate(
     name: 'Спар',
+    logoSize: 25,
     svgUrl: AppIcons.sparShop,
     cardColor: const Color(0xFF008000),
   ),
   ShopTemplate(
     name: 'Магнит',
+    logoSize: 20,
     svgUrl: AppIcons.magnetShop,
     cardColor: AppColors.mainGray,
   ),
@@ -53,21 +55,25 @@ final List<ShopTemplate> _shopTemplates = [
   ),
   ShopTemplate(
     name: 'Ашан',
+    logoSize: 20,
     svgUrl: AppIcons.ashanShop,
     cardColor: AppColors.darkGrey,
   ),
   ShopTemplate(
     name: 'Metro',
+    logoSize: 20,
     svgUrl: AppIcons.metroShop,
     cardColor: const Color(0xFF003366),
   ),
   ShopTemplate(
     name: 'О’Кей',
+    logoSize: 25,
     svgUrl: AppIcons.okShop,
     cardColor: const Color(0xFF008000),
   ),
   ShopTemplate(
     name: 'ВкусВилл',
+    logoSize: 15,
     svgUrl: AppIcons.vkusVilShop,
     cardColor: const Color(0xFF90EE90),
   ),

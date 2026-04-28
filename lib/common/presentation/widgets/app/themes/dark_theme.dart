@@ -28,7 +28,7 @@ final darkThemeData = ThemeData(
 
   textTheme: TextTheme(
     displayMedium: _getTextStyleFromTheme(
-      fontSize: 20.0,
+      fontSize: 18.0,
       letterSpacing: 2,
       fontWeight: FontWeight.bold,
     ),
@@ -60,7 +60,7 @@ final darkThemeData = ThemeData(
       color: AppColors.darkGrey,
     ),
     bodySmall: _getTextStyleFromTheme(
-      fontSize: 16.0,
+      fontSize: 14.0,
       fontWeight: FontWeight.w400,
       color: AppColors.darkGrey,
     ),
