@@ -214,6 +214,7 @@ Future<void> _initializeApp(WidgetTester tester) async {
           BlocProvider(
             create:
                 (context) => SettingsBloc(
+                  shareRepository: diContainer.makeShareRepository(),
                   localStorage: diContainer.makeLocalStorage(),
                   settingConfig: settingConfig,
                 )..add(SettingInitEvent()),

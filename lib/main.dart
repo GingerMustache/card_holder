@@ -40,6 +40,7 @@ void main() async {
                   (context) => SettingsBloc(
                     localStorage: diContainer.makeLocalStorage(),
                     settingConfig: settingConfig,
+                    shareRepository: diContainer.makeShareRepository(),
                   )..add(SettingInitEvent()),
               lazy: false,
             ),

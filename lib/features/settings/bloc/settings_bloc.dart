@@ -3,6 +3,7 @@ import 'package:card_holder/common/configs/setting_config.dart';
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/services/brightness_control/brightness_control_service.dart';
 import 'package:card_holder/common/services/local_storage/secure_storage.dart';
+import 'package:card_holder/domain/repositories/local/shared_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,7 @@ part 'settings_state.dart';
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   final LocalStorageService _localStorage;
   final SettingConfig _settingConfig;
+  final ShareRepository _shareRepository;
 
   List<String> get _settingItems => [
     t.system.theme.all,
@@ -27,16 +29,18 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
 
   SettingsBloc({
     required LocalStorageService localStorage,
+    required ShareRepository shareRepository,
     required SettingConfig settingConfig,
   }) : _localStorage = localStorage,
        _settingConfig = settingConfig,
-
+       _shareRepository = shareRepository,
        super(SettingsState()) {
     on<SettingChangeLangEvent>(_onChangeLang);
     on<SettingChangeThemeEvent>(_onChangeTheme);
     on<SettingInitEvent>(_onInit);
     on<SettingSearchEvent>(_onSettingSearch);
     on<SettingChangeBrightnessEvent>(_onBrightnessChange);
+    on<SettingShareAppLinkEvent>(_onShareAppLink);
   }
 
   _onInit(SettingInitEvent event, Emitter<SettingsState> emit) async {
@@ -105,5 +109,14 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     } else {
       emit(state.copyWith(settingItems: state.settingItems, searchItems: []));
     }
+  }
+
+  _onShareAppLink(
+    SettingShareAppLinkEvent event,
+    Emitter<SettingsState> emit,
+  ) async {
+    final result = await _shareRepository.shareText(text: event.link);
+
+    result.fold((Exception exception) => null, (_) => null);
   }
 }

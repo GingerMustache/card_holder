@@ -42,3 +42,12 @@ class SettingSearchEvent extends SettingsEvent {
   @override
   List<Object?> get props => [query];
 }
+
+class SettingShareAppLinkEvent extends SettingsEvent {
+  final String link;
+
+  SettingShareAppLinkEvent(this.link);
+
+  @override
+  List<Object?> get props => [link];
+}

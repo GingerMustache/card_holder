@@ -6,6 +6,12 @@ class _Share extends StatelessWidget {
     context.read<CardsBloc>().add(CardsShareAllCardsEvent(context));
   }
 
+  void _onShareAppLink(BuildContext context) async {
+    context.read<SettingsBloc>().add(
+      SettingShareAppLinkEvent(t.fromDeveloper.sourceReleaseAppLink),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsBloc, SettingsState>(
@@ -16,7 +22,10 @@ class _Share extends StatelessWidget {
         return Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _CardTab(tabName: t.system.share.app, onTap: () => ()),
+            _CardTab(
+              tabName: t.system.share.app,
+              onTap: () => _onShareAppLink(context),
+            ),
             _CardTab(
               tabName: t.system.share.cards,
               onTap: () => _onShareAllCards(context),

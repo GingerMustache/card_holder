@@ -217,6 +217,9 @@ class TranslationsFromDeveloperEn {
 	/// en: 'https://github.com/GingerMustache/card_holder'
 	String get sourceCodeLink => 'https://github.com/GingerMustache/card_holder';
 
+	/// en: 'https://github.com/GingerMustache/card_holder/releases/'
+	String get sourceReleaseAppLink => 'https://github.com/GingerMustache/card_holder/releases/';
+
 	/// en: 'from developer'
 	String get title => 'from developer';
 }
@@ -543,6 +546,7 @@ extension on Translations {
 			case 'fromDeveloper.settingsSectionOption2': return 'share all your cards at once.';
 			case 'fromDeveloper.settingsSectionDescription3': return 'The "share all cards" function can also be used as a convenient way to transfer cards to a new device.';
 			case 'fromDeveloper.sourceCodeLink': return 'https://github.com/GingerMustache/card_holder';
+			case 'fromDeveloper.sourceReleaseAppLink': return 'https://github.com/GingerMustache/card_holder/releases/';
 			case 'fromDeveloper.title': return 'from developer';
 			case 'errors.localData.databaseIsAlreadyOpen': return 'Database is already open';
 			case 'errors.localData.unableToGetDocumentsDirectory': return 'Unable to get documents directory';

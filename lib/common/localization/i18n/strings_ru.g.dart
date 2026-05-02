@@ -141,6 +141,7 @@ class _TranslationsFromDeveloperRu extends TranslationsFromDeveloperEn {
 	@override String get settingsSectionOption2 => 'поделиться сразу всеми своими картами.';
 	@override String get settingsSectionDescription3 => 'Функцию «Поделиться всеми картами» также можно использовать как удобный способ перенести карты на новое устройство.';
 	@override String get sourceCodeLink => 'https://github.com/GingerMustache/card_holder';
+	@override String get sourceReleaseAppLink => 'https://github.com/GingerMustache/card_holder/releases/';
 	@override String get title => 'от разработчика';
 }
 
@@ -365,6 +366,7 @@ extension on TranslationsRu {
 			case 'fromDeveloper.settingsSectionOption2': return 'поделиться сразу всеми своими картами.';
 			case 'fromDeveloper.settingsSectionDescription3': return 'Функцию «Поделиться всеми картами» также можно использовать как удобный способ перенести карты на новое устройство.';
 			case 'fromDeveloper.sourceCodeLink': return 'https://github.com/GingerMustache/card_holder';
+			case 'fromDeveloper.sourceReleaseAppLink': return 'https://github.com/GingerMustache/card_holder/releases/';
 			case 'fromDeveloper.title': return 'от разработчика';
 			case 'errors.localData.databaseIsAlreadyOpen': return 'База данных уже открыта';
 			case 'errors.localData.unableToGetDocumentsDirectory': return 'Не удается получить папку документов';
