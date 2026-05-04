@@ -34,15 +34,16 @@ class MyApp extends StatelessWidget {
   void systemColor(ThemeMode theme) {
     final isDark = theme == ThemeMode.dark;
 
+    final brightness = isDark ? Brightness.light : Brightness.dark;
+    final color = isDark ? AppColors.mainBlack : AppColors.mainWhite;
+
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-        statusBarColor: isDark ? AppColors.mainBlack : AppColors.mainWhite,
-        statusBarIconBrightness: isDark ? Brightness.light : Brightness.dark,
-        statusBarBrightness: isDark ? Brightness.light : Brightness.dark,
-        systemNavigationBarIconBrightness:
-            isDark ? Brightness.light : Brightness.dark,
-        systemNavigationBarColor:
-            isDark ? AppColors.mainBlack : AppColors.mainWhite,
+        statusBarColor: color,
+        statusBarIconBrightness: brightness,
+        statusBarBrightness: brightness,
+        systemNavigationBarIconBrightness: brightness,
+        systemNavigationBarColor: color,
       ),
     );
   }
@@ -53,6 +54,7 @@ class MyApp extends StatelessWidget {
       listenWhen: (prev, cur) => prev.jsonData != cur.jsonData,
       listener: (context, state) {
         final bloc = context.read<CardsBloc>();
+
         if (state.message.isNotEmpty && state.jsonData.isEmpty) {
           AnimatedSnackBar.show(message: state.message);
         } else {

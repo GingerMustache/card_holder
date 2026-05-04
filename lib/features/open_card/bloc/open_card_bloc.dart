@@ -28,6 +28,7 @@ class OpenCardBloc extends Bloc<OpenCardEvent, OpenCardState>
     Emitter<OpenCardState> emit,
   ) async {
     final onlyNumbers = event.code.replaceAll(RegExp(r'[^0-9]'), '');
+
     if (onlyNumbers.isEmpty) {
       emit(state.copyWith(code: ''));
     } else {
@@ -42,9 +43,9 @@ class OpenCardBloc extends Bloc<OpenCardEvent, OpenCardState>
     Emitter<OpenCardState> emit,
   ) async {
     final isAutoBrightness = event.brightnessMode == BrightnessMode.auto;
-    if (isAutoBrightness) {
-      _brightnessService.setMaxBrightness();
-    }
+
+    if (isAutoBrightness) _brightnessService.setMaxBrightness();
+
     emit(
       state.copyWith(
         cardCodeType: event.curCard.cardCodeType,
@@ -79,11 +80,10 @@ class OpenCardBloc extends Bloc<OpenCardEvent, OpenCardState>
     OpenCardChangeBrightnessEvent event,
     Emitter<OpenCardState> emit,
   ) async {
-    if (state.turnBrightnessOn || event.dismissSheet) {
-      _brightnessService.setDefaultSystemBrightness();
-    } else {
-      _brightnessService.setMaxBrightness();
-    }
+    state.turnBrightnessOn || event.dismissSheet
+        ? _brightnessService.setDefaultSystemBrightness()
+        : _brightnessService.setMaxBrightness();
+
     emit(state.copyWith(turnBrightnessOn: !state.turnBrightnessOn));
   }
 }

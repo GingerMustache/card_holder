@@ -43,12 +43,12 @@ class CardsAddCardEvent extends CardsEvent {
   });
   @override
   List<Object?> get props => [
+    cardCodeType,
     code,
     name,
     color,
     urlPath,
     logoSize,
-    cardCodeType,
   ];
 }
 

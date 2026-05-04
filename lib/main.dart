@@ -36,18 +36,18 @@ void main() async {
               create: (_) => diContainer.makeTextValidatorService(),
             ),
             BlocProvider(
+              lazy: false,
               create:
-                  (context) => SettingsBloc(
+                  (_) => SettingsBloc(
                     localStorage: diContainer.makeLocalStorage(),
                     settingConfig: settingConfig,
                     shareRepository: diContainer.makeShareRepository(),
                   )..add(SettingInitEvent()),
-              lazy: false,
             ),
             BlocProvider(
               lazy: false,
               create:
-                  (context) => CardsBloc(
+                  (_) => CardsBloc(
                     imageConvertHelper: diContainer.makeConverterHelper(),
                     shareRepository: diContainer.makeShareRepository(),
                     filePickRepository: diContainer.makeFilePickRepository(),
@@ -57,7 +57,7 @@ void main() async {
             BlocProvider(
               lazy: false,
               create:
-                  (context) => AppCubit(
+                  (_) => AppCubit(
                     convertHelper: diContainer.makeConverterHelper(),
                     appLinkService: diContainer.makeAppLinkService(),
                   ),

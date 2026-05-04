@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:card_holder/common/configs/setting_config.dart';
+import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/services/brightness_control/brightness_control_service.dart';
 import 'package:card_holder/common/services/local_storage/secure_storage.dart';
@@ -97,7 +98,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   ) async {
     List<String> settings = state.settingItems;
 
-    if (event.query != null && event.query!.isNotEmpty) {
+    if (event.query.notEmptyNotNull) {
       final List<String> foundSetting =
           settings
               .where((element) => element.contains(event.query ?? ''))
