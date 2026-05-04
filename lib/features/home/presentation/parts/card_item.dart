@@ -16,9 +16,7 @@ class _CardItem extends StatelessWidget {
         completer: completer,
       ),
     );
-    completer.future.then(
-      (currentCard) => CardOpenSheet.show(context, currentCard),
-    );
+    completer.future.then((curCard) => CardOpenSheet.show(context, curCard));
   }
 
   @override
