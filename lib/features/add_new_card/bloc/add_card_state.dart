@@ -30,8 +30,9 @@ final class CreateCardState extends Equatable {
   final CardCodeType cardCodeType;
 
   String get getCode => detectedCode.isNotEmpty ? detectedCode : code;
-
   bool get codeIsNotEmpty => code.isNotEmpty || detectedCode.isNotEmpty;
+  List<ShopTemplate> get getTemplates =>
+      searchTemplates.isNotEmpty ? searchTemplates : templates;
 
   CreateCardState copyWith({
     String? code,
