@@ -30,6 +30,7 @@ extension PaddingExtension on Widget {
 
 extension StringExtension on String? {
   String get notNull => this ?? '';
+  bool get notEmptyNotNull => this != null && this!.trim() != '';
 }
 
 extension EmailValidator on String {

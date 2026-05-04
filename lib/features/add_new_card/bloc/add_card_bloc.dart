@@ -49,9 +49,7 @@ class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
   Future<void> _onInit(
     CreateCardInitEvent event,
     Emitter<CreateCardState> emit,
-  ) async {
-    emit(state.copyWith(templates: event.templates));
-  }
+  ) async => emit(state.copyWith(templates: event.templates));
 
   Future<void> _onAddCode(
     CreateCardChangeCodeEvent event,
@@ -61,11 +59,10 @@ class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
         event.code.containsAlphabetic
             ? event.code
             : event.code.onlyNumbers.formatWithSpaces;
-    if (detectedCode.isEmpty) {
-      emit(state.copyWith(code: ''));
-    } else {
-      emit(state.copyWith(code: detectedCode, isMarkTapped: false));
-    }
+
+    detectedCode.isEmpty
+        ? emit(state.copyWith(code: ''))
+        : emit(state.copyWith(code: detectedCode, isMarkTapped: false));
   }
 
   Future<void> _onChangeColor(
@@ -85,6 +82,7 @@ class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
     if (event.cardColor == null) {
       final int randomColor = (Random().nextDouble() * 0xFFFFFF).toInt();
       emit(state.copyWith(color: randomColor));
+
       return;
     } else {
       emit(
@@ -96,6 +94,7 @@ class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
         ),
       );
     }
+
     event.completer?.complete();
   }
 
@@ -109,13 +108,17 @@ class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
     Emitter<CreateCardState> emit,
   ) async {
     final barcodes = event.barcodes;
-    if (barcodes.barcodes.isNotEmpty &&
-        barcodes.barcodes.first.rawValue != null) {
+    final isScanned =
+        barcodes.barcodes.isNotEmpty &&
+        barcodes.barcodes.first.rawValue != null;
+
+    if (isScanned) {
       cameraControllerSubscription.pause();
       final scannedPart = barcodes.barcodes.first;
 
       final rawValue = scannedPart.rawValue!;
       final isQr = scannedPart.format == BarcodeFormat.qrCode;
+
       final detectedCode = isQr ? rawValue : rawValue.formatWithSpaces;
       final cardType = isQr ? CardCodeType.qr : CardCodeType.barcode;
 
@@ -145,7 +148,7 @@ class CreateCardBloc extends Bloc<CreateCardEvent, CreateCardState>
   ) async {
     List<ShopTemplate> templates = state.templates;
 
-    if (event.text != null && event.text!.isNotEmpty) {
+    if (event.text.notEmptyNotNull) {
       final List<ShopTemplate> foundCards =
           templates
               .where(

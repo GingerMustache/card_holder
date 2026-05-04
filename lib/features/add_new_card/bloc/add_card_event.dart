@@ -7,8 +7,8 @@ sealed class CreateCardEvent extends Equatable implements BlocEventAbstract {
 }
 
 class CreateCardChangeCodeEvent extends CreateCardEvent {
-  const CreateCardChangeCodeEvent(this.code);
   final String code;
+  const CreateCardChangeCodeEvent(this.code);
 
   @override
   List<Object?> get props => [code];
@@ -23,8 +23,8 @@ class CreateCardInitEvent extends CreateCardEvent {
 }
 
 class CreateCardChangeColorEvent extends CreateCardEvent {
-  const CreateCardChangeColorEvent(this.color);
   final int color;
+  const CreateCardChangeColorEvent(this.color);
 
   @override
   List<Object?> get props => [color];
@@ -46,7 +46,7 @@ class CreateCardSetInitTemplateEvent extends CreateCardEvent {
   });
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [cardColor, cardName, svgUrl, logoSize, completer];
 }
 
 class CreateCardChangeNameEvent extends CreateCardEvent {

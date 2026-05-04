@@ -8,6 +8,7 @@ import 'package:card_holder/common/exceptions/image_helper_exceptions.dart';
 import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:card_holder/common/helpers/converter/convert_helper.dart';
 import 'package:card_holder/common/mixins/event_transformer_mixin.dart';
+import 'package:card_holder/common/mixins/show_snack_bar_mixin.dart';
 import 'package:card_holder/common/services/file_pick/exceptions/file_pick_service_exceptions.dart';
 import 'package:card_holder/common/services/local_crud/local_card_service.dart';
 import 'package:card_holder/common/services/share/exceptions/shared_service_exceptions.dart';
@@ -17,13 +18,12 @@ import 'package:card_holder/domain/repositories/local/shared_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:multi_mode_animated_snack/multi_mode_animated_snack.dart';
 
 part 'cards_event.dart';
 part 'cards_state.dart';
 
 class CardsBloc extends Bloc<CardsEvent, CardsState>
-    with EventTransformerMixin {
+    with EventTransformerMixin, ShowSnackBarMixin {
   final CardRepository _cardRepo;
   final FilePickRepository _filePickRepository;
   final ConvertHelper _convertHelper;
@@ -58,7 +58,8 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
       (Exception e) {
         if (e is LocalDataBaseException) {
           emit(state.copyWith(cards: state.cards, isLoading: false, error: e));
-          _showSnackBar(e.message, useDelay: true);
+
+          showSnackBar(e.message, useDelay: true);
         }
       },
 
@@ -72,23 +73,25 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
 
     final result = await _cardRepo.openCard(id: event.id ?? 0);
 
-    final cards = state.cards;
-
     result.fold(
       (Exception e) {
         if (e is LocalDataBaseException) {
           emit(state.copyWith(cards: state.cards, isLoading: false, error: e));
-          _showSnackBar(e.message);
+          showSnackBar(e.message);
+
           event.completer.completeError(e);
         }
       },
 
       (DataBaseCard card) {
+        final cards = state.cards;
+
         card = card.copyWith(usagePoint: card.usagePoint + 1);
         cards[event.index] = card;
         cards.sort((a, b) => b.usagePoint.compareTo(a.usagePoint));
 
         emit(state.copyWith(currentCard: card, cards: cards, isLoading: false));
+
         event.completer.complete(card);
       },
     );
@@ -96,6 +99,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
 
   _onAddCard(CardsAddCardEvent event, Emitter<CardsState> emit) async {
     emit(state.copyWith(isLoading: true));
+
     final result = await _cardRepo.createCard(
       code: event.code,
       cardCodeType: event.cardCodeType,
@@ -104,17 +108,20 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
       urlPath: event.urlPath,
       logoSize: event.logoSize,
     );
+
     result.fold(
       (Exception e) {
         if (e is LocalDataBaseException) {
           emit(state.copyWith(cards: state.cards, isLoading: false));
-          _showSnackBar(e.message);
+          showSnackBar(e.message);
+
           event.completer?.completeError(e);
         }
       },
 
       (DataBaseCard card) {
         emit(state.copyWith(cards: [...state.cards, card], isLoading: false));
+
         event.completer?.complete(card);
       },
     );
@@ -122,22 +129,24 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
 
   _onDeleteCard(CardsDeleteCardEvent event, Emitter<CardsState> emit) async {
     emit(state.copyWith(isLoading: true));
+
     final result = await _cardRepo.deleteCard(id: event.id);
 
     result.fold(
       (Exception e) {
         if (e is LocalDataBaseException) {
           emit(state.copyWith(cards: state.cards, isLoading: false));
-          _showSnackBar(e.message);
+          showSnackBar(e.message);
+
           event.completer?.completeError(e);
         }
       },
-
       (_) {
         final newCardsList =
             state.cards.where((item) => item.id != event.id).toList();
 
         emit(state.copyWith(cards: [...newCardsList], isLoading: false));
+
         event.completer?.complete();
       },
     );
@@ -152,7 +161,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
       (Exception e) {
         if (e is FilePickException) {
           emit(state.copyWith(cards: state.cards, isLoading: false));
-          // _showSnackBar(e.message, );
+          // showSnackBar(e.message, );
           event.completer.completeError(e);
         }
       },
@@ -167,6 +176,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
             (Exception e) {
               if (e is JsonFromFileFailed) {
                 emit(state.copyWith(cards: state.cards, isLoading: false));
+
                 event.completer.completeError(e);
               }
             },
@@ -183,12 +193,13 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
   _onUpdateCards(CardsUpdateCardEvent event, Emitter<CardsState> emit) async {
     emit(state.copyWith(isLoading: true));
     final String code =
-        event.code.notNull.isNotEmpty
-            ? event.code.notNull
+        event.code.notEmptyNotNull
+            ? event.code!
             : state.currentCard?.code ?? '';
+
     final String name =
-        event.name.notNull.isNotEmpty
-            ? event.name.notNull
+        event.name.notEmptyNotNull
+            ? event.name!
             : state.currentCard?.name ?? '';
 
     final result = await _cardRepo.updateCard(
@@ -205,7 +216,8 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
       (Exception e) {
         if (e is LocalDataBaseException) {
           emit(state.copyWith(cards: state.cards, isLoading: false));
-          _showSnackBar(e.message);
+          showSnackBar(e.message);
+
           event.completer?.completeError(e);
         }
       },
@@ -230,6 +242,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
             isLoading: false,
           ),
         );
+
         event.completer?.complete(card);
       },
     );
@@ -237,9 +250,9 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
 
   _onCardSearch(CardsSearchEvent event, Emitter<CardsState> emit) async {
     emit(state.copyWith(isLoading: true));
-    List<DataBaseCard> cards = state.cards;
+    final List<DataBaseCard> cards = state.cards;
 
-    if (event.text != null && event.text!.isNotEmpty) {
+    if (event.text.notEmptyNotNull) {
       final List<DataBaseCard> foundCards =
           cards
               .where(
@@ -390,17 +403,6 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
     );
   }
 
-  Future<void> _showSnackBar(String message, {bool useDelay = false}) async =>
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (useDelay) {
-          Future.delayed(const Duration(milliseconds: 300), () {
-            AnimatedSnackBar.show(message: message);
-          });
-        } else {
-          AnimatedSnackBar.show(message: message);
-        }
-      });
-
   // functions
   void addCardFromData(
     Map<String, dynamic> cardMap, {
@@ -423,7 +425,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState>
         ),
       );
     } catch (e) {
-      _showSnackBar(e.toString());
+      showSnackBar(e.toString());
     }
   }
 
