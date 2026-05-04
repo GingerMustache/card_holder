@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: _Fab(),
+      floatingActionButton: const _Fab(),
       body: NestedScrollView(
         physics: const ClampingScrollPhysics(),
         headerSliverBuilder:
@@ -62,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 return _GridCards(cards: cards);
               },
             ),
-            SettingsPage(),
+            const SettingsPage(),
           ],
         ),
       ),
@@ -82,6 +82,7 @@ class _GridCards extends StatelessWidget {
         child: Text(t.screen.home.empty, style: context.textStyles.bodyMedium),
       );
     }
+
     return GridView.builder(
       padding: mainPadding,
       shrinkWrap: true,

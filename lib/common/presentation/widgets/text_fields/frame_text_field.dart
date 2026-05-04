@@ -9,7 +9,7 @@ class FrameTextField extends StatefulWidget {
     required this.hintText,
     required this.labelText,
     required this.onChanged,
-    required this.validator,
+    this.validator,
     this.autovalidateMode = AutovalidateMode.onUserInteraction,
     this.numericKeyboard = false,
     this.initText,

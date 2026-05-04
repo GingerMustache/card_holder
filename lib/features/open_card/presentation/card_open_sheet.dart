@@ -24,6 +24,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 part 'parts/choose_share_sheet.dart';
+part 'parts/logo_or_color_badge.dart';
 part 'parts/show_barcode/parts/brightness_switcher.dart';
 part 'parts/show_barcode/parts/delete_button/delete_button.dart';
 part 'parts/show_barcode/parts/delete_button/delete_sheet.dart';
@@ -110,8 +111,6 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
   void onChangeColor(Color color) =>
       openBloc.add(OpenCardChangeColorEvent(color.toARGB32()));
 
-  void onTapColorWidget() => openBloc.add(OpenCardChangeMarkTapEvent());
-
   @override
   Widget build(BuildContext context) {
     return SkeletonWrapper(
@@ -136,49 +135,8 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
                       padding: mainHorizontalPadding,
                       child: Column(
                         children: [
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Divider(
-                                  color: context.color.onSurface.withAlpha(50),
-                                ),
-                              ),
-                              widget.curCard.urlPath.isNotEmpty
-                                  ? LogoSvg(
-                                    logoSize: widget.curCard.logoSize,
-                                    urlPath: widget.curCard.urlPath,
-                                    cardName: widget.curCard.name,
-                                  )
-                                  : BlocBuilder<OpenCardBloc, OpenCardState>(
-                                    buildWhen:
-                                        (previous, current) =>
-                                            previous.color != current.color,
-                                    builder: (context, state) {
-                                      return InkWell(
-                                        onTap: onTapColorWidget,
-                                        child: ColorMark(state.color),
-                                      );
-                                    },
-                                  ),
-                            ],
-                          ),
-                          FrameTextField(
-                            validator:
-                                context.read<TextValidatorService>().emptyCheck,
-                            numericKeyboard: true,
-                            onChanged:
-                                (v) => openBloc.add(OpenCardChangeCodeEvent(v)),
-                            hintText: widget.curCard.code.formatWithSpaces,
-                            labelText: t.screen.home.addCard.manualCode,
-                          ),
-                          FrameTextField(
-                            validator:
-                                context.read<TextValidatorService>().emptyCheck,
-                            onChanged:
-                                (v) => openBloc.add(OpenCardChangeNameEvent(v)),
-                            hintText: widget.curCard.name,
-                            labelText: t.screen.home.addCard.cardName,
-                          ),
+                          LogoOrColorBadge(widget.curCard),
+                          ..._nameAndCodeFields(),
                           9.h,
                           Row(
                             children: [
@@ -220,5 +178,25 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
         ),
       ],
     );
+  }
+
+  List<Widget> _nameAndCodeFields() {
+    final validator = context.read<TextValidatorService>().emptyCheck;
+
+    return [
+      FrameTextField(
+        validator: validator,
+        numericKeyboard: true,
+        onChanged: (v) => openBloc.add(OpenCardChangeCodeEvent(v)),
+        hintText: widget.curCard.code.formatWithSpaces,
+        labelText: t.screen.home.addCard.manualCode,
+      ),
+      FrameTextField(
+        validator: validator,
+        onChanged: (v) => openBloc.add(OpenCardChangeNameEvent(v)),
+        hintText: widget.curCard.name,
+        labelText: t.screen.home.addCard.cardName,
+      ),
+    ];
   }
 }
