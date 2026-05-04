@@ -135,7 +135,7 @@ class _CardOpenSheetState extends State<CardOpenSheet> {
                       padding: mainHorizontalPadding,
                       child: Column(
                         children: [
-                          LogoOrColorBadge(widget.curCard),
+                          _LogoOrColorBadge(widget.curCard),
                           ..._nameAndCodeFields(),
                           9.h,
                           Row(

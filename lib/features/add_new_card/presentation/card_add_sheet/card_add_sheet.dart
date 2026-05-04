@@ -20,6 +20,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 part 'parts/entered_code.dart';
+part 'parts/logo_or_color_badge.dart';
 part 'parts/scan_frame.dart';
 
 class AddCardSheet extends StatefulWidget {
@@ -31,9 +32,8 @@ class AddCardSheet extends StatefulWidget {
       isScrollControlled: true,
       context: context,
       useRootNavigator: true,
-      builder: (BuildContext context) {
-        return BlocProvider.value(value: bloc, child: AddCardSheet());
-      },
+      builder:
+          (_) => BlocProvider.value(value: bloc, child: const AddCardSheet()),
     );
   }
 
@@ -45,6 +45,8 @@ class _AddCardSheetState extends State<AddCardSheet> {
   late final CreateCardBloc createBloc;
   final _formKey = GlobalKey<FormState>();
 
+  CreateCardState get state => createBloc.state;
+
   @override
   void initState() {
     super.initState();
@@ -54,21 +56,15 @@ class _AddCardSheetState extends State<AddCardSheet> {
   Future<void> onAdd() async {
     if (_formKey.currentState!.validate()) {
       final completer = Completer<DataBaseCard>();
-      final createState = createBloc.state;
-
-      final code =
-          createState.detectedCode.isNotEmpty
-              ? createState.detectedCode
-              : createState.code;
 
       context.read<CardsBloc>().add(
         CardsAddCardEvent(
-          cardCodeType: createState.cardCodeType,
-          urlPath: createState.urlPath,
-          color: createState.color,
-          code: code,
-          name: createState.name,
-          logoSize: createState.logoSize,
+          cardCodeType: state.cardCodeType,
+          urlPath: state.urlPath,
+          color: state.color,
+          code: state.getCode,
+          name: state.name,
+          logoSize: state.logoSize,
           completer: completer,
         ),
       );
@@ -82,7 +78,10 @@ class _AddCardSheetState extends State<AddCardSheet> {
   void onChangeColor(Color color) =>
       createBloc.add(CreateCardChangeColorEvent(color.toARGB32()));
 
-  void onTapColorWidget() => createBloc.add(CreateCardChangeMarkTapEvent());
+  void onPressedScan() => createBloc.add(CreateCardResumeCameraEvent());
+
+  void onDetect(BarcodeCapture barcodes) =>
+      createBloc.add(CreateCardSearchEvent(barcodes));
 
   @override
   Widget build(BuildContext context) {
@@ -96,16 +95,12 @@ class _AddCardSheetState extends State<AddCardSheet> {
                 borderRadius: borderRadius,
                 child: MobileScanner(
                   controller: createBloc.cameraController,
-                  onDetect:
-                      (barcodes) =>
-                          createBloc.add(CreateCardSearchEvent(barcodes)),
                   overlayBuilder: onOverlayBuilder,
+                  onDetect: onDetect,
                 ),
               ),
             ),
-            _ScanFrame(
-              onPressed: () => createBloc.add(CreateCardResumeCameraEvent()),
-            ),
+            _ScanFrame(onPressed: onPressedScan),
           ],
         ),
         Expanded(
@@ -130,35 +125,7 @@ class _AddCardSheetState extends State<AddCardSheet> {
                               ),
                             ),
                           ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Divider(
-                                  color: context.color.onSurface.withAlpha(50),
-                                ),
-                              ),
-                              createBloc.state.urlPath.isNotEmpty
-                                  ? LogoSvg(
-                                    logoSize: createBloc.state.logoSize,
-                                    urlPath: createBloc.state.urlPath,
-                                    cardName: createBloc.state.name,
-                                  )
-                                  : BlocBuilder<
-                                    CreateCardBloc,
-                                    CreateCardState
-                                  >(
-                                    buildWhen:
-                                        (previous, current) =>
-                                            previous.color != current.color,
-                                    builder: (context, state) {
-                                      return ColorMarkWidget(
-                                        initColor: state.color,
-                                        onTap: onTapColorWidget,
-                                      );
-                                    },
-                                  ),
-                            ],
-                          ),
+                          _LogoOrColorBadge(state),
                           8.h,
                           Text(
                             t.screen.home.addCard.detectedCode,
@@ -166,52 +133,7 @@ class _AddCardSheetState extends State<AddCardSheet> {
                           ),
                           4.h,
                           _EnteredCodeWidget(),
-                          FrameTextField(
-                            testKey: const Key('card_code_field'),
-                            clear:
-                                () => context.read<CreateCardBloc>().add(
-                                  CreateCardChangeCodeEvent(''),
-                                ),
-                            validator: (val) {
-                              return createBloc.state.code.isNotEmpty ||
-                                      createBloc
-                                          .state
-                                          .detectedCode
-                                          .isNotEmpty ||
-                                      (val?.isNotEmpty ?? false)
-                                  ? null
-                                  : t.screen.home.addCard.fieldCannotBeEmpty;
-                            },
-                            numericKeyboard: true,
-                            onChanged:
-                                (v) => createBloc.add(
-                                  CreateCardChangeCodeEvent(v),
-                                ),
-                            hintText: t.screen.home.addCard.code,
-                            labelText: t.screen.home.addCard.manualCode,
-                          ),
-                          FrameTextField(
-                            testKey: const Key('card_name_field'),
-                            clear:
-                                () => context.read<CreateCardBloc>().add(
-                                  CreateCardChangeCodeEvent(''),
-                                ),
-                            validator: (val) {
-                              return createBloc.state.name.isNotEmpty
-                                  ? null
-                                  : t.screen.home.addCard.fieldCannotBeEmpty;
-                            },
-                            onChanged:
-                                (v) => createBloc.add(
-                                  CreateCardChangeNameEvent(v),
-                                ),
-                            hintText:
-                                createBloc.state.name.isNotEmpty &&
-                                        createBloc.state.urlPath.isNotEmpty
-                                    ? createBloc.state.name
-                                    : t.screen.home.addCard.name,
-                            labelText: t.screen.home.addCard.cardName,
-                          ),
+                          ..._nameAndCodeFields(),
                           9.h,
                           DefaultButton(
                             key: const Key('create_card_button'),
@@ -241,6 +163,45 @@ class _AddCardSheetState extends State<AddCardSheet> {
         ),
       ],
     );
+  }
+
+  List<Widget> _nameAndCodeFields() {
+    codeValidator(String? val) =>
+        state.codeIsNotEmpty || (val?.isNotEmpty ?? false)
+            ? null
+            : t.screen.home.addCard.fieldCannotBeEmpty;
+
+    nameValidator(String? val) =>
+        state.name.isNotEmpty ? null : t.screen.home.addCard.fieldCannotBeEmpty;
+
+    void codeClear() =>
+        context.read<CreateCardBloc>().add(CreateCardChangeCodeEvent(''));
+
+    void nameClear() =>
+        context.read<CreateCardBloc>().add(CreateCardChangeNameEvent(''));
+
+    return [
+      FrameTextField(
+        testKey: const Key('card_code_field'),
+        clear: codeClear,
+        validator: codeValidator,
+        numericKeyboard: true,
+        onChanged: (v) => createBloc.add(CreateCardChangeCodeEvent(v)),
+        hintText: t.screen.home.addCard.code,
+        labelText: t.screen.home.addCard.manualCode,
+      ),
+      FrameTextField(
+        testKey: const Key('card_name_field'),
+        clear: nameClear,
+        validator: nameValidator,
+        onChanged: (v) => createBloc.add(CreateCardChangeNameEvent(v)),
+        hintText:
+            state.name.isNotEmpty && state.urlPath.isNotEmpty
+                ? state.name
+                : t.screen.home.addCard.name,
+        labelText: t.screen.home.addCard.cardName,
+      ),
+    ];
   }
 
   Widget onOverlayBuilder(BuildContext context, BoxConstraints constraints) {

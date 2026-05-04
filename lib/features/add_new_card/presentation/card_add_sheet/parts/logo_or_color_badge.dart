@@ -1,30 +1,30 @@
-part of '../card_open_sheet.dart';
+part of '../card_add_sheet.dart';
 
 class _LogoOrColorBadge extends StatelessWidget {
-  const _LogoOrColorBadge(this.curCard);
+  const _LogoOrColorBadge(this.state);
 
-  final DataBaseCard curCard;
+  final CreateCardState state;
 
   void onTapColorWidget(BuildContext ctx) =>
-      ctx.read<OpenCardBloc>().add(OpenCardChangeMarkTapEvent());
+      ctx.read<CreateCardBloc>().add(CreateCardChangeMarkTapEvent());
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Expanded(child: Divider(color: context.color.onSurface.withAlpha(50))),
-        curCard.urlPath.isNotEmpty
+        state.urlPath.isNotEmpty
             ? LogoSvg(
-              logoSize: curCard.logoSize,
-              urlPath: curCard.urlPath,
-              cardName: curCard.name,
+              logoSize: state.logoSize,
+              urlPath: state.urlPath,
+              cardName: state.name,
             )
-            : BlocBuilder<OpenCardBloc, OpenCardState>(
+            : BlocBuilder<CreateCardBloc, CreateCardState>(
               buildWhen: (previous, current) => previous.color != current.color,
               builder: (context, state) {
-                return InkWell(
+                return ColorMarkWidget(
+                  initColor: state.color,
                   onTap: () => onTapColorWidget(context),
-                  child: ColorMark(state.color),
                 );
               },
             ),
