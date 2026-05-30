@@ -55,7 +55,7 @@ class _CardTemplate extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.elliptical(8, 8)),
         boxShadow: [
           BoxShadow(
-            color: context.color.surfaceTint.withValues(alpha: 0.2),
+            color: context.color.surfaceTint.alpha02,
             spreadRadius: 1,
             blurRadius: 5,
             offset: const Offset(0, 3),

@@ -55,10 +55,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           children: [
             BlocBuilder<CardsBloc, CardsState>(
               builder: (context, state) {
-                final cards =
-                    state.searchListCards.isNotEmpty
-                        ? state.searchListCards
-                        : state.cards;
+                final cards = state.getCardsBySearch;
                 return _GridCards(cards: cards);
               },
             ),

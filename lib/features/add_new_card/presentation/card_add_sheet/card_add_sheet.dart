@@ -222,7 +222,7 @@ class _AddCardSheetState extends State<AddCardSheet> {
           return Container(
             decoration: roundUpCornersDecoration(
               context,
-            ).copyWith(color: context.color.onSurface.withValues(alpha: 0.8)),
+            ).copyWith(color: context.color.onSurface.alpha08),
 
             child: Center(
               child: Text(

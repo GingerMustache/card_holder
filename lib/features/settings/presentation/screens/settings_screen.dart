@@ -30,10 +30,8 @@ class SettingsPage extends StatelessWidget {
       padding: mainPadding,
       child: BlocBuilder<SettingsBloc, SettingsState>(
         builder: (context, state) {
-          final settings =
-              state.searchItems.isNotEmpty
-                  ? state.searchItems
-                  : state.settingItems;
+          final settings = state.getSettingItemsBySearch;
+
           return GridView.builder(
             addAutomaticKeepAlives: false,
             padding: EdgeInsets.zero,
@@ -44,9 +42,8 @@ class SettingsPage extends StatelessWidget {
               childAspectRatio: 1.6,
             ),
             itemCount: settings.length,
-            itemBuilder: (context, index) {
-              return _FlipCard(title: settings[index], index);
-            },
+            itemBuilder:
+                (context, index) => _FlipCard(title: settings[index], index),
           );
         },
       ),

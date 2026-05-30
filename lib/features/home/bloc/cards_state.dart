@@ -15,6 +15,9 @@ final class CardsState extends Equatable {
   final DataBaseCard? currentCard;
   final Object? error;
 
+  List<DataBaseCard> get getCardsBySearch =>
+      searchListCards.isNotEmpty ? searchListCards : cards;
+
   CardsState copyWith({
     bool? isLoading,
     List<DataBaseCard>? cards,

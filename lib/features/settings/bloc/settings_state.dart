@@ -20,6 +20,9 @@ class SettingsState extends Equatable {
   final List<String> searchItems;
   final bool startApp;
 
+  List<String> get getSettingItemsBySearch =>
+      searchItems.isNotEmpty ? searchItems : settingItems;
+
   @override
   List<Object?> get props => [
     lang,

@@ -17,7 +17,7 @@ BoxDecoration fabDecor(BuildContext context) => BoxDecoration(
   borderRadius: BorderRadius.all(Radius.elliptical(8, 8)),
   boxShadow: [
     BoxShadow(
-      color: AppColors.darkGrey.withValues(alpha: 0.3),
+      color: AppColors.darkGrey.alpha03,
       spreadRadius: 1,
       blurRadius: 2,
       offset: const Offset(0, 1),

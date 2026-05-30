@@ -16,7 +16,7 @@ class _ScanFrame extends StatelessWidget {
                 AppIcons.barcode,
                 height: 300,
                 colorFilter: ColorFilter.mode(
-                  AppColors.mainWhite.withValues(alpha: 0.5),
+                  AppColors.mainWhite.alpha05,
                   BlendMode.srcIn,
                 ),
               ),
@@ -25,7 +25,7 @@ class _ScanFrame extends StatelessWidget {
                   '||||||',
                   style: TextStyle(
                     fontSize: 60,
-                    color: AppColors.mainWhite.withValues(alpha: 0.5),
+                    color: AppColors.mainWhite.alpha05,
                   ),
                 ),
               ),

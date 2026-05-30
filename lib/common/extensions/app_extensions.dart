@@ -11,6 +11,24 @@ extension TextThemeExtensions on BuildContext {
   ColorScheme get color => Theme.of(this).colorScheme;
 }
 
+extension ColorExtension on Color {
+  // ─── Alpha ──────────────────────────────────────────────
+
+  Color get alpha02 => withValues(alpha: 0.2);
+  Color get alpha03 => withValues(alpha: 0.3);
+  Color get alpha05 => withValues(alpha: 0.5);
+  Color get alpha08 => withValues(alpha: 0.8);
+}
+
+extension TextStyleExtension on TextStyle {
+  // ─── Alpha ──────────────────────────────────────────────
+
+  TextStyle get alpha02 => copyWith(color: color?.alpha02);
+  TextStyle get alpha03 => copyWith(color: color?.alpha03);
+  TextStyle get alpha05 => copyWith(color: color?.alpha05);
+  TextStyle get alpha08 => copyWith(color: color?.alpha08);
+}
+
 extension SizeExtension on BuildContext {
   double get height => MediaQuery.of(this).size.height;
   double get width => MediaQuery.of(this).size.width;
