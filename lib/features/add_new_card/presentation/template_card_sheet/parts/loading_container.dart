@@ -74,7 +74,7 @@ class _LoadingProgressBar extends StatelessWidget {
           2.w,
           Text(
             'из интернетов',
-            style: context.textStyles.bodySmall?.copyWith(fontSize: 9),
+            style: context.textStyles.bodySmall.copyWith(fontSize: 9),
           ),
         ],
       ),

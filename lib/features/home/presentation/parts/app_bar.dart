@@ -32,7 +32,7 @@ class _AppBar extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   t.screen.home.name,
-                  style: context.textStyles.headlineLarge!.copyWith(
+                  style: context.textStyles.headlineLarge.copyWith(
                     fontWeight: FontWeight.w200,
                   ),
                 ),

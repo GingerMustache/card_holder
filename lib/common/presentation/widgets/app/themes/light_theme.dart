@@ -16,67 +16,14 @@ final lightThemeData = ThemeData(
     secondary: AppColors.lightSecondaryColor,
     onPrimary: AppColors.mainBlack,
     onSecondary: AppColors.mainWhite,
-    // surfaceContainerHighest: AppColors.mainBlack,
-    // surface: AppColors.mainWhite,
     secondaryContainer: Color.fromARGB(255, 255, 206, 191),
     surfaceTint: AppColors.darkGrey,
     outline: AppColors.steam,
     onSurface: AppColors.subGrey,
     error: AppColors.errorRed,
   ),
-  textTheme: TextTheme(
-    displayMedium: _getTextStyleFromTheme(
-      fontSize: 18.0,
-      letterSpacing: 2.5,
-      color: AppColors.darkGrey,
-      fontWeight: FontWeight.bold,
-    ),
-    headlineLarge: _getTextStyleFromTheme(
-      fontSize: 32.0,
-
-      fontWeight: FontWeight.w500,
-    ),
-    headlineMedium: _getTextStyleFromTheme(
-      fontSize: 22.0,
-      color: AppColors.mainBlack,
-      fontWeight: FontWeight.w500,
-    ),
-    headlineSmall: _getTextStyleFromTheme(
-      fontSize: 18.0,
-      color: AppColors.mainBlack,
-      fontWeight: FontWeight.w500,
-    ),
-    titleLarge: _getTextStyleFromTheme(
-      fontSize: 20.0,
-      fontWeight: FontWeight.w400,
-    ),
-    titleMedium: _getTextStyleFromTheme(
-      fontSize: 18.0,
-      fontWeight: FontWeight.w400,
-    ),
-    titleSmall: _getTextStyleFromTheme(
-      fontSize: 16.0,
-      fontWeight: FontWeight.w400,
-    ),
-    bodyMedium: _getTextStyleFromTheme(
-      fontSize: 18.0,
-      fontWeight: FontWeight.w400,
-      color: AppColors.darkGrey,
-    ),
-    bodySmall: _getTextStyleFromTheme(
-      fontSize: 14.0,
-      fontWeight: FontWeight.w400,
-      color: AppColors.subGrey,
-    ),
-    displaySmall: _getTextStyleFromTheme(
-      fontSize: 16.0,
-      color: AppColors.darkGrey,
-      fontWeight: FontWeight.w600,
-    ),
-    labelSmall: _getTextStyleFromTheme(
-      fontSize: 12.0,
-      fontWeight: FontWeight.w400,
-    ),
-  ),
+  extensions: [
+    AppTextStyles.light,
+  ],
   tabBarTheme: TabBarThemeData(indicatorColor: AppColors.mainBlack),
 );

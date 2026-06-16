@@ -120,7 +120,7 @@ class _AddCardSheetState extends State<AddCardSheet> {
                           Center(
                             child: Text(
                               t.screen.home.addCard.barcodeScan,
-                              style: context.textStyles.labelSmall?.copyWith(
+                              style: context.textStyles.labelSmall.copyWith(
                                 fontSize: 10,
                               ),
                             ),

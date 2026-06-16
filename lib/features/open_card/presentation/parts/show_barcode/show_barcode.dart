@@ -102,7 +102,7 @@ class _ErrorBarCodeCase extends StatelessWidget {
         Text(
           t.screen.home.openCard.codeNotRecognized,
           textAlign: TextAlign.center,
-          style: context.textStyles.labelSmall?.copyWith(
+          style: context.textStyles.labelSmall.copyWith(
             color: AppColors.mainRed,
           ),
         ),

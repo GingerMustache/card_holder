@@ -13,7 +13,7 @@ class _PickTimeText extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Text(
           '$pickTime ${t.screen.home.openCard.uses}',
-          style: context.textStyles.labelSmall?.copyWith(
+          style: context.textStyles.labelSmall.copyWith(
             color: context.color.surfaceTint,
           ),
         ),

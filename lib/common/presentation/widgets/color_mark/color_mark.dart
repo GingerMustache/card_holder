@@ -31,7 +31,7 @@ class ColorMark extends StatelessWidget {
         if (needText)
           Text(
             t.screen.home.addCard.color,
-            style: context.textStyles.labelSmall?.copyWith(
+            style: context.textStyles.labelSmall.copyWith(
               color: Color(color).withAlpha(250),
             ),
           ),

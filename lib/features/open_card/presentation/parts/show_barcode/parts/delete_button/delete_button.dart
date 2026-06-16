@@ -15,7 +15,7 @@ class _DeleteButton extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Text(
           t.screen.home.openCard.delete,
-          style: context.textStyles.labelSmall?.copyWith(
+          style: context.textStyles.labelSmall.copyWith(
             color: AppColors.mainRed,
           ),
         ),

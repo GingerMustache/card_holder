@@ -69,7 +69,7 @@ class _InputSearchState extends State<InputSearch> {
                   onTap: widget.clear ?? onTap,
                   child: Text(
                     t.other.clear,
-                    style: context.textStyles.labelSmall?.copyWith(
+                    style: context.textStyles.labelSmall.copyWith(
                       color: context.color.onSurface,
                     ),
                   ),

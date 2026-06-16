@@ -172,7 +172,7 @@ class _WhiteLabelArea extends StatelessWidget {
             ),
             Text(
               t.shops.fromFile,
-              style: context.textStyles.bodySmall?.copyWith(fontSize: 9),
+              style: context.textStyles.bodySmall.copyWith(fontSize: 9),
             ),
             ...List.generate(
               2,

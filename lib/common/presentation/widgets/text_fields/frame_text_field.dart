@@ -88,7 +88,7 @@ class _FrameTextFieldState extends State<FrameTextField> {
                   },
                   child: Text(
                     t.other.clear,
-                    style: context.textStyles.labelSmall?.copyWith(
+                    style: context.textStyles.labelSmall.copyWith(
                       color: context.color.onSurface,
                     ),
                   ),
@@ -101,7 +101,7 @@ class _FrameTextFieldState extends State<FrameTextField> {
             border: FrameTextField.outlineInputBorder(context),
             focusedBorder: FrameTextField.outlineInputBorder(context),
             enabledBorder: FrameTextField.outlineInputBorder(context),
-            errorStyle: context.textStyles.labelSmall?.copyWith(
+            errorStyle: context.textStyles.labelSmall.copyWith(
               color: context.color.error,
               fontSize: 9.5,
               height: 0.65,
