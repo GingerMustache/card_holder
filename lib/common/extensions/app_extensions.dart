@@ -1,17 +1,10 @@
-import 'package:card_holder/common/application/app_text_styles.dart';
+import 'package:card_holder/common/application/theme/text_style/theme_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 extension SpaceX on num {
   SizedBox get h => SizedBox(height: toDouble());
   SizedBox get w => SizedBox(width: toDouble());
-}
-
-extension AppThemeX on BuildContext {
-  AppTextStyles get textStyles =>
-      Theme.of(this).extension<AppTextStyles>()!;
-
-  ColorScheme get color => Theme.of(this).colorScheme;
 }
 
 extension ColorExtension on Color {

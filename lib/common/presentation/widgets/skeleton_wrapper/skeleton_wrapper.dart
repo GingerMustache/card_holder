@@ -1,3 +1,4 @@
+import 'package:card_holder/common/application/theme/color/theme_color.dart';
 import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:flutter/material.dart';
 

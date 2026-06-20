@@ -1,4 +1,4 @@
-import 'package:card_holder/common/extensions/app_extensions.dart';
+import 'package:card_holder/common/application/theme/color/theme_color.dart';
 import 'package:flutter/material.dart';
 
 class DefaultButton extends StatelessWidget {
@@ -18,7 +18,12 @@ class DefaultButton extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
           color: context.color.onSecondary,
 
-          child: Center(child: Text(text)),
+          child: Center(
+            child: Text(
+              text,
+              style: TextStyle(color: context.color.surfaceTint),
+            ),
+          ),
         ),
       ),
     );

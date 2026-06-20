@@ -1,9 +1,11 @@
 import 'package:card_holder/common/application/app_settings.dart';
 import 'package:flutter/material.dart';
 
+part 'theme_text_style_extension.dart';
+
 /// App-specific text styles registered as a [ThemeExtension].
-final class AppTextStyles extends ThemeExtension<AppTextStyles> {
-  const AppTextStyles({
+final class ThemeTextStyles extends ThemeExtension<ThemeTextStyles> {
+  const ThemeTextStyles({
     required this.displayMedium,
     required this.headlineLarge,
     required this.headlineMedium,
@@ -29,7 +31,7 @@ final class AppTextStyles extends ThemeExtension<AppTextStyles> {
   final TextStyle displaySmall;
   final TextStyle labelSmall;
 
-  static final _tekturBase = AppTextStyles(
+  static final _tekturBase = ThemeTextStyles(
     displayMedium: _tekturStyle(fontSize: 18, weight: FontWeight.bold),
     headlineLarge: _tekturStyle(fontSize: 32, weight: FontWeight.w500),
     headlineMedium: _tekturStyle(fontSize: 22, weight: FontWeight.w500),
@@ -43,7 +45,7 @@ final class AppTextStyles extends ThemeExtension<AppTextStyles> {
     labelSmall: _tekturStyle(fontSize: 12, weight: FontWeight.w400),
   );
 
-  static final light = AppTextStyles(
+  static final light = ThemeTextStyles(
     displayMedium: _tekturBase.displayMedium.ls25.darkGrey,
     headlineLarge: _tekturBase.headlineLarge,
     headlineMedium: _tekturBase.headlineMedium.mainBlack,
@@ -57,7 +59,7 @@ final class AppTextStyles extends ThemeExtension<AppTextStyles> {
     labelSmall: _tekturBase.labelSmall,
   );
 
-  static final dark = AppTextStyles(
+  static final dark = ThemeTextStyles(
     displayMedium: _tekturBase.displayMedium.ls2,
     headlineLarge: _tekturBase.headlineLarge.mainWhite,
     headlineMedium: _tekturBase.headlineMedium.mainWhite,
@@ -89,7 +91,7 @@ final class AppTextStyles extends ThemeExtension<AppTextStyles> {
   }
 
   @override
-  AppTextStyles copyWith({
+  ThemeTextStyles copyWith({
     TextStyle? displayMedium,
     TextStyle? headlineLarge,
     TextStyle? headlineMedium,
@@ -102,7 +104,7 @@ final class AppTextStyles extends ThemeExtension<AppTextStyles> {
     TextStyle? displaySmall,
     TextStyle? labelSmall,
   }) {
-    return AppTextStyles(
+    return ThemeTextStyles(
       displayMedium: displayMedium ?? this.displayMedium,
       headlineLarge: headlineLarge ?? this.headlineLarge,
       headlineMedium: headlineMedium ?? this.headlineMedium,
@@ -118,9 +120,9 @@ final class AppTextStyles extends ThemeExtension<AppTextStyles> {
   }
 
   @override
-  AppTextStyles lerp(ThemeExtension<AppTextStyles>? other, double t) {
-    if (other is! AppTextStyles) return this;
-    return AppTextStyles(
+  ThemeTextStyles lerp(ThemeExtension<ThemeTextStyles>? other, double t) {
+    if (other is! ThemeTextStyles) return this;
+    return ThemeTextStyles(
       displayMedium: TextStyle.lerp(displayMedium, other.displayMedium, t)!,
       headlineLarge: TextStyle.lerp(headlineLarge, other.headlineLarge, t)!,
       headlineMedium: TextStyle.lerp(headlineMedium, other.headlineMedium, t)!,
@@ -134,59 +136,4 @@ final class AppTextStyles extends ThemeExtension<AppTextStyles> {
       labelSmall: TextStyle.lerp(labelSmall, other.labelSmall, t)!,
     );
   }
-}
-
-extension TextStyleExtension on TextStyle {
-  // ─── Colors ─────────────────────────────────────────────
-
-  TextStyle get darkGrey => copyWith(color: AppColors.darkGrey);
-
-  TextStyle get mainBlack => copyWith(color: AppColors.mainBlack);
-
-  TextStyle get mainWhite => copyWith(color: AppColors.mainWhite);
-
-  TextStyle get mainGray => copyWith(color: AppColors.mainGray);
-
-  TextStyle get subGrey => copyWith(color: AppColors.subGrey);
-
-  TextStyle get subBlack => copyWith(color: AppColors.subBlack);
-
-  TextStyle get subBlack2 => copyWith(color: AppColors.subBlack2);
-
-  TextStyle get mainGreen => copyWith(color: AppColors.mainGreen);
-
-  TextStyle get mainRed => copyWith(color: AppColors.mainRed);
-
-  TextStyle get white => copyWith(color: AppColors.mainWhite);
-
-  TextStyle get alpha3 =>
-      copyWith(color: AppColors.mainBlack.withValues(alpha: 0.3));
-
-  TextStyle get grey500 => copyWith(color: AppColors.grey500);
-
-  // ─── Heights ────────────────────────────────────────────
-
-  TextStyle get h135 => copyWith(height: 1.35);
-
-  TextStyle get h11 => copyWith(height: 1.1);
-
-  TextStyle get h14 => copyWith(height: 1.1);
-
-  TextStyle get h0 => copyWith(height: 0);
-
-  // ─── Letter spacing ─────────────────────────────────────
-
-  TextStyle get ls0 => copyWith(letterSpacing: 0);
-  TextStyle get ls052 => copyWith(letterSpacing: 0.52);
-  TextStyle get ls055 => copyWith(letterSpacing: 0.52);
-  TextStyle get ls2 => copyWith(letterSpacing: 2);
-  TextStyle get ls25 => copyWith(letterSpacing: 2.5);
-
-  // ─── Font sizes ─────────────────────────────────────────
-
-  TextStyle get fs10 => copyWith(fontSize: 10);
-  TextStyle get fs8 => copyWith(fontSize: 8);
-
-  // ─── Font weight ─────────────────────────────────────────
-  TextStyle get fw600 => copyWith(fontWeight: FontWeight.w600);
 }

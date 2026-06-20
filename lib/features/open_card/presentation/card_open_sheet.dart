@@ -4,6 +4,8 @@ import 'dart:async';
 
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:card_holder/common/application/app_settings.dart';
+import 'package:card_holder/common/application/theme/color/theme_color.dart';
+import 'package:card_holder/common/application/theme/text_style/theme_text_style.dart';
 import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:card_holder/common/helpers/converter/text_field_validator/text_field_validator.dart';
 import 'package:card_holder/common/localization/i18n/strings.g.dart';

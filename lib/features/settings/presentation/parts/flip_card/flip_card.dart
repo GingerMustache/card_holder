@@ -30,7 +30,11 @@ class _FlipCardState extends State<_FlipCard> {
         child: Center(
           child: Text(
             widget.title,
-            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              color: context.color.surfaceTint,
+            ),
             textAlign: TextAlign.center,
           ),
         ),

@@ -1,3 +1,5 @@
+import 'package:card_holder/common/application/theme/color/theme_color.dart';
+import 'package:card_holder/common/application/theme/text_style/theme_text_style.dart';
 import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
 import 'package:card_holder/common/presentation/widgets/input_search/input_search.dart';
