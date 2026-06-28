@@ -1,4 +1,4 @@
-import 'package:card_holder/common/application/theme/text_style/theme_text_style.dart';
+import 'package:card_holder/common/presentation/utility/device_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -17,10 +17,11 @@ extension ColorExtension on Color {
 }
 
 extension SizeExtension on BuildContext {
-  double get height => MediaQuery.of(this).size.height;
-  double get width => MediaQuery.of(this).size.width;
-  double get halfWidth => MediaQuery.of(this).size.width / 2;
-  double get bottomPadding => MediaQuery.of(this).viewInsets.bottom;
+  double get height => MediaQuery.sizeOf(this).height;
+  double get width => MediaQuery.sizeOf(this).width;
+  double get halfWidth => MediaQuery.sizeOf(this).width / 2;
+  double get bottomPadding => MediaQuery.viewInsetsOf(this).bottom;
+  double get bottomPaddingNew => DeviceHelpers.bottomPaddingNew();
 }
 
 extension PaddingExtension on Widget {
