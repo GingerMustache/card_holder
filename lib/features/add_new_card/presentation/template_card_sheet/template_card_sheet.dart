@@ -18,10 +18,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
 part '../../data/shop_template_class.dart';
+part 'parts/card_item.dart';
 part 'parts/floppy_disk_container.dart';
 part 'parts/loading_container.dart';
 part 'parts/shop_template_list.dart';
-part 'parts/card_item.dart';
 
 class TemplateCardSheet extends StatefulWidget {
   const TemplateCardSheet({super.key});
@@ -33,8 +33,10 @@ class TemplateCardSheet extends StatefulWidget {
       context: context,
       useRootNavigator: true,
       builder: (BuildContext context) {
-        return BlocProvider.value(
-          value: CreateCardBloc()..add(CreateCardInitEvent(_shopTemplates)),
+        return BlocProvider(
+          create:
+              (context) =>
+                  CreateCardBloc()..add(CreateCardInitEvent(_shopTemplates)),
           child: const TemplateCardSheet(),
         );
       },
@@ -46,11 +48,6 @@ class TemplateCardSheet extends StatefulWidget {
 }
 
 class _TemplateCardSheetState extends State<TemplateCardSheet> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   onChange(String? value) =>
       context.read<CreateCardBloc>().add(CreateCardSearchTemplateEvent(value));
 

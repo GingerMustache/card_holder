@@ -1,95 +1,44 @@
 import 'package:card_holder/common/configs/setting_config.dart';
-import 'package:card_holder/common/helpers/converter/convert_helper.dart';
-import 'package:card_holder/common/helpers/converter/text_field_validator/text_field_validator.dart';
+import 'package:card_holder/common/di_container/modules/di_module_helpers.dart';
+import 'package:card_holder/common/di_container/modules/di_module_repository.dart';
+import 'package:card_holder/common/di_container/modules/di_module_services.dart';
 import 'package:card_holder/common/presentation/widgets/app/my_app.dart';
 import 'package:card_holder/common/routing/routes.dart';
-import 'package:card_holder/common/services/app_link/app_link_service.dart';
-import 'package:card_holder/common/services/brightness_control/brightness_control_service.dart';
-import 'package:card_holder/common/services/error_service/error_service.dart';
-import 'package:card_holder/common/services/file_pick/file_pick_service.dart';
-import 'package:card_holder/common/services/local_crud/local_card_service.dart';
-import 'package:card_holder/common/services/local_storage/secure_storage.dart';
-import 'package:card_holder/common/services/share/shared_service.dart';
-import 'package:card_holder/domain/repositories/local/card_repository.dart';
-import 'package:card_holder/domain/repositories/local/file_pick_repository.dart';
-import 'package:card_holder/domain/repositories/local/shared_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n_delegate.dart'
     show FlutterI18nDelegate;
 
-abstract class DiContainerProvider {
-  Widget makeApp(
-    FlutterI18nDelegate flutterI18nDelegate,
-    SettingConfig settingConfig,
-  );
-  CardServiceAbstract makeCardService();
-  BrightnessService makeBrightnessService();
-  ShareService makeShareService();
-  FilePickService makeFilePickService();
-  CardRepository makeCardRepository();
-  ShareRepository makeShareRepository();
-  FilePickRepository makeFilePickRepository();
-  LocalStorageService makeLocalStorage();
-  ConvertHelper makeConverterHelper();
-  TextValidatorService makeTextValidatorService();
-  MainErrorService makeErrorService();
+// di_container.dart
+abstract interface class DiContainerProvider {
+  DiModuleServices get services;
+  DiModuleRepository get repositories;
+  DiModuleHelpers get helpers;
+
   Future<SettingConfig> makeSettingConfig();
-  AppLinkService makeAppLinkService();
+  Widget makeApp(FlutterI18nDelegate delegate, SettingConfig config);
 }
 
-class DiContainer implements DiContainerProvider {
-  @override
-  BrightnessService makeBrightnessService() => BrightnessServiceImpl();
-  @override
-  CardServiceAbstract makeCardService() => LocalCardService();
-  @override
-  ShareService makeShareService() => NetShareServiceImpl();
-  @override
-  FilePickService makeFilePickService() => NetFilePickServiceImpl();
-  @override
-  TextValidatorService makeTextValidatorService() => TextValidatorService();
-  @override
-  AppLinkService makeAppLinkService() => AppLinkService();
-  @override
-  MainErrorService makeErrorService() => MainErrorService.instance;
+final class DiContainer implements DiContainerProvider {
+  DiContainer({DiModuleServices? services, DiModuleHelpers? helpers})
+    : services = services ?? DiModuleServicesImpl(),
+      helpers = helpers ?? DiModuleHelpersImpl();
 
   @override
-  LocalStorageService makeLocalStorage() => SecureStorage();
+  final DiModuleServices services;
+  @override
+  final DiModuleHelpers helpers;
 
   @override
-  CardRepository makeCardRepository() => CardRepositoryImpl(
-    localCardService: makeCardService(),
-    netShareRepository: makeShareRepository(),
+  late final DiModuleRepository repositories = DiModuleRepositoryImpl(services);
+
+  @override
+  Future<SettingConfig> makeSettingConfig() =>
+      SettingConfigImpl.fromLocalStorage(services.localStorage);
+
+  @override
+  Widget makeApp(FlutterI18nDelegate delegate, SettingConfig config) => MyApp(
+    navigation: MainNavigation(screenFactory: ScreenFactory(diContainer: this)),
+    flutterI18nDelegate: delegate,
+    settingConfig: config,
   );
-
-  @override
-  FilePickRepository makeFilePickRepository() =>
-      FilePickRepositoryImpl(filePickService: makeFilePickService());
-
-  @override
-  ShareRepository makeShareRepository() =>
-      ShareRepositoryImpl(shareService: makeShareService());
-
-  ScreenFactory _makeScreenFactory() => ScreenFactory(diContainer: this);
-  MyAppNavigation _makeRouter() =>
-      MainNavigation(screenFactory: _makeScreenFactory());
-
-  @override
-  Widget makeApp(
-    FlutterI18nDelegate flutterI18nDelegate,
-    SettingConfig settingConfig,
-  ) => MyApp(
-    navigation: _makeRouter(),
-    flutterI18nDelegate: flutterI18nDelegate,
-    settingConfig: settingConfig,
-  );
-
-  DiContainer();
-
-  @override
-  ConvertHelper makeConverterHelper() => ConvertHelper();
-
-  @override
-  Future<SettingConfig> makeSettingConfig() async =>
-      SettingConfigImpl.fromLocalStorage(makeLocalStorage());
 }

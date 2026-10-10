@@ -205,17 +205,17 @@ Future<void> _initializeApp(WidgetTester tester) async {
         providers: [
           RepositoryProvider<BrightnessService>(
             lazy: false,
-            create: (_) => diContainer.makeBrightnessService(),
+            create: (_) => diContainer.services.brightness,
           ),
           RepositoryProvider<TextValidatorService>(
             lazy: false,
-            create: (_) => diContainer.makeTextValidatorService(),
+            create: (_) => diContainer.helpers.textValidator,
           ),
           BlocProvider(
             create:
                 (context) => SettingsBloc(
-                  shareRepository: diContainer.makeShareRepository(),
-                  localStorage: diContainer.makeLocalStorage(),
+                  shareRepository: diContainer.repositories.share,
+                  localStorage: diContainer.services.localStorage,
                   settingConfig: settingConfig,
                 )..add(SettingInitEvent()),
             lazy: false,
@@ -224,10 +224,10 @@ Future<void> _initializeApp(WidgetTester tester) async {
             lazy: false,
             create:
                 (context) => CardsBloc(
-                  imageConvertHelper: diContainer.makeConverterHelper(),
-                  shareRepository: diContainer.makeShareRepository(),
-                  filePickRepository: diContainer.makeFilePickRepository(),
-                  cardRepo: diContainer.makeCardRepository(),
+                  imageConvertHelper: diContainer.helpers.converter,
+                  shareRepository: diContainer.repositories.share,
+                  filePickRepository: diContainer.repositories.filePick,
+                  cardRepo: diContainer.repositories.card,
                 )..add(CardsFetchCardsEvent()),
           ),
         ],

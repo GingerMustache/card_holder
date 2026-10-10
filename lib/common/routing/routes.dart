@@ -57,7 +57,7 @@ class MainNavigation implements MyAppNavigation {
 }
 
 class ScreenFactory {
-  final DiContainer diContainer;
+  final DiContainerProvider diContainer;
 
   ScreenFactory({required this.diContainer});
 
