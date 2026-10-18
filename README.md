@@ -69,3 +69,89 @@ lib/
     ├── open_card/         # View and edit card details
     └── settings/          # App settings and preferences
 ```
+
+## UI tests (Maestro)
+
+Flows live in `.maestro/`. The current flows launch the Android app `com.example.card_holder`. Run every command from the project root.
+
+Maestro needs Java 17 or newer (`java -version`) and the CLI on your `PATH` (`maestro --version`). Install the CLI with:
+
+```bash
+curl -fsSL "https://get.maestro.mobile.dev" | bash
+```
+
+Install the app on the device before a flow. `launchApp` starts the already installed package; it does not build it.
+
+```bash
+flutter run
+```
+
+### Connect a device
+
+Boot an Android emulator or iOS Simulator, then list what Maestro can see:
+
+```bash
+maestro list-devices
+```
+
+A booted device shows as connected. Maestro uses it automatically when you run a flow. There is no separate connect command.
+
+When more than one device is connected, pass its id from `list-devices`:
+
+```bash
+maestro --device emulator-5554 test .maestro/open_first_card.yaml
+```
+
+Create and boot a device from the CLI when you do not already have one running:
+
+```bash
+maestro start-device --platform android
+maestro start-device --platform ios
+```
+
+### Run tests
+
+One flow:
+
+```bash
+maestro test .maestro/open_first_card.yaml
+```
+
+Every flow listed in `.maestro/config.yaml`. Helpers under `.maestro/subflows/` are called by those flows and are not run on their own. Add a new flow to that list when you create one:
+
+```bash
+maestro test .maestro
+```
+
+A few specific flows, instead of the whole folder:
+
+```bash
+maestro test .maestro/open_first_card.yaml .maestro/another_flow.yaml
+```
+
+Only flows tagged `smoke` (see the `tags` block at the top of a flow):
+
+```bash
+maestro test --include-tags=smoke .maestro
+```
+
+Re-run the same flow whenever the file changes:
+
+```bash
+maestro test --continuous .maestro/open_first_card.yaml
+```
+
+### Other useful commands
+
+```bash
+maestro check-syntax .maestro/open_first_card.yaml   # validate a flow without running it
+maestro hierarchy                                     # print the current screen's view hierarchy
+maestro test --verbose .maestro/open_first_card.yaml  # extra logs when a step fails
+maestro record --local .maestro/open_first_card.yaml open_first_card.mp4
+maestro --help
+maestro test --help
+```
+
+`hierarchy` is how you find the text Maestro can tap. Selectors match the full accessibility text, so copy the string from that output.
+
+Command reference: [Maestro CLI commands and options](https://docs.maestro.dev/maestro-cli/maestro-cli-commands-and-options).

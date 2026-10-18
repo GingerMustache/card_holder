@@ -1,0 +1,49 @@
+appId: com.example.card_holder
+---
+- extendedWaitUntil:
+    visible: "delete|удалить"
+    timeout: 2500
+    optional: true
+- runFlow:
+    when:
+      visible: "123 456 789"
+    commands:
+      - runFlow:
+          when:
+            visible: "delete"
+          commands:
+            - tapOn: "delete"
+      - runFlow:
+          when:
+            visible: "удалить"
+          commands:
+            - tapOn: "удалить"
+      - extendedWaitUntil:
+          visible: "(?s)delete\\?.*|(?s)удалить\\?.*"
+          timeout: 8000
+      - runFlow:
+          when:
+            visible: "(?s)delete\\?.*"
+          commands:
+            - tapOn:
+                text: "(?s)delete\\?.*"
+                label: Confirm delete
+      - runFlow:
+          when:
+            visible: "(?s)удалить\\?.*"
+          commands:
+            - tapOn:
+                text: "(?s)удалить\\?.*"
+                label: Confirm delete
+      - extendedWaitUntil:
+          visible: "Card Holder"
+          timeout: 8000
+      - evalScript: ${output.deleted = 'true'}
+- runFlow:
+    when:
+      visible: "Scrim|Маска"
+      true: ${output.deleted == 'false'}
+    commands:
+      - tapOn:
+          text: "Scrim|Маска"
+          label: Close the card

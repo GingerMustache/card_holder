@@ -1,0 +1,32 @@
+appId: com.example.card_holder
+name: Delete the Pyaterochka card 123456789
+tags:
+  - smoke
+---
+- launchApp:
+    stopApp: true
+- extendedWaitUntil:
+    visible: "Card Holder"
+    timeout: 15000
+- evalScript: ${output.deleted = 'false'}
+- runFlow:
+    when:
+      true: ${output.deleted == 'false'}
+    file: subflows/try_delete_pyaterochka.yaml
+- runFlow:
+    when:
+      true: ${output.deleted == 'false'}
+    commands:
+      - scroll
+      - runFlow:
+          file: subflows/try_delete_pyaterochka.yaml
+- runFlow:
+    when:
+      true: ${output.deleted == 'false'}
+    commands:
+      - runFlow:
+          file: create_pyaterochka_card.yaml
+      - runFlow:
+          file: subflows/try_delete_pyaterochka.yaml
+- assertVisible: "Card Holder"
+- assertNotVisible: "123 456 789"

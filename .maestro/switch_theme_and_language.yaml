@@ -1,0 +1,109 @@
+appId: com.example.card_holder
+name: Switch theme and language
+tags:
+  - smoke
+---
+- launchApp:
+    stopApp: true
+- extendedWaitUntil:
+    visible: "Card Holder"
+    timeout: 15000
+- evalScript: ${output.lang = 'en'}
+- runFlow:
+    when:
+      visible: "(?s)карты.*"
+    commands:
+      - evalScript: ${output.lang = 'ru'}
+- runFlow:
+    when:
+      visible: "(?s)setting.*"
+    commands:
+      - tapOn: "(?s)setting.*"
+- runFlow:
+    when:
+      visible: "(?s)настройки.*"
+    commands:
+      - tapOn: "(?s)настройки.*"
+- extendedWaitUntil:
+    visible: "theme|тема"
+    timeout: 8000
+- runFlow:
+    when:
+      visible: "theme"
+    commands:
+      - tapOn: "theme"
+- runFlow:
+    when:
+      visible: "тема"
+    commands:
+      - tapOn: "тема"
+- extendedWaitUntil:
+    visible: "dark|тьма"
+    timeout: 8000
+- runFlow:
+    when:
+      visible: "dark"
+    commands:
+      - tapOn: "dark"
+- runFlow:
+    when:
+      visible: "тьма"
+    commands:
+      - tapOn: "тьма"
+- runFlow:
+    when:
+      visible: "(?s)cards.*"
+    commands:
+      - tapOn: "(?s)cards.*"
+- runFlow:
+    when:
+      visible: "(?s)карты.*"
+    commands:
+      - tapOn: "(?s)карты.*"
+- assertVisible: "Card Holder"
+- runFlow:
+    when:
+      visible: "(?s)setting.*"
+    commands:
+      - tapOn: "(?s)setting.*"
+- runFlow:
+    when:
+      visible: "(?s)настройки.*"
+    commands:
+      - tapOn: "(?s)настройки.*"
+- extendedWaitUntil:
+    visible: "language|язык"
+    timeout: 8000
+- runFlow:
+    when:
+      visible: "language"
+    commands:
+      - tapOn: "language"
+- runFlow:
+    when:
+      visible: "язык"
+    commands:
+      - tapOn: "язык"
+- extendedWaitUntil:
+    visible: "ru|англ"
+    timeout: 8000
+- runFlow:
+    when:
+      true: ${output.lang == 'en'}
+    commands:
+      - tapOn: "ru"
+      - extendedWaitUntil:
+          visible: "(?s)карты.*"
+          timeout: 8000
+      - tapOn: "(?s)карты.*"
+      - assertVisible: "(?s)карты.*"
+- runFlow:
+    when:
+      true: ${output.lang == 'ru'}
+    commands:
+      - tapOn: "англ"
+      - extendedWaitUntil:
+          visible: "(?s)cards.*"
+          timeout: 8000
+      - tapOn: "(?s)cards.*"
+      - assertVisible: "(?s)cards.*"

@@ -1,0 +1,84 @@
+appId: com.example.card_holder
+name: Create a Pyaterochka card
+tags:
+  - smoke
+---
+- launchApp:
+    stopApp: true
+- extendedWaitUntil:
+    visible: "Card Holder"
+    timeout: 15000
+- runFlow:
+    when:
+      visible: "add"
+    commands:
+      - tapOn: "add"
+- runFlow:
+    when:
+      visible: "плюс"
+    commands:
+      - tapOn: "плюс"
+- extendedWaitUntil:
+    visible: "from scratch|с нуля"
+    timeout: 8000
+- tapOn:
+    point: "74%,57%"
+    label: Choose the Pyaterochka template
+- runFlow:
+    when:
+      platform: Android
+    commands:
+      - extendedWaitUntil:
+          visible: ".*while using the app.*"
+          timeout: 4000
+          optional: true
+      - tapOn:
+          text: ".*while using the app.*"
+          optional: true
+          label: Allow the camera while the app is open
+- runFlow:
+    when:
+      platform: iOS
+    commands:
+      - extendedWaitUntil:
+          visible: "OK"
+          timeout: 4000
+          optional: true
+      - tapOn:
+          text: "OK"
+          optional: true
+          label: Allow the camera
+- extendedWaitUntil:
+    visible: "enter code manually|введите код вручную"
+    timeout: 8000
+- runFlow:
+    when:
+      visible: "code_"
+    commands:
+      - tapOn:
+          text: "code_"
+          label: Code field
+- runFlow:
+    when:
+      visible: "код_"
+    commands:
+      - tapOn:
+          text: "код_"
+          label: Code field
+- inputText: "123456789"
+- hideKeyboard
+- assertVisible: "123456789"
+- runFlow:
+    when:
+      visible: "add"
+    commands:
+      - tapOn: "add"
+- runFlow:
+    when:
+      visible: "добавить"
+    commands:
+      - tapOn: "добавить"
+- extendedWaitUntil:
+    notVisible: "enter code manually|введите код вручную"
+    timeout: 10000
+- assertVisible: "Card Holder"

@@ -1,0 +1,38 @@
+appId: com.example.card_holder
+---
+- runFlow:
+    when:
+      true: ${output.deleted == 'false'}
+    commands:
+      - tapOn:
+          point: "26%,30%"
+          label: Open the top-left card
+      - runFlow:
+          file: delete_if_code_matches.yaml
+- runFlow:
+    when:
+      true: ${output.deleted == 'false'}
+    commands:
+      - tapOn:
+          point: "74%,30%"
+          label: Open the top-right card
+      - runFlow:
+          file: delete_if_code_matches.yaml
+- runFlow:
+    when:
+      true: ${output.deleted == 'false'}
+    commands:
+      - tapOn:
+          point: "26%,44%"
+          label: Open the lower-left card
+      - runFlow:
+          file: delete_if_code_matches.yaml
+- runFlow:
+    when:
+      true: ${output.deleted == 'false'}
+    commands:
+      - tapOn:
+          point: "74%,44%"
+          label: Open the lower-right card
+      - runFlow:
+          file: delete_if_code_matches.yaml

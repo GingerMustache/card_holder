@@ -1,0 +1,156 @@
+appId: com.example.card_holder
+name: Create a Perekrestok card and search for it
+tags:
+  - smoke
+---
+- launchApp:
+    stopApp: true
+- extendedWaitUntil:
+    visible: "Card Holder"
+    timeout: 15000
+- evalScript: ${output.code = String(Math.floor(100000000 + Math.random() * 900000000))}
+- evalScript: ${output.formatted = output.code.replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}
+- runFlow:
+    when:
+      visible: "add"
+    commands:
+      - tapOn: "add"
+- runFlow:
+    when:
+      visible: "плюс"
+    commands:
+      - tapOn: "плюс"
+- extendedWaitUntil:
+    visible: "from scratch|с нуля"
+    timeout: 8000
+- tapOn:
+    text: "search line_|поисковая строка_"
+    above: "from scratch|с нуля"
+    label: Template search
+- setClipboard: "Перекрёсток"
+- pasteText
+- extendedWaitUntil:
+    notVisible: "from scratch|с нуля"
+    timeout: 8000
+- tapOn:
+    point: "26%,43%"
+    label: Choose the Perekrestok template
+- runFlow:
+    when:
+      platform: Android
+    commands:
+      - extendedWaitUntil:
+          visible: ".*while using the app.*"
+          timeout: 4000
+          optional: true
+      - tapOn:
+          text: ".*while using the app.*"
+          optional: true
+          label: Allow the camera while the app is open
+- runFlow:
+    when:
+      platform: iOS
+    commands:
+      - extendedWaitUntil:
+          visible: "OK"
+          timeout: 4000
+          optional: true
+      - tapOn:
+          text: "OK"
+          optional: true
+          label: Allow the camera
+- extendedWaitUntil:
+    visible: "code_|код_"
+    timeout: 8000
+- runFlow:
+    when:
+      visible: "code_"
+    commands:
+      - tapOn: "code_"
+- runFlow:
+    when:
+      visible: "код_"
+    commands:
+      - tapOn: "код_"
+- inputText: ${output.code}
+- hideKeyboard
+- assertVisible: ${output.code}
+- runFlow:
+    when:
+      visible: "add"
+    commands:
+      - tapOn: "add"
+- runFlow:
+    when:
+      visible: "добавить"
+    commands:
+      - tapOn: "добавить"
+- extendedWaitUntil:
+    visible: "Card Holder"
+    timeout: 10000
+- tapOn:
+    text: "search line_|поисковая строка_"
+    label: Home search
+- setClipboard: "Перекрёсток"
+- pasteText
+- extendedWaitUntil:
+    visible: "Перекрёсток"
+    timeout: 8000
+- evalScript: ${output.opened = 'false'}
+- runFlow:
+    when:
+      true: ${output.opened == 'false'}
+    commands:
+      - tapOn:
+          point: "26%,30%"
+          label: Open the first search result
+      - runFlow:
+          file: subflows/close_when_code_matches.yaml
+- runFlow:
+    when:
+      true: ${output.opened == 'false'}
+    commands:
+      - tapOn:
+          point: "74%,30%"
+          label: Open the next search result
+      - runFlow:
+          file: subflows/close_when_code_matches.yaml
+- runFlow:
+    when:
+      true: ${output.opened == 'false'}
+    commands:
+      - tapOn:
+          point: "26%,44%"
+          label: Open the lower-left search result
+      - runFlow:
+          file: subflows/close_when_code_matches.yaml
+- runFlow:
+    when:
+      true: ${output.opened == 'false'}
+    commands:
+      - tapOn:
+          point: "74%,44%"
+          label: Open the lower-right search result
+      - runFlow:
+          file: subflows/close_when_code_matches.yaml
+- runFlow:
+    when:
+      true: ${output.opened == 'false'}
+    commands:
+      - scroll
+      - tapOn:
+          point: "26%,44%"
+          label: Open a result below the fold
+      - runFlow:
+          file: subflows/close_when_code_matches.yaml
+      - runFlow:
+          when:
+            true: ${output.opened == 'false'}
+          commands:
+            - tapOn:
+                point: "74%,44%"
+                label: Open the other result below the fold
+            - runFlow:
+                file: subflows/close_when_code_matches.yaml
+- assertTrue: ${output.opened == 'true'}
+- assertVisible: "Card Holder"

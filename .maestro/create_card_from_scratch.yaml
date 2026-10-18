@@ -1,0 +1,129 @@
+appId: com.example.card_holder
+name: Create a card from scratch
+tags:
+  - smoke
+---
+- launchApp:
+    stopApp: true
+- extendedWaitUntil:
+    visible: "Card Holder"
+    timeout: 15000
+- runFlow:
+    when:
+      visible: "add"
+    commands:
+      - tapOn: "add"
+- runFlow:
+    when:
+      visible: "плюс"
+    commands:
+      - tapOn: "плюс"
+- extendedWaitUntil:
+    visible: "from scratch|с нуля"
+    timeout: 8000
+- runFlow:
+    when:
+      visible: "from scratch"
+    commands:
+      - tapOn: "from scratch"
+- runFlow:
+    when:
+      visible: "с нуля"
+    commands:
+      - tapOn: "с нуля"
+- runFlow:
+    when:
+      platform: Android
+    commands:
+      - extendedWaitUntil:
+          visible: ".*while using the app.*"
+          timeout: 4000
+          optional: true
+      - tapOn:
+          text: ".*while using the app.*"
+          optional: true
+          label: Allow the camera while the app is open
+- runFlow:
+    when:
+      platform: iOS
+    commands:
+      - extendedWaitUntil:
+          visible: "OK"
+          timeout: 4000
+          optional: true
+      - tapOn:
+          text: "OK"
+          optional: true
+          label: Allow the camera
+- extendedWaitUntil:
+    visible: "color_|цвет_"
+    timeout: 8000
+- runFlow:
+    when:
+      visible: "color_"
+    commands:
+      - tapOn:
+          text: "color_"
+          label: Open the color wheel
+- runFlow:
+    when:
+      visible: "цвет_"
+    commands:
+      - tapOn:
+          text: "цвет_"
+          label: Open the color wheel
+- evalScript: ${output.colorPoint = ['86%,91%','82%,90%','84%,89%'][Math.floor(Math.random() * 3)]}
+- tapOn:
+    point: ${output.colorPoint}
+    label: Choose a random color
+- runFlow:
+    when:
+      visible: "color_"
+    commands:
+      - tapOn: "color_"
+- runFlow:
+    when:
+      visible: "цвет_"
+    commands:
+      - tapOn: "цвет_"
+- evalScript: ${output.code = String(Math.floor(100000000 + Math.random() * 900000000))}
+- evalScript: ${output.cardName = 'Card' + String(Math.floor(1000 + Math.random() * 9000))}
+- runFlow:
+    when:
+      visible: "code_"
+    commands:
+      - tapOn: "code_"
+- runFlow:
+    when:
+      visible: "код_"
+    commands:
+      - tapOn: "код_"
+- inputText: ${output.code}
+- hideKeyboard
+- runFlow:
+    when:
+      visible: "name_"
+    commands:
+      - tapOn: "name_"
+- runFlow:
+    when:
+      visible: "имя_"
+    commands:
+      - tapOn: "имя_"
+- inputText: ${output.cardName}
+- hideKeyboard
+- assertVisible: ${output.code}
+- runFlow:
+    when:
+      visible: "add"
+    commands:
+      - tapOn: "add"
+- runFlow:
+    when:
+      visible: "добавить"
+    commands:
+      - tapOn: "добавить"
+- extendedWaitUntil:
+    notVisible: "enter code manually|введите код вручную"
+    timeout: 10000
+- assertVisible: "Card Holder"

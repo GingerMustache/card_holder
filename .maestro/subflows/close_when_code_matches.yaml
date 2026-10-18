@@ -1,0 +1,26 @@
+appId: com.example.card_holder
+---
+- extendedWaitUntil:
+    visible: "delete|удалить"
+    timeout: 4000
+    optional: true
+- runFlow:
+    when:
+      visible: ${output.formatted}
+    commands:
+      - runFlow:
+          when:
+            visible: "Scrim|Маска"
+          commands:
+            - tapOn:
+                text: "Scrim|Маска"
+                label: Close the card
+      - evalScript: ${output.opened = 'true'}
+- runFlow:
+    when:
+      visible: "Scrim|Маска"
+      true: ${output.opened == 'false'}
+    commands:
+      - tapOn:
+          text: "Scrim|Маска"
+          label: Close a different card

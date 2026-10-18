@@ -1,0 +1,7 @@
+flows:
+  - open_first_card.yaml
+  - create_pyaterochka_card.yaml
+  - delete_pyaterochka_card.yaml
+  - create_card_from_scratch.yaml
+  - create_perekrestok_and_search.yaml
+  - switch_theme_and_language.yaml
