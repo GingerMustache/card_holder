@@ -68,6 +68,7 @@ class _ChooseShareSheetState extends State<ChooseShareSheet> {
                   children: [
                     Text(
                       t.screen.home.openCard.share,
+                      style: context.textStyles.bodySmall,
                     ).animate().fadeIn(duration: 550.ms),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -131,7 +132,13 @@ class _ShareCase extends StatelessWidget {
         child: SizedBox(
           height: 90,
           width: double.infinity,
-          child: Center(child: Text(title, textAlign: TextAlign.center)),
+          child: Center(
+            child: Text(
+              title,
+              textAlign: TextAlign.center,
+              style: context.textStyles.bodySmall,
+            ),
+          ),
         ),
       ),
     );

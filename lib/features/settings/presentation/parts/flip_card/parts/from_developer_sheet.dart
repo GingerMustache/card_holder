@@ -77,7 +77,7 @@ class _FromDeveloperSheetState extends State<FromDeveloperSheet> {
               children: [
                 SingleChildScrollView(
                   controller: controller,
-                  padding: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.fromLTRB(16, 25, 16, 45),
                   child: Column(
                     children: [
                       RichText(

@@ -55,6 +55,7 @@ class _DeleteSheetState extends State<_DeleteSheet> {
                     children: [
                       Text(
                         t.screen.home.openCard.deleteQuestion,
+                        style: context.textStyles.bodySmall,
                       ).animate().fadeIn(duration: 550.ms),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -64,7 +65,10 @@ class _DeleteSheetState extends State<_DeleteSheet> {
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: Text(t.screen.home.openCard.yes),
+                        child: Text(
+                          t.screen.home.openCard.yes,
+                          style: context.textStyles.bodySmall,
+                        ),
                       ),
                     ],
                   ).onTap(onDelete),

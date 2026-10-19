@@ -12,7 +12,7 @@ class SkeletonWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: AspectRatio(
-        aspectRatio: 1 / (context.bottomPadding > 0 ? 2.4 : ratio),
+        aspectRatio: 1 / (context.bottomPaddingNew > 0 ? 1.73 : ratio),
         child: Column(
           children: [
             Center(

@@ -69,7 +69,7 @@ class _TemplateCardSheetState extends State<TemplateCardSheet> {
                 final templates = state.getTemplates;
 
                 return GridView.builder(
-                  padding: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 55),
                   physics: const BouncingScrollPhysics(
                     parent: AlwaysScrollableScrollPhysics(),
                   ),

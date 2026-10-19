@@ -9,6 +9,7 @@ import 'package:card_holder/common/application/theme/text_style/theme_text_style
 import 'package:card_holder/common/extensions/app_extensions.dart';
 import 'package:card_holder/common/helpers/converter/text_field_validator/text_field_validator.dart';
 import 'package:card_holder/common/localization/i18n/strings.g.dart';
+import 'package:card_holder/common/presentation/utility/device_utility.dart';
 import 'package:card_holder/common/presentation/widgets/buttons/default_button.dart';
 import 'package:card_holder/common/presentation/widgets/color_mark/color_mark.dart';
 import 'package:card_holder/common/presentation/widgets/color_wheel/color_wheel_widget.dart';

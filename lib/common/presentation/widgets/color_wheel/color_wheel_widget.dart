@@ -8,7 +8,7 @@ class ColorWheelWidget extends StatelessWidget {
     required this.initialColor,
     required this.onChanged,
     required this.isShow,
-    this.alignment = const Alignment(0.8, 0.8),
+    this.alignment = const Alignment(0.87, 0.57),
   });
   final int initialColor;
   final void Function(Color)? onChanged;
