@@ -17,10 +17,10 @@ class _ShowBarcode extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = AppDeviceUtility.getScreenHeight(context);
+    final reduceScreen = context.height < 650;
 
     return AspectRatio(
-      aspectRatio: 1.15,
+      aspectRatio: reduceScreen ? 1.2 : 1.15,
       child: ClipRRect(
         borderRadius: allBorderRadius,
         child: Stack(
